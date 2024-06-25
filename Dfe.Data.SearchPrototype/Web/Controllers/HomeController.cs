@@ -1,8 +1,8 @@
-using data.search_prototype.web.Models;
+using Dfe.Data.SearchPrototype.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace data.search_prototype.web.Controllers
+namespace Dfe.Data.SearchPrototype.Web.Controllers
 {
     public class HomeController : Controller
     {
