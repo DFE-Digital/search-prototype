@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DfE.Data.SearchPrototype.Web", "DfE.Data.SearchPrototype.Web.csproj", "{7B0E447F-DC82-41DD-B5B4-B23549EF1DE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DfE.Data.SearchPrototype.Test", "..\DfE.Data.SearchPrototype.Test\DfE.Data.SearchPrototype.Test.csproj", "{AC9A6EF4-0C0B-4EE3-A728-9D77C87B27C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7B0E447F-DC82-41DD-B5B4-B23549EF1DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B0E447F-DC82-41DD-B5B4-B23549EF1DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0E447F-DC82-41DD-B5B4-B23549EF1DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC9A6EF4-0C0B-4EE3-A728-9D77C87B27C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC9A6EF4-0C0B-4EE3-A728-9D77C87B27C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC9A6EF4-0C0B-4EE3-A728-9D77C87B27C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC9A6EF4-0C0B-4EE3-A728-9D77C87B27C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
