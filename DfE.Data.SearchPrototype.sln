@@ -5,11 +5,11 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype", "Dfe.Data.SearchPrototype\Dfe.Data.SearchPrototype.csproj", "{18B64406-F4DC-4A8D-9934-6A09F9151A18}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DfE.Data.SearchPrototype.Web", "Dfe.Data.SearchPrototype\Web\DfE.Data.SearchPrototype.Web.csproj", "{DCFCFF67-DB1A-44C0-8174-799EB05194BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Web", "Dfe.Data.SearchPrototype\Web\Dfe.Data.SearchPrototype.Web.csproj", "{DCFCFF67-DB1A-44C0-8174-799EB05194BD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Tests", "Dfe.Data.SearchPrototype\Tests\Dfe.Data.SearchPrototype.Tests.csproj", "{D1611FB2-B9B7-4F0F-B54A-F3F93620C5BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DfE.Data.SearchPrototype.Web.Tests", "Dfe.Data.SearchPrototype\Web\Tests\DfE.Data.SearchPrototype.Web.Tests.csproj", "{933647A5-9DAA-478A-8070-72DCCC675B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Web.Tests", "Dfe.Data.SearchPrototype\Web\Tests\Dfe.Data.SearchPrototype.Web.Tests.csproj", "{933647A5-9DAA-478A-8070-72DCCC675B40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

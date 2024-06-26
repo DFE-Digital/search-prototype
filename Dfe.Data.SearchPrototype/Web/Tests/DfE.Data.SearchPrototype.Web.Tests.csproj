@@ -21,7 +21,7 @@
   </ItemGroup>
 	    
   <ItemGroup>
-    <ProjectReference Include="..\DfE.Data.SearchPrototype.Web.csproj" />
+    <ProjectReference Include="..\Dfe.Data.SearchPrototype.Web.csproj" />
   </ItemGroup>
 
 </Project>
