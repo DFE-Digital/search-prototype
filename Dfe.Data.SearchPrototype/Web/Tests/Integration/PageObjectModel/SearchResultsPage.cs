@@ -9,10 +9,10 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
         public SearchResultsPage(WebApplicationFactory<Program> webApplicationFactory) :
             base(webApplicationFactory)
         {
-            SearchHeader = SearchHeader.Create(webApplicationFactory);
+            PageHeader = PageHeader.Create(webApplicationFactory);
         }
 
-        public SearchHeader SearchHeader { get; }
+        public PageHeader PageHeader { get; }
 
         public static SearchResultsPage Create(
             WebApplicationFactory<Program> webApplicationFactory) => new(webApplicationFactory);

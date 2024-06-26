@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents
 {
-    public class SearchHeader : PageObjectExtractor
+    public class PageHeader : PageObjectExtractor
     {
-        public SearchHeader(WebApplicationFactory<Program> webApplicationFactory) :
+        public PageHeader(WebApplicationFactory<Program> webApplicationFactory) :
             base(webApplicationFactory){
         }
 
@@ -37,7 +37,7 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageCom
             return response.GetElementsByTagName(tagName).SingleOrDefault();
         }
 
-        public static SearchHeader Create(
+        public static PageHeader Create(
             WebApplicationFactory<Program> webApplicationFactory) => new(webApplicationFactory);
     }
 }

@@ -18,7 +18,7 @@ public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task HomePage_ContainsExpectedTitle()
     {
         // assert
-        string searchHeading = await _homePage.SearchHeader.GetHeading();
+        string searchHeading = await _homePage.PageHeader.GetHeading();
         Assert.Equal("Welcome", searchHeading);
     }
 
@@ -26,7 +26,7 @@ public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task HomePage_ContainsPrivacyLink()
     {
         // Assert
-        IHtmlAnchorElement privacyLink = await _homePage.SearchHeader.GetSearchHeaderLink("Privacy");
+        IHtmlAnchorElement privacyLink = await _homePage.PageHeader.GetSearchHeaderLink("Privacy");
         Assert.Equal("/Home/Privacy", privacyLink.PathName);
     }
 }
