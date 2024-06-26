@@ -7,32 +7,26 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration;
 
 public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> _webApplicationFactory;
+    private readonly HomePage _homePage;
 
     public HomePageTests(WebApplicationFactory<Program> webApplicationFactory)
     {
-        _webApplicationFactory = webApplicationFactory;
+        _homePage = HomePage.Create(webApplicationFactory);
     }
 
     [Fact]
     public async Task HomePage_ContainsExpectedTitle()
     {
-        // act
-        var searchHeader = new SearchHeader(_webApplicationFactory);
-
         // assert
-        string searchHeading = await searchHeader.GetHeading();
+        string searchHeading = await _homePage.SearchHeader.GetHeading();
         Assert.Equal("Welcome", searchHeading);
     }
 
     [Fact]
     public async Task HomePage_ContainsPrivacyLink()
     {
-        // act
-        var searchHeader = new SearchHeader(_webApplicationFactory);
-
         // Assert
-        IHtmlAnchorElement privacyLink = await searchHeader.GetSearchHeaderLink("Privacy");
+        IHtmlAnchorElement privacyLink = await _homePage.SearchHeader.GetSearchHeaderLink("Privacy");
         Assert.Equal("/Home/Privacy", privacyLink.PathName);
     }
 }

@@ -3,18 +3,19 @@ using AngleSharp.Html.Dom;
 using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
+namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents
 {
     public class SearchHeader : PageObjectExtractor
     {
-        public SearchHeader(WebApplicationFactory<Program> factory) : base(factory){
+        public SearchHeader(WebApplicationFactory<Program> webApplicationFactory) :
+            base(webApplicationFactory){
         }
 
         public async Task<string> GetHeading()
         {
             IElement? searchHeading = await GetSearchHeaderElement("h1");
 
-            return (searchHeading == null) ?
+            return searchHeading == null ?
                 throw new InvalidOperationException("Unable to derive the search heading.") :
                 searchHeading.InnerHtml;
         }
@@ -23,7 +24,7 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
         {
             IElement? searchHeader = await GetSearchHeaderElement("header");
 
-            return (searchHeader == null) ?
+            return searchHeader == null ?
                 throw new InvalidOperationException($"Unable to derive the search link: {linkName} in page.") :
                 (IHtmlAnchorElement)searchHeader
                     .GetElementsByTagName("a")
@@ -35,5 +36,8 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
             IDocument? response = await GetPageObject("");
             return response.GetElementsByTagName(tagName).SingleOrDefault();
         }
+
+        public static SearchHeader Create(
+            WebApplicationFactory<Program> webApplicationFactory) => new(webApplicationFactory);
     }
 }
