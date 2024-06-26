@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
 {
-    public sealed class HomePage : PageObjectExtractor
+    public sealed class HomePage : PageObjectModelExtractor
     {
         public HomePage(WebApplicationFactory<Program> webApplicationFactory) :
             base(webApplicationFactory)

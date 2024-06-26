@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
 
-public class PageObjectExtractor : WebApplicationBootstrapper
+public class PageObjectModelExtractor : WebApplicationBootstrapper
 {
-    public PageObjectExtractor(WebApplicationFactory<Program> webApplicationFactory)
+    public PageObjectModelExtractor(WebApplicationFactory<Program> webApplicationFactory)
         : base(webApplicationFactory){
     }
 

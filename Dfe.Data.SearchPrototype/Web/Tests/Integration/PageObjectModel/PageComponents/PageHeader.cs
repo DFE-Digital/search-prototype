@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents
 {
-    public class PageHeader : PageObjectExtractor
+    public class PageHeader : PageObjectModelExtractor
     {
         public PageHeader(WebApplicationFactory<Program> webApplicationFactory) :
             base(webApplicationFactory){

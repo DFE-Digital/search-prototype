@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
 {
-    public sealed class SearchResultsPage : PageObjectExtractor
+    public sealed class SearchResultsPage : PageObjectModelExtractor
     {
         public SearchResultsPage(WebApplicationFactory<Program> webApplicationFactory) :
             base(webApplicationFactory)
