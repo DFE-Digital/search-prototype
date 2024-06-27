@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\dfe.data.SearchPrototype.web\DfE.Data.SearchPrototype.csproj" />
+    <ProjectReference Include="..\dfe.data.SearchPrototype.web\DfE.Data.SearchPrototype.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
