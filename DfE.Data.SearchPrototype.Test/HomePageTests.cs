@@ -18,8 +18,8 @@ public class HomePageTests : PageTestHelper
         var response = await NavigateToPage("");
 
         // assert
-        var headings = response.GetElementsByTagName("h1");
-        Assert.Equal("Welcome", headings.First().InnerHtml);
+        var headings = response.Heading();
+        Assert.Equal("Welcome", headings.InnerHtml);
     }
 
     [Fact]
@@ -29,7 +29,11 @@ public class HomePageTests : PageTestHelper
         IDocument response = await NavigateToPage("");
 
         // Assert
-        IHtmlAnchorElement privacyLink = response.GetHeaderLink("Privacy");
+        IHtmlAnchorElement privacyLink = 
+            response
+                .Header()
+                .AnchorTagWithName("Privacy");
+
         Assert.Equal("/Home/Privacy", privacyLink.PathName);
     }
 }
