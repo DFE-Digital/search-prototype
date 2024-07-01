@@ -1,4 +1,4 @@
-namespace data.search_prototype.web.Models
+namespace Dfe.Data.SearchPrototype.Web.Models
 {
     public class ErrorViewModel
     {
