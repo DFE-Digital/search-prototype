@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Tests", "Dfe.Data.SearchPrototype\Tests\Dfe.Data.SearchPrototype.Tests.csproj", "{D1611FB2-B9B7-4F0F-B54A-F3F93620C5BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Web.Tests", "Dfe.Data.SearchPrototype\Web\Tests\Dfe.Data.SearchPrototype.Web.Tests.csproj", "{933647A5-9DAA-478A-8070-72DCCC675B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Web.Tests", "Dfe.Data.SearchPrototype\Web\Tests\Dfe.Data.SearchPrototype.Web.Tests.csproj", "{6E6908C6-48B3-4708-9789-996EC821501C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{D1611FB2-B9B7-4F0F-B54A-F3F93620C5BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1611FB2-B9B7-4F0F-B54A-F3F93620C5BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1611FB2-B9B7-4F0F-B54A-F3F93620C5BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{933647A5-9DAA-478A-8070-72DCCC675B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{933647A5-9DAA-478A-8070-72DCCC675B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{933647A5-9DAA-478A-8070-72DCCC675B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{933647A5-9DAA-478A-8070-72DCCC675B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E6908C6-48B3-4708-9789-996EC821501C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E6908C6-48B3-4708-9789-996EC821501C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E6908C6-48B3-4708-9789-996EC821501C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E6908C6-48B3-4708-9789-996EC821501C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
