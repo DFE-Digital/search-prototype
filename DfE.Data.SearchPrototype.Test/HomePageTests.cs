@@ -1,5 +1,6 @@
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
+using DfE.Data.SearchPrototype.Test.PageModels;
 using DfE.Data.SearchPrototype.Test.Shared;
 using Microsoft.AspNetCore.Mvc.Testing;
 
@@ -15,18 +16,17 @@ public class HomePageTests : PageTestHelper
     public async Task HomePage_ContainsExpectedTitle()
     {
         // act
-        var response = await NavigateToPage("");
+        var response = await NavigateToPageAsync("");
 
         // assert
-        var headings = response.Heading();
-        Assert.Equal("Welcome", headings.InnerHtml);
+        Assert.Equal("Welcome", response.Heading().InnerHtml);
     }
 
     [Fact]
-    public async Task HomePage_ContainsPrivacyLink()
+    public async Task HomePage_HeaderContainsPrivacyLink()
     {
         // act
-        IDocument response = await NavigateToPage("");
+        IDocument response = await NavigateToPageAsync("");
 
         // Assert
         IHtmlAnchorElement privacyLink = 
