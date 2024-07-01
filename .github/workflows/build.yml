@@ -21,8 +21,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore search-prototype/DfE.Data.SearchPrototype.sln
+      run: dotnet restore /search-prototype/DfE.Data.SearchPrototype.sln
     - name: Build
-      run: dotnet search-prototype/DfE.Data.SearchPrototype.sln --no-restore
+      run: dotnet /search-prototype/DfE.Data.SearchPrototype.sln --no-restore
     - name: Test
-      run: dotnet search-prototype/DfE.Data.SearchPrototype.sln --no-build --verbosity normal
+      run: dotnet /search-prototype/DfE.Data.SearchPrototype.sln --no-build --verbosity normal
