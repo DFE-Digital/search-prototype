@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Tests", "Dfe.Data.SearchPrototype\Tests\Dfe.Data.SearchPrototype.Tests.csproj", "{011C329A-A195-439A-ACED-F20AFF560FE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Web.Tests", "Dfe.Data.SearchPrototype\Web\Tests\Dfe.Data.SearchPrototype.Web.Tests.csproj", "{B1169CAF-1432-47AE-9D94-50C3DF097D80}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{011C329A-A195-439A-ACED-F20AFF560FE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{011C329A-A195-439A-ACED-F20AFF560FE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{011C329A-A195-439A-ACED-F20AFF560FE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1169CAF-1432-47AE-9D94-50C3DF097D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1169CAF-1432-47AE-9D94-50C3DF097D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1169CAF-1432-47AE-9D94-50C3DF097D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1169CAF-1432-47AE-9D94-50C3DF097D80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
