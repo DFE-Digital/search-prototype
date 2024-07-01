@@ -16,7 +16,7 @@ public class PageTestHelper : IntegrationTestingWebApplicationFactory
         //--------------------------------------------------------------------
     }
 
-    protected async Task<IDocument> NavigateToPage(string webPage)
+    protected async Task<IDocument> NavigateToPageAsync(string webPage)
     {
         HttpResponseMessage response = await _httpClient.GetAsync(webPage);
 
