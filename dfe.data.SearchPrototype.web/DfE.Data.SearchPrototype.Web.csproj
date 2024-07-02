@@ -4,15 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Dfe.Data.SearchPrototype.Web</RootNamespace>
+    <RootNamespace>data.search_prototype.web</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Tests\**" />
-    <Content Remove="Tests\**" />
-    <EmbeddedResource Remove="Tests\**" />
-    <None Remove="Tests\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="GovUk.Frontend.AspNetCore" Version="2.1.0-rc" />
