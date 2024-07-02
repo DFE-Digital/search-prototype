@@ -1,10 +1,9 @@
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
-using DfE.Data.SearchPrototype.Test.PageModels;
 using DfE.Data.SearchPrototype.Test.Shared;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace DfE.Data.SearchPrototype.Test;
+namespace DfE.Data.SearchPrototype.Web.Tests.Integration;
 
 public class HomePageTests : PageTestHelper
 {

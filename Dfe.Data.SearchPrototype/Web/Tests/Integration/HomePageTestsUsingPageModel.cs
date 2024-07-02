@@ -1,8 +1,9 @@
 using DfE.Data.SearchPrototype.Test.PageModels;
 using DfE.Data.SearchPrototype.Test.Shared;
+using DfE.Data.SearchPrototype.Web.Tests.Integration.PageModels;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace DfE.Data.SearchPrototype.Test;
+namespace DfE.Data.SearchPrototype.Web.Tests.Integration;
 
 /// <summary>
 /// test class using the new page model way for traversing the DOM
