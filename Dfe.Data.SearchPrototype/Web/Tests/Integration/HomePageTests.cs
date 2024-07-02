@@ -1,35 +1,32 @@
-using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
-using DfE.Data.SearchPrototype.Test.Shared;
+using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
-namespace DfE.Data.SearchPrototype.Test;
+namespace DfE.Data.SearchPrototype.Web.Tests.Integration;
 
-public class HomePageTests : PageTestHelper
+public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    public HomePageTests(WebApplicationFactory<Program> factory) : base(factory)
+    private readonly HomePage _homePage;
+
+    public HomePageTests(WebApplicationFactory<Program> webApplicationFactory)
     {
+        _homePage = HomePage.Create(webApplicationFactory);
     }
 
     [Fact]
-    public async Task HomePage_ContainsExpectedTitle()
+    public void HomePage_ContainsExpectedTitle()
     {
-        // act
-        var response = await NavigateToPage("");
+        string searchHeading =_homePage.GetHomePageHeading();
 
-        // assert
-        var headings = response.GetElementsByTagName("h1");
-        Assert.Equal("Welcome", headings.First().InnerHtml);
+        Assert.Equal("Search prototype", searchHeading);
     }
 
     [Fact]
-    public async Task HomePage_ContainsPrivacyLink()
+    public void HomePage_ContainsPrivacyLink()
     {
-        // act
-        IDocument response = await NavigateToPage("");
-
-        // Assert
-        IHtmlAnchorElement privacyLink = response.GetHeaderLink("Privacy");
+        IHtmlAnchorElement privacyLink = _homePage.GetHomePageHeaderLink();
+ 
         Assert.Equal("/Home/Privacy", privacyLink.PathName);
     }
 }
