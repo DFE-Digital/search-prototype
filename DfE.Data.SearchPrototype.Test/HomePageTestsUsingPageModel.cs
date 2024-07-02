@@ -34,4 +34,18 @@ public class HomePageTestsUsingPageModel : PageTestHelper
         // assert
         Assert.Equal(PrivacyPage.Url, homePage.Header.PrivacyLink.Href);
     }
+
+    [Fact]
+    public async Task HomePage_PrivacyLink_GoesToPrivacyPage()
+    {
+        // act
+        var homePage = new HomePage(await NavigateToPageAsync(HomePage.Url));
+
+        var privacyPageLink = homePage.Header.PrivacyLink.Href;
+
+        var privacyPage = new PrivacyPage(await NavigateToPageAsync(privacyPageLink!));
+
+        // assert
+        Assert.Equal("Privacy Policy", privacyPage.Title);
+    }
 }
