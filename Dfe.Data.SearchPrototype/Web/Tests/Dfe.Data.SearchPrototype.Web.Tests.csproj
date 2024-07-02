@@ -10,8 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Acceptance\**" />
     <Compile Remove="Unit\**" />
+    <EmbeddedResource Remove="Acceptance\**" />
     <EmbeddedResource Remove="Unit\**" />
+    <None Remove="Acceptance\**" />
     <None Remove="Unit\**" />
   </ItemGroup>
 
