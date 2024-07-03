@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dfe.Data.SearchPrototype.Search.Domain.Core.DfE.ComponentLibrary.DomainDrivenDesign.Domain;
 
 namespace Dfe.Data.SearchPrototype.Search.Domain.Core
 {
-    internal class AggregateRoot
+    public abstract class AggregateRoot<TIdentifier> : Entity<TIdentifier>
+        where TIdentifier : ValueObject<TIdentifier>
     {
+        protected AggregateRoot(TIdentifier identifier)
+            : base(identifier){
+        }
+
+        public TIdentifier AggregateId => Identifier;
+
+        public abstract void EnsureValidState();
     }
 }

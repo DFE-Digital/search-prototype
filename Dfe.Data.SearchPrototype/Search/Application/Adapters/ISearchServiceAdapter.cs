@@ -4,6 +4,6 @@ namespace Dfe.Data.SearchPrototype.Search.Application.Adapters
 {
     public interface ISearchServiceAdapter
     {
-        Task<SearchResults> Search(SearchContext searchContext);
+        Task<Establishments> Search(SearchContext searchContext);
     }
 }

@@ -5,11 +5,12 @@ using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
 {
-    public sealed class AzureResponseToSearchResultsMapper : IMapper<Response<SearchResults<object>>, SearchResults>
+    public sealed class AzureResponseToSearchResultsMapper : IMapper<Response<SearchResults<object>>, Establishments>
     {
-        public SearchResults MapFrom(Response<SearchResults<object>> input)
+        public Establishments MapFrom(Response<SearchResults<object>> input)
         {
-            return new SearchResults();
+            return new Establishments(
+                new EstablismentsIdentifier(Guid.NewGuid()));
         }
     }
 }

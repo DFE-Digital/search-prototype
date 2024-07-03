@@ -13,19 +13,19 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
     {
         private readonly ISearchService _cognitiveSearchService;
         private readonly ISearchOptionsFactory _searchOptionsFactory;
-        private readonly IMapper<Response<SearchResults<object>>, SearchResults> _searchResponseMapper;
+        private readonly IMapper<Response<SearchResults<object>>, Establishments> _searchResponseMapper;
 
         public CognitiveSearchServiceAdapter(
             ISearchService cognitiveSearchService,
             ISearchOptionsFactory searchOptionsFactory,
-            IMapper<Response<SearchResults<object>>, SearchResults> searchResponseMapper)
+            IMapper<Response<SearchResults<object>>, Establishments> searchResponseMapper)
         {
             _searchOptionsFactory = searchOptionsFactory;
             _cognitiveSearchService = cognitiveSearchService;
             _searchResponseMapper = searchResponseMapper;
         }
 
-        public async Task<SearchResults> Search(SearchContext searchContext)
+        public async Task<Establishments> Search(SearchContext searchContext)
         {
             SearchOptions searchOptions =
                 _searchOptionsFactory.GetSearchOptions(searchContext.TargetCollection) ??
