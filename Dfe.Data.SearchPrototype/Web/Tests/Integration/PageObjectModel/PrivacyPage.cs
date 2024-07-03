@@ -1,5 +1,4 @@
-﻿using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents;
-using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
+﻿using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
