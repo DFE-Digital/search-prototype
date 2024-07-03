@@ -6,20 +6,12 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
 {
     public sealed class PrivacyPage : DocumentObjectModelExtractor
     {
-        private readonly PageHeader _pageHeader;
-
         private const string PageName = "Privacy";
         private const string TitleElement = "h1";
-        private const string MainHeadingClass = "govuk-header__link govuk-header__service-name";
 
         public PrivacyPage(WebApplicationFactory<Program> webApplicationFactory, string pageName) :
-            base(webApplicationFactory, pageName)
-        {
-            _pageHeader = PageHeader.Create(DocumentObjectModel);
+            base(webApplicationFactory, pageName){
         }
-
-        public string GetPrivacyPageHeading() =>
-            _pageHeader.GetMainHeading(MainHeadingClass);
 
         public string GetPrivacyPageTitle() =>
             DocumentObjectModel.GetElementsByTagName(TitleElement).Single().InnerHtml;
