@@ -13,17 +13,17 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageCom
         }
 
         public string GetMainHeading(string headingClass) =>
-            HeaderElement == null ?
+            PageElement == null ?
                 throw new InvalidOperationException(
                     "Unable to derive the main heading in page.") :
-                HeaderElement
+                PageElement
                     .GetElementsByClassName(headingClass).Single().InnerHtml;
 
         public IHtmlAnchorElement GetHeaderLink(string linkName) =>
-            HeaderElement == null ?
+            PageElement == null ?
                 throw new InvalidOperationException(
                     $"Unable to derive the search link: {linkName} in page.") :
-                (IHtmlAnchorElement)HeaderElement
+                (IHtmlAnchorElement)PageElement
                     .GetElementsByTagName("a")
                     .Single(anchorTags => anchorTags.TextContent.Contains(linkName));
 

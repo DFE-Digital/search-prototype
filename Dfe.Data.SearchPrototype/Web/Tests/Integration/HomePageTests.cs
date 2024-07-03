@@ -8,9 +8,11 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration;
 public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HomePage _homePage;
+    private readonly WebApplicationFactory<Program> _webApplicationFactory;
 
     public HomePageTests(WebApplicationFactory<Program> webApplicationFactory)
     {
+        _webApplicationFactory = webApplicationFactory;
         _homePage = HomePage.Create(webApplicationFactory);
     }
 
@@ -25,8 +27,18 @@ public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public void HomePage_ContainsPrivacyLink()
     {
-        IHtmlAnchorElement privacyLink = _homePage.GetHomePageHeaderLink();
+        IHtmlAnchorElement privacyLink = _homePage.GetHomePagePrivacyLink();
 
         Assert.Equal("/Home/Privacy", privacyLink.PathName);
+    }
+
+    [Fact]
+    public void HomePage_PrivacyLink_GoesToPrivacyPage()
+    {
+        IHtmlAnchorElement privacyLink = _homePage.GetHomePagePrivacyLink();
+
+        var privacyPage = PrivacyPage.NavigateToPage(_webApplicationFactory, privacyLink.Href);
+
+        Assert.Equal("Privacy Policy", privacyPage.GetPrivacyPageTitle());
     }
 }

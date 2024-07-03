@@ -4,7 +4,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageCom
 {
     public abstract class PageComponent
     {
-        protected IElement? HeaderElement { get; private set; }
+        protected IElement? PageElement { get; private set; }
 
         protected PageComponent(IDocument documentObjectModel, string tagName)
         {
@@ -14,7 +14,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageCom
         private void SetPageElement(
             IDocument documentObjectModel, string tagName)
         {
-            HeaderElement =
+            PageElement =
                 documentObjectModel.GetElementsByTagName(tagName).SingleOrDefault() ??
                 throw new InvalidOperationException(
                     $"Unable to derive element {tagName}.");

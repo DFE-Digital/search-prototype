@@ -10,7 +10,7 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
         private readonly PageHeader _pageHeader;
 
         private const string PageName = "Home";
-        private const string LinkName = "Privacy";
+        private const string PrivacyLink = "Privacy";
         private const string MainHeadingClass = "govuk-header__link govuk-header__service-name";
 
         public HomePage(WebApplicationFactory<Program> webApplicationFactory) :
@@ -22,8 +22,8 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
         public string GetHomePageHeading() =>
             _pageHeader.GetMainHeading(MainHeadingClass);
 
-        public IHtmlAnchorElement GetHomePageHeaderLink() =>
-            _pageHeader.GetHeaderLink(LinkName);
+        public IHtmlAnchorElement GetHomePagePrivacyLink() =>
+            _pageHeader.GetHeaderLink(PrivacyLink);
 
         public static HomePage Create(
             WebApplicationFactory<Program> webApplicationFactory) => new(webApplicationFactory);
