@@ -7,13 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\**" />
     <Compile Remove="Dfe.Data.SearchPrototype\**" />
+    <Compile Remove="Infrastructure\**" />
     <Compile Remove="Tests\**" />
     <Compile Remove="Web\**" />
+    <EmbeddedResource Remove="Application\**" />
     <EmbeddedResource Remove="Dfe.Data.SearchPrototype\**" />
+    <EmbeddedResource Remove="Infrastructure\**" />
     <EmbeddedResource Remove="Tests\**" />
     <EmbeddedResource Remove="Web\**" />
+    <None Remove="Application\**" />
     <None Remove="Dfe.Data.SearchPrototype\**" />
+    <None Remove="Infrastructure\**" />
     <None Remove="Tests\**" />
     <None Remove="Web\**" />
   </ItemGroup>
