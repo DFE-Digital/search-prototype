@@ -5,9 +5,9 @@ namespace Dfe.Data.SearchPrototype.Search.Application.UseCases.SearchByKeyword
 {
     public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
     {
-        private readonly ISearchService _searchService;
+        private readonly ISearchServiceAdapter _searchService;
 
-        public SearchByKeywordUseCase(ISearchService searchService)
+        public SearchByKeywordUseCase(ISearchServiceAdapter searchService)
         {
             _searchService = searchService;
         }

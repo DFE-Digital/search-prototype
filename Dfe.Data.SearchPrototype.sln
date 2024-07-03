@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{0D4ACC06
 		NuGet\DfE.Data.ComponentLibrary.CleanArchitecture.2.0.37-beta-ci-20240610-104522.nupkg = NuGet\DfE.Data.ComponentLibrary.CleanArchitecture.2.0.37-beta-ci-20240610-104522.nupkg
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Infrastructure", "Dfe.Data.SearchPrototype\Infrastructure\Dfe.Data.SearchPrototype.Infrastructure.csproj", "{09713CBF-BB89-4FBB-9398-F38A2F329F80}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Infrastructure.Tests", "Dfe.Data.SearchPrototype\Infrastructure\Tests\Dfe.Data.SearchPrototype.Infrastructure.Tests.csproj", "{AD01EF06-F7D9-4848-A6DC-E4AEB4031251}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,14 @@ Global
 		{650783D2-FCBB-473B-BCBE-5B3E007540FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{650783D2-FCBB-473B-BCBE-5B3E007540FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{650783D2-FCBB-473B-BCBE-5B3E007540FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09713CBF-BB89-4FBB-9398-F38A2F329F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09713CBF-BB89-4FBB-9398-F38A2F329F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09713CBF-BB89-4FBB-9398-F38A2F329F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09713CBF-BB89-4FBB-9398-F38A2F329F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD01EF06-F7D9-4848-A6DC-E4AEB4031251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD01EF06-F7D9-4848-A6DC-E4AEB4031251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD01EF06-F7D9-4848-A6DC-E4AEB4031251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD01EF06-F7D9-4848-A6DC-E4AEB4031251}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

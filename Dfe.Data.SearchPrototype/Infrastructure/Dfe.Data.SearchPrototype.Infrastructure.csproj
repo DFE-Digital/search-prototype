@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.Data.SearchPrototype.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch" Version="2.0.37-beta-CI-20240610-104522" />
+	<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+	<PackageReference Include="Azure.Search.Documents" Version="11.4.0" />
+  </ItemGroup>
+
+</Project>
