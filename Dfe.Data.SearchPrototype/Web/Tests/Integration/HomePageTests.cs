@@ -1,35 +1,44 @@
-using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
-using DfE.Data.SearchPrototype.Test.Shared;
+using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
-namespace DfE.Data.SearchPrototype.Test;
+namespace DfE.Data.SearchPrototype.Web.Tests.Integration;
 
-public class HomePageTests : PageTestHelper
+public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
 {
-    public HomePageTests(WebApplicationFactory<Program> factory) : base(factory)
+    private readonly HomePage _homePage;
+    private readonly WebApplicationFactory<Program> _webApplicationFactory;
+
+    public HomePageTests(WebApplicationFactory<Program> webApplicationFactory)
     {
+        _webApplicationFactory = webApplicationFactory;
+        _homePage = HomePage.Create(webApplicationFactory);
     }
 
     [Fact]
-    public async Task HomePage_ContainsExpectedTitle()
+    public void HomePage_ContainsExpectedTitle()
     {
-        // act
-        var response = await NavigateToPage("");
+        string searchHeading = _homePage.GetHomePageHeading();
 
-        // assert
-        var headings = response.GetElementsByTagName("h1");
-        Assert.Equal("Welcome", headings.First().InnerHtml);
+        Assert.Equal("Search prototype", searchHeading);
     }
 
     [Fact]
-    public async Task HomePage_ContainsPrivacyLink()
+    public void HomePage_ContainsPrivacyLink()
     {
-        // act
-        IDocument response = await NavigateToPage("");
+        IHtmlAnchorElement privacyLink = _homePage.GetHomePagePrivacyLink();
 
-        // Assert
-        IHtmlAnchorElement privacyLink = response.GetHeaderLink("Privacy");
         Assert.Equal("/Home/Privacy", privacyLink.PathName);
+    }
+
+    [Fact]
+    public void HomePage_PrivacyLink_GoesToPrivacyPage()
+    {
+        IHtmlAnchorElement privacyLink = _homePage.GetHomePagePrivacyLink();
+
+        var privacyPage = PrivacyPage.NavigateToPage(_webApplicationFactory, privacyLink.Href);
+
+        Assert.Equal("Privacy Policy", privacyPage.GetPrivacyPageTitle());
     }
 }
