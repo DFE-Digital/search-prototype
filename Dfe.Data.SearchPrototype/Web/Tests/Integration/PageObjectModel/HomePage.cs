@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
 {
-    public sealed class HomePage : PageObjectModelExtractor
+    public sealed class HomePage : DocumentObjectModelExtractor
     {
         private readonly PageHeader _pageHeader;
 
@@ -14,10 +14,9 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
         private const string MainHeadingClass = "govuk-header__link govuk-header__service-name";
 
         public HomePage(WebApplicationFactory<Program> webApplicationFactory) :
-            base(webApplicationFactory)
+            base(webApplicationFactory, PageName)
         {
-            _pageHeader =
-                PageHeader.Create(webApplicationFactory, PageName);
+            _pageHeader = PageHeader.Create(DocumentObjectModel);
         }
 
         public string GetHomePageHeading() =>

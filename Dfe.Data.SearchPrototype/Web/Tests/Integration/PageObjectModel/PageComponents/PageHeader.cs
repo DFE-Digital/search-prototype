@@ -1,19 +1,16 @@
 ﻿using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
-using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
-using Microsoft.AspNetCore.Mvc.Testing;
+using Dfe.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents;
 
 namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents
 {
-    public sealed class PageHeader : PageObjectModelExtractor
+    public sealed class PageHeader : PageComponent
     {
-        private IElement? HeaderElement { get; set; }
+        private const string HeaderElementTag = "header";
 
-        private PageHeader(
-            WebApplicationFactory<Program> webApplicationFactory) :
-            base(webApplicationFactory){
+        private PageHeader(IDocument documentObjectModel)
+            : base(documentObjectModel, HeaderElementTag){
         }
-
         public string GetMainHeading(string headingClass) =>
             HeaderElement == null ?
                 throw new InvalidOperationException(
@@ -29,24 +26,6 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageCom
                     .GetElementsByTagName("a")
                     .Single(anchorTags => anchorTags.TextContent.Contains(linkName));
 
-        public static PageHeader Create(
-            WebApplicationFactory<Program> webApplicationFactory, string pageName)
-        {
-            PageHeader pageHeader = new(webApplicationFactory);
-
-            Task.Run(() =>
-                pageHeader.HeaderElement =
-                    pageHeader.GetHeader(pageName).Result ??
-                    throw new InvalidOperationException(
-                        $"Unable to derive header for page {pageName}.")
-                )
-                .Wait();
-
-            return pageHeader;
-        }
-
-        private const string HeaderElementName = "header";
-
-        private Task<IElement?> GetHeader(string pageName) => GetPageElement(pageName, HeaderElementName);
+        public static PageHeader Create(IDocument documentObjectModel) => new(documentObjectModel);
     }
 }

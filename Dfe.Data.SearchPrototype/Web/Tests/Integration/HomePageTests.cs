@@ -17,7 +17,7 @@ public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public void HomePage_ContainsExpectedTitle()
     {
-        string searchHeading =_homePage.GetHomePageHeading();
+        string searchHeading = _homePage.GetHomePageHeading();
 
         Assert.Equal("Search prototype", searchHeading);
     }
@@ -26,7 +26,7 @@ public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
     public void HomePage_ContainsPrivacyLink()
     {
         IHtmlAnchorElement privacyLink = _homePage.GetHomePageHeaderLink();
- 
+
         Assert.Equal("/Home/Privacy", privacyLink.PathName);
     }
 }
