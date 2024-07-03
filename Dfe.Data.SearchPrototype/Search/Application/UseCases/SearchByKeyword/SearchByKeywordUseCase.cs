@@ -1,4 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Search.Application.Services;
+﻿using Dfe.Data.SearchPrototype.Search.Application.Adapters;
 using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
 
 namespace Dfe.Data.SearchPrototype.Search.Application.UseCases.SearchByKeyword

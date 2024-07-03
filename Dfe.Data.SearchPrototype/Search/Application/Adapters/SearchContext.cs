@@ -2,18 +2,18 @@
 {
     public sealed class SearchContext
     {
-        public SearchContext(string searchKeyword, string searchTarget)
+        public SearchContext(string searchKeyword, string targetCollection)
         {
             SearchKeyword =
                 (string.IsNullOrWhiteSpace(searchKeyword)) ?
                     throw new ArgumentNullException(nameof(searchKeyword)) : searchKeyword;
 
-            SearchTarget =
-                (string.IsNullOrWhiteSpace(searchTarget)) ?
-                    throw new ArgumentNullException(nameof(searchTarget)) : searchTarget;
+            TargetCollection =
+                (string.IsNullOrWhiteSpace(targetCollection)) ?
+                    throw new ArgumentNullException(nameof(targetCollection)) : targetCollection;
         }
 
         public string SearchKeyword { get; }
-        public string SearchTarget { get; }
+        public string TargetCollection { get; }
     }
 }

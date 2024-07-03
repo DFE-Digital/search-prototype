@@ -1,6 +1,10 @@
-﻿using Dfe.Data.SearchPrototype.Infrastructure.Options;
+﻿using Azure;
+using Azure.Search.Documents;
+using Azure.Search.Documents.Models;
+using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Search.Application.Adapters;
 using Dfe.Data.SearchPrototype.Search.Domain;
+using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure
@@ -8,37 +12,37 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
     public sealed class CognitiveSearchServiceAdapter : ISearchServiceAdapter
     {
         private readonly ISearchService _cognitiveSearchService;
-        private readonly ISearchSettingsOptionsFactory _searchSettingsOptionsFactory;
+        private readonly ISearchOptionsFactory _searchOptionsFactory;
+        private readonly IMapper<Response<SearchResults<object>>, SearchResults> _searchResponseMapper;
 
         public CognitiveSearchServiceAdapter(
             ISearchService cognitiveSearchService,
-            ISearchSettingsOptionsFactory searchSettingsOptionsFactory)
+            ISearchOptionsFactory searchOptionsFactory,
+            IMapper<Response<SearchResults<object>>, SearchResults> searchResponseMapper)
         {
-            _searchSettingsOptionsFactory = searchSettingsOptionsFactory;
+            _searchOptionsFactory = searchOptionsFactory;
             _cognitiveSearchService = cognitiveSearchService;
+            _searchResponseMapper = searchResponseMapper;
         }
 
         public async Task<SearchResults> Search(SearchContext searchContext)
         {
-            var searchSettingsOptions =
-                _searchSettingsOptionsFactory.GetSearchOptions(searchContext) ??
+            SearchOptions searchOptions =
+                _searchOptionsFactory.GetSearchOptions(searchContext.TargetCollection) ??
                 throw new ApplicationException(
-                    $"Search options cannot be derived for {searchContext.SearchTarget}.");
+                    $"Search options cannot be derived for {searchContext.TargetCollection}.");
 
-            var searchOptions = searchSettingsOptions.MapToSearchOptions();
-
-            var searchResults =
+            Response<SearchResults<object>> searchResults =
                 await _cognitiveSearchService.SearchAsync<object>(
                     searchContext.SearchKeyword,
-                    searchSettingsOptions.SearchIndex,
+                    searchContext.TargetCollection,
                     searchOptions
                 )
                 .ConfigureAwait(false) ??
                     throw new ApplicationException(
                         $"Unable to derive search results based on input {searchContext.SearchKeyword}.");
 
-            return new SearchResponse(
-                searchResults.Value, searchResults.Value.Facets);
+            return _searchResponseMapper.MapFrom(searchResults);
         }
     }
 }
