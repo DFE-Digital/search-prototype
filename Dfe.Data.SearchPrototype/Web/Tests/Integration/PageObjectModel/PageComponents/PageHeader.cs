@@ -11,6 +11,7 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageCom
         private PageHeader(IDocument documentObjectModel)
             : base(documentObjectModel, HeaderElementTag){
         }
+
         public string GetMainHeading(string headingClass) =>
             HeaderElement == null ?
                 throw new InvalidOperationException(
