@@ -3,18 +3,27 @@ using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Search.Application.Adapters;
-using Dfe.Data.SearchPrototype.Search.Domain;
+using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class CognitiveSearchServiceAdapter : ISearchServiceAdapter
     {
         private readonly ISearchService _cognitiveSearchService;
         private readonly ISearchOptionsFactory _searchOptionsFactory;
         private readonly IMapper<Response<SearchResults<object>>, Establishments> _searchResponseMapper;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cognitiveSearchService"></param>
+        /// <param name="searchOptionsFactory"></param>
+        /// <param name="searchResponseMapper"></param>
         public CognitiveSearchServiceAdapter(
             ISearchService cognitiveSearchService,
             ISearchOptionsFactory searchOptionsFactory,
@@ -25,6 +34,12 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
             _searchResponseMapper = searchResponseMapper;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchContext"></param>
+        /// <returns></returns>
+        /// <exception cref="ApplicationException"></exception>
         public async Task<Establishments> Search(SearchContext searchContext)
         {
             SearchOptions searchOptions =

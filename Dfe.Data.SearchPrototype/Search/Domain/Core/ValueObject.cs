@@ -20,7 +20,6 @@
     /// </item>
     /// </list>
     /// </summary>
-    /// <typeparam name="TValueObject"></typeparam>
     public abstract class ValueObject<TValueObject> where TValueObject : ValueObject<TValueObject>
     {
         /// <summary>
