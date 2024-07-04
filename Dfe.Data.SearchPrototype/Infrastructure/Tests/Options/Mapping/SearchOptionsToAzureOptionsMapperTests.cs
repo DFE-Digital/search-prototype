@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.Mapping
 {
-    internal class SearchOptionsToAzureOptionsMapperTests
+    public sealed class SearchOptionsToAzureOptionsMapperTests
     {
+        [Fact]
+        public void MethodName_Setup_Expectation()
+        {
+            // arrange
+
+            // act
+
+            // assert
+
+        }
     }
 }

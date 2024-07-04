@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests
 {
-    internal class CognitiveSearchServiceAdapterTests
+    public sealed class CognitiveSearchServiceAdapterTests
     {
+        [Fact]
+        public void MethodName_Setup_Expectation()
+        {
+            // arrange
+
+            // act
+
+            // assert
+
+        }
     }
 }

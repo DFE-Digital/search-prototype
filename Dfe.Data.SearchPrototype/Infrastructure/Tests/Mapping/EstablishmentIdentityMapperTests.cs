@@ -1,8 +1,8 @@
 ﻿using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping
 {
-    public sealed class SearchOptionsFactoryTests
+    public sealed class EstablishmentIdentityMapperTests
     {
         [Fact]
         public void MethodName_Setup_Expectation()
