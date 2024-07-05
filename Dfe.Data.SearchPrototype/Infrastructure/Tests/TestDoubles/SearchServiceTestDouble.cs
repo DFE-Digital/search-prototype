@@ -9,7 +9,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
 {
     internal static class SearchServiceTestDouble
     {
-        public static ISearchService Dummy() => Mock.Of<ISearchService>();
+        public static ISearchService DefaultMock() => Mock.Of<ISearchService>();
 
         public static ISearchService MockFor(Task<Response<SearchResults<object>>> searchResult)
         {
@@ -24,7 +24,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
             return searchServiceMock.Object;
         }
 
-        public static ISearchService MockFor()
+        public static ISearchService MockSearchService()
         {
             var responseMock = new Mock<Response>();
 
