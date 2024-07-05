@@ -48,13 +48,9 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
                 new(GetEstablishmentIdentifierFake(), GetEstablishmentNameFake());
 
             private static EstablishmentName GetEstablishmentNameFake() =>
-                 new Faker<EstablishmentName>()
-                   .StrictMode(false)
-                      .RuleFor(
-                           establishment => establishment.Title,
-                           _ => new Bogus.Faker().Company.CompanyName()).Generate();
+                 new EstablishmentName(new Bogus.Faker().Company.CompanyName());
 
-            private static EstablishmentIdentifier GetEstablishmentIdentifierFake() => new(new Bogus.Faker().Random.Int());
+            private static EstablishmentIdentifier GetEstablishmentIdentifierFake() => new(new Bogus.Faker().Random.Int().ToString());
         }
     }
 }

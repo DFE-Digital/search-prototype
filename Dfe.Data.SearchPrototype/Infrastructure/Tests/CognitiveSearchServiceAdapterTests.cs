@@ -6,27 +6,31 @@ using Dfe.Data.SearchPrototype.Search.Application.Adapters;
 using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
-using Xunit;
 using FluentAssertions;
+using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests
 {
     public sealed class CognitiveSearchServiceAdapterTests
     {
+        private static CognitiveSearchServiceAdapter CreateServiceAdapterWith(
+            ISearchService cognitiveSearchService,
+            ISearchOptionsFactory searchOptionsFactory,
+            IMapper<Response<SearchResults<object>>, Establishments> searchResponseMapper
+           ) =>
+               new(cognitiveSearchService, searchOptionsFactory, searchResponseMapper);
+
         [Fact]
-        public async Task MethodName_With_Valid_SearchContext_Returns_Configured_Results()
+        public async Task Search_With_Valid_SearchContext_Returns_Configured_Results()
         {
             // arrange
-            ISearchService cognitiveSearchService = SearchServiceTestDouble.MockSearchService();
-            ISearchOptionsFactory searchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
-            IMapper<Response<SearchResults<object>>, Establishments> _searchResponseMapper =
-                AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper();
+            ISearchServiceAdapter cognitiveSearchServiceAdapter =
+                CreateServiceAdapterWith(
+                    SearchServiceTestDouble.MockSearchService(),
+                    SearchOptionsFactoryTestDouble.MockSearchOptionsFactory(),
+                    AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
 
             // act
-            ISearchServiceAdapter cognitiveSearchServiceAdapter =
-                new CognitiveSearchServiceAdapter(
-                    cognitiveSearchService, searchOptionsFactory, _searchResponseMapper);
-
             Establishments? establishmentResults =
                 await cognitiveSearchServiceAdapter.Search(
                     new SearchContext(
@@ -36,5 +40,27 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests
             // assert
             establishmentResults.Should().NotBeNull();
         }
+
+        [Fact]
+        public Task Search_With_Valid_SearchContext_No_Options_Returned_Throws_ApplicationException()
+        {
+            // arrange
+            ISearchServiceAdapter cognitiveSearchServiceAdapter =
+                CreateServiceAdapterWith(
+                    SearchServiceTestDouble.MockSearchService(),
+                    SearchOptionsFactoryTestDouble.MockForDefaultResult(),
+                    AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
+
+            // act.
+            return cognitiveSearchServiceAdapter
+                .Invoking(async serviceAdapter =>
+                    await serviceAdapter.Search(
+                        new SearchContext(
+                            searchKeyword: "SearchKeyword",
+                            targetCollection: "TargetCollection")))
+                            .Should().ThrowAsync<ApplicationException>();
+        }
+
+        // TODO: need another test with no results to force the other exception.
     }
 }
