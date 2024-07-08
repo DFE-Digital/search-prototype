@@ -45,7 +45,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
             return MockFor(validServiceResponseFake);
         }
 
-        internal static class SearchResultFake
+        public static class SearchResultFake
         {
             public static SearchResult<object>[] SearchResultFakes()
             {
@@ -67,6 +67,12 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
 
                 return searchResults.ToArray();
             }
+
+            public static SearchResult<object> searchResultFake() =>
+                SearchModelFactory
+                    .SearchResult<object>(
+                        "{\"name\":\"Test\"}",
+                        1.00, new Dictionary<string, IList<string>>());
 
             internal class FakeSearchResult
             {

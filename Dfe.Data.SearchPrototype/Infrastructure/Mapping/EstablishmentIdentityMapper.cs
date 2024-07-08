@@ -17,8 +17,12 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="objectFactoryMapper"></param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="objectFactoryMapper">
+        /// 
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// 
+        /// </exception>
         public EstablishmentIdentityMapper(IObjectFactoryMapper objectFactoryMapper)
         {
             _objectFactoryMapper = objectFactoryMapper ??
@@ -28,9 +32,15 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <param name="input">
+        /// 
+        /// </param>
+        /// <returns>
+        /// 
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// 
+        /// </exception>
         public EstablishmentIdentifier MapFrom(SearchResult<object> input)
         {
             var searchResult = input.DeserialiseSearchResultDocument();

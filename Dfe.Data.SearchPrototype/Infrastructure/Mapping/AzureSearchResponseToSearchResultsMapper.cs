@@ -18,8 +18,12 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="establishmentIdentityMapper"></param>
-        /// <param name="establishmentNameMapper"></param>
+        /// <param name="establishmentIdentityMapper">
+        /// 
+        /// </param>
+        /// <param name="establishmentNameMapper">
+        /// 
+        /// </param>
         public AzureSearchResponseToSearchResultsMapper(
             IMapper<SearchResult<object>, EstablishmentIdentifier> establishmentIdentityMapper,
             IMapper<SearchResult<object>, EstablishmentName> establishmentNameMapper)
@@ -31,9 +35,15 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <param name="input">
+        /// 
+        /// </param>
+        /// <returns>
+        /// 
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// 
+        /// </exception>
         public Establishments MapFrom(Response<SearchResults<object>> input)
         {
             var establismentResults = Establishments.Create();
