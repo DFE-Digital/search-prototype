@@ -47,10 +47,7 @@ public class SearchOptionsFactory : ISearchOptionsFactory
     /// </exception>
     public SearchOptions? GetSearchOptions(string targetCollection)
     {
-        if (string.IsNullOrWhiteSpace(targetCollection))
-        {
-            throw new ArgumentNullException(nameof(targetCollection));
-        }
+        ArgumentNullException.ThrowIfNull(targetCollection);
 
         SearchSettingsOptions searchSettingsOptions =
             _searchSettingsOptions.Get(targetCollection);

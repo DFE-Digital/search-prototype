@@ -25,6 +25,8 @@ public sealed class SearchOptionsToAzureOptionsMapper : IMapper<SearchSettingsOp
     /// </returns>
     public SearchOptions MapFrom(SearchSettingsOptions input)
     {
+        ArgumentNullException.ThrowIfNull(input);
+
         var searchOptions = new SearchOptions()
         {
             SearchMode = input.SearchMode,
@@ -38,5 +40,4 @@ public sealed class SearchOptionsToAzureOptionsMapper : IMapper<SearchSettingsOp
 
         return searchOptions;
     }
-
 }

@@ -9,7 +9,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options
     public sealed class SearchOptionsFactoryTests
     {
         [Fact]
-        public void GetSearchOptions_ReturnsConfiguredOptions()
+        public void GetSearchOptions_Returns_Configured_Options()
         {
             // arrange
             const string TargetCollection = "Establishment";
@@ -31,7 +31,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options
         }
 
         [Fact]
-        public void GetSearchOptions_NoSearchSettingsOptions_ReturnsNull()
+        public void GetSearchOptions_No_Search_Settings_Options_Returns_Null()
         {
             // arrange
             const string TargetCollection = "Establishment";
@@ -53,7 +53,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options
         }
 
         [Fact]
-        public void GetSearchOptions_WithNullTargetCollection_ReturnsConfiguredOptions()
+        public void GetSearchOptions_With_Null_Target_Collection_Returns_Configured_Options()
         {
             // arrange
             const string TargetCollection = "Establishment";
