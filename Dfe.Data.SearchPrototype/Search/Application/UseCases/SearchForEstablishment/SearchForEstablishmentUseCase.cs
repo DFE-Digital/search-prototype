@@ -1,12 +1,12 @@
 ﻿using Dfe.Data.SearchPrototype.Search.Application.Adapters;
 using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
 
-namespace Dfe.Data.SearchPrototype.Search.Application.UseCases.SearchForEstablishments
+namespace Dfe.Data.SearchPrototype.Search.Application.UseCases.SearchForEstablishment
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed class SearchForEstablishmentsUseCase : IUseCase<SearchForEstablishmentsRequest, SearchForEstablishmentsResponse>
+    public sealed class SearchForEstablishmentUseCase : IUseCase<SearchForEstablishmentRequest, SearchForEstablishmentResponse>
     {
         private readonly ISearchServiceAdapter _searchServiceAdapter;
 
@@ -14,7 +14,7 @@ namespace Dfe.Data.SearchPrototype.Search.Application.UseCases.SearchForEstablis
         /// 
         /// </summary>
         /// <param name="searchServiceAdapter"></param>
-        public SearchForEstablishmentsUseCase(ISearchServiceAdapter searchServiceAdapter)
+        public SearchForEstablishmentUseCase(ISearchServiceAdapter searchServiceAdapter)
         {
             _searchServiceAdapter = searchServiceAdapter;
         }
@@ -24,7 +24,7 @@ namespace Dfe.Data.SearchPrototype.Search.Application.UseCases.SearchForEstablis
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<SearchForEstablishmentsResponse> HandleRequest(SearchForEstablishmentsRequest request)
+        public Task<SearchForEstablishmentResponse> HandleRequest(SearchForEstablishmentRequest request)
         {
             throw new NotImplementedException();
         }

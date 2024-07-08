@@ -53,7 +53,11 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         /// A configured "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
         /// object hydrated from the results of the azure search.
         /// </returns>
-        /// <exception cref="ApplicationException">The exception thrown</exception>
+        /// <exception cref="ApplicationException">
+        /// An application exception is thrown if we either have no options configured, which
+        /// is unrecoverable, or no azure seach results are returned which should not be the
+        /// case given no matches should return an expty wrapper result object.
+        /// </exception>
         public async Task<Establishments> Search(SearchContext searchContext)
         {
             SearchOptions searchOptions =

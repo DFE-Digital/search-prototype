@@ -31,14 +31,14 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests
                     AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
 
             // act
-            Establishments? establishmentResults =
+            Establishments? response =
                 await cognitiveSearchServiceAdapter.Search(
                     new SearchContext(
                         searchKeyword: "SearchKeyword",
                         targetCollection: "TargetCollection"));
 
             // assert
-            establishmentResults.Should().NotBeNull();
+            response.EstablismentResults.Should().NotBeNull().And.HaveCountGreaterThan(0);
         }
 
         [Fact]
@@ -58,9 +58,31 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests
                         new SearchContext(
                             searchKeyword: "SearchKeyword",
                             targetCollection: "TargetCollection")))
-                            .Should().ThrowAsync<ApplicationException>();
+                            .Should()
+                                .ThrowAsync<ApplicationException>()
+                                .WithMessage("Search options cannot be derived for TargetCollection.");
         }
 
-        // TODO: need another test with no results to force the other exception.
+        [Fact]
+        public Task Search_With_Valid_SearchContext_No_Results_Returned_Throws_ApplicationException()
+        {
+            // arrange
+            ISearchServiceAdapter cognitiveSearchServiceAdapter =
+                CreateServiceAdapterWith(
+                    SearchServiceTestDouble.DefaultMock(),
+                    SearchOptionsFactoryTestDouble.MockSearchOptionsFactory(),
+                    AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
+
+            // act.
+            return cognitiveSearchServiceAdapter
+                .Invoking(async serviceAdapter =>
+                    await serviceAdapter.Search(
+                        new SearchContext(
+                            searchKeyword: "SearchKeyword",
+                            targetCollection: "TargetCollection")))
+                            .Should()
+                                .ThrowAsync<ApplicationException>()
+                                .WithMessage("Unable to derive search results based on input SearchKeyword.");
+        }
     }
 }

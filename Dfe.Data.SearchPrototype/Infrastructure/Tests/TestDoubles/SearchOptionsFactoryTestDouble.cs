@@ -1,8 +1,6 @@
-﻿using Azure;
-using Azure.Search.Documents;
+﻿using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
-using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 using Moq;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
