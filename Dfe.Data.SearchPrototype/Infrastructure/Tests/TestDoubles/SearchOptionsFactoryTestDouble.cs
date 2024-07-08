@@ -21,19 +21,15 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
             return searchOptionsFactoryMock.Object;
         }
 
-        public static ISearchOptionsFactory MockSearchOptionsFactory()
-        {
-            SearchOptions searchOptionsFake = new()
-            {
-                SearchMode = SearchMode.Any,
-                Size = 100,
-                IncludeTotalCount = true,
-                SearchFields = { "ESTABLISHMENTNAME" }
-            };
-
-            return MockFor(searchOptionsFake);
-        }
+        public static ISearchOptionsFactory MockSearchOptionsFactory() => MockFor(SearchOptionsFake);
 
         public static ISearchOptionsFactory MockForDefaultResult() => MockFor(default!);
+        public static SearchOptions SearchOptionsFake => new()
+        {
+            SearchMode = SearchMode.Any,
+            Size = 100,
+            IncludeTotalCount = true,
+            SearchFields = { "ESTABLISHMENTNAME" }
+        };
     }
 }
