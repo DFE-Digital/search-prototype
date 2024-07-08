@@ -31,15 +31,17 @@ public class SearchOptionsFactory : ISearchOptionsFactory
     /// <param name="targetCollection"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public SearchOptions GetSearchOptions(string targetCollection)
+    public SearchOptions? GetSearchOptions(string targetCollection)
     {
         if (string.IsNullOrWhiteSpace(targetCollection))
         {
             throw new ArgumentNullException(nameof(targetCollection));
         }
+
         SearchSettingsOptions searchSettingsOptions =
             _searchSettingsOptions.Get(targetCollection);
 
-        return _searchOptionsToAzureOptionsMapper.MapFrom(searchSettingsOptions);
+        return (searchSettingsOptions == null) ?
+            default : _searchOptionsToAzureOptionsMapper.MapFrom(searchSettingsOptions);
     }
 }

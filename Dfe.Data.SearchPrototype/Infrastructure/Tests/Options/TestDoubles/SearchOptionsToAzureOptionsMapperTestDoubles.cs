@@ -14,12 +14,11 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.TestDoubles
         {
             var searchOptionsToAzureOptionsMapperMock = new Mock<IMapper<SearchSettingsOptions, SearchOptions>>();
 
-            searchOptionsToAzureOptionsMapperMock.SetupGet(mapper =>
+            searchOptionsToAzureOptionsMapperMock.Setup(mapper =>
                 mapper.MapFrom(It.IsAny<SearchSettingsOptions>()))
                     .Returns(SearchOptionsFactoryTestDouble.SearchOptionsFake);
 
             return searchOptionsToAzureOptionsMapperMock.Object;
         }
-
     }
 }

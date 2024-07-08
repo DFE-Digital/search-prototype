@@ -12,5 +12,5 @@ public interface ISearchOptionsFactory
     /// </summary>
     /// <param name="targetCollection"></param>
     /// <returns></returns>
-    public SearchOptions GetSearchOptions(string targetCollection);
+    public SearchOptions? GetSearchOptions(string targetCollection);
 }

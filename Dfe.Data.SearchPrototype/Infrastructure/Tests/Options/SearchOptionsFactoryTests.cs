@@ -9,7 +9,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options
     public sealed class SearchOptionsFactoryTests
     {
         [Fact]
-        public void MatchesStringToOptions_ReturnsOptions()
+        public void GetSearchOptions_ReturnsConfiguredOptions()
         {
             // arrange
             const string TargetCollection = "Establishment";
@@ -20,22 +20,43 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options
                 SearchSettingsOptionsSnapshotTestDouble
                     .MockForNamedOptions(TargetCollection, options);
 
-            var sut = new SearchOptionsFactory(optionsSnapshot, searchOptionsToAzureOptionsMapperTestDoubles);
+            var searchOptionsFactory =
+                new SearchOptionsFactory(optionsSnapshot, searchOptionsToAzureOptionsMapperTestDoubles);
 
             // act
-            SearchOptions result = sut.GetSearchOptions(TargetCollection);
+            SearchOptions? result = searchOptionsFactory.GetSearchOptions(TargetCollection);
 
             // assert
             result.Should().NotBeNull();
-            //Assert.Equal(options, result);
         }
 
         [Fact]
-        public void OptionsDictionary_IsNotSetUpWithCollectioinTypeRequested_ReturnsNull()
+        public void GetSearchOptions_NoSearchSettingsOptions_ReturnsNull()
         {
             // arrange
             const string TargetCollection = "Establishment";
-            const string AlternateTargetCollection = "Mat";
+            var options = SearchSettingsOptionsTestDouble.MockFor().Value;
+            var searchOptionsToAzureOptionsMapperTestDoubles =
+                SearchOptionsToAzureOptionsMapperTestDoubles.Dummy();
+            var optionsSnapshot =
+                SearchSettingsOptionsSnapshotTestDouble
+                    .MockForNamedOptions(TargetCollection, options);
+
+            var searchOptionsFactory =
+                new SearchOptionsFactory(optionsSnapshot, searchOptionsToAzureOptionsMapperTestDoubles);
+
+            // act
+            var result = searchOptionsFactory.GetSearchOptions(TargetCollection);
+
+            // assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public void GetSearchOptions_WithNullTargetCollection_ReturnsConfiguredOptions()
+        {
+            // arrange
+            const string TargetCollection = "Establishment";
             var options = SearchSettingsOptionsTestDouble.MockFor().Value;
             var searchOptionsToAzureOptionsMapperTestDoubles =
                 SearchOptionsToAzureOptionsMapperTestDoubles.MockDefaultMapper();
@@ -43,33 +64,16 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options
                 SearchSettingsOptionsSnapshotTestDouble
                     .MockForNamedOptions(TargetCollection, options);
 
-            var sut = new SearchOptionsFactory(optionsSnapshot, searchOptionsToAzureOptionsMapperTestDoubles);
+            var searchOptionsFactory =
+                new SearchOptionsFactory(optionsSnapshot, searchOptionsToAzureOptionsMapperTestDoubles);
 
-            // act
-            var result = sut.GetSearchOptions(AlternateTargetCollection);
-
-            // assert
-            result.Should().BeNull();
-        }
-
-        [Fact]
-        public void Options_AreNotSetUp_ReturnsNull()
-        {
-            // arrange
-            const string TargetCollection = "Establishment";
-            var optionsSnapshot =
-                SearchSettingsOptionsSnapshotTestDouble
-                    .MockForNamedOptions(TargetCollection, null!);
-            var searchOptionsToAzureOptionsMapperTestDoubles =
-                SearchOptionsToAzureOptionsMapperTestDoubles.MockDefaultMapper();
-
-            var sut = new SearchOptionsFactory(optionsSnapshot, searchOptionsToAzureOptionsMapperTestDoubles);
-
-            // act
-            var result = sut.GetSearchOptions(TargetCollection);
-
-            // assert
-            result.Should().BeNull();
+            // act.
+            searchOptionsFactory
+                .Invoking(searchOptionsFactory =>
+                    searchOptionsFactory.GetSearchOptions(targetCollection: null!))
+                        .Should()
+                            .Throw<ArgumentNullException>()
+                            .WithMessage("Value cannot be null. (Parameter 'targetCollection')");
         }
     }
 }
