@@ -1,6 +1,5 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Bogus;
 using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
 using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities;
 using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
