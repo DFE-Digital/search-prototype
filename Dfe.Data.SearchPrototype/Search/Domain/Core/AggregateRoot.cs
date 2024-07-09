@@ -10,7 +10,5 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.Core
         }
 
         public TIdentifier AggregateId => Identifier;
-
-        public abstract void EnsureValidState();
     }
 }

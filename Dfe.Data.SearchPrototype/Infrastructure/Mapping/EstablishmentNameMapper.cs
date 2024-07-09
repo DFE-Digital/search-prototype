@@ -10,7 +10,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
     /// Facilitates mapping from the received T:Azure.Search.Documents.Models.SearchResults
     /// into the required T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects.EstablishmentName object.
     /// </summary>
-    public sealed class EstablishmentNameMapper : IMapper<SearchResult<object>, EstablishmentName>
+    public sealed class EstablishmentNameMapper : IMapper<SearchResult<object>, EstablishmentDefinition>
     {
         private const string MapKey = "SearchResultToEstablishmentNameMap";
 
@@ -42,14 +42,14 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// <exception cref="ArgumentException">
         /// The exception thrown if a document cannot be derived from a given Azure search result.
         /// </exception>
-        public EstablishmentName MapFrom(SearchResult<object> input)
+        public EstablishmentDefinition MapFrom(SearchResult<object> input)
         {
             ExpandoObject? searchResult = input.DeserialiseSearchResultDocument();
 
             return searchResult == null ?
                 throw new ArgumentException(
                     $"Unable to derive search result for establishment name map with input: {input}.") :
-                _objectFactoryMapper.Map<dynamic, EstablishmentName>(searchResult!, MapKey);
+                _objectFactoryMapper.Map<dynamic, EstablishmentDefinition>(searchResult!, MapKey);
         }
     }
 }

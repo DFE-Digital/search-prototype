@@ -10,21 +10,21 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
         /// <summary>
         /// 
         /// </summary>
-        public Guid EstablismentResultsId { get; }
+        public Guid EstablismentsRootId { get; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="establishmentResultId"></param>
         /// <exception cref="ArgumentException"></exception>
-        public EstablismentsIdentifier(Guid establishmentResultId)
+        public EstablismentsIdentifier(Guid establismentsRootId)
         {
-            if (establishmentResultId == Guid.Empty)
+            if (establismentsRootId == Guid.Empty)
             {
                 throw new ArgumentException(
-                    "The establishment result Id must have a valid GUID assigned.");
+                    "The establishment root Id must have a valid GUID assigned.");
             }
-            EstablismentResultsId = establishmentResultId;
+            EstablismentsRootId = establismentsRootId;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
         /// <returns></returns>
         protected override IEnumerable<object> GetPropertiesForEqualityCheck()
         {
-            yield return EstablismentResultsId;
+            yield return EstablismentsRootId;
         }
     }
 }

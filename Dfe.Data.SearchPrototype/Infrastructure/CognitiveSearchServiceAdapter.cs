@@ -11,7 +11,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
 {
     /// <summary>
     /// Provides an adaption of the core Azure cognitive search services to allow
-    /// compatability with the Dfe.Data.SearchPrototype application service definition.
+    /// compatability with the Dfe.Data.SearchPrototype application search service definition.
     /// </summary>
     public sealed class CognitiveSearchServiceAdapter : ISearchServiceAdapter
     {

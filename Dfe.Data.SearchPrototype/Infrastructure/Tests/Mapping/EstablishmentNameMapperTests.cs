@@ -18,22 +18,22 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping
             // arrange
             IObjectFactoryMapper objectFactoryMapper =
                 ObjectFactoryMapperTestDouble
-                    .MockFor<dynamic, EstablishmentName>(
+                    .MockFor<dynamic, EstablishmentDefinition>(
                         EstablishmentNameFake.GetEstablishmentNameFake());
 
-            IMapper<SearchResult<object>, EstablishmentName> mapper =
+            IMapper<SearchResult<object>, EstablishmentDefinition> mapper =
                 new EstablishmentNameMapper(objectFactoryMapper);
 
             const string SearchResultDocument = "{\"name\":\"Test\"}";
 
             // act
 
-            EstablishmentName establishmentName =
+            EstablishmentDefinition establishmentDefinition =
                 mapper.MapFrom(SearchResultFake.SearchResultFakeWithDocument(SearchResultDocument));
 
             // assert
-            establishmentName.Should().NotBeNull();
-            establishmentName.Institution.Should().NotBeNull().And.NotBeEmpty();
+            establishmentDefinition.Should().NotBeNull();
+            establishmentDefinition.Name.Should().NotBeNull().And.NotBeEmpty();
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping
             // arrange
             IObjectFactoryMapper objectFactoryMapper = ObjectFactoryMapperTestDouble.Dummy();
 
-            IMapper<SearchResult<object>, EstablishmentName> mapper =
+            IMapper<SearchResult<object>, EstablishmentDefinition> mapper =
                 new EstablishmentNameMapper(objectFactoryMapper);
 
             // act

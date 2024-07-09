@@ -20,7 +20,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping
             // arrange
             IMapper<SearchResult<object>, EstablishmentIdentifier> identityMapper =
                 EstablishmentIdentityMapperTestDoubles.MockFor(EstablishmentIdentifierFake.GetEstablishmentIdentifierFake());
-            IMapper<SearchResult<object>, EstablishmentName> nameMapper = 
+            IMapper<SearchResult<object>, EstablishmentDefinition> nameMapper = 
                 EstablishmentNameMapperTestDouble.MockFor(EstablishmentNameFake.GetEstablishmentNameFake());
 
             IMapper<Response<SearchResults<object>>, Establishments> mapper =
@@ -46,7 +46,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping
             // arrange
             IMapper<SearchResult<object>, EstablishmentIdentifier> identityMapper =
                 EstablishmentIdentityMapperTestDoubles.DefaultMock();
-            IMapper<SearchResult<object>, EstablishmentName> nameMapper =
+            IMapper<SearchResult<object>, EstablishmentDefinition> nameMapper =
                 EstablishmentNameMapperTestDouble.DefaultMock();
 
             IMapper<Response<SearchResults<object>>, Establishments> mapper =

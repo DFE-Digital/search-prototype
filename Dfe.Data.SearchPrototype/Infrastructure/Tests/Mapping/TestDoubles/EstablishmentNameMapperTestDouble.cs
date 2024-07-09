@@ -7,12 +7,12 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping.TestDoubles
 {
     internal static class EstablishmentNameMapperTestDouble
     {
-        public static IMapper<SearchResult<object>, EstablishmentName> DefaultMock() =>
-            Mock.Of<IMapper<SearchResult<object>, EstablishmentName>>();
+        public static IMapper<SearchResult<object>, EstablishmentDefinition> DefaultMock() =>
+            Mock.Of<IMapper<SearchResult<object>, EstablishmentDefinition>>();
 
-        public static IMapper<SearchResult<object>, EstablishmentName> MockFor(EstablishmentName establishmentName)
+        public static IMapper<SearchResult<object>, EstablishmentDefinition> MockFor(EstablishmentDefinition establishmentName)
         {
-            var mapperMock = new Mock<IMapper<SearchResult<object>, EstablishmentName>>();
+            var mapperMock = new Mock<IMapper<SearchResult<object>, EstablishmentDefinition>>();
 
             mapperMock.Setup(
                 mapper =>
@@ -25,6 +25,6 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping.TestDoubles
 
     public static class EstablishmentNameFake
     {
-        public static EstablishmentName GetEstablishmentNameFake() => new(new Bogus.Faker().Company.CompanyName());
+        public static EstablishmentDefinition GetEstablishmentNameFake() => new(new Bogus.Faker().Company.CompanyName());
     }
 }

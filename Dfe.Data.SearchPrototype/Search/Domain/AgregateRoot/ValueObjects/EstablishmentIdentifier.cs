@@ -29,7 +29,6 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
         protected override IEnumerable<object> GetPropertiesForEqualityCheck()
         {
             yield return URN;

@@ -1,25 +1,29 @@
 ﻿namespace Dfe.Data.SearchPrototype.Search.Application.Adapters
 {
     /// <summary>
-    /// 
+    /// Prescribes the context of the search including the keyword and collection target.
     /// </summary>
     public sealed class SearchContext
     {
         /// <summary>
-        /// 
+        /// The search keyword(s) to be applied.
         /// </summary>
         public string SearchKeyword { get; }
 
         /// <summary>
-        /// 
+        /// The target collection on which to apply the search.
         /// </summary>
         public string TargetCollection { get; }
 
         /// <summary>
-        /// 
+        /// Establishes an immutable search context via the constructor arguments.
         /// </summary>
-        /// <param name="searchKeyword"></param>
-        /// <param name="targetCollection"></param>
+        /// <param name="searchKeyword">
+        /// The search keyword(s) to be applied.
+        /// </param>
+        /// <param name="targetCollection">
+        /// The target collection on which to apply the search.
+        /// </param>
         /// <exception cref="ArgumentNullException"></exception>
         public SearchContext(string searchKeyword, string targetCollection)
         {

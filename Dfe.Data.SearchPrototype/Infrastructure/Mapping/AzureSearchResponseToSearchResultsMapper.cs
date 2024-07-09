@@ -14,7 +14,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
     public sealed class AzureSearchResponseToSearchResultsMapper : IMapper<Response<SearchResults<object>>, Establishments>
     {
         private readonly IMapper<SearchResult<object>, EstablishmentIdentifier> _establishmentIdentityMapper;
-        private readonly IMapper<SearchResult<object>, EstablishmentName> _establishmentNameMapper;
+        private readonly IMapper<SearchResult<object>, EstablishmentDefinition> _establishmentNameMapper;
 
         /// <summary>
         /// The following dependencies provide the sub-mapping behaviour for creating a configured,
@@ -34,7 +34,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// </param>
         public AzureSearchResponseToSearchResultsMapper(
             IMapper<SearchResult<object>, EstablishmentIdentifier> establishmentIdentityMapper,
-            IMapper<SearchResult<object>, EstablishmentName> establishmentNameMapper)
+            IMapper<SearchResult<object>, EstablishmentDefinition> establishmentNameMapper)
         {
             _establishmentIdentityMapper = establishmentIdentityMapper;
             _establishmentNameMapper = establishmentNameMapper;

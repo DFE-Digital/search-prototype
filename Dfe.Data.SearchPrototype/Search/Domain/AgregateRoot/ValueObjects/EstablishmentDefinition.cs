@@ -5,21 +5,21 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
     /// <summary>
     /// 
     /// </summary>
-    public class EstablishmentName : ValueObject<EstablishmentName>
+    public class EstablishmentDefinition : ValueObject<EstablishmentDefinition>
     {
         /// <summary>
         /// 
         /// </summary>
-        public string Institution { get; }
+        public string Name { get; }
         
         /// <summary>
         /// 
         /// </summary>
         /// <param name="institution"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public EstablishmentName(string institution)
+        public EstablishmentDefinition(string institution)
         {
-            Institution = institution ?? throw new ArgumentNullException(nameof(institution));
+            Name = institution ?? throw new ArgumentNullException(nameof(institution));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
         /// <returns></returns>
         protected override IEnumerable<object> GetPropertiesForEqualityCheck()
         {
-            yield return Institution;
+            yield return Name;
         }
     }
 }

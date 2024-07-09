@@ -8,14 +8,14 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities
     /// </summary>
     public sealed class Establishment : Entity<EstablishmentIdentifier>
     {
-        public EstablishmentName Name { get; set; }
+        public EstablishmentDefinition Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="establishmentIdentifier"></param>
         public Establishment(
-            EstablishmentIdentifier establishmentIdentifier, EstablishmentName name)
+            EstablishmentIdentifier establishmentIdentifier, EstablishmentDefinition name)
                 : base(establishmentIdentifier)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
