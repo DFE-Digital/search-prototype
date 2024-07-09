@@ -22,14 +22,10 @@ namespace UnitTestProject1
             {
                 StartInfo =
                 {
-                    FileName = "dotnet",
-                    Arguments = "run --urls=http://localhost:7001",
-                    UseShellExecute = true,
-                    WorkingDirectory = "C:\\Users\\aoakes1\\source\\repos\\DFE-Digital\\search-prototype\\dfe.data.SearchPrototype\\Web"
+                    FileName = "Dfe.Data.SearchPrototype.Web.exe",
                 }
             };
             process.Start();
-            Thread.Sleep(1000);
         }
 
         [BeforeScenario]
@@ -57,8 +53,8 @@ namespace UnitTestProject1
         [After]
         public void After()
         {
-            var processes = Process.GetProcessesByName("WindowsTerminal");
-            processes[0].CloseMainWindow();
+            var processes = Process.GetProcessesByName("Dfe.Data.SearchPrototype.Web");
+            processes[0].Kill();
         }
     }
 }

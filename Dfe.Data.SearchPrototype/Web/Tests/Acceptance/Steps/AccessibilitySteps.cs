@@ -31,7 +31,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         [StepDefinition(@"the user views the homepage")]
         public void OpenHome()
         {
-            _driver.Navigate().GoToUrl("http://localhost:7001/");
+            _driver.Navigate().GoToUrl("http://localhost:5000/");
             _homePage.Heading.Criteria.Should().NotBeNull();
         }
 
