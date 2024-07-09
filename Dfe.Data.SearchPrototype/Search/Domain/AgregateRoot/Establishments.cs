@@ -9,7 +9,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
     /// ensures consistency and defines a transactional concurrency bounday for the wider object graph
     /// (i.e. entities and value objects) that are grouped under the aggregate and treated as a conceptual whole. 
     /// </summary>
-    public sealed class Establishments : AggregateRoot<EstablismentsIdentifier>
+    public sealed class Establishments : AggregateRoot<EstablishmentsIdentifier>
     {
         private readonly List<Establishment> _establishments = [];
 
@@ -35,13 +35,13 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
         public IReadOnlyCollection<Establishment> EstablismentResults => _establishments.AsReadOnly();
 
         /// <summary>
-        /// Requires injection of a configured T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects.EstablismentsIdentifier
+        /// Requires injection of a configured T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects.EstablishmentsIdentifier
         /// which provides contextual state to the hydrated aggregate and thus affords a contexual boundary.
         /// </summary>
-        /// <param name="establismentsIdentifier">
+        /// <param name="establishmentsIdentifier">
         /// Identifier which encapsulates the GUID used to uniquely identify an establishments contextual boundary.
         /// </param>
-        public Establishments(EstablismentsIdentifier establismentsIdentifier) : base(establismentsIdentifier){
+        public Establishments(EstablishmentsIdentifier establishmentsIdentifier) : base(establishmentsIdentifier){
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
         /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities.Establishment
         /// object to the internal read-only collection.
         /// </exception>
-        public void AddEstablismentResult(Establishment establishment)
+        public void AddEstablishment(Establishment establishment)
         {
             if (establishment is null)
             {
@@ -76,6 +76,6 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
         /// <returns>
         /// An instance of T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments
         /// </returns>
-        public static Establishments Create() => new(new EstablismentsIdentifier(Guid.NewGuid()));
+        public static Establishments Create() => new(new EstablishmentsIdentifier(Guid.NewGuid()));
     }
 }

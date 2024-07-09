@@ -35,7 +35,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
                 Establishment establishmentFake =
                     EstablishmentFakes.GetEstablishmentFake();
 
-                establishments.AddEstablismentResult(establishmentFake);
+                establishments.AddEstablishment(establishmentFake);
             }
 
             return MockFor(establishments);

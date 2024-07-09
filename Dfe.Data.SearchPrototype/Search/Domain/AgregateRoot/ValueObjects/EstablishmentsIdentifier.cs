@@ -5,7 +5,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
     /// <summary>
     /// Object used to encapsulate the establishments identity (i.e. GUID).
     /// </summary>
-    public class EstablismentsIdentifier : ValueObject<EstablismentsIdentifier>
+    public class EstablishmentsIdentifier : ValueObject<EstablishmentsIdentifier>
     {
         /// <summary>
         /// The read-only root Id (GUID) of the establishment.
@@ -22,7 +22,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
         /// <exception cref="ArgumentNullException">
         /// Exception thrown if an invalid GUID is provided.
         /// </exception>
-        public EstablismentsIdentifier(Guid establismentsRootId)
+        public EstablishmentsIdentifier(Guid establismentsRootId)
         {
             if (establismentsRootId == Guid.Empty)
             {

@@ -71,7 +71,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
                             "Search result document object cannot be null.");
                     }
 
-                    establismentResults.AddEstablismentResult(
+                    establismentResults.AddEstablishment(
                         new Establishment(
                             _establishmentIdentityMapper.MapFrom(searchResult),
                             _establishmentNameMapper.MapFrom(searchResult))

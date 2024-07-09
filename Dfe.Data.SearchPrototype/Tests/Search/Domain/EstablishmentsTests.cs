@@ -1,18 +1,83 @@
-﻿using Xunit;
+﻿using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
+using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities;
+using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
+using FluentAssertions;
+using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Tests.Search.Domain
 {
     public sealed class EstablishmentsTests
     {
         [Fact]
-        public void MethodName_Setup_Expectation()
+        public void Ctor_With_Valid_Identifier_Prescribed_Maintains_Prescribed_GUID_As_Identifier()
         {
-            // arrange
+            // arrange.
+            Guid EstablishmentRootId = Guid.NewGuid();
+            var establishmentsIdentifier = new EstablishmentsIdentifier(EstablishmentRootId);
 
-            // act
+            // act.
+            var establsihments = new Establishments(establishmentsIdentifier);
 
-            // assert
+            // assert.
+            establsihments.Should().NotBeNull();
+            establsihments.Identifier.Should().NotBeNull();
+            establsihments.Identifier.EstablismentsRootId.Should().Be(EstablishmentRootId.ToString());
+        }
 
+        [Fact]
+        public void Create_Should_Make_New_Establishments_Insance_With_Valid_Identifier()
+        {
+            // act.
+            var establsihments = Establishments.Create();
+
+            // assert.
+            establsihments.Should().NotBeNull();
+            establsihments.Identifier.Should().NotBeNull();
+            establsihments.Identifier.EstablismentsRootId.Should().NotBeEmpty();
+        }
+
+        [Fact]
+        public void Ctor_With_Null_Identifier_Throws_Expected_Argument_Null_Exception()
+        {
+            // act.
+            Action constructor = () =>
+                new Establishments(establishmentsIdentifier: null!);
+
+            // assert.
+            constructor.Should().Throw<ArgumentNullException>()
+                .And.ParamName.Should().Be("identifier");
+        }
+
+        [Fact]
+        public void AddEstablismentResult_With_Valid_Establishment_Assigns_Estabishment_To_Readonly_Collection()
+        {
+            // arrange.
+            var establishments = Establishments.Create();
+            var establishmentIdentifier = new EstablishmentIdentifier(urn: "123456");
+            var establishmentDefinition = new EstablishmentDefinition(name: "St Johns RC Comprehensive");
+            var establishment = new Establishment(establishmentIdentifier, establishmentDefinition);
+
+            // act.
+            establishments.AddEstablishment(establishment);
+
+            // assert.
+            establishments.EstablismentCount.Should().Be(1);
+            establishments.EstablismentResults.Should().Contain(establishment);
+        }
+
+        [Fact]
+        public void AddEstablismentResult_With_Null_Establishment_Throws_Expected_NullEstablishment_Exception()
+        {
+            // arrange.
+            var establishments = Establishments.Create();
+
+            // act.
+            establishments
+                 .Invoking(establishments =>
+                    establishments.AddEstablishment(establishment: null!))
+                        .Should()
+                            .Throw<NullEstablishmentException>()
+                            .WithMessage("Only configured establisment instances can be added to the read-only collection.");
         }
     }
 }
