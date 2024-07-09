@@ -33,7 +33,7 @@
         /// <typeparam name="TIdentifier">The runtime type definition of the entity's identifier object.</typeparam>
         public abstract class Entity<TIdentifier> where TIdentifier : ValueObject<TIdentifier>
         {
-            public virtual TIdentifier Identifier { get; protected set; }
+            public virtual TIdentifier Identifier { get; }
             protected virtual object EntityInstance => this;
 
             /// <summary>

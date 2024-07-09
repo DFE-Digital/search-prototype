@@ -16,7 +16,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
         /// <summary>
         /// <para>
         /// Provides a cound over the internal collective state of the encapsulated
-        /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities.Establishment objects. 
+        /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities.Establishment objects.
         /// </para>
         /// <para>
         /// The aggregate supports invariants (i.e. rules that enforce the consistency in the domain model).
@@ -38,9 +38,10 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
         /// Requires injection of a configured T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects.EstablismentsIdentifier
         /// which provides contextual state to the hydrated aggregate and thus affords a contexual boundary.
         /// </summary>
-        /// <param name="establismentsIdentifier"></param>
-        public Establishments(EstablismentsIdentifier establismentsIdentifier) : base(establismentsIdentifier)
-        {
+        /// <param name="establismentsIdentifier">
+        /// Identifier which encapsulates the GUID used to uniquely identify an establishments contextual boundary.
+        /// </param>
+        public Establishments(EstablismentsIdentifier establismentsIdentifier) : base(establismentsIdentifier){
         }
 
         /// <summary>
@@ -60,14 +61,15 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
         {
             if (establishment is null)
             {
-                throw new NullEstablishmentException();
+                throw new NullEstablishmentException(
+                    "Only configured establisment instances can be added to the read-only collection.");
             }
 
             _establishments.Add(establishment);
         }
 
         /// <summary>
-        /// Fcatory method allowing internal creation of
+        /// Factory method allowing internal creation of
         /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments
         /// instances with pre-configured identifiers (GUID-based).
         /// </summary>
