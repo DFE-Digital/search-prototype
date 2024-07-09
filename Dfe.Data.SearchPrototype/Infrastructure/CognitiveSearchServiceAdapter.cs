@@ -71,7 +71,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
                     searchContext.TargetCollection,
                     searchOptions
                 )
-                .ConfigureAwait(false) ??
+                .ConfigureAwait(false) ??   // TODO: rather than throwing an exception here we can add a status to the result object.
                     throw new ApplicationException(
                         $"Unable to derive search results based on input {searchContext.SearchKeyword}.");
 
