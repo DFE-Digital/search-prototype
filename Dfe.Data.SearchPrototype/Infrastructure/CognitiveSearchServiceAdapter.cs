@@ -55,8 +55,8 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         /// </returns>
         /// <exception cref="ApplicationException">
         /// An application exception is thrown if we either have no options configured, which
-        /// is unrecoverable, or no azure seach results are returned which should not be the
-        /// case given no matches should return an expty wrapper result object.
+        /// is unrecoverable, or no azure seach results are returned which should never be the
+        /// case given no matches should return an empty wrapper result object.
         /// </exception>
         public async Task<Establishments> Search(SearchContext searchContext)
         {
@@ -71,7 +71,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
                     searchContext.TargetCollection,
                     searchOptions
                 )
-                .ConfigureAwait(false) ??   // TODO: rather than throwing an exception here we can add a status to the result object.
+                .ConfigureAwait(false) ??
                     throw new ApplicationException(
                         $"Unable to derive search results based on input {searchContext.SearchKeyword}.");
 
