@@ -1,5 +1,6 @@
 ﻿using Azure.Search.Documents.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Dynamic;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions
@@ -29,7 +30,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions
         /// <exception cref="JsonSerializationException">
         /// Exception thrown if there is a problem deserialising the derived string doument object.
         /// </exception>
-        public static ExpandoObject DeserialiseSearchResultDocument(this SearchResult<object> searchResult)
+        public static ExpandoObject? DeserialiseSearchResultDocument(this SearchResult<object> searchResult)
         {
             ArgumentNullException.ThrowIfNull(searchResult);
 
@@ -40,12 +41,26 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions
                 throw new ArgumentException("An empty or null search document cannot be serialised.");
             }
 
-            var serialisedSearchResult =
-                JsonConvert.DeserializeObject<ExpandoObject>(searchDocument!);
-
-            return serialisedSearchResult ??
+            if (!searchDocument.IsValidJsonString())
+            {
                 throw new JsonSerializationException(
-                    $"Unable to deserialise search result document: {searchDocument}");
+                     $"Invalid json defined in search result document: {searchDocument}");
+            }
+
+            return JsonConvert.DeserializeObject<ExpandoObject?>(searchDocument);
+        }
+
+        static bool IsValidJsonString(this string jsonString)
+        {
+            try
+            {
+                JObject.Parse(jsonString);
+                return true;
+            }
+            catch (JsonReaderException)
+            {
+                return false;
+            }
         }
     }
 }

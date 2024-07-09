@@ -68,11 +68,10 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
                 return searchResults.ToArray();
             }
 
-            public static SearchResult<object> searchResultFake() =>
+            public static SearchResult<object> SearchResultFakeWithDocument(string document) =>
                 SearchModelFactory
                     .SearchResult<object>(
-                        "{\"name\":\"Test\"}",
-                        1.00, new Dictionary<string, IList<string>>());
+                        document, 1.00, new Dictionary<string, IList<string>>());
 
             internal class FakeSearchResult
             {

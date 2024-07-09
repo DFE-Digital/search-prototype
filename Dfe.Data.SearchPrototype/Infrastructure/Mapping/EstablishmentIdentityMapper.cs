@@ -2,6 +2,7 @@
 using Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions;
 using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
+using System.Dynamic;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
 {
@@ -43,7 +44,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// </exception>
         public EstablishmentIdentifier MapFrom(SearchResult<object> input)
         {
-            var searchResult = input.DeserialiseSearchResultDocument();
+            ExpandoObject? searchResult = input.DeserialiseSearchResultDocument();
 
             return searchResult == null ?
                 throw new ArgumentException(
