@@ -1,9 +1,9 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot;
-using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.Entities;
-using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
+using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
+using Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions;
+using System.Dynamic;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
 {
@@ -11,35 +11,8 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
     /// Facilitates mapping from the received T:Azure.Search.Documents.Models.SearchResults
     /// into the required T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments object.
     /// </summary>
-    public sealed class AzureSearchResponseToSearchResultsMapper : IMapper<Response<SearchResults<object>>, Establishments>
+    public sealed class AzureSearchResponseToSearchResultsMapper : IMapper<Response<SearchResults<object>>, EstablishmentResults>
     {
-        private readonly IMapper<SearchResult<object>, EstablishmentIdentifier> _establishmentIdentityMapper;
-        private readonly IMapper<SearchResult<object>, EstablishmentDefinition> _establishmentNameMapper;
-
-        /// <summary>
-        /// The following dependencies provide the sub-mapping behaviour for creating a configured,
-        /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments instance from the
-        /// provided T:Azure.Search.Documents.Models.SearchResults, the complete implementation of
-        /// which is defined in the IOC container.
-        /// </summary>
-        /// <param name="establishmentIdentityMapper">
-        /// Mapper for handling hydration of the
-        /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities.EstablishmentIdentifier
-        /// object injected via IOC container.
-        /// </param>
-        /// <param name="establishmentNameMapper">
-        /// Mapper for handling hydration of the
-        /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities.EstablishmentName
-        /// object injected via IOC container.
-        /// </param>
-        public AzureSearchResponseToSearchResultsMapper(
-            IMapper<SearchResult<object>, EstablishmentIdentifier> establishmentIdentityMapper,
-            IMapper<SearchResult<object>, EstablishmentDefinition> establishmentNameMapper)
-        {
-            _establishmentIdentityMapper = establishmentIdentityMapper;
-            _establishmentNameMapper = establishmentNameMapper;
-        }
-
         /// <summary>
         /// The mapping input is the raw Azure search response T:Azure.Search.Documents.Models.SearchResults
         /// and if any results are contained within the response a new T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments
@@ -54,28 +27,27 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// <exception cref="InvalidOperationException">
         /// Exception thrown if an invalid document is derived from the Azure search result.
         /// </exception>
-        public Establishments MapFrom(Response<SearchResults<object>> input)
+        public EstablishmentResults MapFrom(Response<SearchResults<object>> input)
         {
             ArgumentNullException.ThrowIfNull(input);
 
-            var establismentResults = Establishments.Create();
+            EstablishmentResults establismentResults = new();
             var results = input.Value.GetResults();
 
             if (results.Any())
             {
-                results.ToList().ForEach(searchResult =>
+                results.ToList().ForEach(rawSearchResult =>
                 {
-                    if (searchResult.Document == null)
+                    if (rawSearchResult.Document == null)
                     {
                         throw new InvalidOperationException(
                             "Search result document object cannot be null.");
                     }
 
-                    establismentResults.AddEstablishment(
-                        new Establishment(
-                            _establishmentIdentityMapper.MapFrom(searchResult),
-                            _establishmentNameMapper.MapFrom(searchResult))
-                        );
+                    ExpandoObject? searchResult =
+                        rawSearchResult.DeserialiseSearchResultDocument();
+
+                    // TODO: Add to the Establishments collection
                 });
             }
 

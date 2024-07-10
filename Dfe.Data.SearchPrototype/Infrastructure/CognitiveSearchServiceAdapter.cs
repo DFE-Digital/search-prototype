@@ -2,8 +2,7 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
-using Dfe.Data.SearchPrototype.Search.Application.Adapters;
-using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot;
+using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 
@@ -17,7 +16,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
     {
         private readonly ISearchService _cognitiveSearchService;
         private readonly ISearchOptionsFactory _searchOptionsFactory;
-        private readonly IMapper<Response<SearchResults<object>>, Establishments> _searchResponseMapper;
+        private readonly IMapper<Response<SearchResults<object>>, EstablishmentResults> _searchResponseMapper;
 
         /// <summary>
         /// The following dependencies include the core cognitive search service definition,
@@ -35,7 +34,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         public CognitiveSearchServiceAdapter(
             ISearchService cognitiveSearchService,
             ISearchOptionsFactory searchOptionsFactory,
-            IMapper<Response<SearchResults<object>>, Establishments> searchResponseMapper)
+            IMapper<Response<SearchResults<object>>, EstablishmentResults> searchResponseMapper)
         {
             _searchOptionsFactory = searchOptionsFactory;
             _cognitiveSearchService = cognitiveSearchService;
@@ -58,7 +57,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         /// is unrecoverable, or no azure search results are returned which should never be the
         /// case given no matches should return an empty wrapper result object.
         /// </exception>
-        public async Task<Establishments> Search(SearchContext searchContext)
+        public async Task<EstablishmentResults> Search(SearchContext searchContext)
         {
             SearchOptions searchOptions =
                 _searchOptionsFactory.GetSearchOptions(searchContext.TargetCollection) ??
