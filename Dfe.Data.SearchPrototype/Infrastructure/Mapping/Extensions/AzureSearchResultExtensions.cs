@@ -50,6 +50,16 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions
             return JsonConvert.DeserializeObject<ExpandoObject?>(searchDocument);
         }
 
+        /// <summary>
+        /// Provides a validation check for prescribed JSON strings to ensure
+        /// integrity of the Azure search result document ahead of processing.
+        /// </summary>
+        /// <param name="jsonString">
+        /// The JSON string under scrutiny.
+        /// </param>
+        /// <returns>
+        /// Boolean predicated on whether the prescribed JSON string can be successfully parsed.
+        /// </returns>
         static bool IsValidJsonString(this string jsonString)
         {
             try
