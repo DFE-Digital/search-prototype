@@ -18,6 +18,7 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
         public HomePage(WebApplicationFactory<Program> webApplicationFactory) :
             base(webApplicationFactory, PageName)
         {
+            ArgumentNullException.ThrowIfNull(DocumentObjectModel);
             _pageHeader = PageHeader.Create(DocumentObjectModel);
             _pageBody = PageBody.Create(DocumentObjectModel);
         }
