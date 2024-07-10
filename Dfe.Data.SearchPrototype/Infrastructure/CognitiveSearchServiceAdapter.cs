@@ -3,7 +3,7 @@ using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Search.Application.Adapters;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 
@@ -11,7 +11,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
 {
     /// <summary>
     /// Provides an adaption of the core Azure cognitive search services to allow
-    /// compatability with the Dfe.Data.SearchPrototype application search service definition.
+    /// compatibility with the Dfe.Data.SearchPrototype application search service definition.
     /// </summary>
     public sealed class CognitiveSearchServiceAdapter : ISearchServiceAdapter
     {
@@ -24,7 +24,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         /// the complete implementation of which is defined in the IOC container.
         /// </summary>
         /// <param name="cognitiveSearchService">
-        /// Cognitive search service defintion injected via IOC container.
+        /// Cognitive search service definition injected via IOC container.
         /// </param>
         /// <param name="searchOptionsFactory">
         /// Factory class definition for prescribing the requested search options (by collection context).
@@ -44,10 +44,10 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
 
         /// <summary>
         /// Makes call to underlying azure cognitive search service and uses the prescribed mapper
-        /// to adapt the raw asure search results to the "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments" type.
+        /// to adapt the raw Azure search results to the "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments" type.
         /// </summary>
         /// <param name="searchContext">
-        /// Prescribes the context of the serach including the keywork and collection target.
+        /// Prescribes the context of the search including the keyword and collection target.
         /// </param>
         /// <returns>
         /// A configured "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
@@ -55,7 +55,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         /// </returns>
         /// <exception cref="ApplicationException">
         /// An application exception is thrown if we either have no options configured, which
-        /// is unrecoverable, or no azure seach results are returned which should never be the
+        /// is unrecoverable, or no azure search results are returned which should never be the
         /// case given no matches should return an empty wrapper result object.
         /// </exception>
         public async Task<Establishments> Search(SearchContext searchContext)

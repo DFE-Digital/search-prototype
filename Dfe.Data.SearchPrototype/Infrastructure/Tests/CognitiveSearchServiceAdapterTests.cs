@@ -3,7 +3,7 @@ using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Search.Application.Adapters;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 using FluentAssertions;
@@ -38,7 +38,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests
                         targetCollection: "TargetCollection"));
 
             // assert
-            response.EstablismentResults.Should().NotBeNull().And.HaveCountGreaterThan(0);
+            response.EstablishmentResults.Should().NotBeNull().And.HaveCountGreaterThan(0);
         }
 
         [Fact]

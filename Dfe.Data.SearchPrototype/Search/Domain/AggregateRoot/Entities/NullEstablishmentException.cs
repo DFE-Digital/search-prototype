@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities
+﻿namespace Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.Entities
 {
     /// <summary>
     /// Targeted exception to denote null establishment errors.

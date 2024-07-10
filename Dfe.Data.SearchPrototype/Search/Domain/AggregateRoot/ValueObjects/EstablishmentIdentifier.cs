@@ -1,6 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Search.Domain.Core;
 
-namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
+namespace Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects
 {
     /// <summary>
     /// Object used to encapsulate the establishment identity (i.e. URN).
@@ -13,11 +13,11 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
         public string URN { get; }
 
         /// <summary>
-        /// Provision of the establishment URN via the constructor, together with a
-        /// read-only accessor ensures immutability of the prescribed institution identity.
+        /// Provision of the establishment URN via the constructor, together with
+        /// read-only access ensures immutability of the prescribed institution identity.
         /// </summary>
         /// <param name="urn">
-        /// The establisment URN to be assigned.
+        /// The establishment URN to be assigned.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Exception thrown if an invalid URN string is provided.

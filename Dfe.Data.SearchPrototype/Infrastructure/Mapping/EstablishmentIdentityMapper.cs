@@ -1,6 +1,6 @@
 ﻿using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using System.Dynamic;
 
@@ -18,11 +18,11 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
 
         /// <summary>
         /// Mapper is injected with an T:DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping.IObjectFactoryMapper
-        /// instance and uses the confguration map key 'SearchResultToEstablishmentIdentityMap' to target the
-        /// configuration options for this particular mapping defintion, the complete implementation of which is defined in app settings.
+        /// instance and uses the configuration map key 'SearchResultToEstablishmentIdentityMap' to target the
+        /// configuration options for this particular mapping definition, the complete implementation of which is defined in app-settings.
         /// </summary>
         /// <param name="objectFactoryMapper">
-        /// The T:DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping.IObjectFactoryMapper defintion injected via IOC container.
+        /// The T:DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping.IObjectFactoryMapper definition injected via IOC container.
         /// </param>
         public EstablishmentIdentityMapper(IObjectFactoryMapper objectFactoryMapper)
         {
@@ -33,7 +33,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
         /// Object factory mapper definition for automatically wiring the mapping fields (described by app settings).
         /// </summary>
         /// <param name="input">
-        /// The T:Azure.Search.Documents.Models.SearchResult instanve to map from.
+        /// The T:Azure.Search.Documents.Models.SearchResult instance to map from.
         /// </param>
         /// <returns>
         /// The target T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects.EstablishmentIdentifier to be mapped and returned.

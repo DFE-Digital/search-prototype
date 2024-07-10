@@ -1,7 +1,7 @@
-﻿using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
+﻿using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
 using Dfe.Data.SearchPrototype.Search.Domain.Core.DfE.ComponentLibrary.DomainDrivenDesign.Domain;
 
-namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities
+namespace Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.Entities
 {
     /// <summary>
     /// The entity (defined by URN) which encapsulates the information
@@ -9,7 +9,9 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities
     /// </summary>
     public sealed class Establishment : Entity<EstablishmentIdentifier>
     {
-
+        /// <summary>
+        /// The establishment definition includes the institution name.
+        /// </summary>
         public EstablishmentDefinition Definition { get; set; }
 
         /// <summary>

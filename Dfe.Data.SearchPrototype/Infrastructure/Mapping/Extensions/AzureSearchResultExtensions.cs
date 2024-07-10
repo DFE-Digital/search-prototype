@@ -14,7 +14,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions
     {
         /// <summary>
         /// Takes the "T:Azure.Search.Documents.Models.SearchResult"
-        /// instance and attempts to deserialis the "P:Azure.Search.Documents.Models.Document"
+        /// instance and attempts to deserialised the "P:Azure.Search.Documents.Models.Document"
         /// to a usable "T:System.Dynamic.ExpandoObject".
         /// </summary>
         /// <param name="searchResult">
@@ -28,7 +28,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions
         /// Exception type thrown if no search document can be derived from search results.
         /// </exception>
         /// <exception cref="JsonSerializationException">
-        /// Exception thrown if there is a problem deserialising the derived string doument object.
+        /// Exception thrown if there is a problem deserialising the derived string document object.
         /// </exception>
         public static ExpandoObject? DeserialiseSearchResultDocument(this SearchResult<object> searchResult)
         {
@@ -44,7 +44,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions
             if (!searchDocument.IsValidJsonString())
             {
                 throw new JsonSerializationException(
-                     $"Invalid json defined in search result document: {searchDocument}");
+                     $"Invalid JSON defined in search result document: {searchDocument}");
             }
 
             return JsonConvert.DeserializeObject<ExpandoObject?>(searchDocument);

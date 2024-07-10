@@ -10,7 +10,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Options;
 public interface ISearchOptionsFactory
 {
     /// <summary>
-    /// Specifies the behavior for retieving an
+    /// Specifies the behavior for retrieving an
     /// "T:Dfe.Data.SearchPrototype.Infrastructure.Options.SearchSettingsOptions"
     /// instance by the specified target collection key.
     /// </summary>

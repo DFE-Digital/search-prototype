@@ -1,6 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Search.Domain.Core;
 
-namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
+namespace Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects
 {
     /// <summary>
     /// Object used to encapsulate the primitives which define an establishment (i.e. name).
@@ -13,11 +13,11 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects
         public string Name { get; }
         
         /// <summary>
-        /// Provision of the establishment name via the constructor, together with a
-        /// read-only accessor ensures immutabilit of the prescribed institution name.
+        /// Provision of the establishment name via the constructor, together with
+        /// read-only access ensures immutability of the prescribed institution name.
         /// </summary>
         /// <param name="name">
-        /// The establisment name to be assigned.
+        /// The establishment name to be assigned.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Exception thrown if an invalid name string is provided.

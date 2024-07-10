@@ -2,7 +2,7 @@
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Dfe.Data.SearchPrototype.Infrastructure.Mapping;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping.TestDoubles;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
 using Xunit;
 using static Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping.TestDoubles.ObjectFactoryMapperTestDoubles;
 using static Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.SearchServiceTestDouble;

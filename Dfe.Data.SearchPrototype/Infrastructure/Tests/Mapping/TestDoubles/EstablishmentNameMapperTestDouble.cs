@@ -1,5 +1,5 @@
 ﻿using Azure.Search.Documents.Models;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Moq;
 

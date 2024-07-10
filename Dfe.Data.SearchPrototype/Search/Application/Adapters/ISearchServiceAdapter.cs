@@ -1,10 +1,10 @@
-﻿using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
+﻿using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot;
 
 namespace Dfe.Data.SearchPrototype.Search.Application.Adapters
 {
     /// <summary>
     /// Describes behaviour for an adaption of core search services infrastructure to allow
-    /// compatability with the Dfe.Data.SearchPrototype application search service definition.
+    /// compatibility with the Dfe.Data.SearchPrototype application search service definition.
     /// </summary>
     public interface ISearchServiceAdapter
     {

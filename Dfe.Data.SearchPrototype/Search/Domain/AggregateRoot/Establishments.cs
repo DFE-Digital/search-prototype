@@ -1,12 +1,12 @@
-﻿using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
+﻿using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.Entities;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
 using Dfe.Data.SearchPrototype.Search.Domain.Core;
 
-namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
+namespace Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot
 {
     /// <summary>
-    /// Acts as the aggregate root for all establisment related results, enforcement of this pattern
-    /// ensures consistency and defines a transactional concurrency bounday for the wider object graph
+    /// Acts as the aggregate root for all establishment related results, enforcement of this pattern
+    /// ensures consistency and defines a transactional concurrency boundary for the wider object graph
     /// (i.e. entities and value objects) that are grouped under the aggregate and treated as a conceptual whole. 
     /// </summary>
     public sealed class Establishments : AggregateRoot<EstablishmentsIdentifier>
@@ -15,7 +15,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
 
         /// <summary>
         /// <para>
-        /// Provides a cound over the internal collective state of the encapsulated
+        /// Provides a count over the internal collective state of the encapsulated
         /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities.Establishment objects.
         /// </para>
         /// <para>
@@ -26,17 +26,17 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
         /// be orchestrated by the aggregate.
         /// </para>
         /// </summary>
-        public int EstablismentCount => _establishments.Count;
+        public int EstablishmentCount => _establishments.Count;
 
         /// <summary>
         /// Provides read-only access to the collective state of the encapsulated
         /// T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities.Establishment objects.
         /// </summary>
-        public IReadOnlyCollection<Establishment> EstablismentResults => _establishments.AsReadOnly();
+        public IReadOnlyCollection<Establishment> EstablishmentResults => _establishments.AsReadOnly();
 
         /// <summary>
         /// Requires injection of a configured T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects.EstablishmentsIdentifier
-        /// which provides contextual state to the hydrated aggregate and thus affords a contexual boundary.
+        /// which provides contextual state to the hydrated aggregate and thus affords a contextual boundary.
         /// </summary>
         /// <param name="establishmentsIdentifier">
         /// Identifier which encapsulates the GUID used to uniquely identify an establishments contextual boundary.
@@ -62,7 +62,7 @@ namespace Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot
             if (establishment is null)
             {
                 throw new NullEstablishmentException(
-                    "Only configured establisment instances can be added to the read-only collection.");
+                    "Only configured establishment instances can be added to the read-only collection.");
             }
 
             _establishments.Add(establishment);

@@ -1,10 +1,10 @@
-﻿using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Entities;
-using Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.ValueObjects;
+﻿using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.Entities;
+using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
 using FluentAssertions;
 using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Tests.Search.Domain
+namespace Dfe.Data.SearchPrototype.Tests.Search.Domain.AggregateRoot
 {
     public sealed class EstablishmentsTests
     {
@@ -21,7 +21,7 @@ namespace Dfe.Data.SearchPrototype.Tests.Search.Domain
             // assert.
             establsihments.Should().NotBeNull();
             establsihments.Identifier.Should().NotBeNull();
-            establsihments.Identifier.EstablismentsRootId.Should().Be(EstablishmentRootId.ToString());
+            establsihments.Identifier.EstablishmentsRootId.Should().Be(EstablishmentRootId.ToString());
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace Dfe.Data.SearchPrototype.Tests.Search.Domain
             // assert.
             establsihments.Should().NotBeNull();
             establsihments.Identifier.Should().NotBeNull();
-            establsihments.Identifier.EstablismentsRootId.Should().NotBeEmpty();
+            establsihments.Identifier.EstablishmentsRootId.Should().NotBeEmpty();
         }
 
         [Fact]
@@ -61,8 +61,8 @@ namespace Dfe.Data.SearchPrototype.Tests.Search.Domain
             establishments.AddEstablishment(establishment);
 
             // assert.
-            establishments.EstablismentCount.Should().Be(1);
-            establishments.EstablismentResults.Should().Contain(establishment);
+            establishments.EstablishmentCount.Should().Be(1);
+            establishments.EstablishmentResults.Should().Contain(establishment);
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace Dfe.Data.SearchPrototype.Tests.Search.Domain
                     establishments.AddEstablishment(establishment: null!))
                         .Should()
                             .Throw<NullEstablishmentException>()
-                            .WithMessage("Only configured establisment instances can be added to the read-only collection.");
+                            .WithMessage("Only configured establishment instances can be added to the read-only collection.");
         }
     }
 }

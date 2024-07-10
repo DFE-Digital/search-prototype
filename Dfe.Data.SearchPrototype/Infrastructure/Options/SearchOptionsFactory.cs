@@ -15,7 +15,7 @@ public class SearchOptionsFactory : ISearchOptionsFactory
 
     /// <summary>
     /// Snapshot and concrete mapper implementation injected in order to support
-    /// rerieval of the targeted configuration snapshop, and mao to the expected
+    /// retrieval of the targeted configuration snapshot, and map to the expected
     /// "T:Azure.Search.Documents.SearchOptions" instance.
     /// </summary>
     /// <param name="searchSettingsOptions">
@@ -33,7 +33,7 @@ public class SearchOptionsFactory : ISearchOptionsFactory
     }
 
     /// <summary>
-    /// Rerieves the "T:Dfe.Data.SearchPrototype.Infrastructure.Options.SearchSettingsOptions"
+    /// Retrieves the "T:Dfe.Data.SearchPrototype.Infrastructure.Options.SearchSettingsOptions"
     /// instance (if configured) and attempts to map to "T:Azure.Search.Documents.SearchOptions" instance.
     /// </summary>
     /// <param name="targetCollection">

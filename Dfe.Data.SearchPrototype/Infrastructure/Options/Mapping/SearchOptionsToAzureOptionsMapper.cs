@@ -4,7 +4,7 @@ using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 namespace Dfe.Data.SearchPrototype.Infrastructure.Options.Mapping;
 
 /// <summary>
-/// Concrete mapper implementaiton which translates the results returned from the internal
+/// Concrete mapper implementation which translates the results returned from the internal
 /// "T:Dfe.Data.SearchPrototype.Infrastructure.Options.SearchSettingsOptions",
 /// and maps them to the "T:Azure.Search.Documents.SearchOptions"
 /// type required to configure and invoke the Azure search.
@@ -12,7 +12,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Options.Mapping;
 public sealed class SearchOptionsToAzureOptionsMapper : IMapper<SearchSettingsOptions, SearchOptions>
 {
     /// <summary>
-    /// Entry point for mapping from the recieved
+    /// Entry point for mapping from the received
     /// "T:Dfe.Data.SearchPrototype.Infrastructure.Options.SearchSettingsOptions"
     /// to the returned "T:Azure.Search.Documents.SearchOptions" instance.
     /// </summary>
