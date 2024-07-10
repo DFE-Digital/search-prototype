@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.Search.Domain
+﻿namespace Dfe.Data.SearchPrototype.Search
 {
     public sealed class SearchResults // aggregate root??
     {
