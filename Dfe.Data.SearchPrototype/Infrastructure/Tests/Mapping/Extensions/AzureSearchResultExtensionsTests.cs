@@ -83,7 +83,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping.Extensions
             catch (JsonSerializationException ex)
             {
                 ex.Should().BeOfType<JsonSerializationException>();
-                ex.Message.Should().Be("Invalid json defined in search result document: {\"name\":\"Test\"");
+                ex.Message.Should().Be("Invalid JSON defined in search result document: {\"name\":\"Test\"");
             }
         }
     }
