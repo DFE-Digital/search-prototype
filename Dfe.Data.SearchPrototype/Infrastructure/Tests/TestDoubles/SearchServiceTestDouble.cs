@@ -1,7 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
-using Bogus;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 using Moq;
 
@@ -43,39 +42,5 @@ internal static class SearchServiceTestDouble
             Task.FromResult<Response<SearchResults<object>>>(default!);
 
         return MockFor(validServiceResponseFake);
-    }
-
-    public static class SearchResultFake
-    {
-        public static SearchResult<object>[] SearchResultFakes()
-        {
-            var searchResultFake =
-               new Faker<FakeSearchResult>()
-               .StrictMode(false)
-                  .RuleFor(
-                       searchResult => searchResult.Name,
-                       _ => new Bogus.Faker().Company.CompanyName());
-
-            int amount = new Bogus.Faker().Random.Number(1, 10);
-            var searchResults = new List<SearchResult<object>>();
-
-            for (int i = 0; i < amount; i++)
-            {
-                var fakeSearchResult = searchResultFake.Generate();
-                searchResults.Add(SearchModelFactory.SearchResult((object)fakeSearchResult, 100, null));
-            }
-
-            return searchResults.ToArray();
-        }
-
-        public static SearchResult<object> SearchResultFakeWithDocument(string document) =>
-            SearchModelFactory
-                .SearchResult<object>(
-                    document, 1.00, new Dictionary<string, IList<string>>());
-
-        internal class FakeSearchResult
-        {
-            public string? Name { get; set; }
-        }
     }
 }

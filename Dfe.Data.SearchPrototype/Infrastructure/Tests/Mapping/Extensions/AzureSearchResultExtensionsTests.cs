@@ -16,7 +16,7 @@ public sealed class AzureSearchResultExtensionsTests
         // arrange
         const string SearchResultDocument = "{\"name\":\"Test\"}";
         SearchResult<object> searchResult =
-            SearchServiceTestDouble.SearchResultFake
+            SearchResultFake
                 .SearchResultFakeWithDocument(SearchResultDocument);
 
         // act
@@ -51,7 +51,7 @@ public sealed class AzureSearchResultExtensionsTests
         // arrange
         const string SearchResultDocument = "";
         SearchResult<object> searchResult =
-            SearchServiceTestDouble.SearchResultFake
+            SearchResultFake
                 .SearchResultFakeWithDocument(SearchResultDocument);
 
         // act.
@@ -72,10 +72,10 @@ public sealed class AzureSearchResultExtensionsTests
         // arrange
         const string SearchResultDocument = "{\"name\":\"Test\"";
         SearchResult<object> searchResult =
-            SearchServiceTestDouble.SearchResultFake
+            SearchResultFake
                 .SearchResultFakeWithDocument(SearchResultDocument);
 
-        // act.
+        // act
         try
         {
             searchResult.DeserialiseSearchResultDocument();

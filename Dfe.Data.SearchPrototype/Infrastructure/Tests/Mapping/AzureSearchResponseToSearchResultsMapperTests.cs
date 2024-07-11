@@ -5,9 +5,7 @@ using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using FluentAssertions;
-using Moq;
 using Xunit;
-using static Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.SearchServiceTestDouble;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping;
 
@@ -20,19 +18,14 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
         IMapper<Response<SearchResults<object>>, EstablishmentResults> mapper =
             new AzureSearchResponseToSearchResultsMapper();
 
-        var responseMock = new Mock<Response>();
+        var SearchResultDocuments = new List<string>() { "{\"id\":\"123456\",\"ESTABLISHMENTNAME\":\"Establishment name\"}" };
+        Response<SearchResults<object>> responseFake =
+            ResponseFake
+                .WithSearchResults(
+                    SearchResultFake.SearchResultsFakeWithDocuments(SearchResultDocuments));
 
         // act
-        const string SearchResultDocument = "{\"id\":\"123456\",\"ESTABLISHMENTNAME\":\"Etablishment name\"}";
-        SearchResult<object> searchResult =
-            SearchServiceTestDouble.SearchResultFake
-                .SearchResultFakeWithDocument(SearchResultDocument);
-        Response<SearchResults<object>> responseFake =
-            Response.FromValue(
-                SearchModelFactory.SearchResults(
-                    new List<SearchResult<object>>() { searchResult }, 100, null, null, responseMock.Object), responseMock.Object);
-
-        EstablishmentResults ? result = mapper.MapFrom(responseFake);
+        EstablishmentResults? result = mapper.MapFrom(responseFake);
 
         // assert
         result.Should().NotBeNull();
@@ -45,7 +38,6 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
         IMapper<Response<SearchResults<object>>, EstablishmentResults> mapper =
             new AzureSearchResponseToSearchResultsMapper();
 
-        // act
         Response<SearchResults<object>> responseFake = null!;
 
         // act.
