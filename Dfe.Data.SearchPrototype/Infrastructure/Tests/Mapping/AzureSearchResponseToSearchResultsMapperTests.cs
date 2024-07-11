@@ -1,67 +1,59 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Mapping;
-using Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping.TestDoubles;
-using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot;
-using Dfe.Data.SearchPrototype.Search.Domain.AggregateRoot.ValueObjects;
+using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
+using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using FluentAssertions;
 using Moq;
 using Xunit;
 using static Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.SearchServiceTestDouble;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping;
+
+public sealed class AzureSearchResponseToSearchResultsMapperTests
 {
-    public sealed class AzureSearchResponseToSearchResultsMapperTests
+    [Fact]
+    public void MapFrom_With_Valid_Search_Results_Returns_Configured_Establishments()
     {
-        [Fact]
-        public void MapFrom_With_Valid_Search_Results_Returns_Configured_Establishments()
-        {
-            // arrange
-            IMapper<SearchResult<object>, EstablishmentIdentifier> identityMapper =
-                EstablishmentIdentityMapperTestDoubles.MockFor(EstablishmentIdentifierFake.GetEstablishmentIdentifierFake());
-            IMapper<SearchResult<object>, EstablishmentDefinition> nameMapper = 
-                EstablishmentNameMapperTestDouble.MockFor(EstablishmentNameFake.GetEstablishmentNameFake());
+        // arrange
+        IMapper<Response<SearchResults<object>>, EstablishmentResults> mapper =
+            new AzureSearchResponseToSearchResultsMapper();
 
-            IMapper<Response<SearchResults<object>>, Establishments> mapper =
-                new AzureSearchResponseToSearchResultsMapper(identityMapper, nameMapper);
+        var responseMock = new Mock<Response>();
 
-            var responseMock = new Mock<Response>();
+        // act
+        const string SearchResultDocument = "{\"id\":\"123456\",\"ESTABLISHMENTNAME\":\"Etablishment name\"}";
+        SearchResult<object> searchResult =
+            SearchServiceTestDouble.SearchResultFake
+                .SearchResultFakeWithDocument(SearchResultDocument);
+        Response<SearchResults<object>> responseFake =
+            Response.FromValue(
+                SearchModelFactory.SearchResults(
+                    new List<SearchResult<object>>() { searchResult }, 100, null, null, responseMock.Object), responseMock.Object);
 
-            // act
-            Response<SearchResults<object>> responseFake =
-                Response.FromValue(
-                    SearchModelFactory.SearchResults(
-                        SearchResultFake.SearchResultFakes(), 100, null, null, responseMock.Object), responseMock.Object);
+        EstablishmentResults ? result = mapper.MapFrom(responseFake);
 
-            Establishments? result = mapper.MapFrom(responseFake);
+        // assert
+        result.Should().NotBeNull();
+    }
 
-            // assert
-            result.Should().NotBeNull();
-        }
+    [Fact]
+    public void MapFrom_With_Null_Search_Results_Throws_Expected_Argument_Null_Exception()
+    {
+        // arrange
+        IMapper<Response<SearchResults<object>>, EstablishmentResults> mapper =
+            new AzureSearchResponseToSearchResultsMapper();
 
-        [Fact]
-        public void MapFrom_With_Null_Search_Results_Throws_Expected_Argument_Null_Exception()
-        {
-            // arrange
-            IMapper<SearchResult<object>, EstablishmentIdentifier> identityMapper =
-                EstablishmentIdentityMapperTestDoubles.DefaultMock();
-            IMapper<SearchResult<object>, EstablishmentDefinition> nameMapper =
-                EstablishmentNameMapperTestDouble.DefaultMock();
+        // act
+        Response<SearchResults<object>> responseFake = null!;
 
-            IMapper<Response<SearchResults<object>>, Establishments> mapper =
-                new AzureSearchResponseToSearchResultsMapper(identityMapper, nameMapper);
-
-            // act
-            Response<SearchResults<object>> responseFake = null!;
-
-            // act.
-            mapper
-                .Invoking(mapper =>
-                    mapper.MapFrom(responseFake))
-                        .Should()
-                            .Throw<ArgumentNullException>()
-                            .WithMessage("Value cannot be null. (Parameter 'input')");
-        }
+        // act.
+        mapper
+            .Invoking(mapper =>
+                mapper.MapFrom(responseFake))
+                    .Should()
+                        .Throw<ArgumentNullException>()
+                        .WithMessage("Value cannot be null. (Parameter 'input')");
     }
 }

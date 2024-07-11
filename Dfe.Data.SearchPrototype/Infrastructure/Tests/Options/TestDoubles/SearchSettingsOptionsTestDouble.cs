@@ -2,21 +2,20 @@
 using Microsoft.Extensions.Options;
 using Moq;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.TestDoubles
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.TestDoubles;
+
+internal static class SearchSettingsOptionsTestDouble
 {
-    internal static class SearchSettingsOptionsTestDouble
+    public static IOptions<SearchSettingsOptions> Dummy() => Mock.Of<IOptions<SearchSettingsOptions>>();
+
+    public static IOptions<SearchSettingsOptions> MockFor()
     {
-        public static IOptions<SearchSettingsOptions> Dummy() => Mock.Of<IOptions<SearchSettingsOptions>>();
+        var searchSettingsOptionsMock = new Mock<IOptions<SearchSettingsOptions>>();
+        var searchSettingsOptions = new SearchSettingsOptions() { SearchIndex = "TestIndex" };
 
-        public static IOptions<SearchSettingsOptions> MockFor()
-        {
-            var searchSettingsOptionsMock = new Mock<IOptions<SearchSettingsOptions>>();
-            var searchSettingsOptions = new SearchSettingsOptions() { SearchIndex = "TestIndex" };
+        searchSettingsOptionsMock.SetupGet(options =>
+            options.Value).Returns(searchSettingsOptions);
 
-            searchSettingsOptionsMock.SetupGet(options =>
-                options.Value).Returns(searchSettingsOptions);
-
-            return searchSettingsOptionsMock.Object;
-        }
+        return searchSettingsOptionsMock.Object;
     }
 }

@@ -4,21 +4,20 @@ using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Moq;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.TestDoubles
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.TestDoubles;
+
+internal static class SearchOptionsToAzureOptionsMapperTestDoubles
 {
-    internal static class SearchOptionsToAzureOptionsMapperTestDoubles
+    public static IMapper<SearchSettingsOptions, SearchOptions> Dummy() => Mock.Of<IMapper<SearchSettingsOptions, SearchOptions>>();
+
+    public static IMapper<SearchSettingsOptions, SearchOptions> MockDefaultMapper()
     {
-        public static IMapper<SearchSettingsOptions, SearchOptions> Dummy() => Mock.Of<IMapper<SearchSettingsOptions, SearchOptions>>();
+        var searchOptionsToAzureOptionsMapperMock = new Mock<IMapper<SearchSettingsOptions, SearchOptions>>();
 
-        public static IMapper<SearchSettingsOptions, SearchOptions> MockDefaultMapper()
-        {
-            var searchOptionsToAzureOptionsMapperMock = new Mock<IMapper<SearchSettingsOptions, SearchOptions>>();
+        searchOptionsToAzureOptionsMapperMock.Setup(mapper =>
+            mapper.MapFrom(It.IsAny<SearchSettingsOptions>()))
+                .Returns(SearchOptionsFactoryTestDouble.SearchOptionsFake);
 
-            searchOptionsToAzureOptionsMapperMock.Setup(mapper =>
-                mapper.MapFrom(It.IsAny<SearchSettingsOptions>()))
-                    .Returns(SearchOptionsFactoryTestDouble.SearchOptionsFake);
-
-            return searchOptionsToAzureOptionsMapperMock.Object;
-        }
+        return searchOptionsToAzureOptionsMapperMock.Object;
     }
 }

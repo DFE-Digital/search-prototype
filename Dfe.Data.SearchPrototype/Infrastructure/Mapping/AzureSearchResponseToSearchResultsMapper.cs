@@ -48,7 +48,7 @@ public sealed class AzureSearchResponseToSearchResultsMapper : IMapper<Response<
                     rawSearchResult.DeserialiseSearchResultDocument();
                 dynamic dynamicSearchResult = searchResult;
                 // TODO: Add to the Establishments collection
-                establismentResults.AddEstablishment(new Establishment(dynamicSearchResult.id, dynamicSearchResult.ESTABLISHMENTNAME));
+                establismentResults.AddEstablishment(new Establishment(urn: dynamicSearchResult.id, name: dynamicSearchResult.ESTABLISHMENTNAME));
             });
         }
 
