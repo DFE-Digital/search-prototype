@@ -2,8 +2,6 @@
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
-using Dfe.Data.SearchPrototype.Infrastructure.Mapping.Extensions;
-using System.Dynamic;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping;
 
@@ -11,7 +9,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping;
 /// Facilitates mapping from the received T:Azure.Search.Documents.Models.SearchResults
 /// into the required T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments object.
 /// </summary>
-public sealed class AzureSearchResponseToSearchResultsMapper : IMapper<Response<SearchResults<object>>, EstablishmentResults>
+public sealed class AzureEstablishmentSearchResponseToSearchResultsMapper : IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>
 {
     /// <summary>
     /// The mapping input is the raw Azure search response T:Azure.Search.Documents.Models.SearchResults
@@ -27,12 +25,12 @@ public sealed class AzureSearchResponseToSearchResultsMapper : IMapper<Response<
     /// <exception cref="InvalidOperationException">
     /// Exception thrown if an invalid document is derived from the Azure search result.
     /// </exception>
-    public EstablishmentResults MapFrom(Response<SearchResults<object>> input)
+    public EstablishmentResults MapFrom(Response<SearchResults<Establishment>> input)
     {
         ArgumentNullException.ThrowIfNull(input);
 
-        EstablishmentResults establismentResults = new();
-        var results = input.Value.GetResults();
+        EstablishmentResults establishmentResults = new();
+        var results = input.Value.GetResults(); // synchronous operation TODO is this good enough?
 
         if (results.Any())
         {
@@ -44,14 +42,14 @@ public sealed class AzureSearchResponseToSearchResultsMapper : IMapper<Response<
                         "Search result document object cannot be null.");
                 }
 
-                ExpandoObject? searchResult =
-                    rawSearchResult.DeserialiseSearchResultDocument();
-                dynamic dynamicSearchResult = searchResult;
-                // TODO: Add to the Establishments collection
-                establismentResults.AddEstablishment(new Establishment(urn: dynamicSearchResult.id, name: dynamicSearchResult.ESTABLISHMENTNAME));
+                // TODO mapper
+                establishmentResults.AddEstablishment(
+                    new Search.Establishment(
+                        urn: rawSearchResult.Document.id ?? string.Empty,
+                        name: rawSearchResult.Document.ESTABLISHMENTNAME ?? string.Empty));
             });
         }
 
-        return establismentResults;
+        return establishmentResults;
     }
 }

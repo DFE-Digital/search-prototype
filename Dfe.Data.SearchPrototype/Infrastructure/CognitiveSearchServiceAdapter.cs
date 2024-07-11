@@ -12,11 +12,11 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
     /// Provides an adaption of the core Azure cognitive search services to allow
     /// compatibility with the Dfe.Data.SearchPrototype application search service definition.
     /// </summary>
-    public sealed class CognitiveSearchServiceAdapter : ISearchServiceAdapter
+    public sealed class CognitiveSearchServiceAdapter<T> : ISearchServiceAdapter where T : class
     {
         private readonly ISearchService _cognitiveSearchService;
         private readonly ISearchOptionsFactory _searchOptionsFactory;
-        private readonly IMapper<Response<SearchResults<object>>, EstablishmentResults> _searchResponseMapper;
+        private readonly IMapper<Response<SearchResults<T>>, EstablishmentResults> _searchResponseMapper;
 
         /// <summary>
         /// The following dependencies include the core cognitive search service definition,
@@ -34,7 +34,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         public CognitiveSearchServiceAdapter(
             ISearchService cognitiveSearchService,
             ISearchOptionsFactory searchOptionsFactory,
-            IMapper<Response<SearchResults<object>>, EstablishmentResults> searchResponseMapper)
+            IMapper<Response<SearchResults<T>>, EstablishmentResults> searchResponseMapper)
         {
             _searchOptionsFactory = searchOptionsFactory;
             _cognitiveSearchService = cognitiveSearchService;
@@ -64,8 +64,8 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
                 throw new ApplicationException(
                     $"Search options cannot be derived for {searchContext.TargetCollection}.");
 
-            Response<SearchResults<object>> searchResults =
-                await _cognitiveSearchService.SearchAsync<object>(
+            Response<SearchResults<T>> searchResults =
+                await _cognitiveSearchService.SearchAsync<T>(
                     searchContext.SearchKeyword,
                     searchContext.TargetCollection,
                     searchOptions

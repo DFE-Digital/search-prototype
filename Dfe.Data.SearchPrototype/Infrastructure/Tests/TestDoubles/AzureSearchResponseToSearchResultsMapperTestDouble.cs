@@ -8,41 +8,33 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 internal static class AzureSearchResponseToSearchResultsMapperTestDouble
 {
-    public static IMapper<Response<SearchResults<object>>, EstablishmentResults> DefaultMock() =>
-        Mock.Of<IMapper<Response<SearchResults<object>>, EstablishmentResults>>();
+    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> DefaultMock() =>
+        Mock.Of<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
 
-    public static IMapper<Response<SearchResults<object>>, EstablishmentResults> MockFor(EstablishmentResults establishments)
+    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockFor(EstablishmentResults establishments)
     {
-        var mapperMock = new Mock<IMapper<Response<SearchResults<object>>, EstablishmentResults>>();
+        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
 
         mapperMock.Setup(
             mapper =>
                 mapper.MapFrom(
-                    It.IsAny<Response<SearchResults<object>>>())).Returns(establishments);
+                    It.IsAny<Response<SearchResults<Establishment>>>())).Returns(establishments);
 
         return mapperMock.Object;
     }
 
-    public static IMapper<Response<SearchResults<object>>, EstablishmentResults> MockDefaultMapper()
+    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockDefaultMapper()
     {
-        int amount = new Bogus.Faker().Random.Number(1, 10);
-        var establishmentResults = new EstablishmentResults();
-
-        for (int i = 0; i < amount; i++)
-        {
-            Establishment establishmentFake =
-                EstablishmentFakes.GetEstablishmentFake();
-
-            establishmentResults.AddEstablishment(establishmentFake);
-        }
-
-        return MockFor(establishmentResults);
+        var mockMapper = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
+        mockMapper.Setup(mapper => mapper.MapFrom(It.IsAny<Response<SearchResults<Establishment>>>()))
+            .Returns(new EstablishmentResults());
+        return mockMapper.Object;
     }
 
     internal static class EstablishmentFakes
     {
         public static Establishment GetEstablishmentFake() =>
-            new(GetEstablishmentIdentifierFake(), GetEstablishmentNameFake());
+            new() { id = GetEstablishmentIdentifierFake(), ESTABLISHMENTNAME = GetEstablishmentNameFake() };
 
         private static string GetEstablishmentNameFake() =>
              new Bogus.Faker().Company.CompanyName();

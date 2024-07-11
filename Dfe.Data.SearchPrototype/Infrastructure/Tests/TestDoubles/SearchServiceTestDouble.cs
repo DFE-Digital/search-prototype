@@ -10,13 +10,13 @@ internal static class SearchServiceTestDouble
 {
     public static ISearchService DefaultMock() => Mock.Of<ISearchService>();
 
-    public static ISearchService MockFor(Task<Response<SearchResults<object>>> searchResult)
+    public static ISearchService MockFor(Task<Response<SearchResults<Establishment>>> searchResult)
     {
         var searchServiceMock = new Mock<ISearchService>();
 
         searchServiceMock.Setup(searchService =>
             searchService
-                .SearchAsync<object>(
+                .SearchAsync<Establishment>(
                     It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOptions>()))
                     .Returns(searchResult);
 
@@ -39,7 +39,7 @@ internal static class SearchServiceTestDouble
     public static ISearchService MockForDefaultResult()
     {
         var validServiceResponseFake =
-            Task.FromResult<Response<SearchResults<object>>>(default!);
+            Task.FromResult<Response<SearchResults<Establishment>>>(default!);
 
         return MockFor(validServiceResponseFake);
     }

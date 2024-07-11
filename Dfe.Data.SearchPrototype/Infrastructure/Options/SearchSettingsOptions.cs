@@ -9,5 +9,6 @@ public class SearchSettingsOptions
     public int Size { get; set; }
     public bool IncludeTotalCount { get; set; }
     public IList<string>? SearchFields { get; set; }
+    public IList<string>? SelectFields { get; set; }
     public IList<string>? Facets { get; set; }
 }

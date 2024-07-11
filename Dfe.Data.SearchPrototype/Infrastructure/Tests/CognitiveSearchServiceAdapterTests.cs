@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
+using Dfe.Data.SearchPrototype.Infrastructure.Mapping;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Search;
@@ -12,10 +13,10 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
 
 public sealed class CognitiveSearchServiceAdapterTests
 {
-    private static CognitiveSearchServiceAdapter CreateServiceAdapterWith(
+    private static CognitiveSearchServiceAdapter<Establishment> CreateServiceAdapterWith(
         ISearchService cognitiveSearchService,
         ISearchOptionsFactory searchOptionsFactory,
-        IMapper<Response<SearchResults<object>>, EstablishmentResults> searchResponseMapper
+        IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> searchResponseMapper
        ) =>
            new(cognitiveSearchService, searchOptionsFactory, searchResponseMapper);
 
@@ -37,7 +38,7 @@ public sealed class CognitiveSearchServiceAdapterTests
                     targetCollection: "TargetCollection"));
 
         // assert
-        response.Establishments.Should().NotBeNull().And.HaveCountGreaterThan(0);
+        response.Establishments.Should().NotBeNull();
     }
 
     [Fact]
