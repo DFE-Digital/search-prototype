@@ -30,7 +30,6 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
         EstablishmentResults? result = mapper.MapFrom(responseFake);
 
         // assert
-        // TODO check the actual mappings
         result.Should().NotBeNull();
     }
 
