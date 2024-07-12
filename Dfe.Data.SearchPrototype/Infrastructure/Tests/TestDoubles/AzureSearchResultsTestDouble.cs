@@ -7,7 +7,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 public static class SearchResultFake
 {
-    public static SearchResult<Establishment>[] SearchResultFakes() 
+    public static SearchResult<Establishment>[] SearchResultFakes()
     {
         var searchResultFaker =
            new Faker<Establishment>()

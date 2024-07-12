@@ -1,6 +1,5 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.SearchPrototype.Infrastructure.Mapping;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Search;

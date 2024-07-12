@@ -15,13 +15,16 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
     public void MapFrom_With_Valid_Search_Results_Returns_Configured_Establishments()
     {
         // arrange
-        IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> mapper =
-            new AzureEstablishmentSearchResponseToSearchResultsMapper();
+        IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper =
+            new AzureSearchResultToEstablishmentMapper();
 
-        var searchResultDocuments = SearchResultFake.SearchResultFakes();
-        Response<SearchResults<Establishment>> responseFake =
-            ResponseFake
-                  .WithSearchResults(searchResultDocuments);
+        IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> mapper =
+            new AzureSearchResponseToEstablishmentsMapper(azureSearchResultToEstablishmentMapper);
+
+        var searchResultDocuments =
+            SearchResultFake.SearchResultFakes();
+                Response<SearchResults<Establishment>> responseFake =
+                    ResponseFake.WithSearchResults(searchResultDocuments);
 
         // act
         EstablishmentResults? result = mapper.MapFrom(responseFake);
@@ -35,8 +38,11 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
     public void MapFrom_With_Null_Search_Results_Throws_Expected_Argument_Null_Exception()
     {
         // arrange
+        IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper =
+            new AzureSearchResultToEstablishmentMapper();
+
         IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> mapper =
-            new AzureEstablishmentSearchResponseToSearchResultsMapper();
+            new AzureSearchResponseToEstablishmentsMapper(azureSearchResultToEstablishmentMapper);
 
         Response<SearchResults<Establishment>> responseFake = null!;
 
