@@ -23,6 +23,7 @@ public sealed class CognitiveSearchServiceAdapterTests
     public async Task Search_With_Valid_SearchContext_Returns_Configured_Results()
     {
         // arrange
+        // TODO assert that the mocks are called
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
                 SearchServiceTestDouble.MockSearchService(),

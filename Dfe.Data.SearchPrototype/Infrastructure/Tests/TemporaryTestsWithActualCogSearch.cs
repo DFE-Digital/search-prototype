@@ -59,8 +59,8 @@ public class TemporaryTestsWithActualCogSearch
             SearchMode = SearchMode.Any,
             Size = 100,
             IncludeTotalCount = true,
-            SearchFields = { "ESTABLISHMENTNAME" }, // if any of these fields are misnamed, azure search will throw exception
-            Select = { "ESTABLISHMENTNAME", "id" } // if any of these fields are misnamed, azure search will throw exception
+            SearchFields = { "ESTABLISHMENTNAME" },
+            Select = { "ESTABLISHMENTNAME", "id" }
         });
 
         var indexNamesProvider = new SearchIndexNamesProvider(_options);
