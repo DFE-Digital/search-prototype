@@ -12,8 +12,11 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
             base(webApplicationFactory, pageName){
         }
 
-        public string GetPrivacyPageTitle() =>
-            DocumentObjectModel.GetElementsByTagName(TitleElement).Single().InnerHtml;
+        public string GetPrivacyPageTitle()
+        {
+            ArgumentNullException.ThrowIfNull(DocumentObjectModel);
+            return DocumentObjectModel.GetElementsByTagName(TitleElement).Single().InnerHtml;
+        }
 
         public static PrivacyPage NavigateToPage(
             WebApplicationFactory<Program> webApplicationFactory, string pageName) => new(webApplicationFactory, pageName);
