@@ -6,6 +6,7 @@ using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
@@ -23,12 +24,15 @@ public sealed class CognitiveSearchServiceAdapterTests
     public async Task Search_With_Valid_SearchContext_Returns_Configured_Results()
     {
         // arrange
-        // TODO assert that the mocks are called
+        var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
+        var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper();
+
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
-                SearchServiceTestDouble.MockSearchService(),
-                SearchOptionsFactoryTestDouble.MockSearchOptionsFactory(),
-                AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
+                mockService,
+                mockSearchOptionsFactory,
+                mockMapper);
 
         // act
         EstablishmentResults? response =
@@ -39,6 +43,9 @@ public sealed class CognitiveSearchServiceAdapterTests
 
         // assert
         response.Establishments.Should().NotBeNull();
+        Mock.Get(mockService).Verify(SearchServiceTestDouble.SearchRequest("SearchKeyword", "TargetCollection"),Times.Once());
+        Mock.Get(mockSearchOptionsFactory).Verify(SearchOptionsFactoryTestDouble.SearchOption(), Times.Once());
+        Mock.Get(mockMapper).Verify(AzureSearchResponseToSearchResultsMapperTestDouble.MapFrom(), Times.Once());
     }
 
     [Fact]
@@ -47,7 +54,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         // arrange
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
-                SearchServiceTestDouble.MockSearchService(),
+                SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection"),
                 SearchOptionsFactoryTestDouble.MockForDefaultResult(),
                 AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
 
