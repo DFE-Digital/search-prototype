@@ -1,6 +1,5 @@
-﻿# Performance Tables Web Tests
+﻿# Search Prototype Acceptance & Accessbility Tests
 
-[[_TOC_]]
 
 ## Overview
 

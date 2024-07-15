@@ -1,6 +1,7 @@
 ﻿using Deque.AxeCore.Selenium;
 using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
@@ -14,6 +15,12 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         private readonly IWebDriver _driver;
         private readonly ITestOutputHelper _logger;
         private readonly ScenarioContext _scenarioContext;
+        
+        private Dictionary<string, string> _pageNameToUrlConverter = new Dictionary<string, string>()
+        {
+            { "home", "/" },
+            { "privacy", "/Home/Privacy" }
+        };
 
         public AccessibilitySteps(
             HomePage homePage,
@@ -28,10 +35,10 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
             _scenarioContext = scenarioContext;
         }
 
-        [StepDefinition(@"the user views the homepage")]
-        public void OpenHome()
+        [StepDefinition(@"the user views the (home|privacy) page")]
+        public void OpenPage(string pageName)
         {
-            _driver.Navigate().GoToUrl("http://localhost:5000/");
+            _driver.Navigate().GoToUrl($"http://localhost:5000{_pageNameToUrlConverter[pageName]}");
             _homePage.Heading.Criteria.Should().NotBeNull();
         }
 
