@@ -1,37 +1,44 @@
 ﻿using Dfe.Data.SearchPrototype.Search;
 using Dfe.Data.SearchPrototype.Web.Mapping;
 using Dfe.Data.SearchPrototype.Web.Models;
+using Dfe.Data.SearchPrototype.Web.Tests.TestDoubles;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.Unit;
 
 public class ServiceModelToViewModelMapperTests
 {
+    private readonly IMapper<EstablishmentResults, SearchResultsViewModel> _serviceModelToViewModelMapper
+        = new ServiceModelToViewModelMapper();
+
     [Fact]
     public void Mapper_ReturnViewModel()
     {
         // arrange.
-        EstablishmentResults establishmentResults = new EstablishmentResults();
-        Establishment establishment = new Establishment("urn", "name");
-        establishmentResults.AddEstablishment(establishment);
-
-        IMapper<EstablishmentResults, SearchResultsViewModel> serviceModelToViewModelMapper = new ServiceModelToViewModelMapper();
+        EstablishmentResults establishmentResults = EstablishmentResultsTestDouble.Create();
 
         // act.
-
-        SearchResultsViewModel viewModelResults = serviceModelToViewModelMapper.MapFrom(establishmentResults);
-
-
+        SearchResultsViewModel viewModelResults = _serviceModelToViewModelMapper.MapFrom(establishmentResults);
 
         // assert.
+        for (int i=0; i< establishmentResults.Establishments.Count; i++)
+        {
+            Assert.Equal(establishmentResults.Establishments.ToList()[i].Urn, viewModelResults.searchItems[i].Urn);
+            Assert.Equal(establishmentResults.Establishments.ToList()[i].Name, viewModelResults.searchItems[i].Name);
+        }
+    }
 
-        Assert.Equal(viewModelResults.searchItems.First().Urn, establishmentResults.Establishments.First().Urn);
-        Assert.Equal(viewModelResults.searchItems.First().Name, establishmentResults.Establishments.First().Name);
+    [Fact]
+    public void Mapper_NoResults_ReturnViewModel_EmptyList()
+    {
+        // arrange.
+        EstablishmentResults establishmentResults = EstablishmentResultsTestDouble.CreateWithNoResults();
+
+        // act.
+        SearchResultsViewModel viewModelResults = _serviceModelToViewModelMapper.MapFrom(establishmentResults);
+
+        // assert.
+        Assert.Empty(viewModelResults.searchItems);
     }
 }

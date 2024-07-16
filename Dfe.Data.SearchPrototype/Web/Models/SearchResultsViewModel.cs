@@ -2,6 +2,5 @@
 
 public class SearchResultsViewModel
 {
-    public List<SearchItemViewModel> searchItems = new List<SearchItemViewModel>();
-
+    public List<SearchItemViewModel> searchItems = new ();
 }

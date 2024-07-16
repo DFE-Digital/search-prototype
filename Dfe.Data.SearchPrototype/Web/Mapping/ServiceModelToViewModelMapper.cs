@@ -14,11 +14,8 @@ public class ServiceModelToViewModelMapper : IMapper<EstablishmentResults, Searc
         {
             viewModel.searchItems.Add(new SearchItemViewModel
             {
-
                 Urn = establishment.Urn,
-
                 Name = establishment.Name
-
             });
         }
         return viewModel;
