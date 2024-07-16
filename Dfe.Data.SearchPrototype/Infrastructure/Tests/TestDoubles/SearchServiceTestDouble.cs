@@ -3,27 +3,27 @@ using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 using Moq;
+using System.Linq.Expressions;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 internal static class SearchServiceTestDouble
 {
     public static ISearchService DefaultMock() => Mock.Of<ISearchService>();
+    public static Expression<Func<ISearchService, Task<Response<SearchResults<Establishment>>>>> SearchRequest(string keyword, string collection) =>
+        searchService => searchService.SearchAsync<Establishment>(keyword, collection, It.IsAny<SearchOptions>());
 
-    public static ISearchService MockFor(Task<Response<SearchResults<Establishment>>> searchResult)
+    public static ISearchService MockFor(Task<Response<SearchResults<Establishment>>> searchResult, string keyword, string collection)
     {
         var searchServiceMock = new Mock<ISearchService>();
 
-        searchServiceMock.Setup(searchService =>
-            searchService
-                .SearchAsync<Establishment>(
-                    It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOptions>()))
-                    .Returns(searchResult);
+        searchServiceMock.Setup(SearchRequest(keyword, collection))
+            .Returns(searchResult);
 
         return searchServiceMock.Object;
     }
 
-    public static ISearchService MockSearchService()
+    public static ISearchService MockSearchService(string keyword, string collection)
     {
         var responseMock = new Mock<Response>();
 
@@ -33,7 +33,7 @@ internal static class SearchServiceTestDouble
                     SearchModelFactory.SearchResults(
                         SearchResultFake.SearchResultFakes(), 100, null, null, responseMock.Object), responseMock.Object));
 
-        return MockFor(validServiceResponseFake);
+        return MockFor(validServiceResponseFake, keyword, collection);
     }
 
     public static ISearchService MockForDefaultResult()
@@ -41,6 +41,6 @@ internal static class SearchServiceTestDouble
         var validServiceResponseFake =
             Task.FromResult<Response<SearchResults<Establishment>>>(default!);
 
-        return MockFor(validServiceResponseFake);
+        return MockFor(validServiceResponseFake, string.Empty, string.Empty);
     }
 }

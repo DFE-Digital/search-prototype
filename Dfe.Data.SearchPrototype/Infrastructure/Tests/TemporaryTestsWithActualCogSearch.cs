@@ -16,7 +16,7 @@ using Microsoft.Extensions.Configuration;
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
 
 /// <summary>
-/// Temporary test class so that I can see how Cog search behaves with various settings including misconfigurations
+/// Temporary test class so that I can see how Cog search behaves with various settings including mis-configurations.
 /// </summary>
 public class TemporaryTestsWithActualCogSearch
 {
@@ -59,11 +59,14 @@ public class TemporaryTestsWithActualCogSearch
             SearchMode = SearchMode.Any,
             Size = 100,
             IncludeTotalCount = true,
-            SearchFields = { "ESTABLISHMENTNAME" }, // if any of these fields are misnamed, azure search will throw exception
-            Select = { "ESTABLISHMENTNAME", "id" } // if any of these fields are misnamed, azure search will throw exception
+            SearchFields = { "ESTABLISHMENTNAME" },
+            Select = { "ESTABLISHMENTNAME", "id" }
         });
 
         var indexNamesProvider = new SearchIndexNamesProvider(_options);
+
+        IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper =
+            new AzureSearchResultToEstablishmentMapper();
 
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
@@ -73,7 +76,7 @@ public class TemporaryTestsWithActualCogSearch
                         indexNamesProvider
                         )),
                 searchOptions,
-                new AzureEstablishmentSearchResponseToSearchResultsMapper());
+                new AzureSearchResponseToEstablishmentsMapper(azureSearchResultToEstablishmentMapper));
 
         // act.
         var results = await cognitiveSearchServiceAdapter.Search(
