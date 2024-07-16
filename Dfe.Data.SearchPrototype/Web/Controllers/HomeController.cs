@@ -26,7 +26,7 @@ namespace Dfe.Data.SearchPrototype.Web.Controllers
             }
             ViewBag.SearchQuery = searchKeyWord;
 
-            var searchItems = SearchResultsViewModel.GetItems(searchKeyWord);
+            var searchItems = new SearchResultsViewModel();
             return View(searchItems);
         }
 

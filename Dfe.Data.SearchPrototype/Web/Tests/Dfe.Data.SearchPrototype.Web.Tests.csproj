@@ -17,6 +17,7 @@
   </ItemGroup>
 	    
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Dfe.Data.SearchPrototype.Infrastructure.csproj" />
     <ProjectReference Include="..\Dfe.Data.SearchPrototype.Web.csproj" />
   </ItemGroup>
 

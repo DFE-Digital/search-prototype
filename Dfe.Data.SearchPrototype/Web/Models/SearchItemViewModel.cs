@@ -2,8 +2,7 @@
 {
     public class SearchItemViewModel
     {
-        public string URN { get; set; }
+        public string Urn{ get; set; }
         public string Name { get; set; }
-        public bool HasErrors { get; set; }
     }
 }
