@@ -1,8 +1,10 @@
 ﻿using Deque.AxeCore.Selenium;
-using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel;
+using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Drivers;
+using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Extensions;
+using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Options;
+using Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using OpenQA.Selenium;
+using Microsoft.Extensions.Options;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -11,11 +13,12 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
     [Binding]
     public sealed class AccessibilitySteps
     {
+        private readonly AccessibilityOptions _options;
         private readonly HomePage _homePage;
-        private readonly IWebDriver _driver;
         private readonly ITestOutputHelper _logger;
-        private readonly ScenarioContext _scenarioContext;
-        
+        private readonly IWebDriverContext _driverContext;
+        private readonly WebDriverSessionOptions _sessionOptions;
+
         private Dictionary<string, string> _pageNameToUrlConverter = new Dictionary<string, string>()
         {
             { "home", "/" },
@@ -24,21 +27,23 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
 
         public AccessibilitySteps(
             HomePage homePage,
-            IWebDriver driver,
+            IOptions<AccessibilityOptions> options,
             ITestOutputHelper logger,
-            ScenarioContext scenarioContext
+            IWebDriverContext driverContext,
+            WebDriverSessionOptions sessionOptions
         )
         {
-            _driver = driver;
-            _homePage = homePage; 
+            _driverContext = driverContext;
+            _homePage = homePage;
             _logger = logger;
-            _scenarioContext = scenarioContext;
+            _options = options.Value;
+            _sessionOptions = sessionOptions;
         }
 
         [StepDefinition(@"the user views the (home|privacy) page")]
         public void OpenPage(string pageName)
         {
-            _driver.Navigate().GoToUrl($"http://localhost:5000{_pageNameToUrlConverter[pageName]}");
+            _driverContext.GoToUri($"{_pageNameToUrlConverter[pageName]}");
             _homePage.Heading.Criteria.Should().NotBeNull();
         }
 
@@ -47,11 +52,16 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         {
             // see https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#axe-core-tags
 
-            var axeResult = new AxeBuilder(_driver)
-               .WithTags("wcag2a", "wcag2aa", "wcag21a", "wcag21aa")
+            var outputFile = Path.Combine(
+                _options.ArtifactsOutputPath,
+                $"{_sessionOptions.Device}-axe-result-{component.ToLowerRemoveHyphens()}.json"
+            );
+            var axeResult = new AxeBuilder(_driverContext.Driver)
+               .WithTags(_options.WcagTags)
+               .WithOutputFile(outputFile)
                .Analyze();
 
-            _logger.WriteLine($"Scan completed");
+            _logger.WriteLine($"Scan completed output location {outputFile}");
 
             // Check that axe ran successfuly https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#error-result
             axeResult.Violations.Should().BeEmpty();

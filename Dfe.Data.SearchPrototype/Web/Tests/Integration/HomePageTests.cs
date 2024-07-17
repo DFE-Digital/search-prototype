@@ -1,5 +1,5 @@
 using AngleSharp.Html.Dom;
-using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel;
+using Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 

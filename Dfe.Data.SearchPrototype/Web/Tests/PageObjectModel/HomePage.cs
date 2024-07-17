@@ -1,10 +1,10 @@
 ﻿using AngleSharp.Html.Dom;
-using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents;
-using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
+using Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel.PageComponents;
+using Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel.Setup;
 using Microsoft.AspNetCore.Mvc.Testing;
 using OpenQA.Selenium;
 
-namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
+namespace Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel
 {
     public sealed class HomePage : DocumentObjectModelExtractor
     {

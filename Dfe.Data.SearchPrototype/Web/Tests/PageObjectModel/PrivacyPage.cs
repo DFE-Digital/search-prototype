@@ -1,7 +1,7 @@
-﻿using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
+﻿using Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel.Setup;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
+namespace Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel
 {
     public sealed class PrivacyPage : DocumentObjectModelExtractor
     {
@@ -9,7 +9,8 @@ namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel
         private const string TitleElement = "h1";
 
         public PrivacyPage(WebApplicationFactory<Program> webApplicationFactory, string pageName) :
-            base(webApplicationFactory, pageName){
+            base(webApplicationFactory, pageName)
+        {
         }
 
         public string GetPrivacyPageTitle()

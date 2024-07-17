@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
 	<PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="126.0.6478.12600" />
+	<PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.34.0" />
 	<PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
 	<PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
 	<PackageReference Include="WireMock.Net" Version="1.5.58" />
@@ -27,6 +28,12 @@
 	    
   <ItemGroup>
     <Folder Include="Acceptance\Features\" />
+  </ItemGroup>
+	    
+  <ItemGroup>
+    <None Update="appsettings.test.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

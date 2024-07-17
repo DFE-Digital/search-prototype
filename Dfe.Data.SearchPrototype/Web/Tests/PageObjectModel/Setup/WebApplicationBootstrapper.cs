@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
-namespace DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.Setup;
+namespace Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel.Setup;
 
 public abstract class WebApplicationBootstrapper : IClassFixture<WebApplicationFactory<Program>>
 {

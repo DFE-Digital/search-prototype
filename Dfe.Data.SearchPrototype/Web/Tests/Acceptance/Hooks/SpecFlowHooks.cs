@@ -1,18 +1,17 @@
 ﻿using BoDi;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
 using System.Diagnostics;
 using TechTalk.SpecFlow;
+using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Drivers;
+using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Options;
+using Microsoft.Extensions.Options;
 
 namespace UnitTestProject1
 {
     [Binding]
     public class SpecFlowHooks
     {
-        private readonly IObjectContainer _container;
-        public SpecFlowHooks(IObjectContainer container)
+        public SpecFlowHooks( )
         {
-            _container = container;
         }
 
         [Before]
@@ -28,33 +27,36 @@ namespace UnitTestProject1
             process.Start();
         }
 
-        [BeforeScenario]
-        public void CreateWebDriver()
+        [BeforeTestRun]
+        public static void BeforeTest(ObjectContainer container)
         {
-            // Create and configure a concrete instance of IWebDriver
-            IWebDriver driver = new ChromeDriver();
+
+            container.BaseContainer.RegisterInstanceAs(OptionsHelper.GetOptions<WebOptions>(WebOptions.Key));
+
+            var driverOptions = OptionsHelper.GetOptions<WebDriverOptions>(WebDriverOptions.Key);
+            if (string.IsNullOrEmpty(driverOptions.Value.DriverBinaryDirectory))
             {
-
-            };
-
-            // Make this instance available to all other step definitions
-            _container.RegisterInstanceAs(driver);
+                driverOptions.Value.DriverBinaryDirectory = Directory.GetCurrentDirectory();
+            }
+            container.BaseContainer.RegisterInstanceAs<IOptions<WebDriverOptions>>(driverOptions);
+            var accessibilityOptions = OptionsHelper.GetOptions<AccessibilityOptions>(AccessibilityOptions.Key);
+            accessibilityOptions.Value.CreateArtifactOutputDirectory();
+            container.BaseContainer.RegisterInstanceAs(accessibilityOptions);
         }
 
-        [AfterScenario]
-        public void DestroyWebDriver()
+        [BeforeScenario]
+        public void CreateWebDriver(IObjectContainer container)
         {
-            IWebDriver driver = _container.Resolve<IWebDriver>();
-
-            driver.Close();
-            driver.Dispose();
+            container.RegisterTypeAs<WebDriverFactory, IWebDriverFactory>();
+            container.RegisterTypeAs<WebDriverContext, IWebDriverContext>();
         }
+
 
         [After]
         public void After()
         {
-            var processes = Process.GetProcessesByName("Dfe.Data.SearchPrototype.Web");
-            processes[0].Kill();
+            var webProcesses = Process.GetProcessesByName("Dfe.Data.SearchPrototype.Web");
+            webProcesses[0].Kill();
         }
     }
 }

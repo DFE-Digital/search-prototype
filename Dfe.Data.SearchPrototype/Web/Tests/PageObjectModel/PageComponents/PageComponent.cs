@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Dom;
 
-namespace Dfe.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel.PageComponents
+namespace Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel.PageComponents
 {
     public abstract class PageComponent
     {
