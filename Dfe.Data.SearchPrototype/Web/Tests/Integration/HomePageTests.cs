@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using DfE.Data.SearchPrototype.Web.Tests.Integration.PageObjectModel;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -40,5 +41,19 @@ public class HomePageTests : IClassFixture<WebApplicationFactory<Program>>
         var privacyPage = PrivacyPage.NavigateToPage(_webApplicationFactory, privacyLink.Href);
 
         Assert.Equal("Privacy Policy", privacyPage.GetPrivacyPageTitle());
+    }
+
+    [Fact]
+    public async Task InvokeSearch_WithValidSearchString_ShowsSearchResults()
+    {
+        IHtmlInputElement searchBox = _homePage.GetSearchInputBox();
+        // type into the box
+        searchBox.Value = "Asia";
+
+        // hit submit
+        IDocument result = await _homePage.DocumentObjectModel.QuerySelector<IHtmlFormElement>("form").SubmitAsync();
+
+        var docReqst = _homePage.DocumentObjectModel.QuerySelector<IHtmlFormElement>("form").GetSubmission();
+        await _homePage.SearchComponent.ClickSubmitAsync();
     }
 }

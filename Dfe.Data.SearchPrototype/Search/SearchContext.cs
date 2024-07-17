@@ -16,7 +16,6 @@
         public string TargetCollection { get; }
 
         /// <summary>
-        /// Establishes an immutable search context instance via the constructor arguments specified.
         /// </summary>
         /// <param name="searchKeyword">
         /// The search keyword(s) to be applied.

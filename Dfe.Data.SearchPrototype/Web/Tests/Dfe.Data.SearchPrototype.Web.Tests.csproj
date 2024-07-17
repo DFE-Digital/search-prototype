@@ -8,6 +8,7 @@
 	
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.1.2" />
+	<PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
@@ -17,6 +18,7 @@
   </ItemGroup>
 	    
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Dfe.Data.SearchPrototype.Infrastructure.csproj" />
     <ProjectReference Include="..\Dfe.Data.SearchPrototype.Web.csproj" />
   </ItemGroup>
 

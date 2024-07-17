@@ -23,8 +23,8 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
 
         var searchResultDocuments =
             SearchResultFake.SearchResultFakes();
-                Response<SearchResults<Establishment>> responseFake =
-                    ResponseFake.WithSearchResults(searchResultDocuments);
+        Response<SearchResults<Establishment>> responseFake =
+            ResponseFake.WithSearchResults(searchResultDocuments);
 
         // act
         EstablishmentResults? result = mapper.MapFrom(responseFake);
