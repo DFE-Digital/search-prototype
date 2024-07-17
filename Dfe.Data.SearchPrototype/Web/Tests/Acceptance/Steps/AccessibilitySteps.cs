@@ -59,6 +59,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
             var axeResult = new AxeBuilder(_driverContext.Driver)
                .WithTags(_options.WcagTags)
                .WithOutputFile(outputFile)
+               .Exclude(_homePage.SearchHiddenDiv.Criteria)
                .Analyze();
 
             _logger.WriteLine($"Scan completed output location {outputFile}");

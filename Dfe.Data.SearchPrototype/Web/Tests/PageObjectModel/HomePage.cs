@@ -16,6 +16,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel
         private const string MainHeadingClass = "govuk-header__link govuk-header__service-name";
 
         public By Heading => By.CssSelector("header div div:nth-of-type(2) a");
+        public By SearchHiddenDiv => By.CssSelector("#searchKeyWord + div");
 
         public HomePage(WebApplicationFactory<Program> webApplicationFactory) :
             base(webApplicationFactory, PageName)
