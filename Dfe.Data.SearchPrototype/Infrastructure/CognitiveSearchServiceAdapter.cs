@@ -57,7 +57,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure
         /// is unrecoverable, or no azure search results are returned which should never be the
         /// case given no matches should return an empty wrapper result object.
         /// </exception>
-        public async Task<EstablishmentResults> Search(SearchContext searchContext)
+        public async Task<EstablishmentResults> SearchAsync(SearchContext searchContext)
         {
             SearchOptions searchOptions =
                 _searchOptionsFactory.GetSearchOptions(searchContext.TargetCollection) ??

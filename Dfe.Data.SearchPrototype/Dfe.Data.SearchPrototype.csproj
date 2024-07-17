@@ -30,6 +30,7 @@
 	
   <ItemGroup>
     <PackageReference Include="DfE.Data.ComponentLibrary.CleanArchitecture" Version="2.0.37-beta-CI-20240610-104522" />
+    <PackageReference Include="DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping" Version="2.0.37-beta-CI-20240610-104522" />
   </ItemGroup>
 
 </Project>
