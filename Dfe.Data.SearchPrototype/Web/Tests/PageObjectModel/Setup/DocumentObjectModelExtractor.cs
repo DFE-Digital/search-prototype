@@ -6,7 +6,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel.Setup;
 
 public abstract class DocumentObjectModelExtractor : WebApplicationBootstrapper
 {
-    protected IDocument? DocumentObjectModel { get; private set; }
+    public IDocument? DocumentObjectModel { get; private set; }
 
     protected DocumentObjectModelExtractor(
         WebApplicationFactory<Program> webApplicationFactory, string? pageName)

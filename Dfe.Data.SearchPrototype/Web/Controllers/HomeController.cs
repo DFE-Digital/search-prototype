@@ -18,6 +18,18 @@ namespace Dfe.Data.SearchPrototype.Web.Controllers
             return View();
         }
 
+        public IActionResult SearchResults(string searchKeyWord)
+        {
+            if (string.IsNullOrEmpty(searchKeyWord))
+            {
+                return View("Index");
+            }
+            ViewBag.SearchQuery = searchKeyWord;
+
+            var searchItems = new SearchResultsViewModel();
+            return View(searchItems);
+        }
+
         public IActionResult Privacy()
         {
             return View();
