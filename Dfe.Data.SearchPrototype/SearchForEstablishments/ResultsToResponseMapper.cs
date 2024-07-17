@@ -7,6 +7,8 @@ public class ResultsToResponseMapper : IMapper<EstablishmentResults, SearchByKey
 {
     public SearchByKeywordResponse MapFrom(EstablishmentResults input)
     {
-        throw new NotImplementedException();
+       SearchByKeywordResponse response = new(input.Establishments);
+
+        return response;
     }
 }

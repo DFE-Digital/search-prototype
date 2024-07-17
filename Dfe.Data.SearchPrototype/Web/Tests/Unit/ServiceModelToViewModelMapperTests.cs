@@ -1,7 +1,7 @@
 ﻿using Dfe.Data.SearchPrototype.Search;
 using Dfe.Data.SearchPrototype.Web.Mapping;
 using Dfe.Data.SearchPrototype.Web.Models;
-using Dfe.Data.SearchPrototype.Web.Tests.TestDoubles;
+using Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Xunit;
 
