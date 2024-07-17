@@ -4,5 +4,5 @@ namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 public sealed class SearchByKeywordRequest
 {
-    public SearchContext Context { get; set; }
+    public SearchContext? Context { get; set; }
 }

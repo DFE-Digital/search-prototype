@@ -1,30 +1,52 @@
-﻿using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
+﻿using Dfe.Data.SearchPrototype.Search;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using Xunit;
-using Moq;
-using Dfe.Data.SearchPrototype.Search;
+using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using FluentAssertions;
-using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
+using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments;
 
 public class SearchByKeywordUseCaseTests
 {
+    SearchByKeywordUseCase _useCase;
+
+    public SearchByKeywordUseCaseTests()
+    {
+        // arrange
+        ISearchServiceAdapter searchServiceAdapter = SearchServiceAdapterTestDouble.MockFor(EstablishmentResultsTestDouble.Create());
+        IMapper<EstablishmentResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
+        _useCase = new(searchServiceAdapter, mapper);
+    }
+
     [Fact]
     public async Task UseCase_ValidRequest_ReturnsValidResponse()
     {
-        // arrange.
-        Mock<ISearchServiceAdapter> searchServiceAdapter = new Mock<ISearchServiceAdapter>();
-        searchServiceAdapter.Setup(x => x.SearchAsync(It.IsAny<SearchContext>())).ReturnsAsync(EstablishmentResultsTestDouble.Create());
-        IMapper<EstablishmentResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
-        SearchByKeywordUseCase useCase = new(searchServiceAdapter.Object, mapper);
-        
-        // act.
-        SearchByKeywordRequest request = new() { Context = new(searchKeyword: "anything", targetCollection : "collection") };
-        SearchByKeywordResponse response = await useCase.HandleRequest(request);
+        // arrange
+        SearchByKeywordRequest request = new()
+        {
+            Context = new(searchKeyword: "anything", targetCollection: "collection")
+        };
+
+        // act
+        SearchByKeywordResponse response = await _useCase.HandleRequest(request);
 
         // assert
         response.Should().NotBeNull();
+    }
+
+    [Fact]
+    public Task UseCase_NullSearchContext_ThrowsArgumentNullException()
+    {
+        // arrange
+        SearchByKeywordRequest request = new();
+
+        // act, assert
+        return _useCase.Invoking(
+                async usecase => await usecase
+                    .HandleRequest(request))
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithMessage("Value cannot be null. (Parameter 'SearchContext')");
     }
 }

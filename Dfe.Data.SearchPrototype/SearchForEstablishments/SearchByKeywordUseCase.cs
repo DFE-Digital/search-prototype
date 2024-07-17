@@ -19,6 +19,9 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
 
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
+        ArgumentNullException.ThrowIfNull(request, nameof(SearchByKeywordRequest));
+        ArgumentNullException.ThrowIfNull(request.Context, nameof(SearchContext));
+
         EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
 
         return _resultsToResponseMapper.MapFrom(establishmentResults);
