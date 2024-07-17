@@ -30,16 +30,14 @@
 
 @* display results *@
 
-@model List<Dfe.Data.SearchPrototype.Web.Models.SearchItemViewModel>
-
-@if (Model.Count >= 1)
+@if (Model.searchItems.Count >= 1)
 {
     @* list results component to be inserted as partial view*@
     <div class="govuk-grid-column-two-thirds">
-        <h3 class="govuk-heading-m">@Model.Count @(Model.Count > 1 ? "Results" : "Result")</h3>
+        <h3 class="govuk-heading-m">@Model.searchItems.Count @(Model.searchItems.Count > 1 ? "Results" : "Result")</h3>
         <hr />
         <ul style="list-style: none">
-            @foreach (var searchItem in Model)
+            @foreach (var searchItem in Model.searchItems)
             {
 
                 <li>
