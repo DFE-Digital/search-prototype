@@ -23,7 +23,7 @@ public sealed class SearchByKeywordUseCaseTests
     }
 
     [Fact]
-    public async Task UseCase_ValidRequest_ReturnsValidResponse()
+    public async Task UseCase_ValidRequest_ReturnsResponse()
     {
         // arrange
         SearchByKeywordRequest request = new()
