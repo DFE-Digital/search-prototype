@@ -3,7 +3,7 @@
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
-/// This is the object used to make requests (send input) through to the 
+/// This is the object used to make requests (send input) through to the
 /// T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordUseCase instance.
 /// </summary>
 public sealed class SearchByKeywordRequest

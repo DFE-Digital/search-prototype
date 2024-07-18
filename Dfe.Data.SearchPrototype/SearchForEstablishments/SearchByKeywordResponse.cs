@@ -3,7 +3,7 @@
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
-/// This is the object that carries the reponse (output) back from the
+/// This is the object that carries the response (output) back from the
 /// T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordUseCase instance.
 /// The response will encapsulate any search results found along with a status.
 /// </summary>

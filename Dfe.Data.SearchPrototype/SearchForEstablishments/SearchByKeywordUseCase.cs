@@ -5,10 +5,10 @@ using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
-/// This use case is reponsible for handling keyword search requests. The use case will delegate responsibility
+/// This use case is responsible for handling keyword search requests. The use case will delegate responsibility
 /// for the underlying search mechanics to the prescribed concrete T:Dfe.Data.SearchPrototype.Search.ISearchServiceAdapter
-/// instance. Use case will be responsible for managing this workflow and ensuring the consumer is responded to with
-/// a conditioned response, related to the status of the workflow on completion.
+/// instance. Use case will be responsible for managing this work-flow and ensuring the consumer is responded to with
+/// a conditioned response, related to the status of the work-flow on completion.
 /// </summary>
 public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
 {
@@ -37,8 +37,8 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
 
     /// <summary>
     /// Handler for search by keyword requests which is responsible for orchestrating the 
-    /// workflow associated with the required search, and composing a response based on the
-    /// status of the completed workflow.
+    /// work-flow associated with the required search, and composing a response based on the
+    /// status of the completed work-flow.
     /// </summary>
     /// <param name="request">
     /// The T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordRequest input parameter.
