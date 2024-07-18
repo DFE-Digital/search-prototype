@@ -16,7 +16,8 @@ public static class EstablishmentResultsTestDouble
 
         for (int i = 0; i < new Bogus.Faker().Random.Int(1, 10); i++)
         {
-            establishmentResults.AddEstablishment(new Establishment(GetEstablishmentIdentifierFake(), GetEstablishmentNameFake()));
+            establishmentResults.AddEstablishment(
+                new Establishment(GetEstablishmentIdentifierFake(), GetEstablishmentNameFake()));
         }
         return establishmentResults;
     }

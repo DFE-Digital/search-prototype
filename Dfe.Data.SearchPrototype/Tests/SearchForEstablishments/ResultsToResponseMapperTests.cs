@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments;
 
-public class ResultsToResponseMapperTests
+public sealed class ResultsToResponseMapperTests
 {
     [Fact]
     public void MapFrom_ValidInput_ReturnsCorrectResponse()

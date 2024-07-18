@@ -16,6 +16,8 @@
         public string TargetCollection { get; }
 
         /// <summary>
+        /// The following arguments are passed via the constructor and are not changeable
+        /// once an instance is created, this ensures we preserve immutability.
         /// </summary>
         /// <param name="searchKeyword">
         /// The search keyword(s) to be applied.

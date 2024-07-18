@@ -4,11 +4,19 @@ using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
+/// <summary>
+/// 
+/// </summary>
 public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
 {
     private readonly ISearchServiceAdapter _searchServiceAdapter;
     private readonly IMapper<EstablishmentResults, SearchByKeywordResponse> _resultsToResponseMapper;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="searchServiceAdapter"></param>
+    /// <param name="resultsToResponseMapper"></param>
     public SearchByKeywordUseCase(
         ISearchServiceAdapter searchServiceAdapter,
         IMapper<EstablishmentResults, SearchByKeywordResponse> resultsToResponseMapper)
@@ -17,6 +25,11 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
         _resultsToResponseMapper = resultsToResponseMapper;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
         ArgumentNullException.ThrowIfNull(request, nameof(SearchByKeywordRequest));

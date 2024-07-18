@@ -7,14 +7,17 @@ using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments;
 
-public class SearchByKeywordUseCaseTests
+public sealed class SearchByKeywordUseCaseTests
 {
-    SearchByKeywordUseCase _useCase;
+    private readonly SearchByKeywordUseCase _useCase;
 
     public SearchByKeywordUseCaseTests()
     {
         // arrange
-        ISearchServiceAdapter searchServiceAdapter = SearchServiceAdapterTestDouble.MockFor(EstablishmentResultsTestDouble.Create());
+        ISearchServiceAdapter searchServiceAdapter =
+            SearchServiceAdapterTestDouble.MockFor(
+                EstablishmentResultsTestDouble.Create());
+
         IMapper<EstablishmentResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
         _useCase = new(searchServiceAdapter, mapper);
     }
@@ -36,6 +39,18 @@ public class SearchByKeywordUseCaseTests
     }
 
     [Fact]
+    public Task UseCase_NullSearchByKeywordRequest_ThrowsArgumentNullException()
+    {
+        // act, assert
+        return _useCase.Invoking(
+            async usecase => await usecase
+                .HandleRequest(request: null!))
+                .Should()
+                .ThrowAsync<ArgumentNullException>()
+                .WithMessage("Value cannot be null. (Parameter 'SearchByKeywordRequest')");
+    }
+
+    [Fact]
     public Task UseCase_NullSearchContext_ThrowsArgumentNullException()
     {
         // arrange
@@ -43,10 +58,10 @@ public class SearchByKeywordUseCaseTests
 
         // act, assert
         return _useCase.Invoking(
-                async usecase => await usecase
-                    .HandleRequest(request))
-                    .Should()
-                    .ThrowAsync<ArgumentNullException>()
-                    .WithMessage("Value cannot be null. (Parameter 'SearchContext')");
+            async usecase => await usecase
+                .HandleRequest(request))
+                .Should()
+                .ThrowAsync<ArgumentNullException>()
+                .WithMessage("Value cannot be null. (Parameter 'SearchContext')");
     }
 }

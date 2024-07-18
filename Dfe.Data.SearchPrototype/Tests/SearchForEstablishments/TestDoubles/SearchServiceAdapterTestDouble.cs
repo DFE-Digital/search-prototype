@@ -7,7 +7,8 @@ public static class SearchServiceAdapterTestDouble
 {
     public static ISearchServiceAdapter MockFor(EstablishmentResults establishmentResults)
     {
-        Mock<ISearchServiceAdapter> searchServiceAdapter = new Mock<ISearchServiceAdapter>();
+        Mock<ISearchServiceAdapter> searchServiceAdapter = new();
+
         searchServiceAdapter
             .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
             .ReturnsAsync(establishmentResults);

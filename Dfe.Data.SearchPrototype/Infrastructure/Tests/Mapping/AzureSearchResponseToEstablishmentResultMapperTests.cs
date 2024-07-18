@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping;
 
-public sealed class AzureSearchResponseToSearchResultsMapperTests
+public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 {
     [Fact]
     public void MapFrom_With_Valid_Search_Results_Returns_Configured_Establishments()
@@ -19,7 +19,7 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
             new AzureSearchResultToEstablishmentMapper();
 
         IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> mapper =
-            new AzureSearchResponseToEstablishmentsMapper(azureSearchResultToEstablishmentMapper);
+            new AzureSearchResponseToEstablishmentResultMapper(azureSearchResultToEstablishmentMapper);
 
         var searchResultDocuments =
             SearchResultFake.SearchResultFakes();
@@ -41,7 +41,7 @@ public sealed class AzureSearchResponseToSearchResultsMapperTests
             new AzureSearchResultToEstablishmentMapper();
 
         IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> mapper =
-            new AzureSearchResponseToEstablishmentsMapper(azureSearchResultToEstablishmentMapper);
+            new AzureSearchResponseToEstablishmentResultMapper(azureSearchResultToEstablishmentMapper);
 
         Response<SearchResults<Establishment>> responseFake = null!;
 
