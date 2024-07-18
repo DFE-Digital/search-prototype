@@ -5,7 +5,10 @@ using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
-/// 
+/// This use case is reponsible for handling keyword search requests. The use case will delegate responsibility
+/// for the underlying search mechanics to the prescribed concrete T:Dfe.Data.SearchPrototype.Search.ISearchServiceAdapter
+/// instance. Use case will be responsible for managing this workflow and ensuring the consumer is responded to with
+/// a conditioned response, related to the status of the workflow on completion.
 /// </summary>
 public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
 {
@@ -13,10 +16,17 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     private readonly IMapper<EstablishmentResults, SearchByKeywordResponse> _resultsToResponseMapper;
 
     /// <summary>
-    /// 
+    /// The following dependencies include the core cognitive search service definition,
+    /// the complete implementation of which is defined in the IOC container.
     /// </summary>
-    /// <param name="searchServiceAdapter"></param>
-    /// <param name="resultsToResponseMapper"></param>
+    /// <param name="searchServiceAdapter">
+    /// The concrete  implementation of the T:Dfe.Data.SearchPrototype.Search.ISearchServiceAdapter
+    /// defined within, and injected by the IOC container.
+    /// </param>
+    /// <param name="resultsToResponseMapper">
+    /// The concrete  implementation of the T:DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping.IMapper
+    /// defined within, and injected by the IOC container.
+    /// </param>
     public SearchByKeywordUseCase(
         ISearchServiceAdapter searchServiceAdapter,
         IMapper<EstablishmentResults, SearchByKeywordResponse> resultsToResponseMapper)
@@ -26,10 +36,16 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     }
 
     /// <summary>
-    /// 
+    /// Handler for search by keyword requests which is responsible for orchestrating the 
+    /// workflow associated with the required search, and composing a response based on the
+    /// status of the completed workflow.
     /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
+    /// <param name="request">
+    /// The T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordRequest input parameter.
+    /// </param>
+    /// <returns>
+    /// The T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordResponse output parameter.
+    /// </returns>
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
         ArgumentNullException.ThrowIfNull(request, nameof(SearchByKeywordRequest));
