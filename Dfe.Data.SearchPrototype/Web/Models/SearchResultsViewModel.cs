@@ -2,5 +2,5 @@
 
 public class SearchResultsViewModel
 {
-    public List<SearchItemViewModel> searchItems = new ();
+    public List<SearchItemViewModel>? SearchItems { get; set; }
 }

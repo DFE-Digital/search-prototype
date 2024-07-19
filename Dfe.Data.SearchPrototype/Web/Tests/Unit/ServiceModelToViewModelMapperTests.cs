@@ -1,4 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Search;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Mapping;
 using Dfe.Data.SearchPrototype.Web.Models;
 using Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
@@ -7,38 +7,38 @@ using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.Unit;
 
-public class ServiceModelToViewModelMapperTests
+public class SearchByKeywordResponseToViewModelMapperTests
 {
-    private readonly IMapper<EstablishmentResults, SearchResultsViewModel> _serviceModelToViewModelMapper
-        = new ServiceModelToViewModelMapper();
+    private readonly IMapper<SearchByKeywordResponse, SearchResultsViewModel> _serviceModelToViewModelMapper
+        = new SearchByKeywordResponseToViewModelMapper();
 
     [Fact]
     public void Mapper_ReturnViewModel()
     {
         // arrange.
-        EstablishmentResults establishmentResults = EstablishmentResultsTestDouble.Create();
+        var establishmentResults = SearchByKeywordResponseTestDouble.Create();
 
         // act.
         SearchResultsViewModel viewModelResults = _serviceModelToViewModelMapper.MapFrom(establishmentResults);
 
         // assert.
-        for (int i=0; i< establishmentResults.Establishments.Count; i++)
+        for (int i=0; i< establishmentResults.EstablishmentResults?.Count; i++)
         {
-            Assert.Equal(establishmentResults.Establishments.ToList()[i].Urn, viewModelResults.searchItems[i].Urn);
-            Assert.Equal(establishmentResults.Establishments.ToList()[i].Name, viewModelResults.searchItems[i].Name);
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Urn, viewModelResults.SearchItems![i].Urn);
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Name, viewModelResults.SearchItems[i].Name);
         }
     }
 
     [Fact]
-    public void Mapper_NoResults_ReturnViewModel_EmptyList()
+    public void Mapper_NoResults_ReturnViewModel_NullList()
     {
         // arrange.
-        EstablishmentResults establishmentResults = EstablishmentResultsTestDouble.CreateWithNoResults();
+        var establishmentResults = SearchByKeywordResponseTestDouble.CreateWithNoResults();
 
         // act.
-        SearchResultsViewModel viewModelResults = _serviceModelToViewModelMapper.MapFrom(establishmentResults);
+        var viewModelResults = _serviceModelToViewModelMapper.MapFrom(establishmentResults);
 
         // assert.
-        Assert.Empty(viewModelResults.searchItems);
+        Assert.Null(viewModelResults.SearchItems);
     }
 }

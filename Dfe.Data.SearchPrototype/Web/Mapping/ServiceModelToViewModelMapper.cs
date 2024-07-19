@@ -1,22 +1,27 @@
 ﻿using Dfe.Data.SearchPrototype.Search;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Models;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
 namespace Dfe.Data.SearchPrototype.Web.Mapping;
 
-public class ServiceModelToViewModelMapper : IMapper<EstablishmentResults, SearchResultsViewModel>
+public class SearchByKeywordResponseToViewModelMapper : IMapper<SearchByKeywordResponse, SearchResultsViewModel>
 {
-    public SearchResultsViewModel MapFrom(EstablishmentResults input)
+    public SearchResultsViewModel MapFrom(SearchByKeywordResponse input)
     {
         SearchResultsViewModel viewModel = new();
 
-        foreach (var establishment in input.Establishments)
+        if (input.EstablishmentResults != null)
         {
-            viewModel.searchItems.Add(new SearchItemViewModel
+            viewModel.SearchItems = new();
+            foreach (var establishment in input.EstablishmentResults)
             {
-                Urn = establishment.Urn,
-                Name = establishment.Name
-            });
+                viewModel.SearchItems.Add(new SearchItemViewModel
+                {
+                    Urn = establishment.Urn,
+                    Name = establishment.Name
+                });
+            }
         }
         return viewModel;
     }
