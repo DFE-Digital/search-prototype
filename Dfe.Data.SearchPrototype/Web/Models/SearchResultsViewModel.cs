@@ -3,4 +3,4 @@
 public class SearchResultsViewModel
 {
     public List<SearchItemViewModel>? SearchItems { get; set; }
-}
+ }

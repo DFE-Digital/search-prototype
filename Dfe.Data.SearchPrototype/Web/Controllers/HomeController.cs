@@ -13,12 +13,7 @@ namespace Dfe.Data.SearchPrototype.Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult SearchResults(string searchKeyWord)
+        public IActionResult Index(string searchKeyWord)
         {
             if (string.IsNullOrEmpty(searchKeyWord))
             {

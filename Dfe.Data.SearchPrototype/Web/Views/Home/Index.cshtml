@@ -1,14 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Dfe.Data.SearchPrototype.Web.Models.SearchResultsViewModel
+
+@{
+    ViewData["Title"] = "Search Results";
+    var searchKeyWord = ViewBag.SearchQuery as string;
 }
 
-@model List<Dfe.Data.SearchPrototype.Web.Models.SearchItemViewModel>
-
-<form method="get" action="@Url.Action("SearchResults", "Home")">
-    <govuk-input input-class="govuk-input govuk-!-width-two-thirds" input-placeholder="Search by keyword" name="searchKeyWord">
-        <govuk-input-label is-page-heading="true" class="govuk-label--l">Search Establishments</govuk-input-label>
-        <govuk-input-hint>You can search establishments and check their performance</govuk-input-hint>
-        @*  <govuk-input-error-message>Enter key-word</govuk-input-error-message> *@
+@* search component *@
+<form method="get" action="@Url.Action("Index", "home")">
+    <govuk-input input-class="govuk-input govuk-!-width-two-thirds" input-placeholder="Search by keyword" input-value="@searchKeyWord" name="searchKeyWord">
+        <govuk-input-label is-page-heading="true" class="govuk-label--l">Search</govuk-input-label>
+        <govuk-input-hint>Search establishments and check their performance</govuk-input-hint>
         <govuk-input-suffix style="padding: 0px">
             <button style="border: none">
                 <svg class="gem-c-search__icon" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
@@ -19,3 +20,40 @@
         </govuk-input-suffix>
     </govuk-input>
 </form>
+@* end of search component *@
+
+@* display results *@
+
+@if (Model != null)
+{
+    @if (Model.SearchItems != null && Model.SearchItems.Count >= 1)
+    {
+        @* list results component to be inserted as partial view*@
+        <div class="govuk-grid-column-two-thirds">
+            <h3 class="govuk-heading-m">@Model.SearchItems.Count @(Model.SearchItems.Count > 1 ? "Results" : "Result")</h3>
+            <hr />
+            <ul style="list-style: none">
+                @foreach (var searchItem in Model.SearchItems)
+                {
+                    <li>
+                        <h4>
+                            <a href="/">
+                                @searchItem.Name</a>
+                        </h4>
+                    </li>
+                    <li>
+                        <strong>URN:  </strong>@searchItem.Urn
+                    </li>
+
+                    <hr />
+                }
+            </ul>
+        </div>
+        @*  end of list component *@
+    }
+    else
+    {
+        <p>Sorry no results found please amend your search criteria</p>
+    }
+}
+@* end of display results *@
