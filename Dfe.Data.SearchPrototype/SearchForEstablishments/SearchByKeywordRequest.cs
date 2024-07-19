@@ -8,6 +8,10 @@ namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 /// </summary>
 public sealed class SearchByKeywordRequest
 {
+    public SearchByKeywordRequest(string searchKeyword, string targetCollection)
+    {
+        Context = SearchContext.Create(searchKeyword, targetCollection);   
+    }
     /// <summary>
     /// This property exposes the T:Dfe.Data.SearchPrototype.Search.SearchContext object
     /// which encapsulates the criteria necessary to perform a valid search.

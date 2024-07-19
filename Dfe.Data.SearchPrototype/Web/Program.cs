@@ -1,10 +1,51 @@
+using Dfe.Data.SearchPrototype.Infrastructure;
+using Dfe.Data.SearchPrototype.Search;
+using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch;
 using GovUk.Frontend.AspNetCore;
+using Azure.Search.Documents.Models;
+using Azure;
+using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
+using Dfe.Data.SearchPrototype.Infrastructure.Mapping;
+using Azure.Search.Documents;
+using Dfe.Data.SearchPrototype.Infrastructure.Options.Mapping;
+using Dfe.Data.SearchPrototype.Infrastructure.Options;
+using Dfe.Data.SearchPrototype.Web.Models;
+using Dfe.Data.SearchPrototype.Web.Mapping;
+using Infrastructure = Dfe.Data.SearchPrototype.Infrastructure;
+using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Json.Serialisation;
+using Search = Dfe.Data.SearchPrototype.Search;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddGovUkFrontend();
+
+
+// start of IOC container registrations
+//
+//
+
+builder.Services.AddAzureCognitiveSearchProvider(builder.Configuration);
+builder.Services.AddScoped<ISearchServiceAdapter, CognitiveSearchServiceAdapter<EstablishmentResults>>();
+builder.Services.AddDefaultMappers();
+builder.Services.AddScoped<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>, SearchByKeywordUseCase>();
+builder.Services.AddSingleton<IMapper<Response<SearchResults<Infrastructure.Establishment>>, EstablishmentResults>, AzureSearchResponseToEstablishmentResultMapper>();
+builder.Services.AddSingleton<IMapper<SearchSettingsOptions, SearchOptions>, SearchOptionsToAzureOptionsMapper>();
+builder.Services.AddSingleton<IMapper<SearchByKeywordResponse, SearchResultsViewModel>, SearchByKeywordResponseToViewModelMapper>();
+builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, Search.Establishment>, AzureSearchResultToEstablishmentMapper>();
+builder.Services.AddOptions<SearchSettingsOptions>("establishments")
+    .Configure<IConfiguration>(
+        (settings, configuration) =>
+            configuration.GetSection("AzureCognitiveSearchOptions:SearchEstablishment:SearchSettingsOptions").Bind(settings));
+builder.Services.AddSingleton<IJsonObjectSerialiser, JsonObjectSerialiser>();
+builder.Services.AddScoped<ISearchOptionsFactory, SearchOptionsFactory>();
+
+//
+//
+// endof IOC container registrations
 
 var app = builder.Build();
 

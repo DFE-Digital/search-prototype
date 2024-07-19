@@ -20,9 +20,13 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dfe.Data.SearchPrototype.csproj" />
+		<ProjectReference Include="..\Infrastructure\Dfe.Data.SearchPrototype.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="DfE.Data.ComponentLibrary.CleanArchitecture" Version="2.0.37-beta-CI-20240610-104522" />
+		<PackageReference Include="DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch" Version="2.0.37-beta-CI-20240610-104522" />
 		<PackageReference Include="DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping" Version="2.0.37-beta-CI-20240610-104522" />
+		<PackageReference Include="DfE.Data.ComponentLibrary.CrossCuttingConcerns.Json" Version="2.0.37-beta-CI-20240610-104522" />
 	</ItemGroup>
 </Project>

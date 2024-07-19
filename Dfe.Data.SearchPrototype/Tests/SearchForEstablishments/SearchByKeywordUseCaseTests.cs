@@ -26,10 +26,7 @@ public sealed class SearchByKeywordUseCaseTests
     public async Task UseCase_ValidRequest_ReturnsResponse()
     {
         // arrange
-        SearchByKeywordRequest request = new()
-        {
-            Context = new(searchKeyword: "anything", targetCollection: "collection")
-        };
+        SearchByKeywordRequest request = new("searchkeyword", "target collection");
 
         // act
         SearchByKeywordResponse response = await _useCase.HandleRequest(request);
@@ -54,7 +51,7 @@ public sealed class SearchByKeywordUseCaseTests
     public Task UseCase_NullSearchContext_ThrowsArgumentNullException()
     {
         // arrange
-        SearchByKeywordRequest request = new();
+        SearchByKeywordRequest request = new("searchkeyword", "target collection");
 
         // act, assert
         return _useCase.Invoking(
