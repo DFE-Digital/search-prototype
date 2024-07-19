@@ -31,9 +31,4 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Search\" />
-	</ItemGroup>
-
 </Project>

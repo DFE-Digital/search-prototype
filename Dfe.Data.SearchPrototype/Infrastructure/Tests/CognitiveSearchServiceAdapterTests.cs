@@ -36,7 +36,7 @@ public sealed class CognitiveSearchServiceAdapterTests
 
         // act
         EstablishmentResults? response =
-            await cognitiveSearchServiceAdapter.Search(
+            await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchContext(
                     searchKeyword: "SearchKeyword",
                     targetCollection: "TargetCollection"));
@@ -61,7 +61,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         // act.
         return cognitiveSearchServiceAdapter
             .Invoking(async serviceAdapter =>
-                await serviceAdapter.Search(
+                await serviceAdapter.SearchAsync(
                     new SearchContext(
                         searchKeyword: "SearchKeyword",
                         targetCollection: "TargetCollection")))
@@ -83,7 +83,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         // act.
         return cognitiveSearchServiceAdapter
             .Invoking(async serviceAdapter =>
-                await serviceAdapter.Search(
+                await serviceAdapter.SearchAsync(
                     new SearchContext(
                         searchKeyword: "SearchKeyword",
                         targetCollection: "TargetCollection")))
