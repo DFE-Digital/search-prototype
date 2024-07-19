@@ -24,28 +24,29 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddGovUkFrontend();
 
 
-// start of IOC container registrations
+// Start of IOC container registrations
 //
 //
-
 builder.Services.AddAzureCognitiveSearchProvider(builder.Configuration);
-builder.Services.AddScoped<ISearchServiceAdapter, CognitiveSearchServiceAdapter<EstablishmentResults>>();
+builder.Services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<Infrastructure.Establishment>));
 builder.Services.AddDefaultMappers();
 builder.Services.AddScoped<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>, SearchByKeywordUseCase>();
-builder.Services.AddSingleton<IMapper<Response<SearchResults<Infrastructure.Establishment>>, EstablishmentResults>, AzureSearchResponseToEstablishmentResultMapper>();
+builder.Services.AddSingleton(typeof(IMapper<Response<SearchResults<Infrastructure.Establishment>>, EstablishmentResults>), typeof(AzureSearchResponseToEstablishmentResultMapper));
 builder.Services.AddSingleton<IMapper<SearchSettingsOptions, SearchOptions>, SearchOptionsToAzureOptionsMapper>();
 builder.Services.AddSingleton<IMapper<SearchByKeywordResponse, SearchResultsViewModel>, SearchByKeywordResponseToViewModelMapper>();
 builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, Search.Establishment>, AzureSearchResultToEstablishmentMapper>();
+builder.Services.AddSingleton<IMapper<EstablishmentResults, SearchByKeywordResponse>, ResultsToResponseMapper>();
+
 builder.Services.AddOptions<SearchSettingsOptions>("establishments")
     .Configure<IConfiguration>(
         (settings, configuration) =>
             configuration.GetSection("AzureCognitiveSearchOptions:SearchEstablishment:SearchSettingsOptions").Bind(settings));
+
 builder.Services.AddSingleton<IJsonObjectSerialiser, JsonObjectSerialiser>();
 builder.Services.AddScoped<ISearchOptionsFactory, SearchOptionsFactory>();
-
 //
 //
-// endof IOC container registrations
+// End of IOC container registrations
 
 var app = builder.Build();
 
