@@ -24,4 +24,8 @@
 		<ProjectReference Include="..\Dfe.Data.SearchPrototype.Web.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Shared\TestDoubles\" />
+	</ItemGroup>
+
 </Project>
