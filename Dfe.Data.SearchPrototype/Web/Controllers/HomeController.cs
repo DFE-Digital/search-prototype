@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dfe.Data.SearchPrototype.Web.Controllers;
 
 /// <summary>
-/// Controller responsible for allowing searching by keyword
+/// Controller responsible for allowing searching by keyword.
 /// </summary>
 public class HomeController : Controller
 {
@@ -19,7 +19,10 @@ public class HomeController : Controller
     /// The following dependencies include the use-case which orchestrates the search functionality,
     /// and the mapper which transforms from the use-case response to the view model.
     /// </summary>
-    /// <param name="logger"></param>
+    /// <param name="logger">
+    /// The concrete implementation of the T:Microsoft.Extensions.Logging.ILogger
+    /// defined within, and injected by the IOC container (defined within program.cs)
+    /// </param>
     /// <param name="searchByKeywordUseCase">
     /// The concrete implementation of the T:DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase.IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
     /// defined within, and injected by the IOC container (defined within program.cs)
@@ -29,7 +32,7 @@ public class HomeController : Controller
     /// defined within, and injected by the IOC container (defined within program.cs)
     /// </param>
     public HomeController(
-        ILogger<HomeController> logger, 
+        ILogger<HomeController> logger,
         IUseCase<SearchByKeywordRequest, SearchByKeywordResponse> searchByKeywordUseCase,
         IMapper<SearchByKeywordResponse, SearchResultsViewModel> mapper)
     {
@@ -39,10 +42,12 @@ public class HomeController : Controller
     }
 
     /// <summary>
-    /// The action method that composes the view model based on the search keyword
+    /// The action method that composes the view model based on the search keyword.
     /// </summary>
     /// <param name="searchKeyWord">search keyword</param>
-    /// <returns></returns>
+    /// <returns>
+    /// An IActionResult contract that represents the result of this action method.
+    /// </returns>
     public async Task<IActionResult> Index(string searchKeyWord)
     {
         if (string.IsNullOrEmpty(searchKeyWord))

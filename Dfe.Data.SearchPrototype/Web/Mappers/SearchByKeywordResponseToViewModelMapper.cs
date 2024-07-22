@@ -13,10 +13,14 @@ public class SearchByKeywordResponseToViewModelMapper : IMapper<SearchByKeywordR
     /// <summary>
     /// The mapping input is the use-case search response T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordResponse
     /// and if any results are contained within the response a new P:Dfe.Data.SearchPrototype.Web.Models.SearchResultsViewModel.SearchItems
-    /// instance is created
+    /// instance is created.
     /// </summary>
-    /// <param name="input">A configured T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordResponse instance</param>
-    /// <returns>A configured T:Dfe.Data.SearchPrototype.Web.Models.SearchResultsViewModel instance</returns>
+    /// <param name="input">
+    /// A configured T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordResponse instance
+    /// </param>
+    /// <returns>
+    /// A configured T:Dfe.Data.SearchPrototype.Web.Models.SearchResultsViewModel instance
+    /// </returns>
     public SearchResultsViewModel MapFrom(SearchByKeywordResponse input)
     {
         SearchResultsViewModel viewModel = new();
