@@ -1,5 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using Dfe.Data.SearchPrototype.Web.Mapping;
+using Dfe.Data.SearchPrototype.Web.Mappers;
 using Dfe.Data.SearchPrototype.Web.Models;
 using Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
