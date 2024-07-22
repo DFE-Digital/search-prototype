@@ -1,16 +1,14 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿using Dfe.Data.SearchPrototype.Search;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Controllers;
-using Microsoft.Extensions.Logging;
-using Dfe.Data.SearchPrototype.Search;
-using Moq;
 using Dfe.Data.SearchPrototype.Web.Mappers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
-using FluentAssertions;
-using Dfe.Data.SearchPrototype.Web.Tests.PartialIntegration.TestDoubles;
 using Dfe.Data.SearchPrototype.Web.Models;
-using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
+using Dfe.Data.SearchPrototype.Web.Tests.PartialIntegration.TestDoubles;
+using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.PartialIntegration;
 
