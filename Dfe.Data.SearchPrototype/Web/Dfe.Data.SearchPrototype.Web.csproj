@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<RootNamespace>Dfe.Data.SearchPrototype.Web</RootNamespace>
+		<UserSecretsId>48e8e924-5ceb-41b1-9a4a-b16e14f1a95f</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
