@@ -3,7 +3,7 @@ using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Models;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
-namespace Dfe.Data.SearchPrototype.Web.Mapping;
+namespace Dfe.Data.SearchPrototype.Web.Mappers;
 
 public class SearchByKeywordResponseToViewModelMapper : IMapper<SearchByKeywordResponse, SearchResultsViewModel>
 {
