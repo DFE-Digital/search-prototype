@@ -3,7 +3,7 @@ using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping;
+namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
 /// <summary>
 /// Facilitates mapping from the received T:Azure.Search.Documents.Models.SearchResults

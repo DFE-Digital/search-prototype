@@ -1,4 +1,7 @@
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Models;
+using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
+using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,13 +10,21 @@ namespace Dfe.Data.SearchPrototype.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUseCase<SearchByKeywordRequest, SearchByKeywordResponse> _searchByKeywordUseCase;
+        private readonly IMapper<SearchByKeywordResponse, SearchResultsViewModel> _mapper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger, 
+            IUseCase<SearchByKeywordRequest, SearchByKeywordResponse> searchByKeywordUseCase,
+            IMapper<SearchByKeywordResponse, SearchResultsViewModel> mapper
+            )
         {
             _logger = logger;
+            _searchByKeywordUseCase = searchByKeywordUseCase;
+            _mapper = mapper;
         }
 
-        public IActionResult Index(string searchKeyWord)
+        public async Task<IActionResult> Index(string searchKeyWord)
         {
             if (string.IsNullOrEmpty(searchKeyWord))
             {
@@ -21,8 +32,12 @@ namespace Dfe.Data.SearchPrototype.Web.Controllers
             }
             ViewBag.SearchQuery = searchKeyWord;
 
-            var searchItems = new SearchResultsViewModel();
-            return View(searchItems);
+            SearchByKeywordResponse response =
+                await _searchByKeywordUseCase.HandleRequest(
+                    new SearchByKeywordRequest(searchKeyWord, "establishments"));
+
+            SearchResultsViewModel viewModel = _mapper.MapFrom(response);
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

@@ -36,5 +36,7 @@
                 (string.IsNullOrWhiteSpace(targetCollection)) ?
                     throw new ArgumentNullException(nameof(targetCollection)) : targetCollection;
         }
+
+        public static SearchContext Create(string searchKeyword, string targetCollection) => new(searchKeyword, targetCollection);
     }
 }
