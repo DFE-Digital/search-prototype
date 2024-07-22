@@ -20,10 +20,10 @@ public class HomeControllerTests
     public async Task Index_CallUseCase()
     {
         Mock<ILogger<HomeController>> mockLogger = LoggerTestDouble.MockLogger();
-        Mock<IMapper<SearchByKeywordResponse, SearchResultsViewModel>> mockMapper = 
+        Mock<IMapper<SearchByKeywordResponse, SearchResultsViewModel>> mockMapper =
             SearchResultsToViewModelMapperTestDouble.MockFor(new SearchResultsViewModel());
         SearchByKeywordResponse response = new(new List<Establishment>().AsReadOnly());
-        Mock<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>> mockUseCase = 
+        Mock<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>> mockUseCase =
             SearchByKeywordUseCaseTestDouble.MockFor(response);
 
         HomeController controller = new(mockLogger.Object, mockUseCase.Object, mockMapper.Object);
@@ -31,6 +31,42 @@ public class HomeControllerTests
         IActionResult result = await controller.Index("KDM");
 
         mockUseCase.Verify(useCase => useCase.HandleRequest(It.IsAny<SearchByKeywordRequest>()), Times.Once());
+    }
+
+    [Fact]
+    public async Task Index_CallMapper()
+    {
+        Mock<ILogger<HomeController>> mockLogger = LoggerTestDouble.MockLogger();
+        Mock<IMapper<SearchByKeywordResponse, SearchResultsViewModel>> mockMapper =
+            SearchResultsToViewModelMapperTestDouble.MockFor(new SearchResultsViewModel());
+        SearchByKeywordResponse response = new(new List<Establishment>().AsReadOnly());
+        Mock<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>> mockUseCase =
+            SearchByKeywordUseCaseTestDouble.MockFor(response);
+
+        HomeController controller = new(mockLogger.Object, mockUseCase.Object, mockMapper.Object);
+
+        IActionResult result = await controller.Index("KDM");
+
+        mockMapper.Verify(mapper => mapper.MapFrom(It.IsAny<SearchByKeywordResponse>()), Times.Once());
+    }
+
+    [Fact]
+    public async Task Index_NoSearchKeyword()
+    {
+        // arrange
+        Mock<ILogger<HomeController>> mockLogger = LoggerTestDouble.MockLogger();
+        Mock<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>> mockUseCase =
+            SearchByKeywordUseCaseTestDouble.DefaultMock();
+        Mock<IMapper<SearchByKeywordResponse, SearchResultsViewModel>> mockMapper =
+            SearchResultsToViewModelMapperTestDouble.DefaultMock();
+
+        //act
+        HomeController controller = new HomeController(mockLogger.Object, mockUseCase.Object, mockMapper.Object);
+        IActionResult result = await controller.Index(null!);
+
+        // assert
         result.Should().NotBeNull();
+        ViewResult viewResult = Assert.IsType<ViewResult>(result);
+        viewResult.Model.Should().BeNull();
     }
 }

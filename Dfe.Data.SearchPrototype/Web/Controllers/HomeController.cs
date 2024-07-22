@@ -28,7 +28,7 @@ namespace Dfe.Data.SearchPrototype.Web.Controllers
         {
             if (string.IsNullOrEmpty(searchKeyWord))
             {
-                return View("Index");
+                return View();
             }
             ViewBag.SearchQuery = searchKeyWord;
 
