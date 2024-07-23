@@ -9,8 +9,23 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping;
 /// Facilitates mapping from the received T:Azure.Search.Documents.Models.SearchResults
 /// into the required T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments object.
 /// </summary>
-public sealed class AzureEstablishmentSearchResponseToSearchResultsMapper : IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>
+public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>
 {
+    private readonly IMapper<Establishment, Search.Establishment> _azureSearchResultToEstablishmentMapper;
+
+    /// <summary>
+    /// The following mapping dependency provides the functionality to map from a raw Azure
+    /// search result, to a configured T:Dfe.Data.SearchPrototype.Search.Establishment
+    /// instance, the complete implementation of which is defined in the IOC container.
+    /// </summary>
+    /// <param name="azureSearchResultToEstablishmentMapper">
+    /// Mapper used to map from the raw Azure search result to a T:Dfe.Data.SearchPrototype.Search.Establishment instance.
+    /// </param>
+    public AzureSearchResponseToEstablishmentResultMapper(IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper)
+    {
+        _azureSearchResultToEstablishmentMapper = azureSearchResultToEstablishmentMapper;
+    }
+
     /// <summary>
     /// The mapping input is the raw Azure search response T:Azure.Search.Documents.Models.SearchResults
     /// and if any results are contained within the response a new T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments
@@ -30,7 +45,7 @@ public sealed class AzureEstablishmentSearchResponseToSearchResultsMapper : IMap
         ArgumentNullException.ThrowIfNull(input);
 
         EstablishmentResults establishmentResults = new();
-        var results = input.Value.GetResults(); // synchronous operation TODO is this good enough?
+        var results = input.Value.GetResults();
 
         if (results.Any())
         {
@@ -42,11 +57,8 @@ public sealed class AzureEstablishmentSearchResponseToSearchResultsMapper : IMap
                         "Search result document object cannot be null.");
                 }
 
-                // TODO mapper
                 establishmentResults.AddEstablishment(
-                    new Search.Establishment(
-                        urn: rawSearchResult.Document.id ?? string.Empty,
-                        name: rawSearchResult.Document.ESTABLISHMENTNAME ?? string.Empty));
+                    establishment: _azureSearchResultToEstablishmentMapper.MapFrom(rawSearchResult.Document));
             });
         }
 
