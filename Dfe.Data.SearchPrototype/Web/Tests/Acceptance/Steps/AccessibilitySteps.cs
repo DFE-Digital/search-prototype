@@ -47,7 +47,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         public void OpenPage(string pageName)
         {
             _driverContext.GoToUri($"{_pageNameToUrlConverter[pageName]}");
-            _searchPage.Heading.Text.Should().Be("Search prototype");
+            _searchPage.HeadingElement.Text.Should().Be("Search prototype");
         }
 
         [StepDefinition(@"the (.*) is accessible")]
