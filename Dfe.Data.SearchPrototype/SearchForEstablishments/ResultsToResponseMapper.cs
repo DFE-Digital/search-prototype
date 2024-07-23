@@ -22,7 +22,7 @@ public class ResultsToResponseMapper : IMapper<EstablishmentResults, SearchByKey
     /// </returns>
     public SearchByKeywordResponse MapFrom(EstablishmentResults input)
     {
-       SearchByKeywordResponse response = new(input.Establishments);
+        SearchByKeywordResponse response = new(input.Establishments);
 
         return response;
     }
