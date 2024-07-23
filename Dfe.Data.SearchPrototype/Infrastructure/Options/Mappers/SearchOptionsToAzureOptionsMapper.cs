@@ -1,7 +1,7 @@
 ﻿using Azure.Search.Documents;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Options.Mapping;
+namespace Dfe.Data.SearchPrototype.Infrastructure.Options.Mappers;
 
 /// <summary>
 /// Concrete mapper implementation which translates the results returned from the internal

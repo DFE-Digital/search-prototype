@@ -1,10 +1,10 @@
 ﻿using Dfe.Data.SearchPrototype.Infrastructure.Options;
-using Dfe.Data.SearchPrototype.Infrastructure.Options.Mapping;
+using Dfe.Data.SearchPrototype.Infrastructure.Options.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.TestDoubles;
 using FluentAssertions;
 using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.Mapping;
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.Mappers;
 
 public sealed class SearchOptionsToAzureOptionsMapperTests
 {

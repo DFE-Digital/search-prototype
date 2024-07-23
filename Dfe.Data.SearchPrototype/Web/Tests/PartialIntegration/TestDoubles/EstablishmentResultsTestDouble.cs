@@ -1,6 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Search;
 
-namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
+namespace Dfe.Data.SearchPrototype.Web.Tests.PartialIntegration.TestDoubles;
 
 public static class EstablishmentResultsTestDouble
 {
@@ -16,7 +16,8 @@ public static class EstablishmentResultsTestDouble
 
         for (int i = 0; i < new Bogus.Faker().Random.Int(1, 10); i++)
         {
-            establishmentResults.AddEstablishment(new Establishment(GetEstablishmentIdentifierFake(), GetEstablishmentNameFake()));
+            establishmentResults.AddEstablishment(
+                new Establishment(GetEstablishmentIdentifierFake(), GetEstablishmentNameFake()));
         }
         return establishmentResults;
     }
