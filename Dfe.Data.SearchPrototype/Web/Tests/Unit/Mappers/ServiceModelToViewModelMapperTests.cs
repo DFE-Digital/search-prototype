@@ -5,7 +5,7 @@ using Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.Mapping;
+namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.Mappers;
 
 public class SearchByKeywordResponseToViewModelMapperTests
 {

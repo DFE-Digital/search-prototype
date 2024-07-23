@@ -9,7 +9,7 @@ using Azure;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Azure.Search.Documents;
-using Dfe.Data.SearchPrototype.Infrastructure.Options.Mapping;
+using Dfe.Data.SearchPrototype.Infrastructure.Options.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Web.Models;
 using Dfe.Data.SearchPrototype.Web.Mappers;

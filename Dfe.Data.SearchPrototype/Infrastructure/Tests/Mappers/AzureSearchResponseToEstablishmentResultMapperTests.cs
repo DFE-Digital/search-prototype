@@ -7,7 +7,7 @@ using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using FluentAssertions;
 using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping;
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 {
