@@ -37,6 +37,18 @@
                     throw new ArgumentNullException(nameof(targetCollection)) : targetCollection;
         }
 
+        /// <summary>
+        /// Factory method to allow implicit creation of a T:Dfe.Data.SearchPrototype.Search.SearchContext instance.
+        /// </summary>
+        /// <param name="searchKeyword">
+        /// The keyword string which defines the search.
+        /// </param>
+        /// <param name="targetCollection">
+        /// The underlying collection on which to undertake the search.
+        /// </param>
+        /// <returns>
+        /// A configured T:Dfe.Data.SearchPrototype.Search.SearchContext instance.
+        /// </returns>
         public static SearchContext Create(string searchKeyword, string targetCollection) => new(searchKeyword, targetCollection);
     }
 }

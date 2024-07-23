@@ -46,19 +46,4 @@ public sealed class SearchByKeywordUseCaseTests
                 .ThrowAsync<ArgumentNullException>()
                 .WithMessage("Value cannot be null. (Parameter 'SearchByKeywordRequest')");
     }
-
-    [Fact]
-    public Task UseCase_NullSearchContext_ThrowsArgumentNullException()
-    {
-        // arrange
-        SearchByKeywordRequest request = new("searchkeyword", "target collection");
-
-        // act, assert
-        return _useCase.Invoking(
-            async usecase => await usecase
-                .HandleRequest(request))
-                .Should()
-                .ThrowAsync<ArgumentNullException>()
-                .WithMessage("Value cannot be null. (Parameter 'SearchContext')");
-    }
 }

@@ -26,14 +26,14 @@
 
 @if (Model != null)
 {
-    @if (Model.SearchItems != null && Model.SearchItems.Count >= 1)
+    @if (Model.HasResults)
     {
         @* list results component to be inserted as partial view*@
         <div class="govuk-grid-column-two-thirds">
-            <h3 class="govuk-heading-m">@Model.SearchItems.Count @(Model.SearchItems.Count > 1 ? "Results" : "Result")</h3>
+            <h3 class="govuk-heading-m">@Model.SearchResultsCount @(Model.HasMoreThanOneResult ? "Results" : "Result")</h3>
             <hr />
             <ul style="list-style: none">
-                @foreach (var searchItem in Model.SearchItems)
+                @foreach (var searchItem in Model.SearchItems!)
                 {
                     <li>
                         <h4>
