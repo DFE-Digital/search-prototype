@@ -14,8 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{0D4ACC06-9FA9-422A-8F92-92B565879E16}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet\DfE.Data.ComponentLibrary.CleanArchitecture.2.0.37-beta-ci-20240610-104522.nupkg = NuGet\DfE.Data.ComponentLibrary.CleanArchitecture.2.0.37-beta-ci-20240610-104522.nupkg
-		NuGet\DfE.Data.ComponentLibrary.CrossCuttingConcerns.Json.2.0.37-beta-ci-20240610-104522 (1).nupkg = NuGet\DfE.Data.ComponentLibrary.CrossCuttingConcerns.Json.2.0.37-beta-ci-20240610-104522 (1).nupkg
 		NuGet\DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping.2.0.37-beta-ci-20240610-104522.nupkg = NuGet\DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping.2.0.37-beta-ci-20240610-104522.nupkg
+		NuGet\DfE.Data.ComponentLibrary.CrossCuttingConcerns.Json.2.0.37-beta-ci-20240610-104522.nupkg = NuGet\DfE.Data.ComponentLibrary.CrossCuttingConcerns.Json.2.0.37-beta-ci-20240610-104522.nupkg
 		NuGet\DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.2.0.37-beta-ci-20240610-104522.nupkg = NuGet\DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.2.0.37-beta-ci-20240610-104522.nupkg
 	EndProjectSection
 EndProject
