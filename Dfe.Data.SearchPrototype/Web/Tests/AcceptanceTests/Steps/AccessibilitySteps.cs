@@ -14,7 +14,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
     public sealed class AccessibilitySteps
     {
         private readonly AccessibilityOptions _options;
-        private readonly HomePage _homePage;
         private readonly ITestOutputHelper _logger;
         private readonly IWebDriverContext _driverContext;
         private readonly SearchPage _searchPage;
@@ -27,7 +26,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         };
 
         public AccessibilitySteps(
-            HomePage homePage,
             IOptions<AccessibilityOptions> options,
             ITestOutputHelper logger,
             IWebDriverContext driverContext,
@@ -37,7 +35,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         {
             _driverContext = driverContext;
             _searchPage = searchPage;
-            _homePage = homePage;
             _logger = logger;
             _options = options.Value;
             _sessionOptions = sessionOptions;
@@ -62,7 +59,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
             var axeResult = new AxeBuilder(_driverContext.Driver)
                .WithTags(_options.WcagTags)
                .WithOutputFile(outputFile)
-               .Exclude(_homePage.SearchHiddenDiv.Criteria)
+               .Exclude(_searchPage.SearchHiddenDiv.Criteria)
                .Analyze();
 
             _logger.WriteLine($"Scan completed output location {outputFile}");

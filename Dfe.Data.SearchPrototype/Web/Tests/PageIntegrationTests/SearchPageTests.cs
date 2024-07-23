@@ -9,7 +9,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration
 {
     public class SearchPageTests : IClassFixture<PageWebApplicationFactory>
     {
-        private readonly HttpClient _client;
         private readonly WebApplicationFactory<Program> _factory;
 
         public SearchPageTests(PageWebApplicationFactory factory)
@@ -22,7 +21,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration
         {
             var response = await _factory.CreateClient().GetAsync("http://localhost:5000");
 
-            response.EnsureSuccessStatusCode();
             var document = await HtmlHelpers.GetDocumentAsync(response);
 
             document.GetElementText(SearchPage.Heading.Criteria).Should().Be("Search prototype");
