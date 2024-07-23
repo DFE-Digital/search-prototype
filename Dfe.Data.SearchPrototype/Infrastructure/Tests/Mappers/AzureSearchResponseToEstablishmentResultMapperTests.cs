@@ -1,13 +1,13 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.SearchPrototype.Infrastructure.Mapping;
+using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using FluentAssertions;
 using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mapping;
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 {

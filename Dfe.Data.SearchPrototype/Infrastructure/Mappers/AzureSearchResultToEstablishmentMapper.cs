@@ -1,6 +1,6 @@
 ﻿using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
-namespace Dfe.Data.SearchPrototype.Infrastructure.Mapping
+namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers
 {
     /// <summary>
     /// Facilitates mapping from the received T:Dfe.Data.SearchPrototype.Search.Establishment
