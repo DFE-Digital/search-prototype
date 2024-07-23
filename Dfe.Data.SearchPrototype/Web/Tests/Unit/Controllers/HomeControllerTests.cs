@@ -17,7 +17,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.Controllers;
 public class HomeControllerTests
 {
     [Fact]
-    public async Task Index_CallUseCase()
+    public async Task Index_SearchKeyword_CallUseCase()
     {
         Mock<ILogger<HomeController>> mockLogger = LoggerTestDouble.MockLogger();
         Mock<IMapper<SearchByKeywordResponse, SearchResultsViewModel>> mockMapper =
@@ -34,7 +34,7 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public async Task Index_CallMapper()
+    public async Task Index_SearchKeyword_CallMapper()
     {
         Mock<ILogger<HomeController>> mockLogger = LoggerTestDouble.MockLogger();
         Mock<IMapper<SearchByKeywordResponse, SearchResultsViewModel>> mockMapper =
@@ -51,7 +51,7 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public async Task Index_NoSearchKeyword()
+    public async Task Index_NoSearchKeyword_NullViewModel()
     {
         // arrange
         Mock<ILogger<HomeController>> mockLogger = LoggerTestDouble.MockLogger();

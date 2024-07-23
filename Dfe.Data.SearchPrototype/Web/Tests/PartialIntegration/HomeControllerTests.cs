@@ -39,7 +39,7 @@ public class HomeControllerTests
     }
 
     [Fact]
-    public async Task Index_WithNoResults_ReturnsNoModel()
+    public async Task Index_WithNoResults_ReturnsNoSearchResultsOnModel()
     {
         // arrange
         _searchServiceAdapterMock.Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
