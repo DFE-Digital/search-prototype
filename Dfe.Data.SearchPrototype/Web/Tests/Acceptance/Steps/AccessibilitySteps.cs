@@ -17,6 +17,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         private readonly HomePage _homePage;
         private readonly ITestOutputHelper _logger;
         private readonly IWebDriverContext _driverContext;
+        private readonly SearchPage _searchPage;
         private readonly WebDriverSessionOptions _sessionOptions;
 
         private Dictionary<string, string> _pageNameToUrlConverter = new Dictionary<string, string>()
@@ -30,10 +31,12 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
             IOptions<AccessibilityOptions> options,
             ITestOutputHelper logger,
             IWebDriverContext driverContext,
+            SearchPage searchPage,
             WebDriverSessionOptions sessionOptions
         )
         {
             _driverContext = driverContext;
+            _searchPage = searchPage;
             _homePage = homePage;
             _logger = logger;
             _options = options.Value;
@@ -44,7 +47,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         public void OpenPage(string pageName)
         {
             _driverContext.GoToUri($"{_pageNameToUrlConverter[pageName]}");
-            _homePage.Heading.Criteria.Should().NotBeNull();
+            _searchPage.Heading.Text.Should().Be("Search prototype");
         }
 
         [StepDefinition(@"the (.*) is accessible")]
