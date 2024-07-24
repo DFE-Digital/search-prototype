@@ -1,5 +1,5 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
+﻿using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Moq;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
