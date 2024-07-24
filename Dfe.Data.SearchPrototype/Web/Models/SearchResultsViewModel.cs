@@ -8,7 +8,7 @@ public class SearchResultsViewModel
     /// <summary>
     /// View model representation of aggregated search results.
     /// </summary>
-    public List<SearchItemViewModel>? SearchItems { get; set; }
+    public List<EstablishmentViewModel>? SearchItems { get; set; }
     /// <summary>
     /// Property determining whether we have at least one search result.
     /// </summary>

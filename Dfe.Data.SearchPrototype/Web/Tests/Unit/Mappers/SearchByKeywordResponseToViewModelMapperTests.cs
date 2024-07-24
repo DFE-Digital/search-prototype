@@ -26,6 +26,12 @@ public class SearchByKeywordResponseToViewModelMapperTests
         {
             Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Urn, viewModelResults.SearchItems![i].Urn);
             Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Name, viewModelResults.SearchItems[i].Name);
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Street, viewModelResults.SearchItems[i].Address.Street);
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Locality, viewModelResults.SearchItems[i].Address.Locality);
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Address3, viewModelResults.SearchItems[i].Address.Address3);
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Town, viewModelResults.SearchItems[i].Address.Town);
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Postcode, viewModelResults.SearchItems[i].Address.Postcode);
+
         }
     }
 
