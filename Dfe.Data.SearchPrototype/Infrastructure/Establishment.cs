@@ -13,4 +13,23 @@ public class Establishment
     /// The name associated with the retrieved establishment result.
     /// </summary>
     public string? ESTABLISHMENTNAME { get; set; }
+
+    public string? STREET { get; set; }
+
+    public string? LOCALITY { get; set; }
+
+    public string? ADDRESS3 { get; set; }
+
+    public string? TOWN { get; set; }
+
+    public string? POSTCODE { get; set; }
+
+    //public string? Phase { get; set; }
+
+    //public string? Type { get; set; }
+
+    //public string? Status { get; set; }
+
+    //public string? LocalAuthorityName { get; set; }
+
 }

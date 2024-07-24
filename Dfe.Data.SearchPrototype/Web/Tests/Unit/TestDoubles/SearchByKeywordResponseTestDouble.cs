@@ -16,7 +16,14 @@ public static class SearchByKeywordResponseTestDouble
         List<Establishment> establishmentResults = new();
         for (int i = 0; i < new Bogus.Faker().Random.Int(1, 10); i++)
         {
-            establishmentResults.Add(new Establishment(GetEstablishmentIdentifierFake(), GetEstablishmentNameFake()));
+            establishmentResults.Add(new Establishment(
+                GetEstablishmentIdentifierFake(),
+                GetEstablishmentNameFake(),
+                null,
+                null,
+                null,
+                null,
+                null));
         }
         return new SearchByKeywordResponse(establishmentResults);
        

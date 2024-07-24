@@ -9,16 +9,6 @@ public static class SearchResultFake
 {
     public static SearchResult<Establishment>[] SearchResultFakes()
     {
-        var searchResultFaker =
-           new Faker<Establishment>()
-           .StrictMode(false)
-              .RuleFor(
-                   searchResult => searchResult.ESTABLISHMENTNAME,
-                   _ => new Bogus.Faker().Company.CompanyName())
-              .RuleFor(
-                    searchResult => searchResult.id,
-                    _ => new Bogus.Faker().Random.Number(1, 999999).ToString());
-
         int amount = new Bogus.Faker().Random.Number(1, 10);
         var searchResults = new List<SearchResult<Establishment>>();
 
@@ -26,7 +16,7 @@ public static class SearchResultFake
         {
             searchResults.Add(
                 SearchResultFakeWithDocument(
-                    searchResultFaker.Generate()
+                    EstablishmentTestDouble.Create()
                     ));
         }
 

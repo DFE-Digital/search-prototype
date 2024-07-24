@@ -32,7 +32,14 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers
                 throw new ArgumentException(nameof(input.ESTABLISHMENTNAME));
             }
 
-            return new(urn: input.id, name: input.ESTABLISHMENTNAME);
+            return new(
+                urn: input.id,
+                name: input.ESTABLISHMENTNAME,
+                street: input.STREET,
+                locality: input.LOCALITY,
+                address3: input.ADDRESS3,
+                town: input.TOWN,
+                postcode: input.POSTCODE);
         }
     }
 }
