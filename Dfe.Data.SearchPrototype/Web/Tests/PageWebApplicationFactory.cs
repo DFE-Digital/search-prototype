@@ -32,8 +32,6 @@ public sealed class PageWebApplicationFactory : WebApplicationFactory<Program>
             // remove any services that need overriding with test configuration
             t.RemoveAll<IOptions<AzureSearchClientOptions>>();
 
-            //TODO comparisonTablePageTemplateService
-
             // register dependencies with test configuration
 
             t.AddOptions<AzureSearchClientOptions>().Configure(

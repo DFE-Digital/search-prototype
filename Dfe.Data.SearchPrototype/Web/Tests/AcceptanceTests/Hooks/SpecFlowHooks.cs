@@ -4,27 +4,40 @@ using TechTalk.SpecFlow;
 using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Drivers;
 using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Options;
 using Microsoft.Extensions.Options;
+using OpenQA.Selenium.DevTools.V125.Animation;
+using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 
 namespace UnitTestProject1
 {
     [Binding]
     public class SpecFlowHooks
     {
-        public SpecFlowHooks( )
+        private readonly ITestOutputHelper _logger;
+
+        public SpecFlowHooks(ITestOutputHelper logger)
         {
+            _logger = logger;
         }
 
         [Before]
         public void Before()
         {
-            var process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = "Dfe.Data.SearchPrototype.Web.exe",
-                }
-            };
-            process.Start();
+            var workingDir = Directory.GetCurrentDirectory();
+            _logger.WriteLine(workingDir);
+
+            //var process = new Process
+            //{
+            //    StartInfo =
+            //    {
+            //        //FileName = "Dfe.Data.SearchPrototype.Web.exe",
+            //        //WorkingDirectory = "\dfe.data.SearchPrototype\Web",
+            //        //FileName = "dotnet",
+            //        //Arguments = "run --urls=http://localhost:5000"
+            //    }
+            //};
+            //process.Start();
+            ////Thread.Sleep(4000);
         }
 
         [BeforeTestRun]

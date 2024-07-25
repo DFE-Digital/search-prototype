@@ -40,7 +40,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
             _sessionOptions = sessionOptions;
         }
 
-        [StepDefinition(@"the user views the (home|privacy) page")]
+        [StepDefinition(@"the user views the (home) page")]
         public void OpenPage(string pageName)
         {
             _driverContext.GoToUri($"{_pageNameToUrlConverter[pageName]}");
