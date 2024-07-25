@@ -36,15 +36,16 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration
             document.GetElementText(SearchPage.Heading.Criteria).Should().Be("Search prototype");
         }
 
-        [Fact]
-        public async Task Search_ByName_ReturnsResults()
+        [Theory]
+        [InlineData("academy")]
+        [InlineData("school")]
+        public async Task Search_ByName_ReturnsResults(string searchTerm)
         {
             var response = await _factory.CreateClient().GetAsync(uri);
             var document = await HtmlHelpers.GetDocumentAsync(response);
 
             var formElement = document.QuerySelector<IHtmlFormElement>(SearchPage.SearchForm.Criteria) ?? throw new Exception("Unable to find the sign in form");
             var formButton = document.QuerySelector<IHtmlButtonElement>(SearchPage.SearchButton.Criteria) ?? throw new Exception("Unable to find the submit button on search form");
-            var searchTerm = "academy";
 
             var formResponse = await _client.SendAsync(
                 formElement,
@@ -55,14 +56,43 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration
                 });
 
             _logger.WriteLine("SendAsync client base address: " + _client.BaseAddress);
-            _logger.WriteLine("SendAsync request message: " + formResponse.RequestMessage.ToString());
+            _logger.WriteLine("SendAsync request message: " + formResponse.RequestMessage!.ToString());
 
             var resultsPage = await HtmlHelpers.GetDocumentAsync(formResponse);
 
-            _logger.WriteLine("Document: " + resultsPage.Body.OuterHtml);
+            _logger.WriteLine("Document: " + resultsPage.Body!.OuterHtml);
 
             resultsPage.GetElementText(SearchPage.SearchResultsNumber.Criteria).Should().Contain("Results");
             resultsPage.GetMultipleElements(SearchPage.SearchResultLinks.Criteria).Count().Should().BeGreaterThan(1);
+        }
+        
+        [Theory]
+        [InlineData("ant")]
+        [InlineData("boo")]
+        public async Task Search_ByName_NoMatch_ReturnsNoResults(string searchTerm)
+        {
+            var response = await _factory.CreateClient().GetAsync(uri);
+            var document = await HtmlHelpers.GetDocumentAsync(response);
+
+            var formElement = document.QuerySelector<IHtmlFormElement>(SearchPage.SearchForm.Criteria) ?? throw new Exception("Unable to find the sign in form");
+            var formButton = document.QuerySelector<IHtmlButtonElement>(SearchPage.SearchButton.Criteria) ?? throw new Exception("Unable to find the submit button on search form");
+
+            var formResponse = await _client.SendAsync(
+                formElement,
+                formButton,
+                new Dictionary<string, string>
+                {
+                    ["searchKeyWord"] = searchTerm
+                });
+
+            _logger.WriteLine("SendAsync client base address: " + _client.BaseAddress);
+            _logger.WriteLine("SendAsync request message: " + formResponse.RequestMessage!.ToString());
+
+            var resultsPage = await HtmlHelpers.GetDocumentAsync(formResponse);
+
+            _logger.WriteLine("Document: " + resultsPage.Body!.OuterHtml);
+
+            resultsPage.GetElementText(SearchPage.SearchNoResultText.Criteria).Should().Be("Sorry no results found please amend your search criteria");
         }
     }
 }
