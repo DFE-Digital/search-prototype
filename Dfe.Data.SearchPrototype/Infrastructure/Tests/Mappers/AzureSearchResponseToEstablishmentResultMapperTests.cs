@@ -12,7 +12,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 {
     [Fact]
-    public void MapFrom_With_Valid_Search_Results_Returns_Configured_Establishments()
+    public void MapFrom_WithValidSearchResults_ReturnsConfiguredEstablishments()
     {
         // arrange
         IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper =
@@ -22,7 +22,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
             new AzureSearchResponseToEstablishmentResultMapper(azureSearchResultToEstablishmentMapper);
 
         var searchResultDocuments =
-            SearchResultFake.SearchResultFakes();
+            SearchResultFake.SearchResults();
         Response<SearchResults<Establishment>> responseFake =
             ResponseFake.WithSearchResults(searchResultDocuments);
 
@@ -31,10 +31,37 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 
         // assert
         result.Should().NotBeNull();
+        result.Establishments.Should().HaveCount(searchResultDocuments.Count());
+        foreach(var establishment in result.Establishments)
+        {
+            var matchingResult = searchResultDocuments.ToList().Find(x => establishment.Urn == x.Document.id);
+            establishment.Name.Should().Be(matchingResult!.Document.ESTABLISHMENTNAME);
+        }
     }
 
     [Fact]
-    public void MapFrom_With_Null_Search_Results_Throws_Expected_Argument_Null_Exception()
+    public void MapFrom_WithEmptySearchResults_ReturnsEmptyList()
+    {
+        // arrange
+        IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper =
+            new AzureSearchResultToEstablishmentMapper();
+
+        IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> mapper =
+            new AzureSearchResponseToEstablishmentResultMapper(azureSearchResultToEstablishmentMapper);
+
+        Response<SearchResults<Establishment>> responseFake =
+            ResponseFake.WithSearchResults(SearchResultFake.EmptySearchResult());
+
+        // act
+        EstablishmentResults? result = mapper.MapFrom(responseFake);
+
+        // assert
+        result.Should().NotBeNull();
+        result.Establishments.Should().HaveCount(0);
+    }
+
+    [Fact]
+    public void MapFrom_WithNullSearchResults_ThrowsArgumentNullException()
     {
         // arrange
         IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper =
@@ -52,5 +79,30 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
                     .Should()
                         .Throw<ArgumentNullException>()
                         .WithMessage("Value cannot be null. (Parameter 'input')");
+    }
+
+    [Fact]
+    public void MapFrom_WithNullSearchResult_ThrowsInvalidOperationException()
+    {
+        // arrange
+        IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper =
+            new AzureSearchResultToEstablishmentMapper();
+
+        IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> mapper =
+            new AzureSearchResponseToEstablishmentResultMapper(azureSearchResultToEstablishmentMapper);
+
+        var searchResultDocuments =
+            SearchResultFake.SearchResults();
+        searchResultDocuments.Add(SearchResultFake.SearchResultWithDocument(null));
+        Response<SearchResults<Establishment>> responseFake =
+                    ResponseFake.WithSearchResults(searchResultDocuments);
+
+        // act.
+        mapper
+            .Invoking(mapper =>
+                mapper.MapFrom(responseFake))
+                    .Should()
+                        .Throw<InvalidOperationException>()
+                        .WithMessage("Search result document object cannot be null.");
     }
 }

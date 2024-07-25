@@ -5,12 +5,21 @@
 /// </summary>
 public sealed class EstablishmentResults
 {
-    private readonly List<Establishment> _establishments = new();
+    private readonly List<Establishment> _establishments;
 
     /// <summary>
     /// The read-only collection of establishments hydrated through the results of the given search.
     /// </summary>
     public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
+
+    public EstablishmentResults()
+    {
+        _establishments = new();
+    }
+    public EstablishmentResults(IEnumerable<Establishment>? establishments)
+    {
+        _establishments = establishments?.ToList() ?? new();
+    }
 
     /// <summary>
     /// Function to allow a T:Dfe.Data.SearchPrototype.Search.Establishment object to be

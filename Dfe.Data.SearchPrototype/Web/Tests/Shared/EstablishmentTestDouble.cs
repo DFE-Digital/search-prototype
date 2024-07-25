@@ -1,34 +1,34 @@
 ﻿using Bogus;
 using Dfe.Data.SearchPrototype.Search;
 
-namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
+namespace Dfe.Data.SearchPrototype.Web.Tests.Shared;
 
 public class EstablishmentTestDouble
 {
     private static string GetEstablishmentNameFake() =>
-             new Bogus.Faker().Company.CompanyName();
+             new Faker().Company.CompanyName();
 
     private static string GetEstablishmentIdentifierFake() =>
-        new Bogus.Faker().Random.Int(100000, 999999).ToString();
+        new Faker().Random.Int(100000, 999999).ToString();
 
     private static string GetEstablishmentStreetFake() =>
-        new Bogus.Faker().Address.StreetName();
+        new Faker().Address.StreetName();
 
     private static string GetEstablishmentLocalityFake() =>
-        new Bogus.Faker().Address.City();
+        new Faker().Address.City();
 
     private static string GetEstablishmentAddress3Fake() =>
-        new Bogus.Faker().Address.City();
+        new Faker().Address.City();
 
     private static string GetEstablishmentTownFake() =>
-    new Bogus.Faker().Address.City();
+    new Faker().Address.City();
 
     private static string GetEstablishmentPostcodeFake() =>
-        new Bogus.Faker().Address.ZipCode();
+        new Faker().Address.ZipCode();
 
     public static Establishment Create()
     {
-        return new (
+        return new(
             urn: GetEstablishmentIdentifierFake(),
             name: GetEstablishmentNameFake(),
             street: GetEstablishmentStreetFake(),

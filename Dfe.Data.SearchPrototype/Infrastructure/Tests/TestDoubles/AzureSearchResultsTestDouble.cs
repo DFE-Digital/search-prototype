@@ -7,7 +7,12 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 public static class SearchResultFake
 {
-    public static SearchResult<Establishment>[] SearchResultFakes()
+    public static List<SearchResult<Establishment>> EmptySearchResult()
+    {
+        return new List<SearchResult<Establishment>>();
+    }
+
+    public static List<SearchResult<Establishment>> SearchResults()
     {
         int amount = new Bogus.Faker().Random.Number(1, 10);
         var searchResults = new List<SearchResult<Establishment>>();
@@ -15,15 +20,14 @@ public static class SearchResultFake
         for (int i = 0; i < amount; i++)
         {
             searchResults.Add(
-                SearchResultFakeWithDocument(
+                SearchResultWithDocument(
                     EstablishmentTestDouble.Create()
                     ));
         }
-
-        return searchResults.ToArray();
+        return searchResults;
     }
 
-    public static SearchResult<Establishment> SearchResultFakeWithDocument(Establishment document) =>
+    public static SearchResult<Establishment> SearchResultWithDocument(Establishment? document) =>
         SearchModelFactory
             .SearchResult<Establishment>(
                 document, 1.00, new Dictionary<string, IList<string>>());
