@@ -12,7 +12,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.Models;
 public class EstablishmentViewModelTests
 {
     [Fact]
-    
     public void AddressAsString_ReturnsFormattedString()
     {
         EstablishmentViewModel establishmentViewModel = new()
@@ -36,7 +35,6 @@ public class EstablishmentViewModelTests
     }
 
     [Fact]
-
     public void AddressAsString_NullLocality_ReturnsFormattedString()
     {
         EstablishmentViewModel establishmentViewModel = new()

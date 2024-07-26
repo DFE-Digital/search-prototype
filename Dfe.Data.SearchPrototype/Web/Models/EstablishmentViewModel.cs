@@ -1,6 +1,4 @@
-﻿using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search.Model;
-
-namespace Dfe.Data.SearchPrototype.Web.Models;
+﻿namespace Dfe.Data.SearchPrototype.Web.Models;
 
 /// <summary>
 /// A view model representation of a single search result.
@@ -10,19 +8,18 @@ public class EstablishmentViewModel
     /// <summary>
     /// Establishment Urn.
     /// </summary>
-    public string Urn { get; set; } = string.Empty;
+    public string Urn { get; init; } = string.Empty;
     /// <summary>
     /// Establishment name.
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
 
-    public AddressViewModel Address { get; set; } = new();
+    public AddressViewModel Address { get; init; } = new();
 
     public string AddressAsString()
     {
         var addressComponents
-            =
-            new[] { Address.Street, Address.Locality, Address.Address3, Address.Town, Address.Postcode }
+            = new[] { Address.Street, Address.Locality, Address.Address3, Address.Town, Address.Postcode }
                 .Where(addressComponent => !string.IsNullOrEmpty(addressComponent))
                 .ToArray();
         var readableAddress = string.Join(", ", addressComponents);
