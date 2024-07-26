@@ -1,10 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Web.Models;
+using Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.Models;
@@ -16,8 +12,8 @@ public class EstablishmentViewModelTests
     {
         EstablishmentViewModel establishmentViewModel = new()
         {
-            Urn = "90909",
-            Name = "name",
+            Urn = EstablishmentViewModelTestDouble.GetEstablishmentIdentifierFake(),
+            Name = EstablishmentViewModelTestDouble.GetEstablishmentNameFake(),
             Address = new()
             {
                 Street = "street",
@@ -39,8 +35,8 @@ public class EstablishmentViewModelTests
     {
         EstablishmentViewModel establishmentViewModel = new()
         {
-            Urn = "90909",
-            Name = "name",
+            Urn = EstablishmentViewModelTestDouble.GetEstablishmentIdentifierFake(),
+            Name = EstablishmentViewModelTestDouble.GetEstablishmentNameFake(),
             Address = new()
             {
                 Street = "street",

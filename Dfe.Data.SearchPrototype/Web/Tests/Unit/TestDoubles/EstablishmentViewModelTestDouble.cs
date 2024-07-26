@@ -3,12 +3,12 @@ using Dfe.Data.SearchPrototype.Web.Models;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.Unit.TestDoubles;
 
-public class EstablishmentViewModelTestDouble
+public static class EstablishmentViewModelTestDouble
 {
-    private static string GetEstablishmentNameFake() =>
+    public static string GetEstablishmentNameFake() =>
              new Faker().Company.CompanyName();
 
-    private static string GetEstablishmentIdentifierFake() =>
+    public static string GetEstablishmentIdentifierFake() =>
         new Faker().Random.Int(100000, 999999).ToString();
 
     private static string GetEstablishmentStreetFake() =>
@@ -26,7 +26,7 @@ public class EstablishmentViewModelTestDouble
     private static string GetEstablishmentPostcodeFake() =>
         new Faker().Address.ZipCode();
 
-    public EstablishmentViewModel Create()
+    public static EstablishmentViewModel Create()
     {
         return new()
         {

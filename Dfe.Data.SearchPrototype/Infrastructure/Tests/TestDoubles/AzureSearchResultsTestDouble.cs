@@ -1,6 +1,5 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Bogus;
 using Moq;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
