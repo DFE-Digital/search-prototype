@@ -5,32 +5,25 @@
 /// </summary>
 public sealed class EstablishmentResults
 {
-    private readonly List<Establishment> _establishments;
+    /// <summary>
+    /// The collection of establishment search results
+    /// </summary>
+    public List<Establishment> Establishments { get; init; }
 
     /// <summary>
-    /// The read-only collection of establishments hydrated through the results of the given search.
+    /// Default constuctor
     /// </summary>
-    public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
-
     public EstablishmentResults()
     {
-        _establishments = new();
-    }
-    public EstablishmentResults(IEnumerable<Establishment>? establishments)
-    {
-        _establishments = establishments?.ToList() ?? new();
+        Establishments = new();
     }
 
     /// <summary>
-    /// Function to allow a T:Dfe.Data.SearchPrototype.Search.Establishment object to be
-    /// added to the internal read-only collection of establishments.
+    /// Constructor with the following parameters
     /// </summary>
-    /// <param name="establishment">
-    /// The T:Dfe.Data.SearchPrototype.Search.Establishment object to be added.
-    /// </param>
-    public void AddEstablishment(Establishment establishment)
+    /// <param name="establishments">List of Establishments</param>
+    public EstablishmentResults(IEnumerable<Establishment> establishments)
     {
-        ArgumentNullException.ThrowIfNull(establishment);
-        _establishments.Add(establishment);
+        Establishments = establishments.ToList();
     }
 }
