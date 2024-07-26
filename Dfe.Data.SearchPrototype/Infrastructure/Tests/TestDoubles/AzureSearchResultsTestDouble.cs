@@ -30,7 +30,7 @@ public static class SearchResultFake
     public static SearchResult<Establishment> SearchResultWithDocument(Establishment? document) =>
         SearchModelFactory
             .SearchResult<Establishment>(
-                document, 1.00, new Dictionary<string, IList<string>>());
+                document!, 1.00, new Dictionary<string, IList<string>>());
 }
 
 public static class ResponseFake

@@ -2,15 +2,15 @@
 
 public class Address
 {
-    public string? Street { get; }
+    public string? Street { get; init; }
 
-    public string? Locality { get; }
+    public string? Locality { get; init; }
 
-    public string? Address3 { get; }
+    public string? Address3 { get; init; }
 
-    public string? Town { get; }
+    public string? Town { get; init; }
 
-    public string? Postcode { get; }
+    public string? Postcode { get; init; }
     public Address(string? street, string? locality, string? address3, string? town, string? postcode)
     {
         Street = street;

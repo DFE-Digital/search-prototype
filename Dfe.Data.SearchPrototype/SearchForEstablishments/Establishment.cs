@@ -10,15 +10,15 @@ public class Establishment
     /// <summary>
     /// The read-only URN (unique identifier) of the given establishment.
     /// </summary>
-    public string Urn { get; }
+    public string Urn { get; init; }
     /// <summary>
     /// The read-only name associated with the given establishment.
     /// </summary>
-    public string Name { get; }
+    public string Name { get; init; }
     /// <summary>
     /// The read-only address associated with the given establishment
     /// </summary>
-    public Address Address { get; }
+    public Address Address { get; init; }
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
     /// </summary>

@@ -23,13 +23,4 @@ public class Establishment
     public string? TOWN { get; set; }
 
     public string? POSTCODE { get; set; }
-
-    //public string? Phase { get; set; }
-
-    //public string? Type { get; set; }
-
-    //public string? Status { get; set; }
-
-    //public string? LocalAuthorityName { get; set; }
-
 }
