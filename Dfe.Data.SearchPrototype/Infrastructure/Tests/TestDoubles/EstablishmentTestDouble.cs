@@ -14,7 +14,7 @@ public static class EstablishmentTestDouble
                    _ => new Bogus.Faker().Company.CompanyName())
               .RuleFor(
                     establishment => establishment.id,
-                    _ => new Bogus.Faker().Random.Number(1, 999999).ToString())
+                    _ => new Bogus.Faker().Random.Number(100000, 999999).ToString())
               .RuleFor(
                     establishment => establishment.STREET,
                     _ => new Bogus.Faker().Address.StreetName())
