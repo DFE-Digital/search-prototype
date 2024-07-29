@@ -5,6 +5,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="PageIntegrationTests\SearchServiceAdapter\Resources\Establishments.json" />
+  </ItemGroup>
+
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="PageIntegrationTests\SearchServiceAdapter\Resources\Establishments.json" DestinationFolder="$(OutDir)" />
+	</Target>
+	
+  <ItemGroup>
+    <Content Include="PageIntegrationTests\SearchServiceAdapter\Resources\Establishments.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 	
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.1.2" />

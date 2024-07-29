@@ -4,8 +4,6 @@ using TechTalk.SpecFlow;
 using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Drivers;
 using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Options;
 using Microsoft.Extensions.Options;
-using OpenQA.Selenium.DevTools.V125.Animation;
-using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace UnitTestProject1
@@ -26,18 +24,19 @@ namespace UnitTestProject1
             var workingDir = Directory.GetCurrentDirectory();
             _logger.WriteLine(workingDir);
 
+
             //var process = new Process
             //{
             //    StartInfo =
             //    {
             //        //FileName = "Dfe.Data.SearchPrototype.Web.exe",
-            //        //WorkingDirectory = "\dfe.data.SearchPrototype\Web",
+            //        //WorkingDirectory = workingDir,
             //        //FileName = "dotnet",
             //        //Arguments = "run --urls=http://localhost:5000"
             //    }
             //};
             //process.Start();
-            ////Thread.Sleep(4000);
+            //Thread.Sleep(4000);
         }
 
         [BeforeTestRun]
