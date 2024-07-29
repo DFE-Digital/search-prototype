@@ -70,7 +70,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
             .Invoking(mapper =>
                 mapper.MapFrom(establishmentFake))
                     .Should()
-                        .Throw<ArgumentException>();
+                        .Throw<ArgumentException>().WithMessage("id");
     }
 
     [Fact]
