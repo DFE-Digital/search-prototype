@@ -80,12 +80,13 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.AcceptanceTests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Homepage accessibility")]
+        [Xunit.SkippableFactAttribute(DisplayName="Homepage accessibility", Skip="Ignored")]
         [Xunit.TraitAttribute("FeatureTitle", "AccessibilityTests")]
         [Xunit.TraitAttribute("Description", "Homepage accessibility")]
         public void HomepageAccessibility()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "ignore"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Homepage accessibility", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 4

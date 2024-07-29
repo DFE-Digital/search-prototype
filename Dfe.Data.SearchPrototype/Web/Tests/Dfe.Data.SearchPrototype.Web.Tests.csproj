@@ -51,4 +51,12 @@
     </None>
   </ItemGroup>
 
+  <Target Name="DeleteScreenshotsClean" AfterTargets="Clean">
+  	<ItemGroup>
+  		<DistDir Include="$(TargetDir)\screenshots" />
+  	</ItemGroup>
+  	<Message Text="Deleting @(DistDir)" Importance="high" />
+  	<RemoveDir Directories="@(DistDir)" ContinueOnError="true" />
+  </Target>
+
 </Project>

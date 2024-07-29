@@ -22,20 +22,20 @@ namespace UnitTestProject1
         [BeforeTestRun]
         public static void BeforeTest(ObjectContainer container)
         {
-            var newPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\"));
-
-            var process = new Process
-            {
-                StartInfo =
-                {
-                    //FileName = "Dfe.Data.SearchPrototype.Web.exe",
-                    WorkingDirectory = newPath,
-                    FileName = "dotnet",
-                    Arguments = "run --urls=http://localhost:5000"
-                }
-            };
-            process.Start();
-            Thread.Sleep(1000);
+            //var newPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\"));
+            //
+            //var process = new Process
+            //{
+            //    StartInfo =
+            //    {
+            //        //FileName = "Dfe.Data.SearchPrototype.Web.exe",
+            //        WorkingDirectory = newPath,
+            //        FileName = "dotnet",
+            //        Arguments = "run --urls=http://localhost:5000"
+            //    }
+            //};
+            //process.Start();
+            //Thread.Sleep(1000);
 
             container.BaseContainer.RegisterInstanceAs(OptionsHelper.GetOptions<WebOptions>(WebOptions.Key));
 
@@ -87,8 +87,8 @@ namespace UnitTestProject1
         [AfterTestRun]
         public static void After()
         {
-            var webProcesses = Process.GetProcessesByName("Dfe.Data.SearchPrototype.Web");
-            webProcesses[0].Kill();
+            //var webProcesses = Process.GetProcessesByName("Dfe.Data.SearchPrototype.Web");
+            //webProcesses[0].Kill();
         }
 
     }
