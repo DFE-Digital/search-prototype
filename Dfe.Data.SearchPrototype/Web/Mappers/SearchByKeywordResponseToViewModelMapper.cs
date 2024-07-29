@@ -41,7 +41,8 @@ public class SearchByKeywordResponseToViewModelMapper : IMapper<SearchByKeywordR
                         Town = establishment.Address.Town,
                         Address3 = establishment.Address.Address3,
                         Postcode = establishment.Address.Postcode
-                    }
+                    },
+                    EstablishmentType = establishment.EstablishmentType
                 });
             }
         }

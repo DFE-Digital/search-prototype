@@ -31,7 +31,7 @@ public class SearchByKeywordResponseToViewModelMapperTests
             Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Address3, viewModelResults.SearchItems[i].Address.Address3);
             Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Town, viewModelResults.SearchItems[i].Address.Town);
             Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].Address.Postcode, viewModelResults.SearchItems[i].Address.Postcode);
-
+            Assert.Equal(establishmentResults.EstablishmentResults.ToList()[i].EstablishmentType, viewModelResults.SearchItems[i].EstablishmentType);
         }
     }
 

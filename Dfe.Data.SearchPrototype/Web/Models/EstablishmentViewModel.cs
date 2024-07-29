@@ -13,9 +13,20 @@ public class EstablishmentViewModel
     /// Establishment name.
     /// </summary>
     public string Name { get; init; } = string.Empty;
-
+    /// <summary>
+    /// Establishment address.
+    /// </summary>
     public AddressViewModel Address { get; init; } = new();
-
+    /// <summary>
+    /// Establishment type.
+    /// </summary>
+    public string EstablishmentType {  get; init; } = string.Empty;
+    /// <summary>
+    /// Establishment address.
+    /// </summary>
+    /// <returns>
+    /// Address formatted as a display-friendly string
+    /// </returns>
     public string AddressAsString()
     {
         var addressComponents
