@@ -20,14 +20,14 @@ public class EstablishmentViewModel
 
     public string EducationPhaseAsString()
     {
-        var mapEducationPhaseCodeToString = new Dictionary<string, string>
+        var mapEducationPhaseCodeToString = new Dictionary<string, bool>
         {
             {"Primary", EducationPhase.IsPrimary },
             {"Secondary", EducationPhase.IsSecondary },
             {"16 plus", EducationPhase.IsPost16 }
         };
         var educationPhaseComponents = mapEducationPhaseCodeToString
-            .Where(educationPhaseCode => educationPhaseCode.Value == "1")
+            .Where(educationPhaseCode => educationPhaseCode.Value == true)
             .Select(educationPhaseCode => educationPhaseCode.Key);
 
         return string.Join(", ", educationPhaseComponents);

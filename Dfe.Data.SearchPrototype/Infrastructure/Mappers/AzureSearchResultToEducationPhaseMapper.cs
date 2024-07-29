@@ -22,8 +22,7 @@ public class AzureSearchResultToEducationPhaseMapper : IMapper<Infrastructure.Es
         return new(
             isPrimary: input.ISPRIMARY,
             isSecondary: input.ISSECONDARY,
-            isPost16: input.ISPOST16
-            );
+            isPost16: input.ISPOST16);
 
     }
 }

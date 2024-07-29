@@ -1,26 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 public class EducationPhase
 {
+    public bool IsPrimary { get; }
 
-    public string? IsPrimary { get; init; }
+    public bool IsSecondary { get; }
 
-    public string? IsSecondary { get; init; }
+    public bool IsPost16 { get; }
 
-    public string? IsPost16 { get; init; }
-
-    public EducationPhase()
-    { }
-    public EducationPhase(string? isPrimary, string? isSecondary, string?isPost16)
+    public EducationPhase(string isPrimary, string isSecondary, string isPost16)
     {
-        IsPrimary = isPrimary;
-        IsSecondary = isSecondary;
-        IsPost16 = isPost16;
+        IsPrimary = isPrimary == "1" ? true : false;
+        IsSecondary = isSecondary == "1" ? true : false;
+        IsPost16 = isPost16 == "1" ? true : false;
     }
 }

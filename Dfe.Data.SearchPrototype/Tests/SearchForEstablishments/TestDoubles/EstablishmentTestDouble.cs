@@ -39,12 +39,11 @@ public class EstablishmentTestDouble
             Town = GetEstablishmentTownFake(),
             Postcode = GetEstablishmentPostcodeFake()
         };
-        var educationPhase = new EducationPhase()
-        {
-            IsPrimary = GetEstablishmentEducationPhaseFake(),
-            IsSecondary = GetEstablishmentEducationPhaseFake(),
-            IsPost16 = GetEstablishmentEducationPhaseFake()
-        };
+        var educationPhase = new EducationPhase(
+            isPrimary: GetEstablishmentEducationPhaseFake(),
+            isSecondary: GetEstablishmentEducationPhaseFake(),
+            isPost16: GetEstablishmentEducationPhaseFake());
+
         return new(
             urn: GetEstablishmentIdentifierFake(),
             name: GetEstablishmentNameFake(),

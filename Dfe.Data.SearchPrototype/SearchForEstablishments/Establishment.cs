@@ -19,6 +19,7 @@ public class Establishment
     public Address Address { get; }
 
     public EducationPhase EducationPhase { get; }
+
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
     /// </summary>

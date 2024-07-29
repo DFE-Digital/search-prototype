@@ -64,9 +64,9 @@ public class EstablishmentViewModelTests
             Name = EstablishmentViewModelTestDouble.GetEstablishmentNameFake(),
             EducationPhase = new()
             {
-                IsPrimary = isPrimary ? "1" : "0",
-                IsSecondary = isSecondary? "1" : "0",
-                IsPost16 = isPost16 ? "1" : "0"
+                IsPrimary = isPrimary,
+                IsSecondary = isSecondary,
+                IsPost16 = isPost16
             }
         };
 

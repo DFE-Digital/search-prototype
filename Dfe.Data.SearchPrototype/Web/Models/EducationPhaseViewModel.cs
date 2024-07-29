@@ -2,9 +2,9 @@
 
 public class EducationPhaseViewModel
 {
-    public string? IsPrimary { get; set; }
+    public bool IsPrimary { get; set; }
 
-    public string? IsSecondary { get; set; }
+    public bool IsSecondary { get; set; }
 
-    public string? IsPost16 { get; set; }
+    public bool IsPost16 { get; set; }
 }
