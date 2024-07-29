@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using System.IO;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 
@@ -28,14 +29,19 @@ public class EstablishmentTestDouble
 
     public static Establishment Create()
     {
+        var address = new Address()
+        {
+            Street = GetEstablishmentStreetFake(),
+            Locality = GetEstablishmentLocalityFake(),
+            Address3 = GetEstablishmentAddress3Fake(),
+            Town = GetEstablishmentTownFake(),
+            Postcode = GetEstablishmentPostcodeFake()
+        };
+
         return new(
             urn: GetEstablishmentIdentifierFake(),
             name: GetEstablishmentNameFake(),
-            street: GetEstablishmentStreetFake(),
-            locality: GetEstablishmentLocalityFake(),
-            address3: GetEstablishmentAddress3Fake(),
-            town: GetEstablishmentTownFake(),
-            postcode: GetEstablishmentPostcodeFake()
+            address: address
             );
     }
 }

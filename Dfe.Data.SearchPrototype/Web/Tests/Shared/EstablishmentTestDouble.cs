@@ -28,14 +28,17 @@ public class EstablishmentTestDouble
 
     public static Establishment Create()
     {
-        return new(
-            urn: GetEstablishmentIdentifierFake(),
-            name: GetEstablishmentNameFake(),
+        Address address = new(
             street: GetEstablishmentStreetFake(),
             locality: GetEstablishmentLocalityFake(),
             address3: GetEstablishmentAddress3Fake(),
             town: GetEstablishmentTownFake(),
-            postcode: GetEstablishmentPostcodeFake()
+            postcode: GetEstablishmentPostcodeFake());
+
+        return new(
+            urn: GetEstablishmentIdentifierFake(),
+            name: GetEstablishmentNameFake(),
+            address: address
             );
     }
 }

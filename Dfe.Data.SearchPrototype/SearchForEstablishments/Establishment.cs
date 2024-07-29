@@ -42,11 +42,10 @@ public class Establishment
     /// <param name="postcode">
     /// The postcode.
     /// </param>
-    public Establishment(
-        string urn, string name, string? street, string? locality, string? address3, string? town, string? postcode)
+    public Establishment(string urn, string name, Address address)
     {
         Urn = urn;
         Name = name;
-        Address = new(street, locality, address3, town, postcode);
+        Address = address;
     }
 }

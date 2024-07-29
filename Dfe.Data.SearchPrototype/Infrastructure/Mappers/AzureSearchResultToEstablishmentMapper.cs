@@ -40,13 +40,9 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
             throw new ArgumentException(nameof(input.ESTABLISHMENTNAME));
         }
 
-        return new(
-            urn: input.id,
+        var address = _addressMapper.MapFrom(input);
+        return new(urn: input.id,
             name: input.ESTABLISHMENTNAME,
-            street: input.STREET,
-            locality: input.LOCALITY,
-            address3: input.ADDRESS3,
-            town: input.TOWN,
-            postcode: input.POSTCODE);
+            address: address);
     }
 }
