@@ -18,6 +18,7 @@ public class Establishment
     /// </summary>
     public Address Address { get; }
 
+    public EducationPhase EducationPhase { get; }
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
     /// </summary>
@@ -27,10 +28,11 @@ public class Establishment
     /// <param name="name">
     /// The name associated with the given establishment.
     /// </param>
-    public Establishment(string urn, string name, Address address)
+    public Establishment(string urn, string name, Address address, EducationPhase educationPhase)
     {
         Urn = urn;
         Name = name;
         Address = address;
+        EducationPhase = educationPhase;
     }
 }

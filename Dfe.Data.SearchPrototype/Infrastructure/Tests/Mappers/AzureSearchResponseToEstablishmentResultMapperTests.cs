@@ -15,12 +15,14 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     IMapper<Establishment, SearchForEstablishments.Establishment> _searchResultToEstablishmentMapper;
     IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> _searchResponseMapper;
     IMapper<Establishment, SearchForEstablishments.Address> _searchResultToAddressMapper;
+    IMapper<Establishment, SearchForEstablishments.EducationPhase> _searchResultToEducationPhaseMapper;
 
     public AzureSearchResponseToEstablishmentResultMapperTests()
     {
+        _searchResultToEducationPhaseMapper = new AzureSearchResultToEducationPhaseMapper();
         _searchResultToAddressMapper = new AzureSearchResultToAddressMapper();
         _searchResultToEstablishmentMapper =
-            new AzureSearchResultToEstablishmentMapper(_searchResultToAddressMapper);
+            new AzureSearchResultToEstablishmentMapper(_searchResultToAddressMapper, _searchResultToEducationPhaseMapper);
         _searchResponseMapper = 
             new AzureSearchResponseToEstablishmentResultMapper(_searchResultToEstablishmentMapper);
     }

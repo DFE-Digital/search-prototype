@@ -16,6 +16,22 @@ public class EstablishmentViewModel
 
     public AddressViewModel Address { get; init; } = new();
 
+    public EducationPhaseViewModel EducationPhase { get; init; } = new();
+
+    public string EducationPhaseAsString()
+    {
+        var mapEducationPhaseCodeToString = new Dictionary<string, string>
+        {
+            {"PRIMARY", EducationPhase.IsPrimary },
+            {"SECONDARY", EducationPhase.IsSecondary },
+            {"16 PLUS", EducationPhase.IsPost16 }
+        };
+        var educationPhaseComponents = mapEducationPhaseCodeToString
+            .Where(educationPhaseCode => educationPhaseCode.Value == "1")
+            .Select(educationPhaseCode => educationPhaseCode.Key);
+
+        return string.Join(", ", educationPhaseComponents);
+    }
     public string AddressAsString()
     {
         var addressComponents

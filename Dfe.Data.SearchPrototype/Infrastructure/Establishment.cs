@@ -23,4 +23,10 @@ public class Establishment
     public string? TOWN { get; set; }
 
     public string? POSTCODE { get; set; }
+
+    public string? ISPRIMARY { get; set;}
+
+    public string? ISSECONDARY { get; set; }
+
+    public string? ISPOST16 { get; set;}
 }

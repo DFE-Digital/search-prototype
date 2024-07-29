@@ -41,6 +41,12 @@ public class SearchByKeywordResponseToViewModelMapper : IMapper<SearchByKeywordR
                         Town = establishment.Address.Town,
                         Address3 = establishment.Address.Address3,
                         Postcode = establishment.Address.Postcode
+                    },
+                    EducationPhase = new EducationPhaseViewModel()
+                    {
+                        IsPrimary = establishment.EducationPhase.IsPrimary,
+                        IsSecondary = establishment.EducationPhase.IsSecondary,
+                        IsPost16 = establishment.EducationPhase.IsPost16
                     }
                 });
             }

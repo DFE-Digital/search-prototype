@@ -10,11 +10,13 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
 {
     IMapper<Establishment, SearchForEstablishments.Establishment> _establishmentMapper;
     IMapper<Establishment, SearchForEstablishments.Address> _addressMapper;
+    IMapper<Establishment, SearchForEstablishments.EducationPhase> _educationPhaseMapper;
 
     public AzureSearchResultToEstablishmentMapperTests()
     {
         _addressMapper = new AzureSearchResultToAddressMapper();
-        _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper);
+        _educationPhaseMapper = new AzureSearchResultToEducationPhaseMapper();
+        _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper, _educationPhaseMapper);
     }
 
     [Fact]
@@ -35,6 +37,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         result.Address.Address3.Should().Be(establishmentFake.ADDRESS3);
         result.Address.Town.Should().Be(establishmentFake.TOWN);
         result.Address.Postcode.Should().Be(establishmentFake.POSTCODE);
+        result.EducationPhase.IsPrimary.Should().Be(establishmentFake.ISPRIMARY);
     }
 
     [Fact]

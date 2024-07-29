@@ -26,6 +26,8 @@ public class EstablishmentTestDouble
     private static string GetEstablishmentPostcodeFake() =>
         new Faker().Address.ZipCode();
 
+    private static string GetEstablishmentEducationPhaseFake() =>
+       new Faker().Random.Int(0, 1).ToString();
     public static Establishment Create()
     {
         Address address = new(
@@ -35,10 +37,16 @@ public class EstablishmentTestDouble
             town: GetEstablishmentTownFake(),
             postcode: GetEstablishmentPostcodeFake());
 
+        EducationPhase educationPhase = new (
+            isPrimary: GetEstablishmentEducationPhaseFake(),
+            isSecondary: GetEstablishmentEducationPhaseFake(),
+            isPost16: GetEstablishmentEducationPhaseFake());
+
         return new(
             urn: GetEstablishmentIdentifierFake(),
             name: GetEstablishmentNameFake(),
-            address: address
+            address: address,
+            educationPhase: educationPhase
             );
     }
 }
