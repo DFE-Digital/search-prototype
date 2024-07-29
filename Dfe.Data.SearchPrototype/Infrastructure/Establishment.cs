@@ -23,4 +23,6 @@ public class Establishment
     public string? TOWN { get; set; }
 
     public string? POSTCODE { get; set; }
+
+    public string? TYPEOFESTABLISHMENTNAME { get; set; }
 }

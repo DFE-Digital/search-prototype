@@ -29,7 +29,10 @@ public static class EstablishmentTestDouble
                     _ => new Bogus.Faker().Address.City())
               .RuleFor(
                     establishment => establishment.POSTCODE,
-                    _ => new Bogus.Faker().Address.ZipCode());
+                    _ => new Bogus.Faker().Address.ZipCode())
+              .RuleFor(
+                    establishment => establishment.TYPEOFESTABLISHMENTNAME,
+                    _ => new Bogus.Faker().Random.Word());
         return searchResultFaker.Generate();
     }
 }
