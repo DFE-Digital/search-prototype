@@ -1,6 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.SearchPrototype.Search;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
@@ -11,7 +11,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 /// </summary>
 public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>
 {
-    private readonly IMapper<Establishment, Search.Establishment> _azureSearchResultToEstablishmentMapper;
+    private readonly IMapper<Establishment, SearchForEstablishments.Establishment> _azureSearchResultToEstablishmentMapper;
 
     /// <summary>
     /// The following mapping dependency provides the functionality to map from a raw Azure
@@ -21,7 +21,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Res
     /// <param name="azureSearchResultToEstablishmentMapper">
     /// Mapper used to map from the raw Azure search result to a T:Dfe.Data.SearchPrototype.Search.Establishment instance.
     /// </param>
-    public AzureSearchResponseToEstablishmentResultMapper(IMapper<Establishment, Search.Establishment> azureSearchResultToEstablishmentMapper)
+    public AzureSearchResponseToEstablishmentResultMapper(IMapper<Establishment, SearchForEstablishments.Establishment> azureSearchResultToEstablishmentMapper)
     {
         _azureSearchResultToEstablishmentMapper = azureSearchResultToEstablishmentMapper;
     }

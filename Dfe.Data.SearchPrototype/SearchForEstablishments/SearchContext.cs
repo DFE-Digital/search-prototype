@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.Search
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments
 {
     /// <summary>
     /// Prescribes the context of the search including the keyword and collection target.
@@ -29,11 +29,11 @@
         public SearchContext(string searchKeyword, string targetCollection)
         {
             SearchKeyword =
-                (string.IsNullOrWhiteSpace(searchKeyword)) ?
+                string.IsNullOrWhiteSpace(searchKeyword) ?
                     throw new ArgumentNullException(nameof(searchKeyword)) : searchKeyword;
 
             TargetCollection =
-                (string.IsNullOrWhiteSpace(targetCollection)) ?
+                string.IsNullOrWhiteSpace(targetCollection) ?
                     throw new ArgumentNullException(nameof(targetCollection)) : targetCollection;
         }
 

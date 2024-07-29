@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.Search;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
 /// Object used to encapsulate the aggregation of establishment search results.

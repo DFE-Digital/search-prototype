@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.Search
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments
 {
     /// <summary>
     /// Describes behaviour for an adaption of core search services infrastructure to allow

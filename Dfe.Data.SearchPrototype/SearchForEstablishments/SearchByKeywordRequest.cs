@@ -1,6 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Search;
-
-namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
 /// This is the object used to make requests (send input) through to the

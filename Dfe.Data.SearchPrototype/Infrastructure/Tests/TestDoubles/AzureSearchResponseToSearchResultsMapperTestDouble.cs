@@ -1,6 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.SearchPrototype.Search;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Moq;
 using System.Linq.Expressions;

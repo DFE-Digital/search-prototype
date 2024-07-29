@@ -1,6 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
-
-namespace Dfe.Data.SearchPrototype.Search;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
 /// Object used to encapsulate the establishment search result.

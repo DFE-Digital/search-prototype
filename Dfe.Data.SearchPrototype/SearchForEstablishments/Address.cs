@@ -11,6 +11,9 @@ public class Address
     public string? Town { get; init; }
 
     public string? Postcode { get; init; }
+    public Address()
+    {
+    }
     public Address(string? street, string? locality, string? address3, string? town, string? postcode)
     {
         Street = street;

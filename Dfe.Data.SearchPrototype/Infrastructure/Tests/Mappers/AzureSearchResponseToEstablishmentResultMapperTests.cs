@@ -3,7 +3,7 @@ using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestHelpers;
-using Dfe.Data.SearchPrototype.Search;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using FluentAssertions;
 using Xunit;
@@ -12,15 +12,17 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 {
-    IMapper<Establishment, Search.Establishment> _azureSearchResultToEstablishmentMapper;
-    IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> _establishmentMapper;
+    IMapper<Establishment, SearchForEstablishments.Establishment> _searchResultToEstablishmentMapper;
+    IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> _searchResponseMapper;
+    IMapper<Establishment, SearchForEstablishments.Address> _searchResultToAddressMapper;
 
     public AzureSearchResponseToEstablishmentResultMapperTests()
     {
-        _azureSearchResultToEstablishmentMapper =
-            new AzureSearchResultToEstablishmentMapper();
-        _establishmentMapper = 
-            new AzureSearchResponseToEstablishmentResultMapper(_azureSearchResultToEstablishmentMapper);
+        _searchResultToAddressMapper = new AzureSearchResultToAddressMapper();
+        _searchResultToEstablishmentMapper =
+            new AzureSearchResultToEstablishmentMapper(_searchResultToAddressMapper);
+        _searchResponseMapper = 
+            new AzureSearchResponseToEstablishmentResultMapper(_searchResultToEstablishmentMapper);
     }
 
     [Fact]
@@ -33,7 +35,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
             ResponseFake.WithSearchResults(searchResultDocuments);
 
         // act
-        EstablishmentResults? mappedResult = _establishmentMapper.MapFrom(searchResponseFake);
+        EstablishmentResults? mappedResult = _searchResponseMapper.MapFrom(searchResponseFake);
 
         // assert
         mappedResult.Should().NotBeNull();
@@ -52,7 +54,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
             ResponseFake.WithSearchResults(SearchResultFake.EmptySearchResult());
 
         // act
-        EstablishmentResults? result = _establishmentMapper.MapFrom(searchResponseFake);
+        EstablishmentResults? result = _searchResponseMapper.MapFrom(searchResponseFake);
 
         // assert
         result.Should().NotBeNull();
@@ -66,7 +68,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
         Response<SearchResults<Establishment>>? searchResponseFake = null;
 
         // act.
-        _establishmentMapper
+        _searchResponseMapper
             .Invoking(mapper =>
                 mapper.MapFrom(searchResponseFake!))
                     .Should()
@@ -85,7 +87,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
                     ResponseFake.WithSearchResults(searchResultDocuments);
 
         // act.
-        _establishmentMapper
+        _searchResponseMapper
             .Invoking(mapper =>
                 mapper.MapFrom(searchResponseFake))
                     .Should()

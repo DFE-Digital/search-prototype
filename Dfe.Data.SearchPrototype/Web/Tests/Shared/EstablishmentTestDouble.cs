@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Dfe.Data.SearchPrototype.Search;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.Shared;
 

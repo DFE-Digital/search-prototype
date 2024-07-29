@@ -1,5 +1,4 @@
 using Dfe.Data.SearchPrototype.Infrastructure;
-using Dfe.Data.SearchPrototype.Search;
 using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch;
@@ -15,7 +14,7 @@ using Dfe.Data.SearchPrototype.Web.Models;
 using Dfe.Data.SearchPrototype.Web.Mappers;
 using Infrastructure = Dfe.Data.SearchPrototype.Infrastructure;
 using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Json.Serialisation;
-using Search = Dfe.Data.SearchPrototype.Search;
+using SearchForEstablishments = Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +33,8 @@ builder.Services.AddScoped<IUseCase<SearchByKeywordRequest, SearchByKeywordRespo
 builder.Services.AddSingleton(typeof(IMapper<Response<SearchResults<Infrastructure.Establishment>>, EstablishmentResults>), typeof(AzureSearchResponseToEstablishmentResultMapper));
 builder.Services.AddSingleton<IMapper<SearchSettingsOptions, SearchOptions>, SearchOptionsToAzureOptionsMapper>();
 builder.Services.AddSingleton<IMapper<SearchByKeywordResponse, SearchResultsViewModel>, SearchByKeywordResponseToViewModelMapper>();
-builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, Search.Establishment>, AzureSearchResultToEstablishmentMapper>();
+builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, SearchForEstablishments.Address>, AzureSearchResultToAddressMapper>();
+builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, SearchForEstablishments.Establishment>, AzureSearchResultToEstablishmentMapper>();
 builder.Services.AddSingleton<IMapper<EstablishmentResults, SearchByKeywordResponse>, ResultsToResponseMapper>();
 
 builder.Services.AddOptions<SearchSettingsOptions>("establishments")
