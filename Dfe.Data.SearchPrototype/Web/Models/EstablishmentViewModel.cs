@@ -22,9 +22,9 @@ public class EstablishmentViewModel
     {
         var mapEducationPhaseCodeToString = new Dictionary<string, string>
         {
-            {"PRIMARY", EducationPhase.IsPrimary },
-            {"SECONDARY", EducationPhase.IsSecondary },
-            {"16 PLUS", EducationPhase.IsPost16 }
+            {"Primary", EducationPhase.IsPrimary },
+            {"Secondary", EducationPhase.IsSecondary },
+            {"16 plus", EducationPhase.IsPost16 }
         };
         var educationPhaseComponents = mapEducationPhaseCodeToString
             .Where(educationPhaseCode => educationPhaseCode.Value == "1")
