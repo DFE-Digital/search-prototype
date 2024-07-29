@@ -1,6 +1,6 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Models;
-using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 
 namespace Dfe.Data.SearchPrototype.Web.Mappers;
 

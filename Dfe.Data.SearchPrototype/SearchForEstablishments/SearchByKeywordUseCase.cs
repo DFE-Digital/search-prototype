@@ -1,5 +1,5 @@
-﻿using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
-using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
+﻿using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
