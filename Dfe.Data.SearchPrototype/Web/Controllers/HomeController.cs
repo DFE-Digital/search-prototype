@@ -1,7 +1,7 @@
+using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
+using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Models;
-using DfE.Data.ComponentLibrary.CleanArchitecture.CleanArchitecture.Application.UseCase;
-using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.Data.SearchPrototype.Web.Controllers;
