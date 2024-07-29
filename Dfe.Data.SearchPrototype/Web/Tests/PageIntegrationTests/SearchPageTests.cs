@@ -36,6 +36,22 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration
             document.GetElementText(SearchPage.Heading.Criteria).Should().Be("Search prototype");
         }
 
+        [Fact]
+        public async Task Search_Establishment_IsDisplayed() 
+        {
+            var response = await _factory.CreateClient().GetAsync(uri);
+
+            var document = await HtmlHelpers.GetDocumentAsync(response);
+
+            document.GetElementText(SearchPage.SearchHeading.Criteria).Should().Be("Search");
+            
+            document.GetElementText(SearchPage.SearchSubHeading.Criteria).Should().Be("Search establishments and check their performance");
+            
+            document.GetMultipleElements(SearchPage.SearchInput.Criteria).Count().Should().Be(1);
+            
+            document.GetMultipleElements(SearchPage.SearchButton.Criteria).Count().Should().Be(1);
+        }
+
         [Theory]
         [InlineData("academy")]
         [InlineData("school")]
