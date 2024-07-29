@@ -2,6 +2,6 @@
 {
     public sealed class DummySearchServiceAdapterOptions
     {
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
     }
 }
