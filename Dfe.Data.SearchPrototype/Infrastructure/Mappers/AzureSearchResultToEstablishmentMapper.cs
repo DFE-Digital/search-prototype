@@ -11,6 +11,10 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
 {
     private readonly IMapper<Establishment, Address> _addressMapper;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="addressMapper">Address mapper instance</param>
     public AzureSearchResultToEstablishmentMapper(IMapper<Establishment, Address> addressMapper)
     {
         _addressMapper = addressMapper;
@@ -28,7 +32,7 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     /// The configured T:Dfe.Data.SearchPrototype.Search.Establishment instance expected.
     /// </returns>
     /// <exception cref="ArgumentException">
-    /// Exception thrown if either the id or name of an establishment is not provided
+    /// Exception thrown if the id, name, or type of an establishment is not provided
     /// </exception>
     public SearchForEstablishments.Establishment MapFrom(Establishment input)
     {
