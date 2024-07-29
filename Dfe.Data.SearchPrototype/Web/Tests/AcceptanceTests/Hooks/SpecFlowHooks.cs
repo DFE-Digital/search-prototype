@@ -67,8 +67,8 @@ namespace UnitTestProject1
         [After]
         public void After()
         {
-            var webProcesses = Process.GetProcessesByName("Dfe.Data.SearchPrototype.Web");
-            webProcesses[0].Kill();
+            //var webProcesses = Process.GetProcessesByName("Dfe.Data.SearchPrototype.Web");
+            //webProcesses[0].Kill();
         }
     }
 }
