@@ -27,21 +27,6 @@ public class Establishment
     /// <param name="name">
     /// The name associated with the given establishment.
     /// </param>
-    /// <param name="street">
-    /// The first line of the address.
-    /// </param>
-    /// <param name="locality">
-    /// The second line of the address.
-    /// </param>
-    /// <param name="address3">
-    /// The third line of the address.
-    /// </param>
-    /// <param name="town">
-    /// The fourth line of the address.
-    /// </param>
-    /// <param name="postcode">
-    /// The postcode.
-    /// </param>
     public Establishment(string urn, string name, Address address)
     {
         Urn = urn;
