@@ -70,7 +70,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
             .Invoking(mapper =>
                 mapper.MapFrom(establishmentFake))
                     .Should()
-                        .Throw<ArgumentException>().WithMessage("id");
+                        .Throw<ArgumentException>().WithMessage("Value cannot be null. (Parameter 'id')");
     }
 
     [Fact]

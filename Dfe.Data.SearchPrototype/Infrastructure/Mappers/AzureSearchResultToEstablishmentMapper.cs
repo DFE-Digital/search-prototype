@@ -32,18 +32,9 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     /// </exception>
     public SearchForEstablishments.Establishment MapFrom(Establishment input)
     {
-        if (string.IsNullOrEmpty(input.id))
-        {
-            throw new ArgumentException(nameof(input.id));
-        }
-        if (string.IsNullOrEmpty(input.ESTABLISHMENTNAME))
-        {
-            throw new ArgumentException(nameof(input.ESTABLISHMENTNAME));
-        }
-        if (string.IsNullOrEmpty(input.TYPEOFESTABLISHMENTNAME))
-        {
-            throw new ArgumentException(nameof(input.TYPEOFESTABLISHMENTNAME));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(input.id, nameof(input.id));
+        ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
+        ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
 
         return new(urn: input.id,
             name: input.ESTABLISHMENTNAME,
