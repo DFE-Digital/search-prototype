@@ -43,7 +43,7 @@ public class SearchByKeywordResponseToViewModelMapper : IMapper<SearchByKeywordR
                         Postcode = establishment.Address.Postcode
                     },
                     EstablishmentType = establishment.EstablishmentType,
-                    EstablishmentStatusCode = establishment.EstablishmentStatusCode,
+                    EstablishmentStatusCode = establishment.EstablishmentStatusCode
                 });
             }
         }

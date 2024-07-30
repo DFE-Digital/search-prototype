@@ -24,7 +24,7 @@ public class Establishment
     /// <summary>
     /// The read-only status of the establishment.
     /// </summary>
-    public string EstablishmentStatusCode { get; }
+    public StatusCode EstablishmentStatusCode { get; }
 
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
@@ -44,12 +44,12 @@ public class Establishment
     /// <param name="establishmentStatusCode">
     /// The status of the given establishment.
     /// </param>
-    public Establishment(string urn, string name, Address address, string? establishmentType, string? establishmentStatusCode)
+    public Establishment(string urn, string name, Address address, string? establishmentType, StatusCode establishmentStatusCode)
     {
         Urn = urn;
         Name = name;
         Address = address;
         EstablishmentType = establishmentType ?? string.Empty;
-        EstablishmentStatusCode = establishmentStatusCode ?? string.Empty;
+        EstablishmentStatusCode = establishmentStatusCode;
     }
 }

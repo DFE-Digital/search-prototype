@@ -30,8 +30,9 @@ public class EstablishmentTestDouble
     private static string GetEstablishmentTypeFake() =>
         new Faker().Random.Word();
 
-    private static string GetEstablishmentStatusCodeFake() =>
-        new Faker().Random.Int(0, 1).ToString();
+    private static StatusCode GetEstablishmentStatusCodeFake() =>
+        (StatusCode)new Faker().Random.Int(0, 2);
+
     public static Establishment Create()
     {
         var address = new Address()

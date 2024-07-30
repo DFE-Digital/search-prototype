@@ -39,11 +39,16 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
         ArgumentException.ThrowIfNullOrEmpty(input.id, nameof(input.id));
         ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
 
+        var statusCode = input.ESTABLISHMENTSTATUSCODE == "1"
+                    ? StatusCode.Open
+                        : input.ESTABLISHMENTSTATUSCODE == "0"
+                        ? StatusCode.Closed
+                            : StatusCode.Unknown;
         return new(
             urn: input.id,
             name: input.ESTABLISHMENTNAME,
             address: _addressMapper.MapFrom(input),
             establishmentType: input.TYPEOFESTABLISHMENTNAME,
-            establishmentStatusCode: input.ESTABLISHMENTSTATUSCODE);
+            establishmentStatusCode: statusCode);
     }
 }
