@@ -6,16 +6,18 @@
 public sealed class EstablishmentResults
 {
     /// <summary>
-    /// The collection of establishment search results
+    /// The readonly collection of establishment search results
     /// </summary>
-    public List<Establishment> Establishments { get; init; }
+    public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
+
+    private readonly List<Establishment> _establishments;
 
     /// <summary>
     /// Default constuctor
     /// </summary>
     public EstablishmentResults()
     {
-        Establishments = new();
+        _establishments = new();
     }
 
     /// <summary>
@@ -24,6 +26,6 @@ public sealed class EstablishmentResults
     /// <param name="establishments">List of Establishments</param>
     public EstablishmentResults(IEnumerable<Establishment> establishments)
     {
-        Establishments = establishments.ToList();
+        _establishments = establishments.ToList();
     }
 }
