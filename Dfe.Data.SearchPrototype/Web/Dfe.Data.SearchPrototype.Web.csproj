@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Common\Dfe.Data.SearchPrototype.Common.csproj" />
 		<ProjectReference Include="..\Dfe.Data.SearchPrototype.csproj" />
 		<ProjectReference Include="..\Infrastructure\Dfe.Data.SearchPrototype.Infrastructure.csproj" />
 	</ItemGroup>

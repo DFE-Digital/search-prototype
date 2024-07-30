@@ -1,7 +1,8 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
+using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Search;
-using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
+
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
