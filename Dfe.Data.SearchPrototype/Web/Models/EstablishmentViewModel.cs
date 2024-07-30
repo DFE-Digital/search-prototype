@@ -22,6 +22,16 @@ public class EstablishmentViewModel
     /// </summary>
     public string EstablishmentType {  get; init; } = string.Empty;
     /// <summary>
+    /// Establishment status code.
+    /// </summary>
+    public string EstablishmentStatusCode { get; init; } = string.Empty;
+    /// <summary>
+    /// Establishment status displayed as user friendly string
+    /// if "1" status is open if "0" it's closed
+    /// </summary>
+    public string EstablishmentStatusAsString => EstablishmentStatusCode == "1" ? "Open" : EstablishmentStatusCode == "0" ? "Closed" : string.Empty;
+   
+    /// <summary>
     /// Establishment address.
     /// </summary>
     /// <returns>

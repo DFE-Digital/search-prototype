@@ -38,11 +38,12 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     {
         ArgumentException.ThrowIfNullOrEmpty(input.id, nameof(input.id));
         ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
-        ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
 
-        return new(urn: input.id,
+        return new(
+            urn: input.id,
             name: input.ESTABLISHMENTNAME,
             address: _addressMapper.MapFrom(input),
-            establishmentType: input.TYPEOFESTABLISHMENTNAME);
+            establishmentType: input.TYPEOFESTABLISHMENTNAME,
+            establishmentStatusCode: input.ESTABLISHMENTSTATUSCODE);
     }
 }

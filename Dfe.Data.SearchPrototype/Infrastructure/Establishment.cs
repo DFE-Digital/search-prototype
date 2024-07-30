@@ -37,4 +37,9 @@ public class Establishment
     /// The type of the establishment of the retrieved establishment result
     /// </summary>
     public string? TYPEOFESTABLISHMENTNAME { get; set; }
+    /// <summary>
+    /// The status of the establishment of the retrieved establishment result
+    /// If "1" establishment status is open if "0" it's closed
+    /// </summary>
+    public string? ESTABLISHMENTSTATUSCODE { get; set; }
 }

@@ -28,6 +28,9 @@ public class EstablishmentTestDouble
 
     private static string GetEstablishmentTypeFake() =>
         new Faker().Random.Word();
+
+    private static string GetEstablishmentStatusCodeFake() =>
+        new Faker().Random.Int(0, 1).ToString();
     public static Establishment Create()
     {
         Address address = new(
@@ -41,7 +44,8 @@ public class EstablishmentTestDouble
             urn: GetEstablishmentIdentifierFake(),
             name: GetEstablishmentNameFake(),
             address: address,
-            establishmentType: GetEstablishmentTypeFake()
+            establishmentType: GetEstablishmentTypeFake(),
+            establishmentStatusCode: GetEstablishmentStatusCodeFake()
             );
     }
 }

@@ -52,4 +52,33 @@ public class EstablishmentViewModelTests
         result.Should().Be(expected);
     }
 
+    [Fact]
+
+    public void EstablishmentStatusAsString_ReturnsOpen()
+    {
+        EstablishmentViewModel establishmentViewModel = new()
+        {
+            Urn = EstablishmentViewModelTestDouble.GetEstablishmentIdentifierFake(),
+            Name = EstablishmentViewModelTestDouble.GetEstablishmentNameFake(),
+            EstablishmentStatusCode = "1"
+        };
+        var expected = "Open";
+        var result = establishmentViewModel.EstablishmentStatusAsString;
+        result.Should().Be(expected);
+    }
+
+    [Fact]
+
+    public void EstablishmentStatusAsString_ReturnsEmptyString()
+    {
+        EstablishmentViewModel establishmentViewModel = new()
+        {
+            Urn = EstablishmentViewModelTestDouble.GetEstablishmentIdentifierFake(),
+            Name = EstablishmentViewModelTestDouble.GetEstablishmentNameFake(),
+            EstablishmentStatusCode = ""
+        };
+        var expected = "";
+        var result = establishmentViewModel.EstablishmentStatusAsString;
+        result.Should().Be(expected);
+    }
 }

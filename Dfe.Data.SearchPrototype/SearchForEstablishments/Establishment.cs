@@ -21,6 +21,10 @@ public class Establishment
     /// The read-only type of the establishment.
     /// </summary>
     public string EstablishmentType {  get; }
+    /// <summary>
+    /// The read-only status of the establishment.
+    /// </summary>
+    public string EstablishmentStatusCode { get; }
 
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
@@ -37,11 +41,15 @@ public class Establishment
     /// <param name="establishmentType">
     /// The type of the given establishment.
     /// </param>
-    public Establishment(string urn, string name, Address address, string establishmentType)
+    /// <param name="establishmentStatusCode">
+    /// The status of the given establishment.
+    /// </param>
+    public Establishment(string urn, string name, Address address, string? establishmentType, string? establishmentStatusCode)
     {
         Urn = urn;
         Name = name;
         Address = address;
-        EstablishmentType = establishmentType;
+        EstablishmentType = establishmentType ?? string.Empty;
+        EstablishmentStatusCode = establishmentStatusCode ?? string.Empty;
     }
 }

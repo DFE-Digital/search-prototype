@@ -36,6 +36,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         result.Address.Town.Should().Be(establishmentFake.TOWN);
         result.Address.Postcode.Should().Be(establishmentFake.POSTCODE);
         result.EstablishmentType.Should().Be(establishmentFake.TYPEOFESTABLISHMENTNAME);
+        result.EstablishmentStatusCode.Should().Be(establishmentFake.ESTABLISHMENTSTATUSCODE);
     }
 
     [Fact]
