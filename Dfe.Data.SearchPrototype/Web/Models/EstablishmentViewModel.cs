@@ -21,9 +21,17 @@ public class EstablishmentViewModel
     /// Establishment type.
     /// </summary>
     public string EstablishmentType {  get; init; } = string.Empty;
-
+    /// <summary>
+    /// Establishment education phase
+    /// </summary>
     public EducationPhaseViewModel EducationPhase { get; init; } = new();
 
+    /// <summary>
+    /// Establishment education phase
+    /// </summary>
+    /// <returns>
+    /// Education phase formatted as a display-friendly string
+    /// </returns>
     public string EducationPhaseAsString()
     {
         var mapEducationPhaseCodeToString = new Dictionary<string, bool>

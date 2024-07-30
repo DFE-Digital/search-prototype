@@ -16,6 +16,7 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     /// Constructor
     /// </summary>
     /// <param name="addressMapper">Address mapper instance</param>
+    /// <param name="educationPhaseMapper">EducationPhase mapper instance</param>
     public AzureSearchResultToEstablishmentMapper(
         IMapper<Establishment, Address> addressMapper,
         IMapper<Establishment, EducationPhase> educationPhaseMapper)
