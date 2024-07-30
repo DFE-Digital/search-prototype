@@ -25,18 +25,18 @@ namespace UnitTestProject1
             _logger.WriteLine(workingDir);
 
 
-            //var process = new Process
-            //{
-            //    StartInfo =
-            //    {
-            //        //FileName = "Dfe.Data.SearchPrototype.Web.exe",
-            //        //WorkingDirectory = workingDir,
-            //        //FileName = "dotnet",
-            //        //Arguments = "run --urls=http://localhost:5000"
-            //    }
-            //};
-            //process.Start();
-            //Thread.Sleep(4000);
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    //FileName = "Dfe.Data.SearchPrototype.Web.exe",
+                    WorkingDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\")),
+                    FileName = "dotnet",
+                    Arguments = "run --urls=http://localhost:5000"
+                }
+            };
+            process.Start();
+            Thread.Sleep(1000);
         }
 
         [BeforeTestRun]
