@@ -1,5 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Infrastructure;
-using Dfe.Data.SearchPrototype.Search;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter;
 using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Options;
 using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Resources;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using Infrastructure = Dfe.Data.SearchPrototype.Infrastructure;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests;
 

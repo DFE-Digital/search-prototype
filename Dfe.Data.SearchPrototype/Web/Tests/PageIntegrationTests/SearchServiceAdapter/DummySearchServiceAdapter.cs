@@ -1,4 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Search;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Resources;
 using Newtonsoft.Json.Linq;
 
@@ -24,14 +24,16 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceA
                 where establishmentToken["name"]!.ToString().Contains(searchContext.SearchKeyword)
                 select new Establishment(
                     (string)establishmentToken["urn"]!, 
-                    (string)establishmentToken["name"]!);
+                    (string)establishmentToken["name"]!,
+                    new Address(
+                        (string)establishmentToken["address"]!["street"]!,
+                        (string)establishmentToken["address"]!["locality"]!,
+                        (string)establishmentToken["address"]!["address3"]!,
+                        (string)establishmentToken["address"]!["town"]!,
+                        (string)establishmentToken["address"]!["postcode"]!),
+                    (string)establishmentToken["establishmentType"]!);
 
-            EstablishmentResults results = new();
-            
-            establishments.ToList().ForEach(establishment => results.AddEstablishment(establishment));
-            
-            return results;
-
+            return new EstablishmentResults(establishments);
         }
     }
 }

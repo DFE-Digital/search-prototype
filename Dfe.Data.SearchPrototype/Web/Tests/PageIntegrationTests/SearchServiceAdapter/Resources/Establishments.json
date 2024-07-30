@@ -3,15 +3,39 @@
 
     {
       "urn": "123456",
-      "name": "Goose Academy"
+      "name": "Goose Academy",
+      "address": 
+        {
+          "street": "Street One",
+          "locality": "locality",
+          "address3": "address3",
+          "town": "town",
+          "postcode": "postcode"
+        }
     },
     {
       "urn": "234567",
-      "name": "Horse Academy"
+      "name": "Horse Academy",
+      "address": 
+        {
+          "street": "Street One",
+          "locality": "locality",
+          "address3": "address3",
+          "town": "town",
+          "postcode": "postcode"
+        }
     },
-     {
+    {
       "urn": "345678",
-      "name": "Duck School"
+      "name": "Duck School",
+      "address": 
+        {
+          "street": "Street One",
+          "locality": "locality",
+          "address3": "address3",
+          "town": "town",
+          "postcode": "postcode"
+        }
     }
   ]
 }
