@@ -21,22 +21,22 @@ namespace UnitTestProject1
         [Before]
         public void Before()
         {
-            //var workingDir = Directory.GetCurrentDirectory();
-            //_logger.WriteLine(workingDir);
-            //
-            //
-            //var process = new Process
-            //{
-            //    StartInfo =
-            //    {
-            //        //FileName = "Dfe.Data.SearchPrototype.Web.exe",
-            //        WorkingDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\")),
-            //        FileName = "dotnet",
-            //        Arguments = "run --urls=http://localhost:5000"
-            //    }
-            //};
-            //process.Start();
-            //Thread.Sleep(1000);
+            var workingDir = Directory.GetCurrentDirectory();
+            _logger.WriteLine(workingDir);
+            
+            
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    //FileName = "Dfe.Data.SearchPrototype.Web.exe",
+                    WorkingDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\")),
+                    FileName = "dotnet",
+                    Arguments = "run --urls=http://localhost:5000"
+                }
+            };
+            process.Start();
+            Thread.Sleep(1000);
         }
 
         [BeforeTestRun]
