@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="Common\Dfe.Data.SearchPrototype.Common.csproj" />
   </ItemGroup>
 

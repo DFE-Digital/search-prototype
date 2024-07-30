@@ -30,10 +30,19 @@ public class SearchByKeywordResponseToViewModelMapper : IMapper<SearchByKeywordR
             viewModel.SearchItems = new();
             foreach (var establishment in input.EstablishmentResults)
             {
-                viewModel.SearchItems.Add(new SearchItemViewModel
+                viewModel.SearchItems.Add(new EstablishmentViewModel
                 {
                     Urn = establishment.Urn,
-                    Name = establishment.Name
+                    Name = establishment.Name,
+                    Address = new AddressViewModel()
+                    {
+                        Street = establishment.Address.Street,
+                        Locality = establishment.Address.Locality,
+                        Town = establishment.Address.Town,
+                        Address3 = establishment.Address.Address3,
+                        Postcode = establishment.Address.Postcode
+                    },
+                    EstablishmentType = establishment.EstablishmentType
                 });
             }
         }

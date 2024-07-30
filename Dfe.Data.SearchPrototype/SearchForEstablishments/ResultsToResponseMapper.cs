@@ -1,5 +1,4 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.Search;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
