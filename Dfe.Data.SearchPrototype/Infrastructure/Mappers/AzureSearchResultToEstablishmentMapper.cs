@@ -4,8 +4,8 @@ using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
 /// <summary>
-/// Facilitates mapping from the received T:Dfe.Data.SearchPrototype.Search.Establishment
-/// into the required T:Dfe.Data.SearchPrototype.Search.Establishment object.
+/// Facilitates mapping from the received T:Dfe.Data.SearchPrototype.Infrastructure.Establishment
+/// into the required T:Dfe.Data.SearchPrototype.SearchForEstablishments.Establishment object.
 /// </summary>
 public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishment, SearchForEstablishments.Establishment>
 {
