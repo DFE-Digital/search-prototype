@@ -56,6 +56,7 @@ public class EstablishmentViewModelTests
     [InlineData(true, false, false, "Primary")]
     [InlineData(false, true, false, "Secondary")]
     [InlineData(false, false, true, "16 plus")]
+    [InlineData(false, false, false, "")]
     public void EducationPhaseAsString_ReturnsFormattedString(bool isPrimary, bool isSecondary, bool isPost16, string expected)
     {
         EstablishmentViewModel establishmentViewModel = new()
