@@ -24,7 +24,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// defined within, and injected by the IOC container.
     /// </param>
     /// <param name="resultsToResponseMapper">
-    /// The concrete  implementation of the T:DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping.IMapper
+    /// The concrete  implementation of the T:Dfe.Data.SearchPrototype.Common.IMapper
     /// defined within, and injected by the IOC container.
     /// </param>
     public SearchByKeywordUseCase(
