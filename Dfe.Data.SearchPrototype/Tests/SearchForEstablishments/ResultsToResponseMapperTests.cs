@@ -1,6 +1,6 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
-using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using FluentAssertions;
 using Xunit;
 

@@ -1,5 +1,5 @@
 ﻿using Azure.Search.Documents;
-using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
+using Dfe.Data.SearchPrototype.Common.Mappers;
 using Microsoft.Extensions.Options;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Options;
