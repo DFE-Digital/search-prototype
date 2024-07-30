@@ -1,7 +1,7 @@
 ﻿using Azure.Search.Documents;
+using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
-using DfE.Data.ComponentLibrary.CrossCuttingConcerns.Mapping;
 using Moq;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Options.TestDoubles;
