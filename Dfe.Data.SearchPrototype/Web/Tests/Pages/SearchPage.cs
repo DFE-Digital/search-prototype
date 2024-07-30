@@ -11,6 +11,7 @@ public sealed class SearchPage : BasePage
 
     public IWebElement HeadingElement => DriverContext.Wait.UntilElementExists(By.CssSelector("header div div:nth-of-type(2) a"));
     public static By Heading => By.CssSelector("header div div:nth-of-type(2) a");
+    public static By HomeLink => By.CssSelector("nav a");
     public static By SearchHeading => By.CssSelector("h1 label");
     public static By SearchSubHeading => By.CssSelector("#searchKeyWord-hint");
     public By SearchHiddenDiv => By.CssSelector("#searchKeyWord + div");

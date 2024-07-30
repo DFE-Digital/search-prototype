@@ -37,6 +37,16 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Integration
         }
 
         [Fact]
+        public async Task Header_Link_IsDisplayed()
+        {
+            var response = await _factory.CreateClient().GetAsync(uri);
+
+            var document = await HtmlHelpers.GetDocumentAsync(response);
+
+            document.GetElementText(SearchPage.HomeLink.Criteria).Should().Be("Home");
+        }
+
+        [Fact]
         public async Task Search_Establishment_IsDisplayed() 
         {
             var response = await _factory.CreateClient().GetAsync(uri);
