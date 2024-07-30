@@ -24,7 +24,7 @@ public class EstablishmentViewModelTests
             }
         };
         var expected = "street, locality, address3, town, postcode";
-        var result = establishmentViewModel.AddressAsString();
+        var result = establishmentViewModel.AddressAsString;
 
         result.Should().Be(expected);
     }
@@ -45,7 +45,7 @@ public class EstablishmentViewModelTests
             }
         };
         var expected = "street, address3, town, postcode";
-        var result = establishmentViewModel.AddressAsString();
+        var result = establishmentViewModel.AddressAsString;
 
         result.Should().Be(expected);
     }
@@ -71,7 +71,7 @@ public class EstablishmentViewModelTests
             }
         };
 
-        var result = establishmentViewModel.EducationPhaseAsString();
+        var result = establishmentViewModel.EducationPhaseAsString;
 
         result.Should().Be(expected);
     }

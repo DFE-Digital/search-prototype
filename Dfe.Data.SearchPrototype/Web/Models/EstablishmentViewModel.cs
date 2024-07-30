@@ -18,6 +18,13 @@ public class EstablishmentViewModel
     /// </summary>
     public AddressViewModel Address { get; init; } = new();
     /// <summary>
+    /// Establishment address.
+    /// </summary>
+    /// <returns>
+    /// Address formatted as a display-friendly string
+    /// </returns>
+    public string AddressAsString => Address.AddressAsString();
+    /// <summary>
     /// Establishment type.
     /// </summary>
     public string EstablishmentType {  get; init; } = string.Empty;
@@ -25,41 +32,12 @@ public class EstablishmentViewModel
     /// Establishment education phase
     /// </summary>
     public EducationPhaseViewModel EducationPhase { get; init; } = new();
-
     /// <summary>
     /// Establishment education phase
     /// </summary>
     /// <returns>
     /// Education phase formatted as a display-friendly string
     /// </returns>
-    public string EducationPhaseAsString()
-    {
-        var mapEducationPhaseCodeToString = new Dictionary<string, bool>
-        {
-            {"Primary", EducationPhase.IsPrimary },
-            {"Secondary", EducationPhase.IsSecondary },
-            {"16 plus", EducationPhase.IsPost16 }
-        };
-        var educationPhaseComponents = mapEducationPhaseCodeToString
-            .Where(educationPhaseCode => educationPhaseCode.Value == true)
-            .Select(educationPhaseCode => educationPhaseCode.Key);
-
-        return string.Join(", ", educationPhaseComponents);
-    }
-    /// <summary>
-    /// Establishment address.
-    /// </summary>
-    /// <returns>
-    /// Address formatted as a display-friendly string
-    /// </returns>
-    public string AddressAsString()
-    {
-        var addressComponents
-            = new[] { Address.Street, Address.Locality, Address.Address3, Address.Town, Address.Postcode }
-                .Where(addressComponent => !string.IsNullOrEmpty(addressComponent))
-                .ToArray();
-        var readableAddress = string.Join(", ", addressComponents);
-
-        return readableAddress;
-    }
+    public string EducationPhaseAsString => EducationPhase.EducationPhaseAsString();
+   
 }

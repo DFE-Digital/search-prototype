@@ -25,4 +25,21 @@ public class AddressViewModel
     /// Postcode
     /// </summary>
     public string? Postcode { get; set; }
+
+    /// <summary>
+    /// Establishment address.
+    /// </summary>
+    /// <returns>
+    /// Address formatted as a display-friendly string
+    /// </returns>
+    public string AddressAsString()
+    {
+        var addressComponents
+            = new[] { Street, Locality, Address3, Town, Postcode }
+                .Where(addressComponent => !string.IsNullOrEmpty(addressComponent))
+                .ToArray();
+        var readableAddress = string.Join(", ", addressComponents);
+
+        return readableAddress;
+    }
 }
