@@ -1,27 +1,31 @@
-﻿namespace Dfe.Data.SearchPrototype.Search;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
 /// Object used to encapsulate the aggregation of establishment search results.
 /// </summary>
 public sealed class EstablishmentResults
 {
-    private readonly List<Establishment> _establishments = new();
-
     /// <summary>
-    /// The read-only collection of establishments hydrated through the results of the given search.
+    /// The readonly collection of establishment search results
     /// </summary>
     public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
 
+    private readonly List<Establishment> _establishments;
+
     /// <summary>
-    /// Function to allow a T:Dfe.Data.SearchPrototype.Search.Establishment object to be
-    /// added to the internal read-only collection of establishments.
+    /// Default constuctor
     /// </summary>
-    /// <param name="establishment">
-    /// The T:Dfe.Data.SearchPrototype.Search.Establishment object to be added.
-    /// </param>
-    public void AddEstablishment(Establishment establishment)
+    public EstablishmentResults()
     {
-        ArgumentNullException.ThrowIfNull(establishment);
-        _establishments.Add(establishment);
+        _establishments = new();
+    }
+
+    /// <summary>
+    /// Constructor with the following parameters
+    /// </summary>
+    /// <param name="establishments">List of Establishments</param>
+    public EstablishmentResults(IEnumerable<Establishment> establishments)
+    {
+        _establishments = establishments.ToList();
     }
 }

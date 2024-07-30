@@ -1,6 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Search;
-
-namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 /// <summary>
 /// This is the object that carries the response (output) back from the

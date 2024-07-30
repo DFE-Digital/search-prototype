@@ -1,13 +1,25 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
 /// <summary>
-/// Facilitates mapping from the received T:Dfe.Data.SearchPrototype.Search.Establishment
-/// into the required T:Dfe.Data.SearchPrototype.Search.Establishment object.
+/// Facilitates mapping from the received T:Dfe.Data.SearchPrototype.Infrastructure.Establishment
+/// into the required T:Dfe.Data.SearchPrototype.SearchForEstablishments.Establishment object.
 /// </summary>
-public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishment, Search.Establishment>
+public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishment, SearchForEstablishments.Establishment>
 {
+    private readonly IMapper<Establishment, Address> _addressMapper;
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="addressMapper">Address mapper instance</param>
+    public AzureSearchResultToEstablishmentMapper(IMapper<Establishment, Address> addressMapper)
+    {
+        _addressMapper = addressMapper;
+    }
+
     /// <summary>
     /// The following mapping dependency provides the functionality to map from a raw Azure
     /// search result, to a configured T:Dfe.Data.SearchPrototype.Search.Establishment
@@ -20,18 +32,17 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     /// The configured T:Dfe.Data.SearchPrototype.Search.Establishment instance expected.
     /// </returns>
     /// <exception cref="ArgumentException">
-    /// Exception thrown if either the id or name of an establishment is not provided
+    /// Exception thrown if the id, name, or type of an establishment is not provided
     /// </exception>
-    public Search.Establishment MapFrom(Establishment input)
+    public SearchForEstablishments.Establishment MapFrom(Establishment input)
     {
-        if (string.IsNullOrEmpty(input.id)){
-            throw new ArgumentException(nameof(input.id));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(input.id, nameof(input.id));
+        ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
+        ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
 
-        if (string.IsNullOrEmpty(input.ESTABLISHMENTNAME)){
-            throw new ArgumentException(nameof(input.ESTABLISHMENTNAME));
-        }
-
-        return new(urn: input.id, name: input.ESTABLISHMENTNAME);
+        return new(urn: input.id,
+            name: input.ESTABLISHMENTNAME,
+            address: _addressMapper.MapFrom(input),
+            establishmentType: input.TYPEOFESTABLISHMENTNAME);
     }
 }
