@@ -10,14 +10,18 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishment, SearchForEstablishments.Establishment>
 {
     private readonly IMapper<Establishment, Address> _addressMapper;
+    private readonly IMapper<Establishment, EducationPhase> _educationPhaseMapper;
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="addressMapper">Address mapper instance</param>
-    public AzureSearchResultToEstablishmentMapper(IMapper<Establishment, Address> addressMapper)
+    public AzureSearchResultToEstablishmentMapper(
+        IMapper<Establishment, Address> addressMapper,
+        IMapper<Establishment, EducationPhase> educationPhaseMapper)
     {
         _addressMapper = addressMapper;
+        _educationPhaseMapper = educationPhaseMapper;
     }
 
     /// <summary>
@@ -43,6 +47,7 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
         return new(urn: input.id,
             name: input.ESTABLISHMENTNAME,
             address: _addressMapper.MapFrom(input),
-            establishmentType: input.TYPEOFESTABLISHMENTNAME);
+            establishmentType: input.TYPEOFESTABLISHMENTNAME,
+            educationPhase: _educationPhaseMapper.MapFrom(input));
     }
 }

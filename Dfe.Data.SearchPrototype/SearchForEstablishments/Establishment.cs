@@ -21,6 +21,7 @@ public class Establishment
     /// The read-only type of the establishment.
     /// </summary>
     public string EstablishmentType {  get; }
+    public EducationPhase EducationPhase { get; }
 
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
@@ -37,11 +38,12 @@ public class Establishment
     /// <param name="establishmentType">
     /// The type of the given establishment.
     /// </param>
-    public Establishment(string urn, string name, Address address, string establishmentType)
+    public Establishment(string urn, string name, Address address, string establishmentType, EducationPhase educationPhase)
     {
         Urn = urn;
         Name = name;
         Address = address;
         EstablishmentType = establishmentType;
+        EducationPhase = educationPhase;
     }
 }

@@ -21,6 +21,23 @@ public class EstablishmentViewModel
     /// Establishment type.
     /// </summary>
     public string EstablishmentType {  get; init; } = string.Empty;
+
+    public EducationPhaseViewModel EducationPhase { get; init; } = new();
+
+    public string EducationPhaseAsString()
+    {
+        var mapEducationPhaseCodeToString = new Dictionary<string, bool>
+        {
+            {"Primary", EducationPhase.IsPrimary },
+            {"Secondary", EducationPhase.IsSecondary },
+            {"16 plus", EducationPhase.IsPost16 }
+        };
+        var educationPhaseComponents = mapEducationPhaseCodeToString
+            .Where(educationPhaseCode => educationPhaseCode.Value == true)
+            .Select(educationPhaseCode => educationPhaseCode.Key);
+
+        return string.Join(", ", educationPhaseComponents);
+    }
     /// <summary>
     /// Establishment address.
     /// </summary>

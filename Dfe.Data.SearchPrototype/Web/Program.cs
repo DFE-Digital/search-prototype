@@ -33,6 +33,7 @@ builder.Services.AddSingleton(typeof(IMapper<Response<SearchResults<Infrastructu
 builder.Services.AddSingleton<IMapper<SearchSettingsOptions, SearchOptions>, SearchOptionsToAzureOptionsMapper>();
 builder.Services.AddSingleton<IMapper<SearchByKeywordResponse, SearchResultsViewModel>, SearchByKeywordResponseToViewModelMapper>();
 builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, SearchForEstablishments.Address>, AzureSearchResultToAddressMapper>();
+builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, SearchForEstablishments.EducationPhase>, AzureSearchResultToEducationPhaseMapper>();
 builder.Services.AddSingleton<IMapper<Infrastructure.Establishment, SearchForEstablishments.Establishment>, AzureSearchResultToEstablishmentMapper>();
 builder.Services.AddSingleton<IMapper<EstablishmentResults, SearchByKeywordResponse>, ResultsToResponseMapper>();
 
