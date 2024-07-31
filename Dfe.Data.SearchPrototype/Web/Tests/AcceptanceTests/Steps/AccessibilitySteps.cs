@@ -51,11 +51,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         [StepDefinition(@"the user views the (home) page")]
         public void OpenPage(string pageName)
         {
-            string url = $"http://localhost:5028/Home";
-
-            _driverContext.Driver.Navigate().GoToUrl(url);
-
-            string pageSource = _driverContext.Driver.PageSource; // Just wanted to see the whole page view ;)
+            _driverContext.GoToUri($"{_pageNameToUrlConverter[pageName]}");
 
             _searchPage.HeadingElement.Text.Should().Be("Search prototype");
         }

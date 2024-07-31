@@ -12,7 +12,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.AcceptanceTests
 {
     public sealed class WebApplicationFactoryFixture<TEntryPoint> : WebApplicationFactory<TEntryPoint> where TEntryPoint : class
     {
-        public string HostUrl { get; set; } = "http://localhost:5028"; // Default.
+        public string HostUrl { get; set; } = "http://localhost:5000"; // Default.
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
