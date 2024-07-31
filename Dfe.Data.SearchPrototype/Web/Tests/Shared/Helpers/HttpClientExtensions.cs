@@ -52,11 +52,11 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Shared.Helpers
             }
 
             var submit = form.GetSubmission(submitButton);
-            var target = (Uri)submit.Target;
+            var target = (Uri)submit!.Target;
             if (submitButton.HasAttribute("formaction"))
             {
                 var formaction = submitButton.GetAttribute("formaction");
-                target = new Uri(formaction, UriKind.Relative);
+                target = new Uri(formaction!, UriKind.Relative);
             }
             var submision = new HttpRequestMessage(new HttpMethod(submit.Method.ToString()), target)
             {

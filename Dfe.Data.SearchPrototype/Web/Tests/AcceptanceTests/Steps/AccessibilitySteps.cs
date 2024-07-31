@@ -6,7 +6,6 @@ using Dfe.Data.SearchPrototype.Web.Tests.AcceptanceTests;
 using Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
-using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using Xunit;
 using Xunit.Abstractions;

@@ -12,7 +12,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter.Resourc
             _options = options.Value;
         }
 
-        public Task<string> LoadJsonFile() => LoadJsonFile(_options.FileName);
+        public Task<string> LoadJsonFile() => LoadJsonFile(_options.FileName!);
 
         public async Task<string> LoadJsonFile(string path)
         {

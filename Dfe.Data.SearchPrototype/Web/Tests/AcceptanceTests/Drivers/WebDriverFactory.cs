@@ -53,13 +53,11 @@ public sealed class WebDriverFactory : IWebDriverFactory
 
         _webDriverOptions.DriverBinaryDirectory ??= Directory.GetCurrentDirectory();
 
-        IWebDriver driver = CreateChromeDriver(_webDriverOptions);
-
-        //IWebDriver driver = _sessionOptions switch
-        //{
-        //    { DisableJs: true } or { Browser: "firefox" } => CreateFirefoxDriver(_webDriverOptions, _sessionOptions),
-        //    _ => CreateChromeDriver(_webDriverOptions)
-        //};
+        IWebDriver driver = _sessionOptions switch
+        {
+            { DisableJs: true } or { Browser: "firefox" } => CreateFirefoxDriver(_webDriverOptions, _sessionOptions),
+            _ => CreateChromeDriver(_webDriverOptions)
+        };
 
         driver.Manage().Window.Size = new Size(width, height);
         driver.Manage().Cookies.DeleteAllCookies();
