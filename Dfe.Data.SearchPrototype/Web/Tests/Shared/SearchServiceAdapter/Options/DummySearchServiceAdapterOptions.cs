@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Options
+﻿namespace Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter.Options
 {
     public sealed class DummySearchServiceAdapterOptions
     {

@@ -1,7 +1,7 @@
-﻿using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Options;
+﻿using Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter.Options;
 using Microsoft.Extensions.Options;
 
-namespace Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Resources
+namespace Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter.Resources
 {
     public sealed class JsonFileLoader : IJsonFileLoader
     {

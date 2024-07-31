@@ -4,5 +4,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Drivers;
 
 public interface IWebDriverFactory
 {
-    Lazy<IWebDriver> CreateDriver();
+    // TODO: reimplement Lazy<IWebDriver>
+    IWebDriver CreateDriver();
 }

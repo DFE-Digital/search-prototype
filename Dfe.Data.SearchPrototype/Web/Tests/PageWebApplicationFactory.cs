@@ -1,7 +1,7 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter;
-using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Options;
-using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Resources;
+using Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter;
+using Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter.Options;
+using Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter.Resources;
 using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;

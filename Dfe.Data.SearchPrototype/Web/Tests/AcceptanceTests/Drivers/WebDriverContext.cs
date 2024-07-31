@@ -10,13 +10,14 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Drivers;
 public class WebDriverContext : IWebDriverContext
 {
     private readonly WebDriverOptions _driverOptions;
-    private readonly Lazy<IWebDriver> _driver;
+    // TODO: reimplement Lazy<IWebDriver>
+    private readonly IWebDriver _driver;
     private readonly Lazy<IWait<IWebDriver>> _wait;
     private readonly string _baseUri;
 
-    public IWebDriver Driver => _driver.Value;
+    public IWebDriver Driver => _driver;
     public IWait<IWebDriver> Wait => _wait.Value;
-    private Type[] IgnoredExceptions { get; } = new[] { typeof(StaleElementReferenceException) };
+    private Type[] IgnoredExceptions { get; } = [typeof(StaleElementReferenceException)];
 
     public WebDriverContext(
         IWebDriverFactory factory,
@@ -30,7 +31,9 @@ public class WebDriverContext : IWebDriverContext
         _driverOptions = driverOptions.Value;
     }
 
-    private IJavaScriptExecutor JsExecutor => Driver as IJavaScriptExecutor ?? throw new ArgumentNullException(nameof(IJavaScriptExecutor));
+    private IJavaScriptExecutor JsExecutor =>
+        Driver as IJavaScriptExecutor ??
+        throw new ArgumentNullException(nameof(IJavaScriptExecutor));
 
     /// <summary>
     /// Navigate to relative path
@@ -64,16 +67,22 @@ public class WebDriverContext : IWebDriverContext
     /// </summary>
     public void Dispose()
     {
-        using (Driver)
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            Driver.Quit();
+            using (Driver)
+            {
+                Driver.Quit();
+            }
         }
     }
 
-    public void TakeScreenshot(
-        ITestOutputHelper logger,
-        string testName
-    )
+    public void TakeScreenshot(ITestOutputHelper logger, string testName)
     {
 
         // Allows alternative path

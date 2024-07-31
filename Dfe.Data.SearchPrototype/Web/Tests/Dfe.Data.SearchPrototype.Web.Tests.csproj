@@ -7,16 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PageIntegrationTests\SearchServiceAdapter\Resources\Establishments.json" />
+    <None Remove="Shared\SearchServiceAdapter\Resources\Establishments.json" />
   </ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="PageIntegrationTests\SearchServiceAdapter\Resources\Establishments.json" DestinationFolder="$(OutDir)" />
+		<Copy SourceFiles="Shared\SearchServiceAdapter\Resources\Establishments.json" DestinationFolder="$(OutDir)" />
 	</Target>
 	
   <ItemGroup>
-    <Content Include="PageIntegrationTests\SearchServiceAdapter\Resources\Establishments.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Shared\SearchServiceAdapter\Resources\Establishments.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 	

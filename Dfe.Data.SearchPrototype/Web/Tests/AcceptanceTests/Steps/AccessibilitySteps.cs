@@ -2,22 +2,27 @@
 using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Drivers;
 using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Extensions;
 using Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Options;
+using Dfe.Data.SearchPrototype.Web.Tests.AcceptanceTests;
 using Dfe.Data.SearchPrototype.Web.Tests.PageObjectModel;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
 {
     [Binding]
-    public sealed class AccessibilitySteps
+    public sealed class AccessibilitySteps : IClassFixture<WebApplicationFactoryFixture<Program>>
     {
         private readonly AccessibilityOptions _options;
         private readonly ITestOutputHelper _logger;
         private readonly IWebDriverContext _driverContext;
         private readonly SearchPage _searchPage;
         private readonly WebDriverSessionOptions _sessionOptions;
+
+        private readonly IWebDriver _webDriver;
 
         private Dictionary<string, string> _pageNameToUrlConverter = new Dictionary<string, string>()
         {
@@ -26,6 +31,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         };
 
         public AccessibilitySteps(
+            WebApplicationFactoryFixture<Program> factory,
             IOptions<AccessibilityOptions> options,
             ITestOutputHelper logger,
             IWebDriverContext driverContext,
@@ -33,6 +39,8 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
             WebDriverSessionOptions sessionOptions
         )
         {
+            factory.CreateDefaultClient();
+
             _driverContext = driverContext;
             _searchPage = searchPage;
             _logger = logger;
@@ -43,7 +51,12 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         [StepDefinition(@"the user views the (home) page")]
         public void OpenPage(string pageName)
         {
-            _driverContext.GoToUri($"{_pageNameToUrlConverter[pageName]}");
+            string url = $"http://localhost:5028/Home";
+
+            _driverContext.Driver.Navigate().GoToUrl(url);
+
+            string pageSource = _driverContext.Driver.PageSource; // Just wanted to see the whole page view ;)
+
             _searchPage.HeadingElement.Text.Should().Be("Search prototype");
         }
 

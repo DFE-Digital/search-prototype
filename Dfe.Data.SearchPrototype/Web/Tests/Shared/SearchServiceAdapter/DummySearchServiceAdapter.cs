@@ -1,8 +1,8 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter.Resources;
+using Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter.Resources;
 using Newtonsoft.Json.Linq;
 
-namespace Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceAdapter
+namespace Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter
 {
     public sealed class DummySearchServiceAdapter<TSearchResult> : ISearchServiceAdapter where TSearchResult : class
     {
@@ -23,7 +23,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.PageIntegrationTests.SearchServiceA
                 from establishmentToken in establishmentsObject["establishments"]
                 where establishmentToken["name"]!.ToString().Contains(searchContext.SearchKeyword)
                 select new Establishment(
-                    (string)establishmentToken["urn"]!, 
+                    (string)establishmentToken["urn"]!,
                     (string)establishmentToken["name"]!,
                     new Address(
                         (string)establishmentToken["address"]!["street"]!,
