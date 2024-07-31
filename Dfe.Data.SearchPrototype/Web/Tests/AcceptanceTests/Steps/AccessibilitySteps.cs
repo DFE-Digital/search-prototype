@@ -22,8 +22,6 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         private readonly SearchPage _searchPage;
         private readonly WebDriverSessionOptions _sessionOptions;
 
-        private readonly IWebDriver _webDriver;
-
         private Dictionary<string, string> _pageNameToUrlConverter = new Dictionary<string, string>()
         {
             { "home", "/" },
