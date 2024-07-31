@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch" Version="2.0.37-beta-CI-20240610-104522" />
+	<PackageReference Include="Dfe.Data.Common.Infrastructure.CognitiveSearch" Version="1.0.0" />
 	<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
 	<PackageReference Include="Azure.Search.Documents" Version="11.4.0" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
