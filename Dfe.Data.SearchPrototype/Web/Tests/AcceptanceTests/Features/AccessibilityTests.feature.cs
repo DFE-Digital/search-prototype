@@ -80,14 +80,14 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.AcceptanceTests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Homepage accessibility")]
+        [Xunit.SkippableFactAttribute(DisplayName="Home page accessibility")]
         [Xunit.TraitAttribute("FeatureTitle", "AccessibilityTests")]
-        [Xunit.TraitAttribute("Description", "Homepage accessibility")]
-        public void HomepageAccessibility()
+        [Xunit.TraitAttribute("Description", "Home page accessibility")]
+        public void HomePageAccessibility()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Homepage accessibility", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Home page accessibility", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -103,6 +103,34 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 5
  testRunner.Then("the home page is accessible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Search results page accessibility")]
+        [Xunit.TraitAttribute("FeatureTitle", "AccessibilityTests")]
+        [Xunit.TraitAttribute("Description", "Search results page accessibility")]
+        public void SearchResultsPageAccessibility()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search results page accessibility", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 7
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 8
+ testRunner.When("the user views the search results page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 9
+ testRunner.Then("the search results page is accessible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

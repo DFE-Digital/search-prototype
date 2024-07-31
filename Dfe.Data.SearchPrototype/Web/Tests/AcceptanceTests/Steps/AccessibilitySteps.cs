@@ -27,7 +27,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
         private Dictionary<string, string> _pageNameToUrlConverter = new Dictionary<string, string>()
         {
             { "home", "/" },
-            { "privacy", "/Home/Privacy" }
+            { "search results", "/?searchKeyWord=Academy" }
         };
 
         public AccessibilitySteps(
@@ -48,7 +48,7 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Acceptance.Steps
             _sessionOptions = sessionOptions;
         }
 
-        [StepDefinition(@"the user views the (home) page")]
+        [StepDefinition(@"the user views the (home|search results) page")]
         public void OpenPage(string pageName)
         {
             _driverContext.GoToUri($"{_pageNameToUrlConverter[pageName]}");
