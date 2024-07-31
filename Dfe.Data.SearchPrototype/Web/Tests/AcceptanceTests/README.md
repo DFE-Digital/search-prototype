@@ -5,6 +5,10 @@
 
 This test suite contains automated tests that check the functional and non-functional aspects of the search prototype application.
 
+## Prerequisites
+
+Currently only supports chrome browser, so ensure you have the chrome browser installed.
+
 ## Test Levels
 
 - Functional
