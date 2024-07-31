@@ -24,9 +24,8 @@ public class EstablishmentViewModelTests
             }
         };
         var expected = "street, locality, address3, town, postcode";
-        var result = establishmentViewModel.AddressAsString();
+        var result = establishmentViewModel.AddressAsString;
 
-        Assert.Equal(expected, result);
         result.Should().Be(expected);
     }
 
@@ -46,10 +45,34 @@ public class EstablishmentViewModelTests
             }
         };
         var expected = "street, address3, town, postcode";
-        var result = establishmentViewModel.AddressAsString();
+        var result = establishmentViewModel.AddressAsString;
 
-        Assert.Equal(expected, result);
         result.Should().Be(expected);
     }
 
+    [Theory]
+    [InlineData(true, true, true, "Primary, Secondary, 16 plus")]
+    [InlineData(false, true, true, "Secondary, 16 plus")]
+    [InlineData(true, false, false, "Primary")]
+    [InlineData(false, true, false, "Secondary")]
+    [InlineData(false, false, true, "16 plus")]
+    [InlineData(false, false, false, "")]
+    public void EducationPhaseAsString_ReturnsFormattedString(bool isPrimary, bool isSecondary, bool isPost16, string expected)
+    {
+        EstablishmentViewModel establishmentViewModel = new()
+        {
+            Urn = EstablishmentViewModelTestDouble.GetEstablishmentIdentifierFake(),
+            Name = EstablishmentViewModelTestDouble.GetEstablishmentNameFake(),
+            EducationPhase = new()
+            {
+                IsPrimary = isPrimary,
+                IsSecondary = isSecondary,
+                IsPost16 = isPost16
+            }
+        };
+
+        var result = establishmentViewModel.EducationPhaseAsString;
+
+        result.Should().Be(expected);
+    }
 }

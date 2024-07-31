@@ -18,23 +18,26 @@ public class EstablishmentViewModel
     /// </summary>
     public AddressViewModel Address { get; init; } = new();
     /// <summary>
-    /// Establishment type.
-    /// </summary>
-    public string EstablishmentType {  get; init; } = string.Empty;
-    /// <summary>
     /// Establishment address.
     /// </summary>
     /// <returns>
     /// Address formatted as a display-friendly string
     /// </returns>
-    public string AddressAsString()
-    {
-        var addressComponents
-            = new[] { Address.Street, Address.Locality, Address.Address3, Address.Town, Address.Postcode }
-                .Where(addressComponent => !string.IsNullOrEmpty(addressComponent))
-                .ToArray();
-        var readableAddress = string.Join(", ", addressComponents);
-
-        return readableAddress;
-    }
+    public string AddressAsString => Address.AddressAsString();
+    /// <summary>
+    /// Establishment type.
+    /// </summary>
+    public string EstablishmentType {  get; init; } = string.Empty;
+    /// <summary>
+    /// Establishment education phase
+    /// </summary>
+    public EducationPhaseViewModel EducationPhase { get; init; } = new();
+    /// <summary>
+    /// Establishment education phase
+    /// </summary>
+    /// <returns>
+    /// Education phase formatted as a display-friendly string
+    /// </returns>
+    public string EducationPhaseAsString => EducationPhase.EducationPhaseAsString();
+   
 }

@@ -31,7 +31,12 @@ namespace Dfe.Data.SearchPrototype.Web.Tests.Shared.SearchServiceAdapter
                         (string)establishmentToken["address"]!["address3"]!,
                         (string)establishmentToken["address"]!["town"]!,
                         (string)establishmentToken["address"]!["postcode"]!),
-                    (string)establishmentToken["establishmentType"]!);
+                    (string)establishmentToken["establishmentType"]!,
+                    new EducationPhase(
+                        (string)establishmentToken["educationPhase"]!["isPrimary"]!,
+                        (string)establishmentToken["educationPhase"]!["isSecondary"]!,
+                        (string)establishmentToken["educationPhase"]!["isPost16"]!
+                    ));
 
             return new EstablishmentResults(establishments);
         }

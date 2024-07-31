@@ -1,6 +1,5 @@
 {
   "establishments": [
-
     {
       "urn": "123456",
       "name": "Goose Academy",
@@ -11,7 +10,12 @@
         "town": "Goose Town",
         "postcode": "GOO OSE"
       },
-      "establishmentType": "Academy"
+      "establishmentType": "Academy",
+      "educationPhase": {
+        "isPrimary": "1",
+        "isSecondary": "0",
+        "isPost16": "0"
+      }
     },
     {
       "urn": "234567",
@@ -23,7 +27,12 @@
         "town": "Horse Town",
         "postcode": "HOR SEE"
       },
-      "establishmentType": "Academy"
+      "establishmentType": "Academy",
+      "educationPhase": {
+        "isPrimary": "0",
+        "isSecondary": "1",
+        "isPost16": "1"
+      }
     },
     {
       "urn": "345678",
@@ -35,7 +44,12 @@
         "town": "Duck Town",
         "postcode": "DUU CKK"
       },
-      "establishmentType": "Community School"
+      "establishmentType": "Community School",
+      "educationPhase": {
+        "isPrimary": "0",
+        "isSecondary": "1",
+        "isPost16": "0"
+      }
     }
   ]
 }
