@@ -1,10 +1,10 @@
 ﻿using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
+using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure;
 
@@ -14,7 +14,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure;
 /// </summary>
 public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServiceAdapter where TSearchResult : class
 {
-    private readonly ISearchService _cognitiveSearchService;
+    private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly ISearchOptionsFactory _searchOptionsFactory;
     private readonly IMapper<Response<SearchResults<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
 
@@ -22,8 +22,8 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// The following dependencies include the core cognitive search service definition,
     /// the complete implementation of which is defined in the IOC container.
     /// </summary>
-    /// <param name="cognitiveSearchService">
-    /// Cognitive search service definition injected via IOC container.
+    /// <param name="searchByKeywordService">
+    /// Cognitive search (search by keyword) service definition injected via IOC container.
     /// </param>
     /// <param name="searchOptionsFactory">
     /// Factory class definition for prescribing the requested search options (by collection context).
@@ -32,12 +32,12 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Maps the raw azure search response to the required "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
     /// </param>
     public CognitiveSearchServiceAdapter(
-        ISearchService cognitiveSearchService,
+        ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
         IMapper<Response<SearchResults<TSearchResult>>, EstablishmentResults> searchResponseMapper)
     {
         _searchOptionsFactory = searchOptionsFactory;
-        _cognitiveSearchService = cognitiveSearchService;
+        _searchByKeywordService = searchByKeywordService;
         _searchResponseMapper = searchResponseMapper;
     }
 
@@ -65,7 +65,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
                 $"Search options cannot be derived for {searchContext.TargetCollection}.");
 
         Response<SearchResults<TSearchResult>> searchResults =
-            await _cognitiveSearchService.SearchAsync<TSearchResult>(
+            await _searchByKeywordService.SearchAsync<TSearchResult>(
                 searchContext.SearchKeyword,
                 searchContext.TargetCollection,
                 searchOptions
