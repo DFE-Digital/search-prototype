@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
-using DfE.Data.ComponentLibrary.Infrastructure.CognitiveSearch.Search;
+using Dfe.Data.Common.Infrastructure.CognitiveSearch.Search;
 using Moq;
 using System.Linq.Expressions;
 
