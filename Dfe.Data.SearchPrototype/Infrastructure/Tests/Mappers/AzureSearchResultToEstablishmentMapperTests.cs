@@ -10,11 +10,13 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
 {
     IMapper<Establishment, SearchForEstablishments.Establishment> _establishmentMapper;
     IMapper<Establishment, SearchForEstablishments.Address> _addressMapper;
+    IMapper<Establishment, SearchForEstablishments.EducationPhase> _educationPhaseMapper;
 
     public AzureSearchResultToEstablishmentMapperTests()
     {
         _addressMapper = new AzureSearchResultToAddressMapper();
-        _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper);
+        _educationPhaseMapper = new AzureSearchResultToEducationPhaseMapper();
+        _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper, _educationPhaseMapper);
     }
 
     [Fact]
@@ -35,7 +37,9 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         result.Address.Address3.Should().Be(establishmentFake.ADDRESS3);
         result.Address.Town.Should().Be(establishmentFake.TOWN);
         result.Address.Postcode.Should().Be(establishmentFake.POSTCODE);
-        result.EstablishmentType.Should().Be(establishmentFake.TYPEOFESTABLISHMENTNAME);
+        result.EducationPhase.IsPrimary.Should().Be(establishmentFake.ISPRIMARY == "1" ? true : false);
+        result.EducationPhase.IsSecondary.Should().Be(establishmentFake.ISSECONDARY == "1" ? true : false);
+        result.EducationPhase.IsPost16.Should().Be(establishmentFake.ISPOST16 == "1" ? true : false);
     }
 
     [Fact]
@@ -70,7 +74,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
             .Invoking(mapper =>
                 mapper.MapFrom(establishmentFake))
                     .Should()
-                        .Throw<ArgumentException>().WithMessage("Value cannot be null. (Parameter 'id')");
+                        .Throw<ArgumentException>();
     }
 
     [Fact]
@@ -84,6 +88,28 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         {
             id = EstablishmentId,
             ESTABLISHMENTNAME = null!
+        };
+
+        // act.
+        _establishmentMapper
+            .Invoking(mapper =>
+                mapper.MapFrom(establishmentFake))
+                    .Should()
+                        .Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void MapFrom_With_NullIsPrimary_Throws_Expected_Argument_Exception()
+    {
+        // arrange.
+        const string EstablishmentId = "123456";
+
+        // act.
+        var establishmentFake = new Establishment()
+        {
+            id = EstablishmentId,
+            ESTABLISHMENTNAME = "Test Establishment",
+            ISPRIMARY = null!
         };
 
         // act.

@@ -15,13 +15,15 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     IMapper<Establishment, SearchForEstablishments.Establishment> _searchResultToEstablishmentMapper;
     IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> _searchResponseMapper;
     IMapper<Establishment, SearchForEstablishments.Address> _searchResultToAddressMapper;
+    IMapper<Establishment, SearchForEstablishments.EducationPhase> _searchResultToEducationPhaseMapper;
 
     public AzureSearchResponseToEstablishmentResultMapperTests()
     {
+        _searchResultToEducationPhaseMapper = new AzureSearchResultToEducationPhaseMapper();
         _searchResultToAddressMapper = new AzureSearchResultToAddressMapper();
         _searchResultToEstablishmentMapper =
-            new AzureSearchResultToEstablishmentMapper(_searchResultToAddressMapper);
-        _searchResponseMapper = 
+            new AzureSearchResultToEstablishmentMapper(_searchResultToAddressMapper, _searchResultToEducationPhaseMapper);
+        _searchResponseMapper =
             new AzureSearchResponseToEstablishmentResultMapper(_searchResultToEstablishmentMapper);
     }
 
@@ -40,7 +42,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
         // assert
         mappedResult.Should().NotBeNull();
         mappedResult.Establishments.Should().HaveCount(searchResultDocuments.Count());
-        foreach(var searchResult in searchResultDocuments)
+        foreach (var searchResult in searchResultDocuments)
         {
             searchResult.ShouldHaveMatchingMappedEstablishment(mappedResult);
         }

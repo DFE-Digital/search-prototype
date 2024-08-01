@@ -37,4 +37,19 @@ public class Establishment
     /// The type of the establishment of the retrieved establishment result
     /// </summary>
     public string? TYPEOFESTABLISHMENTNAME { get; set; }
+    /// <summary>
+    /// "1" if the establishment includes the Primary phase of education
+    /// "0" if the establishment does not include the Primary phase of education
+    /// </summary>
+    public string? ISPRIMARY { get; set; }
+    /// <summary>
+    /// "1" if the establishment includes the secondary phase of education
+    /// "0" if the establishment does not include the secondary phase of education
+    /// </summary>
+    public string? ISSECONDARY { get; set; }
+    /// <summary>
+    /// "1" if the establishment includes the post 16 phase of education
+    /// "0" if the establishment does not include the post 16 phase of education
+    /// </summary>
+    public string? ISPOST16 { get; set; }
 }
