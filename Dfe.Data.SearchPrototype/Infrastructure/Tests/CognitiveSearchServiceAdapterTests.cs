@@ -1,6 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.Common.Infrastructure.CognitiveSearch.Search;
+using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
@@ -14,11 +14,11 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
 public sealed class CognitiveSearchServiceAdapterTests
 {
     private static CognitiveSearchServiceAdapter<Establishment> CreateServiceAdapterWith(
-        ISearchService cognitiveSearchService,
+        ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
         IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> searchResponseMapper
        ) =>
-           new(cognitiveSearchService, searchOptionsFactory, searchResponseMapper);
+           new(searchByKeywordService, searchOptionsFactory, searchResponseMapper);
 
     [Fact]
     public async Task Search_With_Valid_SearchContext_Returns_Configured_Results()
