@@ -52,4 +52,9 @@ public class Establishment
     /// "0" if the establishment does not include the post 16 phase of education
     /// </summary>
     public string? ISPOST16 { get; set; }
+    /// <summary>
+    /// The status of the establishment of the retrieved establishment result
+    /// If "1" establishment status is open if "0" it's closed
+    /// </summary>
+    public string? ESTABLISHMENTSTATUSCODE { get; set; }
 }
