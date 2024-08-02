@@ -1,6 +1,7 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
+using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using FluentAssertions;
 using Xunit;
 
@@ -19,11 +20,14 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper, _educationPhaseMapper);
     }
 
-    [Fact]
-    public void MapFrom_With_Valid_Search_Result_Returns_Configured_Establishment()
+    [Theory]
+    [InlineData("1", StatusCode.Open)]
+    [InlineData("0", StatusCode.Closed)]
+    [InlineData("", StatusCode.Unknown)]
+    public void MapFrom_With_Valid_Search_Result_Returns_Configured_Establishment(string statusCode, StatusCode expectedStatusCode)
     {
         // arrange
-        Establishment establishmentFake = EstablishmentTestDouble.Create();
+        Establishment establishmentFake = EstablishmentTestDouble.CreateWithStatusCode(statusCode);
 
         // act
         SearchForEstablishments.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
@@ -40,6 +44,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         result.EducationPhase.IsPrimary.Should().Be(establishmentFake.ISPRIMARY == "1" ? true : false);
         result.EducationPhase.IsSecondary.Should().Be(establishmentFake.ISSECONDARY == "1" ? true : false);
         result.EducationPhase.IsPost16.Should().Be(establishmentFake.ISPOST16 == "1" ? true : false);
+        result.EstablishmentStatusCode.Should().Be(expectedStatusCode);
     }
 
     [Fact]
