@@ -124,4 +124,41 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
                     .Should()
                         .Throw<ArgumentException>();
     }
+
+    [Theory]
+    [InlineData(null, "fakeLocality", "", "fakeTown", "FakePostCode")]
+    [InlineData(null, "", null, "fakeTown", "FakePostCode")]
+    [InlineData("fakeStreet", null, "", null, "FakePostCode")]
+    [InlineData("", null, null, null, null)]
+    public void MapFrom_With_NullAddressValues_Returns_Configured_Establishment(
+        string street, string locality, string address3, string town, string postcode)
+    {
+        // arrange
+        Establishment establishmentFake = new Establishment()
+        {
+            id = "000000",
+            ESTABLISHMENTNAME = "fakename",
+            TYPEOFESTABLISHMENTNAME = "FakeType",
+            ISPRIMARY = "1",
+            ISPOST16 = "0",
+            ISSECONDARY = "0",
+            STREET = street,
+            LOCALITY = locality,
+            ADDRESS3 = address3,
+            TOWN = town,
+            POSTCODE = postcode
+        };
+
+        // act
+        SearchForEstablishments.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
+
+        // assert
+        result.Should().NotBeNull();
+        result.Address.Street.Should().Be(establishmentFake.STREET);
+        result.Address.Locality.Should().Be(establishmentFake.LOCALITY);
+        result.Address.Address3.Should().Be(establishmentFake.ADDRESS3);
+        result.Address.Town.Should().Be(establishmentFake.TOWN);
+        result.Address.Postcode.Should().Be(establishmentFake.POSTCODE);
+
+    }
 }
