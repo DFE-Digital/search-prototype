@@ -1,6 +1,4 @@
-﻿using Bogus;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using System.IO;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 

@@ -1,7 +1,7 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 using Xunit;
 
@@ -9,9 +9,9 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureSearchResultToEstablishmentMapperTests
 {
-    IMapper<Establishment, SearchForEstablishments.Establishment> _establishmentMapper;
-    IMapper<Establishment, SearchForEstablishments.Address> _addressMapper;
-    IMapper<Establishment, SearchForEstablishments.EducationPhase> _educationPhaseMapper;
+    IMapper<Establishment, SearchForEstablishments.Models.Establishment> _establishmentMapper;
+    IMapper<Establishment, Address> _addressMapper;
+    IMapper<Establishment, EducationPhase> _educationPhaseMapper;
 
     public AzureSearchResultToEstablishmentMapperTests()
     {
@@ -30,7 +30,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         Establishment establishmentFake = EstablishmentTestDouble.CreateWithStatusCode(statusCode);
 
         // act
-        SearchForEstablishments.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
+        SearchForEstablishments.Models.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
 
         // assert
         result.Should().NotBeNull();
@@ -150,7 +150,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         };
 
         // act
-        SearchForEstablishments.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
+        SearchForEstablishments.Models.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
 
         // assert
         result.Should().NotBeNull();

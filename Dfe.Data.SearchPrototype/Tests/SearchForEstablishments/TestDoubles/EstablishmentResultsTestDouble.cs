@@ -1,4 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 

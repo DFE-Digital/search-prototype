@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
 /// Object used to encapsulate the establishment search result.
@@ -20,7 +20,7 @@ public class Establishment
     /// <summary>
     /// The read-only type of the establishment.
     /// </summary>
-    public string EstablishmentType {  get; }
+    public string EstablishmentType { get; }
     public EducationPhase EducationPhase { get; }
     /// <summary>
     /// The read-only status of the establishment.

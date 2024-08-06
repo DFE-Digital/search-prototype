@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 public class Address
 {
