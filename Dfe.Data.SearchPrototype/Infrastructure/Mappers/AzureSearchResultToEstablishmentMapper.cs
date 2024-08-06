@@ -46,10 +46,10 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
         ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
 
         var statusCode = input.ESTABLISHMENTSTATUSCODE == "1"
-                    ? StatusCode.Open
+                    ? EstablishmentStatusCode.Open
                         : input.ESTABLISHMENTSTATUSCODE == "0"
-                        ? StatusCode.Closed
-                            : StatusCode.Unknown;
+                        ? EstablishmentStatusCode.Closed
+                            : EstablishmentStatusCode.Unknown;
 
         return new(
             urn: input.id,

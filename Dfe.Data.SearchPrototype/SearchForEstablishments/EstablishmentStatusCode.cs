@@ -1,6 +1,6 @@
 ﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
-public enum StatusCode
+public enum EstablishmentStatusCode
 {
     Closed = 0,
     Open = 1,

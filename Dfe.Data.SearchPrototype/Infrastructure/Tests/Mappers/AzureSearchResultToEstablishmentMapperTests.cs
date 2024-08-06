@@ -21,10 +21,10 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     }
 
     [Theory]
-    [InlineData("1", StatusCode.Open)]
-    [InlineData("0", StatusCode.Closed)]
-    [InlineData("", StatusCode.Unknown)]
-    public void MapFrom_With_Valid_Search_Result_Returns_Configured_Establishment(string statusCode, StatusCode expectedStatusCode)
+    [InlineData("1", EstablishmentStatusCode.Open)]
+    [InlineData("0", EstablishmentStatusCode.Closed)]
+    [InlineData("", EstablishmentStatusCode.Unknown)]
+    public void MapFrom_With_Valid_Search_Result_Returns_Configured_Establishment(string statusCode, EstablishmentStatusCode expectedStatusCode)
     {
         // arrange
         Establishment establishmentFake = EstablishmentTestDouble.CreateWithStatusCode(statusCode);
