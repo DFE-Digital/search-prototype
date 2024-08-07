@@ -24,11 +24,8 @@ public class ResultsToResponseMapper : IMapper<EstablishmentResults, SearchByKey
     {
         if(input == null)
         {
-            return new(null) { Status = SearchResponseStatus.NoResults };
+            return new() { Status = SearchResponseStatus.SearchServiceError };
         }
-        return new(input.Establishments)
-        {
-            Status = SearchResponseStatus.Success
-        };
+        else return new(input.Establishments) { Status = SearchResponseStatus.Success };
     }
 }

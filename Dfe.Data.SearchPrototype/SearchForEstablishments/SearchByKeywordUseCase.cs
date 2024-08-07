@@ -54,14 +54,13 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
                 Status = SearchResponseStatus.InvalidRequest
             };
         };
-        //ArgumentNullException.ThrowIfNull(request, nameof(SearchByKeywordRequest));
-        //ArgumentNullException.ThrowIfNull(request.Context, nameof(SearchContext));
+
         try
         {
             EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
             return _resultsToResponseMapper.MapFrom(establishmentResults);
         }
-        catch (Exception ex)
+        catch (Exception) // something catastrophic went wrong in the infrastructure
         {
             return new SearchByKeywordResponse(null)
             {

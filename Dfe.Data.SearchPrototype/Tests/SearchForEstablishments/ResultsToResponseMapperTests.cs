@@ -28,7 +28,7 @@ public sealed class ResultsToResponseMapperTests
     }
 
     [Fact]
-    public void MapFrom_NullInput_ThrowsException()
+    public void MapFrom_NullInput_ReturnsErrorResponse()
     {
         // arrange.
         IMapper<EstablishmentResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
@@ -37,6 +37,6 @@ public sealed class ResultsToResponseMapperTests
         SearchByKeywordResponse response = mapper.MapFrom(null!);
 
         // assert
-        response.Status.Should().Be(SearchResponseStatus.NoResults);
+        response.Status.Should().Be(SearchResponseStatus.SearchServiceError);
     }
 }
