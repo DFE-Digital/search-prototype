@@ -26,7 +26,7 @@ public sealed class SearchByKeywordUseCaseTests
     }
 
     [Fact]
-    public async Task UseCase_ValidRequest_ReturnsResponse()
+    public async Task HandleRequest_ValidRequest_ReturnsResponse()
     {
         // arrange
         SearchByKeywordRequest request = new("searchkeyword", "target collection");
@@ -39,7 +39,7 @@ public sealed class SearchByKeywordUseCaseTests
     }
 
      [Fact]
-    public async Task UseCase_NullSearchByKeywordRequest_ReturnsErrorStatus()
+    public async Task HandleRequest_NullSearchByKeywordRequest_ReturnsErrorStatus()
     {
         // act
         var response = await _useCase.HandleRequest(request: null!);
@@ -50,7 +50,7 @@ public sealed class SearchByKeywordUseCaseTests
     }
 
     [Fact]
-    public async Task UseCase_ServiceAdapterIncorrectSetup_ReturnsErrorStatus()
+    public async Task HandleRequest_ServiceAdapterIncorrectSetup_ReturnsErrorStatus()
     {
         // arrange
         SearchByKeywordRequest request = new("searchkeyword", "target collection");
@@ -67,7 +67,7 @@ public sealed class SearchByKeywordUseCaseTests
     }
 
     [Fact]
-    public async Task UseCase_NoResults_ReturnsSuccess()
+    public async Task HandleRequest_NoResults_ReturnsSuccess()
     {
         // arrange
         SearchByKeywordRequest request = new("searchkeyword", "target collection");

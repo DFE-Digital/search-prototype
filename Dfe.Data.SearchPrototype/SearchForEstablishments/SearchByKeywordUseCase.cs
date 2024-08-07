@@ -49,7 +49,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
         if ((request == null) || (request.Context == null)) {
-            return new SearchByKeywordResponse(null)
+            return new SearchByKeywordResponse()
             {
                 Status = SearchResponseStatus.InvalidRequest
             };
@@ -62,7 +62,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
         }
         catch (Exception) // something catastrophic went wrong in the infrastructure
         {
-            return new SearchByKeywordResponse(null)
+            return new SearchByKeywordResponse()
             {
                 Status = SearchResponseStatus.SearchServiceError
             };
