@@ -13,6 +13,7 @@ public sealed class SearchByKeywordResponse
     /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.Establishment search results.
     /// </summary>
     public IReadOnlyCollection<Establishment>? EstablishmentResults { get;}
+    public SearchResponseStatus Status { get; set; }
 
     /// <summary>
     /// The following argument is passed via the constructor and is not changeable

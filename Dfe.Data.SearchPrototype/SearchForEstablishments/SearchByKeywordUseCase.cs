@@ -48,11 +48,25 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// </returns>
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request, nameof(SearchByKeywordRequest));
-        ArgumentNullException.ThrowIfNull(request.Context, nameof(SearchContext));
-
-        EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
-
-        return _resultsToResponseMapper.MapFrom(establishmentResults);
+        if ((request == null) || (request.Context == null)) {
+            return new SearchByKeywordResponse(null)
+            {
+                Status = SearchResponseStatus.InvalidRequest
+            };
+        };
+        //ArgumentNullException.ThrowIfNull(request, nameof(SearchByKeywordRequest));
+        //ArgumentNullException.ThrowIfNull(request.Context, nameof(SearchContext));
+        try
+        {
+            EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
+            return _resultsToResponseMapper.MapFrom(establishmentResults);
+        }
+        catch (Exception ex)
+        {
+            return new SearchByKeywordResponse(null)
+            {
+                Status = SearchResponseStatus.SearchServiceError
+            };
+        }
     }
 }

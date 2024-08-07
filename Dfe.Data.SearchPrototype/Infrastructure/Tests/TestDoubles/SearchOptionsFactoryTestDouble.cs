@@ -23,7 +23,7 @@ internal static class SearchOptionsFactoryTestDouble
 
     public static ISearchOptionsFactory MockSearchOptionsFactory() => MockFor(SearchOptionsFake);
 
-    public static ISearchOptionsFactory MockForDefaultResult() => MockFor(default!);
+    public static ISearchOptionsFactory MockForNoOptions() => MockFor(default!);
     public static SearchOptions SearchOptionsFake => new()
     {
         SearchMode = SearchMode.Any,

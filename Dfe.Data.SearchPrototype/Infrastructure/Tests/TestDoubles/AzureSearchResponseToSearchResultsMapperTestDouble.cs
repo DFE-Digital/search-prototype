@@ -23,7 +23,7 @@ internal static class AzureSearchResponseToSearchResultsMapperTestDouble
         return mapperMock.Object;
     }
 
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockDefaultMapper()
+    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockMapperReturningEmptyResults()
     {
         var mockMapper = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
         mockMapper.Setup(mapper => mapper.MapFrom(It.IsAny<Response<SearchResults<Establishment>>>()))

@@ -22,8 +22,13 @@ public class ResultsToResponseMapper : IMapper<EstablishmentResults, SearchByKey
     /// </returns>
     public SearchByKeywordResponse MapFrom(EstablishmentResults input)
     {
-        SearchByKeywordResponse response = new(input.Establishments);
-
-        return response;
+        if(input == null)
+        {
+            return new(null) { Status = SearchResponseStatus.NoResults };
+        }
+        return new(input.Establishments)
+        {
+            Status = SearchResponseStatus.Success
+        };
     }
 }
