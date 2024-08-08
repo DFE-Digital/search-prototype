@@ -41,6 +41,6 @@ internal static class SearchServiceTestDouble
         var validServiceResponseFake =
             Task.FromResult<Response<SearchResults<Establishment>>>(default!);
 
-        return MockFor(validServiceResponseFake, string.Empty, string.Empty);
+        return MockFor(validServiceResponseFake, It.IsAny<string>(), It.IsAny<string>());
     }
 }

@@ -5,6 +5,7 @@ using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -21,12 +22,12 @@ public sealed class CognitiveSearchServiceAdapterTests
            new(searchByKeywordService, searchOptionsFactory, searchResponseMapper);
 
     [Fact]
-    public async Task Search_With_Valid_SearchContext_Returns_Configured_Results()
+    public async Task Search_WithValidSearchContext_ReturnsConfiguredResults()
     {
         // arrange
-        var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
         var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
-        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper();
+        var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
 
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
@@ -49,14 +50,18 @@ public sealed class CognitiveSearchServiceAdapterTests
     }
 
     [Fact]
-    public Task Search_With_Valid_SearchContext_No_Options_Returned_Throws_ApplicationException()
+    public Task Search_WithNoSearchOptions_ThrowsApplicationException()
     {
+        var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
+        var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockForNoOptions();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
+
         // arrange
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
-                SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection"),
-                SearchOptionsFactoryTestDouble.MockForDefaultResult(),
-                AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
+                mockService,
+                mockSearchOptionsFactory,
+                mockMapper);
 
         // act.
         return cognitiveSearchServiceAdapter
@@ -65,30 +70,54 @@ public sealed class CognitiveSearchServiceAdapterTests
                     new SearchContext(
                         searchKeyword: "SearchKeyword",
                         targetCollection: "TargetCollection")))
-                        .Should()
-                            .ThrowAsync<ApplicationException>()
-                            .WithMessage("Search options cannot be derived for TargetCollection.");
+            .Should()
+            .ThrowAsync<ApplicationException>()
+            .WithMessage("Search options cannot be derived for TargetCollection.");
     }
 
     [Fact]
-    public Task Search_With_Valid_SearchContext_No_Results_Returned_Throws_ApplicationException()
+    public async Task Search_WithNoResultsReturned_ReturnsEmptyResults()
     {
         // arrange
+        var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
+        var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
+
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
-                SearchServiceTestDouble.DefaultMock(),
-                SearchOptionsFactoryTestDouble.MockSearchOptionsFactory(),
-                AzureSearchResponseToSearchResultsMapperTestDouble.MockDefaultMapper());
+                mockService,
+                mockSearchOptionsFactory,
+                mockMapper);
 
         // act.
+        var response = await cognitiveSearchServiceAdapter.SearchAsync(new SearchContext(
+                            searchKeyword: "SearchKeyword",
+                            targetCollection: "TargetCollection"));
+
+        // assert
+        response.Establishments.Should().BeEmpty();
+    }
+
+    [Fact]
+    public Task Search_MapperThrowsException_ExceptionPassesThrough()
+    {
+        // arrange
+        var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
+        var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockMapperThrowingArgumentException();
+
+        ISearchServiceAdapter cognitiveSearchServiceAdapter =
+            CreateServiceAdapterWith(
+                mockService,
+                mockSearchOptionsFactory,
+                mockMapper);
+
+        // act, assert.
         return cognitiveSearchServiceAdapter
-            .Invoking(async serviceAdapter =>
-                await serviceAdapter.SearchAsync(
-                    new SearchContext(
-                        searchKeyword: "SearchKeyword",
-                        targetCollection: "TargetCollection")))
-                        .Should()
-                            .ThrowAsync<ApplicationException>()
-                            .WithMessage("Unable to derive search results based on input SearchKeyword.");
+            .Invoking(adapter => adapter.SearchAsync(new SearchContext(
+                            searchKeyword: "SearchKeyword",
+                            targetCollection: "TargetCollection")))
+            .Should()
+            .ThrowAsync< ArgumentException>();
     }
 }

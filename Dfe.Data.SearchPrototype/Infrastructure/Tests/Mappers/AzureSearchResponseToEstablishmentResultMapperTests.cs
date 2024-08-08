@@ -4,7 +4,7 @@ using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestHelpers;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 using Xunit;
 
@@ -12,10 +12,10 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 {
-    IMapper<Establishment, SearchForEstablishments.Establishment> _searchResultToEstablishmentMapper;
+    IMapper<Establishment, SearchForEstablishments.Models.Establishment> _searchResultToEstablishmentMapper;
     IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> _searchResponseMapper;
-    IMapper<Establishment, SearchForEstablishments.Address> _searchResultToAddressMapper;
-    IMapper<Establishment, SearchForEstablishments.EducationPhase> _searchResultToEducationPhaseMapper;
+    IMapper<Establishment, Address> _searchResultToAddressMapper;
+    IMapper<Establishment, EducationPhase> _searchResultToEducationPhaseMapper;
 
     public AzureSearchResponseToEstablishmentResultMapperTests()
     {

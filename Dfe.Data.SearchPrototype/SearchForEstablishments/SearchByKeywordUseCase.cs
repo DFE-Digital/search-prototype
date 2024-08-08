@@ -1,5 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
@@ -47,11 +48,24 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// </returns>
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
-        ArgumentNullException.ThrowIfNull(request, nameof(SearchByKeywordRequest));
-        ArgumentNullException.ThrowIfNull(request.Context, nameof(SearchContext));
+        if ((request == null) || (request.Context == null)) {
+            return new SearchByKeywordResponse()
+            {
+                Status = SearchResponseStatus.InvalidRequest
+            };
+        };
 
-        EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
-
-        return _resultsToResponseMapper.MapFrom(establishmentResults);
+        try
+        {
+            EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
+            return _resultsToResponseMapper.MapFrom(establishmentResults);
+        }
+        catch (Exception) // something went wrong in the infrastructure
+        {
+            return new SearchByKeywordResponse()
+            {
+                Status = SearchResponseStatus.SearchServiceError
+            };
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
@@ -7,7 +7,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 /// Facilitates mapping from the received T:Dfe.Data.SearchPrototype.Infrastructure.Establishment
 /// into the required T:Dfe.Data.SearchPrototype.SearchForEstablishments.Establishment object.
 /// </summary>
-public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishment, SearchForEstablishments.Establishment>
+public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishment, SearchForEstablishments.Models.Establishment>
 {
     private readonly IMapper<Establishment, Address> _addressMapper;
     private readonly IMapper<Establishment, EducationPhase> _educationPhaseMapper;
@@ -39,17 +39,17 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     /// <exception cref="ArgumentException">
     /// Exception thrown if the id, name, or type of an establishment is not provided
     /// </exception>
-    public SearchForEstablishments.Establishment MapFrom(Establishment input)
+    public SearchForEstablishments.Models.Establishment MapFrom(Establishment input)
     {
         ArgumentException.ThrowIfNullOrEmpty(input.id, nameof(input.id));
         ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
         ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
 
         var statusCode = input.ESTABLISHMENTSTATUSCODE == "1"
-                    ? StatusCode.Open
+                    ? EstablishmentStatusCode.Open
                         : input.ESTABLISHMENTSTATUSCODE == "0"
-                        ? StatusCode.Closed
-                            : StatusCode.Unknown;
+                        ? EstablishmentStatusCode.Closed
+                            : EstablishmentStatusCode.Unknown;
 
         return new(
             urn: input.id,

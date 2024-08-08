@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
 /// Object used to encapsulate the education phase of the retrieved establishment.

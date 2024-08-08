@@ -1,7 +1,9 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments;
@@ -9,20 +11,22 @@ namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments;
 public sealed class SearchByKeywordUseCaseTests
 {
     private readonly SearchByKeywordUseCase _useCase;
+    private ISearchServiceAdapter _searchServiceAdapter;
+    private IMapper<EstablishmentResults, SearchByKeywordResponse> _mapper;
 
     public SearchByKeywordUseCaseTests()
     {
         // arrange
-        ISearchServiceAdapter searchServiceAdapter =
+        _searchServiceAdapter =
             SearchServiceAdapterTestDouble.MockFor(
                 EstablishmentResultsTestDouble.Create());
 
-        IMapper<EstablishmentResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
-        _useCase = new(searchServiceAdapter, mapper);
+        _mapper = new ResultsToResponseMapper();
+        _useCase = new(_searchServiceAdapter, _mapper);
     }
 
     [Fact]
-    public async Task UseCase_ValidRequest_ReturnsResponse()
+    public async Task HandleRequest_ValidRequest_ReturnsResponse()
     {
         // arrange
         SearchByKeywordRequest request = new("searchkeyword", "target collection");
@@ -31,18 +35,51 @@ public sealed class SearchByKeywordUseCaseTests
         SearchByKeywordResponse response = await _useCase.HandleRequest(request);
 
         // assert
-        response.Should().NotBeNull();
+        response.Status.Should().Be(SearchResponseStatus.Success);
+    }
+
+     [Fact]
+    public async Task HandleRequest_NullSearchByKeywordRequest_ReturnsErrorStatus()
+    {
+        // act
+        var response = await _useCase.HandleRequest(request: null!);
+
+        // assert
+        response.Status.Should()
+                .Be(SearchResponseStatus.InvalidRequest);
     }
 
     [Fact]
-    public Task UseCase_NullSearchByKeywordRequest_ThrowsArgumentNullException()
+    public async Task HandleRequest_ServiceAdapterThrowsException_ReturnsErrorStatus()
     {
-        // act, assert
-        return _useCase.Invoking(
-            async usecase => await usecase
-                .HandleRequest(request: null!))
-                .Should()
-                .ThrowAsync<ArgumentNullException>()
-                .WithMessage("Value cannot be null. (Parameter 'SearchByKeywordRequest')");
+        // arrange
+        SearchByKeywordRequest request = new("searchkeyword", "target collection");
+        Mock.Get(_searchServiceAdapter)
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
+            .ThrowsAsync(new ApplicationException());
+
+        // act
+        var response = await _useCase.HandleRequest(request);
+
+        // assert
+        response.Status.Should()
+                .Be(SearchResponseStatus.SearchServiceError);
+    }
+
+    [Fact]
+    public async Task HandleRequest_NoResults_ReturnsSuccess()
+    {
+        // arrange
+        SearchByKeywordRequest request = new("searchkeyword", "target collection");
+        Mock.Get(_searchServiceAdapter)
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
+            .ReturnsAsync(EstablishmentResultsTestDouble.CreateWithNoResults);
+
+        // act
+        var response = await _useCase.HandleRequest(request);
+
+        // assert
+        response.Status.Should()
+                .Be(SearchResponseStatus.Success);
     }
 }

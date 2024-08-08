@@ -1,5 +1,5 @@
 ﻿using Azure.Search.Documents.Models;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestHelpers;

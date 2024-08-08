@@ -1,4 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
@@ -21,8 +22,10 @@ public class ResultsToResponseMapper : IMapper<EstablishmentResults, SearchByKey
     /// </returns>
     public SearchByKeywordResponse MapFrom(EstablishmentResults input)
     {
-        SearchByKeywordResponse response = new(input.Establishments);
-
-        return response;
+        if(input == null)
+        {
+            return new() { Status = SearchResponseStatus.SearchServiceError };
+        }
+        else return new(input.Establishments) { Status = SearchResponseStatus.Success };
     }
 }

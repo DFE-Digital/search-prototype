@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
 /// Object used to encapsulate the establishment search result.
@@ -20,12 +20,12 @@ public class Establishment
     /// <summary>
     /// The read-only type of the establishment.
     /// </summary>
-    public string EstablishmentType {  get; }
+    public string EstablishmentType { get; }
     public EducationPhase EducationPhase { get; }
     /// <summary>
     /// The read-only status of the establishment.
     /// </summary>
-    public StatusCode EstablishmentStatusCode { get; }
+    public EstablishmentStatusCode EstablishmentStatusCode { get; }
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
     /// </summary>
@@ -44,7 +44,7 @@ public class Establishment
     /// /// <param name="establishmentStatusCode">
     /// The status of the given establishment.
     /// </param>
-    public Establishment(string urn, string name, Address address, string establishmentType, EducationPhase educationPhase, StatusCode establishmentStatusCode)
+    public Establishment(string urn, string name, Address address, string establishmentType, EducationPhase educationPhase, EstablishmentStatusCode establishmentStatusCode)
     {
         Urn = urn;
         Name = name;

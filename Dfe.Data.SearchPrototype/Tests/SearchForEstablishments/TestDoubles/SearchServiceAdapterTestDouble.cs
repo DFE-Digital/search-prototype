@@ -1,4 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Moq;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;

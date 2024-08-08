@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Moq;
 using System.Linq.Expressions;
 
@@ -23,12 +23,13 @@ internal static class AzureSearchResponseToSearchResultsMapperTestDouble
         return mapperMock.Object;
     }
 
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockDefaultMapper()
+    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockMapperThrowingArgumentException()
     {
-        var mockMapper = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
-        mockMapper.Setup(mapper => mapper.MapFrom(It.IsAny<Response<SearchResults<Establishment>>>()))
-            .Returns(new EstablishmentResults());
-        return mockMapper.Object;
+        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
+
+        mapperMock.Setup(MapFrom()).Throws(new ArgumentException());
+
+        return mapperMock.Object;
     }
 
     internal static class EstablishmentFakes
