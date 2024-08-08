@@ -60,7 +60,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
             EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
             return _resultsToResponseMapper.MapFrom(establishmentResults);
         }
-        catch (Exception) // something catastrophic went wrong in the infrastructure
+        catch (Exception) // something went wrong in the infrastructure
         {
             return new SearchByKeywordResponse()
             {

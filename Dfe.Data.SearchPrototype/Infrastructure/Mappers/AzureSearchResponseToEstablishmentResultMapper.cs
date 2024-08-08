@@ -40,6 +40,9 @@ public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Res
     /// <exception cref="InvalidOperationException">
     /// Exception thrown if an invalid document is derived from the Azure search result.
     /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Exception thrown if the data cannot be mapped
+    /// </exception>
     public EstablishmentResults MapFrom(Response<SearchResults<Establishment>> input)
     {
         ArgumentNullException.ThrowIfNull(input);

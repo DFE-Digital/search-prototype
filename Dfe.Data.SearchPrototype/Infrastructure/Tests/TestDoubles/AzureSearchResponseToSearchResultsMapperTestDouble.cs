@@ -23,12 +23,13 @@ internal static class AzureSearchResponseToSearchResultsMapperTestDouble
         return mapperMock.Object;
     }
 
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockMapperReturningEmptyResults()
+    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockMapperThrowingArgumentException()
     {
-        var mockMapper = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
-        mockMapper.Setup(mapper => mapper.MapFrom(It.IsAny<Response<SearchResults<Establishment>>>()))
-            .Returns(new EstablishmentResults());
-        return mockMapper.Object;
+        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
+
+        mapperMock.Setup(MapFrom()).Throws(new ArgumentException());
+
+        return mapperMock.Object;
     }
 
     internal static class EstablishmentFakes

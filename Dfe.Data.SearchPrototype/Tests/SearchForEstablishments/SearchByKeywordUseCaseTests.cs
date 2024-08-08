@@ -50,7 +50,7 @@ public sealed class SearchByKeywordUseCaseTests
     }
 
     [Fact]
-    public async Task HandleRequest_ServiceAdapterIncorrectSetup_ReturnsErrorStatus()
+    public async Task HandleRequest_ServiceAdapterThrowsException_ReturnsErrorStatus()
     {
         // arrange
         SearchByKeywordRequest request = new("searchkeyword", "target collection");

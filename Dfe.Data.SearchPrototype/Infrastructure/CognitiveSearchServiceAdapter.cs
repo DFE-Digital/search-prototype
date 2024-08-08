@@ -58,6 +58,10 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// is unrecoverable, or no azure search results are returned which should never be the
     /// case given no matches should return an empty wrapper result object.
     /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Exception thrown if the data cannot be mapped
+    /// </exception>
+
     public async Task<EstablishmentResults> SearchAsync(SearchContext searchContext)
     {
         SearchOptions searchOptions =

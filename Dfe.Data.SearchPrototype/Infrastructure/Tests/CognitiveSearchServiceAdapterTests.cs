@@ -27,7 +27,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         // arrange
         var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
         var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
-        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockMapperReturningEmptyResults();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
 
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
@@ -54,7 +54,7 @@ public sealed class CognitiveSearchServiceAdapterTests
     {
         var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
         var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockForNoOptions();
-        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockMapperReturningEmptyResults();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
 
         // arrange
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
@@ -81,7 +81,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         // arrange
         var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
         var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
-        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockMapperReturningEmptyResults();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
 
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
@@ -96,5 +96,28 @@ public sealed class CognitiveSearchServiceAdapterTests
 
         // assert
         response.Establishments.Should().BeEmpty();
+    }
+
+    [Fact]
+    public Task Search_MapperThrowsException_ExceptionPassesThrough()
+    {
+        // arrange
+        var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
+        var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockMapperThrowingArgumentException();
+
+        ISearchServiceAdapter cognitiveSearchServiceAdapter =
+            CreateServiceAdapterWith(
+                mockService,
+                mockSearchOptionsFactory,
+                mockMapper);
+
+        // act, assert.
+        return cognitiveSearchServiceAdapter
+            .Invoking(adapter => adapter.SearchAsync(new SearchContext(
+                            searchKeyword: "SearchKeyword",
+                            targetCollection: "TargetCollection")))
+            .Should()
+            .ThrowAsync< ArgumentException>();
     }
 }

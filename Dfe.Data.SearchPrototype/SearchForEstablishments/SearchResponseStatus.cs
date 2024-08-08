@@ -4,6 +4,5 @@ public enum SearchResponseStatus
 {
     Success,
     InvalidRequest,
-    SearchServiceError,
-    DataFormatError
+    SearchServiceError
 }
