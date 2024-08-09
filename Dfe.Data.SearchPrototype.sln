@@ -7,16 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Tests", "Dfe.Data.SearchPrototype\Tests\Dfe.Data.SearchPrototype.Tests.csproj", "{011C329A-A195-439A-ACED-F20AFF560FE7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{0D4ACC06-9FA9-422A-8F92-92B565879E16}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet\Dfe.Data.Common.Infrastructure.CognitiveSearch.1.0.0.nupkg = NuGet\Dfe.Data.Common.Infrastructure.CognitiveSearch.1.0.0.nupkg
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Infrastructure", "Dfe.Data.SearchPrototype\Infrastructure\Dfe.Data.SearchPrototype.Infrastructure.csproj", "{95EDB119-5238-451B-944A-84A1F8891171}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Infrastructure.Tests", "Dfe.Data.SearchPrototype\Infrastructure\Tests\Dfe.Data.SearchPrototype.Infrastructure.Tests.csproj", "{62F6B827-75B0-43A6-9323-297F32016D71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Data.SearchPrototype.Common", "Dfe.Data.SearchPrototype\Common\Dfe.Data.SearchPrototype.Common.csproj", "{641005EB-1F41-466C-80C2-FA6F59572474}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E7775773-B4F2-4B47-88CC-9F5C71EB54CC}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
