@@ -45,5 +45,5 @@ public class Establishment
     /// The status of the establishment of the retrieved establishment result
     /// If "1" establishment status is open if "0" it's closed
     /// </summary>
-    public string? ESTABLISHMENTSTATUSCODE { get; set; }
+    public string? ESTABLISHMENTSTATUSNAME { get; set; }
 }

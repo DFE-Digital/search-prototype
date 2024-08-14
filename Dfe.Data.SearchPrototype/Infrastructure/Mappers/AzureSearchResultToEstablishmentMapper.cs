@@ -41,12 +41,7 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
         ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
         ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.TYPEOFESTABLISHMENTNAME));
         ArgumentException.ThrowIfNullOrEmpty(input.PHASEOFEDUCATION, nameof(input.PHASEOFEDUCATION));
-
-        var statusCode = input.ESTABLISHMENTSTATUSCODE == "1"
-                    ? EstablishmentStatusCode.Open
-                        : input.ESTABLISHMENTSTATUSCODE == "0"
-                        ? EstablishmentStatusCode.Closed
-                            : EstablishmentStatusCode.Unknown;
+        ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTSTATUSNAME, nameof(input.ESTABLISHMENTSTATUSNAME));
 
         return new(
             urn: input.id,
@@ -54,6 +49,6 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
             address: _addressMapper.MapFrom(input),
             establishmentType: input.TYPEOFESTABLISHMENTNAME,
             phaseOfEducation: input.PHASEOFEDUCATION,
-            establishmentStatusCode: statusCode);
+            establishmentStatusName: input.ESTABLISHMENTSTATUSNAME);
     }
 }

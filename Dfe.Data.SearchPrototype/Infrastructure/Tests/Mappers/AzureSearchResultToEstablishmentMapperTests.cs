@@ -18,14 +18,11 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper);
     }
 
-    [Theory]
-    [InlineData("1", EstablishmentStatusCode.Open)]
-    [InlineData("0", EstablishmentStatusCode.Closed)]
-    [InlineData("", EstablishmentStatusCode.Unknown)]
-    public void MapFrom_With_Valid_Search_Result_Returns_Configured_Establishment(string statusCode, EstablishmentStatusCode expectedStatusCode)
+    [Fact]
+    public void MapFrom_With_Valid_Search_Result_Returns_Configured_Establishment()
     {
         // arrange
-        Establishment establishmentFake = EstablishmentTestDouble.CreateWithStatusCode(statusCode);
+        Establishment establishmentFake = EstablishmentTestDouble.Create();
 
         // act
         SearchForEstablishments.Models.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
@@ -40,7 +37,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         result.Address.Town.Should().Be(establishmentFake.TOWN);
         result.Address.Postcode.Should().Be(establishmentFake.POSTCODE);
         result.PhaseOfEducation.Should().Be(establishmentFake.PHASEOFEDUCATION);
-        result.EstablishmentStatusCode.Should().Be(expectedStatusCode);
+        result.EstablishmentStatusName.Should().Be(establishmentFake.ESTABLISHMENTSTATUSNAME);
     }
 
     [Fact]
@@ -140,7 +137,8 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
             LOCALITY = locality,
             ADDRESS3 = address3,
             TOWN = town,
-            POSTCODE = postcode
+            POSTCODE = postcode,
+            ESTABLISHMENTSTATUSNAME = "fakeStatus"
         };
 
         // act
