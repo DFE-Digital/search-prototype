@@ -11,13 +11,11 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
 {
     IMapper<Establishment, SearchForEstablishments.Models.Establishment> _establishmentMapper;
     IMapper<Establishment, Address> _addressMapper;
-    IMapper<Establishment, EducationPhase> _educationPhaseMapper;
 
     public AzureSearchResultToEstablishmentMapperTests()
     {
         _addressMapper = new AzureSearchResultToAddressMapper();
-        _educationPhaseMapper = new AzureSearchResultToEducationPhaseMapper();
-        _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper, _educationPhaseMapper);
+        _establishmentMapper = new AzureSearchResultToEstablishmentMapper(_addressMapper);
     }
 
     [Theory]
@@ -41,9 +39,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         result.Address.Address3.Should().Be(establishmentFake.ADDRESS3);
         result.Address.Town.Should().Be(establishmentFake.TOWN);
         result.Address.Postcode.Should().Be(establishmentFake.POSTCODE);
-        result.EducationPhase.IsPrimary.Should().Be(establishmentFake.ISPRIMARY == "1" ? true : false);
-        result.EducationPhase.IsSecondary.Should().Be(establishmentFake.ISSECONDARY == "1" ? true : false);
-        result.EducationPhase.IsPost16.Should().Be(establishmentFake.ISPOST16 == "1" ? true : false);
+        result.PhaseOfEducation.Should().Be(establishmentFake.PHASEOFEDUCATION);
         result.EstablishmentStatusCode.Should().Be(expectedStatusCode);
     }
 
@@ -104,7 +100,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     }
 
     [Fact]
-    public void MapFrom_With_NullIsPrimary_Throws_Expected_Argument_Exception()
+    public void MapFrom_With_NullPhaseOfEducation_Throws_Expected_Argument_Exception()
     {
         // arrange.
         const string EstablishmentId = "123456";
@@ -114,7 +110,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         {
             id = EstablishmentId,
             ESTABLISHMENTNAME = "Test Establishment",
-            ISPRIMARY = null!
+            PHASEOFEDUCATION = null!
         };
 
         // act.
@@ -139,9 +135,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
             id = "000000",
             ESTABLISHMENTNAME = "fakename",
             TYPEOFESTABLISHMENTNAME = "FakeType",
-            ISPRIMARY = "1",
-            ISPOST16 = "0",
-            ISSECONDARY = "0",
+            PHASEOFEDUCATION = "fakePhaseOfEducation",
             STREET = street,
             LOCALITY = locality,
             ADDRESS3 = address3,

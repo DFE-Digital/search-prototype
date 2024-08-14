@@ -47,17 +47,12 @@ public class EstablishmentTestDouble
             Postcode = GetEstablishmentPostcodeFake()
         };
 
-        var educationPhase = new EducationPhase(
-           isPrimary: GetEstablishmentEducationPhaseFake(),
-           isSecondary: GetEstablishmentEducationPhaseFake(),
-           isPost16: GetEstablishmentEducationPhaseFake());
-
         return new(
             urn: GetEstablishmentIdentifierFake(),
             name: GetEstablishmentNameFake(),
             address: address,
             establishmentType: GetEstablishmentTypeFake(),
-            educationPhase: educationPhase,
+            phaseOfEducation: GetEstablishmentTypeFake(),
             establishmentStatusCode: GetEstablishmentStatusCodeFake()
             );
     }

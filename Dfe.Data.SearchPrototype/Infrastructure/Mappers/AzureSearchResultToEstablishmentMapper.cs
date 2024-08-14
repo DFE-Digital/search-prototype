@@ -10,19 +10,15 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishment, SearchForEstablishments.Models.Establishment>
 {
     private readonly IMapper<Establishment, Address> _addressMapper;
-    private readonly IMapper<Establishment, EducationPhase> _educationPhaseMapper;
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="addressMapper">Address mapper instance</param>
-    /// <param name="educationPhaseMapper">EducationPhase mapper instance</param>
     public AzureSearchResultToEstablishmentMapper(
-        IMapper<Establishment, Address> addressMapper,
-        IMapper<Establishment, EducationPhase> educationPhaseMapper)
+        IMapper<Establishment, Address> addressMapper)
     {
         _addressMapper = addressMapper;
-        _educationPhaseMapper = educationPhaseMapper;
     }
 
     /// <summary>
@@ -43,7 +39,8 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     {
         ArgumentException.ThrowIfNullOrEmpty(input.id, nameof(input.id));
         ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
-        ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
+        ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.TYPEOFESTABLISHMENTNAME));
+        ArgumentException.ThrowIfNullOrEmpty(input.PHASEOFEDUCATION, nameof(input.PHASEOFEDUCATION));
 
         var statusCode = input.ESTABLISHMENTSTATUSCODE == "1"
                     ? EstablishmentStatusCode.Open
@@ -56,7 +53,7 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
             name: input.ESTABLISHMENTNAME,
             address: _addressMapper.MapFrom(input),
             establishmentType: input.TYPEOFESTABLISHMENTNAME,
-            educationPhase: _educationPhaseMapper.MapFrom(input),
+            phaseOfEducation: input.PHASEOFEDUCATION,
             establishmentStatusCode: statusCode);
     }
 }

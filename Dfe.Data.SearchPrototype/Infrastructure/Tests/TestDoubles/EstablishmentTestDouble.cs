@@ -29,17 +29,13 @@ public static class EstablishmentTestDouble
         new Bogus.Faker().Random.Word();
 
     private static string GetEstablishmentEducationPhaseFake() =>
-       new Bogus.Faker().Random.Int(0, 1).ToString();
+       new Bogus.Faker().Random.Word();
 
     private static string GetEstablishmentStatusCodeFake() =>
         new Bogus.Faker().Random.Int(0, 1).ToString();
 
     public static Establishment Create()
     {
-        var educationPhase = new EducationPhase(
-          isPrimary: GetEstablishmentEducationPhaseFake(),
-          isSecondary: GetEstablishmentEducationPhaseFake(),
-          isPost16: GetEstablishmentEducationPhaseFake());
 
         return new Establishment()
         {
@@ -52,9 +48,7 @@ public static class EstablishmentTestDouble
             POSTCODE = GetEstablishmentPostcodeFake(),
             TYPEOFESTABLISHMENTNAME = GetEstablishmentTypeFake(),
             ESTABLISHMENTSTATUSCODE = GetEstablishmentStatusCodeFake(),
-            ISPRIMARY = GetEstablishmentEducationPhaseFake(),
-            ISSECONDARY = GetEstablishmentEducationPhaseFake(),
-            ISPOST16 = GetEstablishmentEducationPhaseFake()
+            PHASEOFEDUCATION = GetEstablishmentEducationPhaseFake()
         };
     }
 
