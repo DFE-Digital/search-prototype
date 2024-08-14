@@ -38,12 +38,11 @@ public class Establishment
     /// </summary>
     public string? TYPEOFESTABLISHMENTNAME { get; set; }
     /// <summary>
-    /// 
+    /// The education phase of the retrieved establishment result
     /// </summary>
     public string? PHASEOFEDUCATION {  get; set; }
     /// <summary>
-    /// The status of the establishment of the retrieved establishment result
-    /// If "1" establishment status is open if "0" it's closed
+    /// Status of retrieved establishment result.
     /// </summary>
     public string? ESTABLISHMENTSTATUSNAME { get; set; }
 }

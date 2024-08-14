@@ -36,7 +36,6 @@ public static class EstablishmentTestDouble
 
     public static Establishment Create()
     {
-
         return new Establishment()
         {
             id = GetEstablishmentIdentifierFake(),

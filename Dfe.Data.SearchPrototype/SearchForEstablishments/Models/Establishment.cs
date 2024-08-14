@@ -47,7 +47,7 @@ public class Establishment
     /// <param name="phaseOfEducation">
     /// The Phase of education of given establishment.
     /// </param>
-    /// /// <param name="establishmentStatusCode">
+    /// /// <param name="establishmentStatusName">
     /// The status of the given establishment.
     /// </param>
     public Establishment(string urn, string name, Address address, string establishmentType, string phaseOfEducation, string establishmentStatusName)
