@@ -29,18 +29,13 @@ public static class EstablishmentTestDouble
         new Bogus.Faker().Random.Word();
 
     private static string GetEstablishmentEducationPhaseFake() =>
-       new Bogus.Faker().Random.Int(0, 1).ToString();
+       new Bogus.Faker().Random.Word();
 
-    private static string GetEstablishmentStatusCodeFake() =>
-        new Bogus.Faker().Random.Int(0, 1).ToString();
+    private static string GetEstablishmentStatusNameFake() =>
+        new Bogus.Faker().Random.Word();
 
     public static Establishment Create()
     {
-        var educationPhase = new EducationPhase(
-          isPrimary: GetEstablishmentEducationPhaseFake(),
-          isSecondary: GetEstablishmentEducationPhaseFake(),
-          isPost16: GetEstablishmentEducationPhaseFake());
-
         return new Establishment()
         {
             id = GetEstablishmentIdentifierFake(),
@@ -51,18 +46,9 @@ public static class EstablishmentTestDouble
             TOWN = GetEstablishmentTownFake(),
             POSTCODE = GetEstablishmentPostcodeFake(),
             TYPEOFESTABLISHMENTNAME = GetEstablishmentTypeFake(),
-            ESTABLISHMENTSTATUSCODE = GetEstablishmentStatusCodeFake(),
-            ISPRIMARY = GetEstablishmentEducationPhaseFake(),
-            ISSECONDARY = GetEstablishmentEducationPhaseFake(),
-            ISPOST16 = GetEstablishmentEducationPhaseFake()
+            ESTABLISHMENTSTATUSNAME = GetEstablishmentStatusNameFake(),
+            PHASEOFEDUCATION = GetEstablishmentEducationPhaseFake()
         };
-    }
-
-    public static Establishment CreateWithStatusCode(string status)
-    {
-        var searchResultFake = Create();
-        searchResultFake.ESTABLISHMENTSTATUSCODE = status;
-        return searchResultFake;
     }
 
 }

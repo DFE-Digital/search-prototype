@@ -21,11 +21,14 @@ public class Establishment
     /// The read-only type of the establishment.
     /// </summary>
     public string EstablishmentType { get; }
-    public EducationPhase EducationPhase { get; }
+    /// <summary>
+    /// The read-only education phase of establishment.
+    /// </summary>
+    public string PhaseOfEducation { get; }
     /// <summary>
     /// The read-only status of the establishment.
     /// </summary>
-    public EstablishmentStatusCode EstablishmentStatusCode { get; }
+    public string EstablishmentStatusName { get; }
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
     /// </summary>
@@ -41,16 +44,19 @@ public class Establishment
     /// <param name="establishmentType">
     /// The type of the given establishment.
     /// </param>
-    /// /// <param name="establishmentStatusCode">
+    /// <param name="phaseOfEducation">
+    /// The Phase of education of given establishment.
+    /// </param>
+    /// /// <param name="establishmentStatusName">
     /// The status of the given establishment.
     /// </param>
-    public Establishment(string urn, string name, Address address, string establishmentType, EducationPhase educationPhase, EstablishmentStatusCode establishmentStatusCode)
+    public Establishment(string urn, string name, Address address, string establishmentType, string phaseOfEducation, string establishmentStatusName)
     {
         Urn = urn;
         Name = name;
         Address = address;
         EstablishmentType = establishmentType;
-        EducationPhase = educationPhase;
-        EstablishmentStatusCode = establishmentStatusCode;
+        PhaseOfEducation = phaseOfEducation;
+        EstablishmentStatusName = establishmentStatusName;
     }
 }

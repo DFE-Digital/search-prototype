@@ -38,23 +38,11 @@ public class Establishment
     /// </summary>
     public string? TYPEOFESTABLISHMENTNAME { get; set; }
     /// <summary>
-    /// "1" if the establishment includes the Primary phase of education
-    /// "0" if the establishment does not include the Primary phase of education
+    /// The education phase of the retrieved establishment result
     /// </summary>
-    public string? ISPRIMARY { get; set; }
+    public string? PHASEOFEDUCATION {  get; set; }
     /// <summary>
-    /// "1" if the establishment includes the secondary phase of education
-    /// "0" if the establishment does not include the secondary phase of education
+    /// Status of retrieved establishment result.
     /// </summary>
-    public string? ISSECONDARY { get; set; }
-    /// <summary>
-    /// "1" if the establishment includes the post 16 phase of education
-    /// "0" if the establishment does not include the post 16 phase of education
-    /// </summary>
-    public string? ISPOST16 { get; set; }
-    /// <summary>
-    /// The status of the establishment of the retrieved establishment result
-    /// If "1" establishment status is open if "0" it's closed
-    /// </summary>
-    public string? ESTABLISHMENTSTATUSCODE { get; set; }
+    public string? ESTABLISHMENTSTATUSNAME { get; set; }
 }
