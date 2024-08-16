@@ -1,27 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 
-  <ItemGroup>
-    <Compile Remove="Tests\**" />
-    <EmbeddedResource Remove="Tests\**" />
-    <None Remove="Tests\**" />
-  </ItemGroup>
+		<!-- Package information, for nuget -->
+		<PackageId>Dfe.Data.Common.Infrastructure.CognitiveSearch</PackageId>
+		<!--<Version>1.0.1</Version>--><!-- This is set within the build pipeline -->
+		<Authors>Department for Education (DfE)</Authors>
+		<Company>Department for Education (DfE)</Company>
+		<Copyright>Department for Education (DfE)</Copyright>
+		<PackageDescription>Prototype using cog-search</PackageDescription>
+		<PackageProjectUrl>https://github.com/DFE-Digital/search-prototype</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/DFE-Digital/search-prototype</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Dfe.Data.SearchPrototype.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
-  <ItemGroup>
-	<PackageReference Include="Dfe.Data.Common.Infrastructure.CognitiveSearch" Version="1.0.1" />
-	<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-	<PackageReference Include="Azure.Search.Documents" Version="11.4.0" />
-	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Tests\**" />
+		<EmbeddedResource Remove="Tests\**" />
+		<None Remove="Tests\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dfe.Data.SearchPrototype.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dfe.Data.Common.Infrastructure.CognitiveSearch" Version="1.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+		<PackageReference Include="Azure.Search.Documents" Version="11.4.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
 
 </Project>
