@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Package information, for nuget -->
-		<PackageId>Dfe.Data.Common.SearchPrototype</PackageId>
+		<PackageId>Dfe.Data.SearchPrototype</PackageId>
 		<!--<Version>1.0.1</Version>--><!-- This is set within the build pipeline -->
 		<Authors>Department for Education (DfE)</Authors>
 		<Company>Department for Education (DfE)</Company>
