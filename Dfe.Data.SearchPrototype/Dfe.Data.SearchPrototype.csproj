@@ -1,35 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 
-  <ItemGroup>
-    <Compile Remove="Application\**" />
-    <Compile Remove="Common\**" />
-    <Compile Remove="Dfe.Data.SearchPrototype\**" />
-    <Compile Remove="Infrastructure\**" />
-    <Compile Remove="Tests\**" />
-    <Compile Remove="Web\**" />
-    <EmbeddedResource Remove="Application\**" />
-    <EmbeddedResource Remove="Common\**" />
-    <EmbeddedResource Remove="Dfe.Data.SearchPrototype\**" />
-    <EmbeddedResource Remove="Infrastructure\**" />
-    <EmbeddedResource Remove="Tests\**" />
-    <EmbeddedResource Remove="Web\**" />
-    <None Remove="Application\**" />
-    <None Remove="Common\**" />
-    <None Remove="Dfe.Data.SearchPrototype\**" />
-    <None Remove="Infrastructure\**" />
-    <None Remove="Tests\**" />
-    <None Remove="Web\**" />
-  </ItemGroup>
+		<!-- Package information, for nuget -->
+		<PackageId>Dfe.Data.SearchPrototype</PackageId>
+		<!--<Version>1.0.1</Version>--><!-- This is set within the build pipeline -->
+		<Authors>Department for Education (DfE)</Authors>
+		<Company>Department for Education (DfE)</Company>
+		<Copyright>Department for Education (DfE)</Copyright>
+		<PackageDescription>Prototype using cog-search</PackageDescription>
+		<PackageProjectUrl>https://github.com/DFE-Digital/search-prototype</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/DFE-Digital/search-prototype</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="Common\Dfe.Data.SearchPrototype.Common.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<Compile Remove="Application\**" />
+		<Compile Remove="Common\**" />
+		<Compile Remove="Dfe.Data.SearchPrototype\**" />
+		<Compile Remove="Infrastructure\**" />
+		<Compile Remove="Tests\**" />
+		<Compile Remove="Web\**" />
+		<EmbeddedResource Remove="Application\**" />
+		<EmbeddedResource Remove="Common\**" />
+		<EmbeddedResource Remove="Dfe.Data.SearchPrototype\**" />
+		<EmbeddedResource Remove="Infrastructure\**" />
+		<EmbeddedResource Remove="Tests\**" />
+		<EmbeddedResource Remove="Web\**" />
+		<None Remove="Application\**" />
+		<None Remove="Common\**" />
+		<None Remove="Dfe.Data.SearchPrototype\**" />
+		<None Remove="Infrastructure\**" />
+		<None Remove="Tests\**" />
+		<None Remove="Web\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="Common\Dfe.Data.SearchPrototype.Common.csproj" />
+	</ItemGroup>
 
 </Project>
