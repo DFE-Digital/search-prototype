@@ -45,7 +45,10 @@ jobs:
         
         echo "Version to use: $version"
         echo "VERSION=$version" >> $GITHUB_ENV
-        
+
+    - name: Add nuget package source
+      run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DFE-Digital/index.json"
+  
     - name: Restore dependencies
       run: dotnet restore
 
