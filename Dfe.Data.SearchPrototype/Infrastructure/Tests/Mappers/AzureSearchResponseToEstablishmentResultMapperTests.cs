@@ -29,7 +29,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
         List<SearchResult<Establishment>> searchResultDocuments =
             new SearchResultFakeBuilder().WithSearchResults().Create();
         Response<SearchResults<Establishment>> searchResponseFake =
-            new ResponseFake().WithSearchResults(searchResultDocuments).Create();
+            new AzureSearchResponseTestDoubleBuilder().WithSearchResults(searchResultDocuments).Create();
 
         // act
         EstablishmentResults? mappedResult = _searchResponseMapper.MapFrom(searchResponseFake);
@@ -48,7 +48,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     {
         // arrange
         Response<SearchResults<Establishment>> searchResponseFake =
-            new ResponseFake()
+            new AzureSearchResponseTestDoubleBuilder()
                 .WithSearchResults(
                     new SearchResultFakeBuilder().WithSearchResults().Create())
                 .Create();
@@ -68,9 +68,19 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
         var searchResultsDocuments = new SearchResultFakeBuilder()
             .WithSearchResults()
             .Create();
-
+        var facetsResults = new FacetsResultsFakeBuilder().WithEducationPhaseFacet().Create();
         Response<SearchResults<Establishment>> searchResponseFake =
-            new ResponseFake().WithSearchResults(searchResultsDocuments).Create();
+            new AzureSearchResponseTestDoubleBuilder()
+                .WithSearchResults(searchResultsDocuments)
+                .WithFacets(facetsResults)
+                .Create();
+
+        // act
+        EstablishmentResults? mappedResult = _searchResponseMapper.MapFrom(searchResponseFake);
+
+        // assert
+        mappedResult.Should().NotBeNull();
+        mappedResult.Facets.Should().NotBeNull();
     }
 
     [Fact]
@@ -82,7 +92,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
             .Create();
 
         Response<SearchResults<Establishment>> searchResponseFake =
-            new ResponseFake().WithSearchResults(searchResultsDocuments).Create();
+            new AzureSearchResponseTestDoubleBuilder().WithSearchResults(searchResultsDocuments).Create();
 
         // act
         EstablishmentResults? result = _searchResponseMapper.MapFrom(searchResponseFake);
@@ -118,7 +128,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
                 .Create();
 
         Response<SearchResults<Establishment>> searchResponseFake =
-                    new ResponseFake().WithSearchResults(searchResultDocuments).Create();
+                    new AzureSearchResponseTestDoubleBuilder().WithSearchResults(searchResultDocuments).Create();
 
         // act.
         _searchResponseMapper
