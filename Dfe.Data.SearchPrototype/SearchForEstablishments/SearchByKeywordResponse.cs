@@ -13,6 +13,9 @@ public sealed class SearchByKeywordResponse
     /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.Establishment search results.
     /// </summary>
     public IReadOnlyCollection<Establishment> EstablishmentResults { get;}
+    /// <summary>
+    /// The Dfe.Data.SearchPrototype.SearchForEstablishments.SearchResponseStatus
+    /// </summary>
     public SearchResponseStatus Status { get; set; }
 
     /// <summary>

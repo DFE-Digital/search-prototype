@@ -11,7 +11,7 @@ public sealed class EstablishmentResults
     public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
 
     /// <summary>
-    /// The readonly dictionary of facet results
+    /// The readonly dictionary of facet results keyed to the faceted field
     /// </summary>
     public IReadOnlyDictionary<string, List<FacetResult>>? Facets => _facets?.AsReadOnly() ?? null;
 
