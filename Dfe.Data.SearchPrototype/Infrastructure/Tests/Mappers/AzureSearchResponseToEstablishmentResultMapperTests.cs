@@ -12,17 +12,14 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureSearchResponseToEstablishmentResultMapperTests
 {
-    IMapper<Establishment, SearchForEstablishments.Models.Establishment> _searchResultToEstablishmentMapper;
     IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> _searchResponseMapper;
-    IMapper<Establishment, Address> _searchResultToAddressMapper;
 
     public AzureSearchResponseToEstablishmentResultMapperTests()
     {
-        _searchResultToAddressMapper = new AzureSearchResultToAddressMapper();
-        _searchResultToEstablishmentMapper =
-            new AzureSearchResultToEstablishmentMapper(_searchResultToAddressMapper);
         _searchResponseMapper =
-            new AzureSearchResponseToEstablishmentResultMapper(_searchResultToEstablishmentMapper);
+            new AzureSearchResponseToEstablishmentResultMapper(
+                new AzureSearchResultToEstablishmentMapper(
+                    new AzureSearchResultToAddressMapper()));
     }
 
     [Fact]
@@ -30,9 +27,9 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     {
         // arrange
         List<SearchResult<Establishment>> searchResultDocuments =
-            SearchResultFake.SearchResults();
+            new SearchResultFakeBuilder().WithSearchResults().Create();
         Response<SearchResults<Establishment>> searchResponseFake =
-            ResponseFake.WithSearchResults(searchResultDocuments);
+            new ResponseFake().WithSearchResults(searchResultDocuments).Create();
 
         // act
         EstablishmentResults? mappedResult = _searchResponseMapper.MapFrom(searchResponseFake);
@@ -47,11 +44,45 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     }
 
     [Fact]
-    public void MapFrom_WithEmptySearchResults_ReturnsEmptyList()
+    public void MapFrom_WithNoFacets_ReturnsNullFacetDictionary()
     {
         // arrange
         Response<SearchResults<Establishment>> searchResponseFake =
-            ResponseFake.WithSearchResults(SearchResultFake.EmptySearchResult());
+            new ResponseFake()
+                .WithSearchResults(
+                    new SearchResultFakeBuilder().WithSearchResults().Create())
+                .Create();
+
+        // act
+        EstablishmentResults? mappedResult = _searchResponseMapper.MapFrom(searchResponseFake);
+
+        // assert
+        mappedResult.Should().NotBeNull();
+        mappedResult.Facets.Should().BeNull();
+    }
+
+    [Fact]
+    public void MapFrom_WithFacetResults_ReturnsFacetDictionary()
+    {
+        // arrange
+        var searchResultsDocuments = new SearchResultFakeBuilder()
+            .WithSearchResults()
+            .Create();
+
+        Response<SearchResults<Establishment>> searchResponseFake =
+            new ResponseFake().WithSearchResults(searchResultsDocuments).Create();
+    }
+
+    [Fact]
+    public void MapFrom_WithEmptySearchResults_ReturnsEmptyList()
+    {
+        // arrange
+        var searchResultsDocuments = new SearchResultFakeBuilder()
+            .WithEmptySearchResult()
+            .Create();
+
+        Response<SearchResults<Establishment>> searchResponseFake =
+            new ResponseFake().WithSearchResults(searchResultsDocuments).Create();
 
         // act
         EstablishmentResults? result = _searchResponseMapper.MapFrom(searchResponseFake);
@@ -81,10 +112,13 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     {
         // arrange
         var searchResultDocuments =
-            SearchResultFake.SearchResults();
-        searchResultDocuments.Add(SearchResultFake.SearchResultWithDocument(null));
+            new SearchResultFakeBuilder()
+                .WithSearchResults()
+                .IncludeNullDocument()
+                .Create();
+
         Response<SearchResults<Establishment>> searchResponseFake =
-                    ResponseFake.WithSearchResults(searchResultDocuments);
+                    new ResponseFake().WithSearchResults(searchResultDocuments).Create();
 
         // act.
         _searchResponseMapper

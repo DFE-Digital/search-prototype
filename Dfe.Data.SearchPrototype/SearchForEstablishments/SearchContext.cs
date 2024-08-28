@@ -11,6 +11,11 @@ public sealed class SearchContext
     public string SearchKeyword { get; }
 
     /// <summary>
+    /// The facets to be returned
+    /// </summary>
+    public IList<string>? Facets { get; }
+
+    /// <summary>
     /// The target collection on which to apply the search.
     /// </summary>
     public string TargetCollection { get; }
@@ -25,8 +30,11 @@ public sealed class SearchContext
     /// <param name="targetCollection">
     /// The target collection on which to apply the search.
     /// </param>
+    /// <param name="facets">
+    /// The facets to be returned.
+    /// </param>
     /// <exception cref="ArgumentNullException"></exception>
-    public SearchContext(string searchKeyword, string targetCollection)
+    public SearchContext(string searchKeyword, string targetCollection, IList<string>? facets = null)
     {
         SearchKeyword =
             string.IsNullOrWhiteSpace(searchKeyword) ?
@@ -35,6 +43,8 @@ public sealed class SearchContext
         TargetCollection =
             string.IsNullOrWhiteSpace(targetCollection) ?
                 throw new ArgumentNullException(nameof(targetCollection)) : targetCollection;
+
+        Facets = facets;
     }
 
     /// <summary>
@@ -46,8 +56,11 @@ public sealed class SearchContext
     /// <param name="targetCollection">
     /// The underlying collection on which to undertake the search.
     /// </param>
+    /// <param name="facets">
+    /// The facets to be returned.
+    /// </param>
     /// <returns>
     /// A configured T:Dfe.Data.SearchPrototype.Search.SearchContext instance.
     /// </returns>
-    public static SearchContext Create(string searchKeyword, string targetCollection) => new(searchKeyword, targetCollection);
+    public static SearchContext Create(string searchKeyword, string targetCollection, IList<string>? facets = null) => new(searchKeyword, targetCollection, facets);
 }

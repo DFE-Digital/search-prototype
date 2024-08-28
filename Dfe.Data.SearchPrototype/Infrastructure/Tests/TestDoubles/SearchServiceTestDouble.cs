@@ -31,7 +31,7 @@ internal static class SearchServiceTestDouble
             Task.FromResult(
                 Response.FromValue(
                     SearchModelFactory.SearchResults(
-                        SearchResultFake.SearchResults(), 100, null, null, responseMock.Object), responseMock.Object));
+                        new SearchResultFakeBuilder().WithSearchResults().Create(), 100, null, null, responseMock.Object), responseMock.Object));
 
         return MockFor(validServiceResponseFake, keyword, collection);
     }
