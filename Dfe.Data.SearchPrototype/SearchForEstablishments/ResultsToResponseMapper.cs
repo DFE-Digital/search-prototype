@@ -1,5 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
@@ -22,10 +23,17 @@ public class ResultsToResponseMapper : IMapper<EstablishmentResults, SearchByKey
     /// </returns>
     public SearchByKeywordResponse MapFrom(EstablishmentResults input)
     {
-        if(input == null)
+        SearchResponseStatus status = (input == null)
+            ? SearchResponseStatus.SearchServiceError
+            :  SearchResponseStatus.Success;
+
+        if (status == SearchResponseStatus.Success)
         {
-            return new() { Status = SearchResponseStatus.SearchServiceError };
+            return new(status) { EstablishmentResults = input };
         }
-        else return new(input.Establishments) { Status = SearchResponseStatus.Success };
+        else
+        {
+            return new(status);
+        }
     }
 }

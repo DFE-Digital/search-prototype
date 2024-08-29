@@ -22,9 +22,9 @@ public sealed class ResultsToResponseMapperTests
         //assert.
         response.Should().NotBeNull();
         response.Status.Should().Be(SearchResponseStatus.Success);
-        response.EstablishmentResults.Should().HaveCountGreaterThanOrEqualTo(1);
-        response.EstablishmentResults!.First().Urn.Should().Be(input.Establishments.First().Urn);
-        response.EstablishmentResults!.First().Name.Should().Be(input.Establishments.First().Name);
+        response.EstablishmentResults!.Establishments.Should().HaveCountGreaterThanOrEqualTo(1);
+        response.EstablishmentResults!.Establishments.First().Urn.Should().Be(input.Establishments.First().Urn);
+        response.EstablishmentResults!.Establishments.First().Name.Should().Be(input.Establishments.First().Name);
     }
 
     [Fact]

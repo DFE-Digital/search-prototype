@@ -49,10 +49,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
         if ((request == null) || (request.Context == null)) {
-            return new SearchByKeywordResponse()
-            {
-                Status = SearchResponseStatus.InvalidRequest
-            };
+            return new SearchByKeywordResponse(SearchResponseStatus.InvalidRequest);
         };
 
         try
@@ -62,10 +59,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
         }
         catch (Exception) // something went wrong in the infrastructure
         {
-            return new SearchByKeywordResponse()
-            {
-                Status = SearchResponseStatus.SearchServiceError
-            };
+            return new SearchByKeywordResponse(SearchResponseStatus.SearchServiceError);
         }
     }
 }
