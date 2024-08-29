@@ -46,10 +46,8 @@ public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Res
     public EstablishmentResults MapFrom(Response<SearchResults<Establishment>> input)
     {
         ArgumentNullException.ThrowIfNull(input);
-        Dictionary<string, List<SearchForEstablishments.Models.FacetResult>>? facetResults;
 
         var results = input.Value.GetResults();
-        var facets = input.Value.Facets;
         if (results.Any())
         {
             var mappedResults = results.Select(result =>
@@ -58,10 +56,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Res
                     : throw new InvalidOperationException(
                         "Search result document object cannot be null.")
                 );
-            //if (facets.Any()) {
-            //    facetResults = _azureFacetResultsToApplicationFacetResultsMapper.MapFrom(facets);
-            //}
-            return new EstablishmentResults(mappedResults, facetResults);
+            return new EstablishmentResults(mappedResults);
         }
         else
         {

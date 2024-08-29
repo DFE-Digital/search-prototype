@@ -1,7 +1,28 @@
 ﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
+/// <summary>
+/// The object that encapsulates a single facet result for a facet 
+/// </summary>
 public class FacetResult
 {
-    public string Value { get; set; }
-    public int Count { get; set; }
+    /// <summary>
+    /// The value of the facet result
+    /// </summary>
+    public string Value { get; }
+
+    /// <summary>
+    /// The number of records that belong to this facet value
+    /// </summary>
+    public long? Count { get; }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="value">The value of the facet result</param>
+    /// <param name="count">The number of records that belong to this facet value</param>
+    public FacetResult(string value, long? count)
+    {
+        Value = value;
+        Count = count;
+    }
 }
