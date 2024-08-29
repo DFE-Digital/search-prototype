@@ -2,10 +2,12 @@
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
+
+
+
 /// <summary>
 /// This is the object that carries the response (output) back from the
 /// T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordUseCase instance.
-/// The response will encapsulate any search results found along with a status.
 /// </summary>
 public sealed class SearchByKeywordResponse
 {
@@ -13,6 +15,16 @@ public sealed class SearchByKeywordResponse
     /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.Establishment search results.
     /// </summary>
     public IReadOnlyCollection<Establishment> EstablishmentResults { get;}
+
+    /// <summary>
+    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.EstablishmentFacet returned by the Establishment search
+    /// </summary>
+    public IReadOnlyCollection<EstablishmentFacet>? EstablishmentFacetResults { get; }
+
+    /// <summary>
+    /// The return status of the call to the
+    /// T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordUseCase instance
+    /// </summary>
     public SearchResponseStatus Status { get; set; }
 
     /// <summary>
@@ -30,8 +42,12 @@ public sealed class SearchByKeywordResponse
     /// <param name="establishments">
     /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.Establishment search results.
     /// </param>
-    public SearchByKeywordResponse(IReadOnlyCollection<Establishment> establishments)
+    /// <param name="facetResults">
+    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.EstablishmentFacet
+    /// </param>
+    public SearchByKeywordResponse(IReadOnlyCollection<Establishment> establishments, IReadOnlyCollection<EstablishmentFacet>? facetResults = null)
     {
         EstablishmentResults = establishments;
+        EstablishmentFacetResults = facetResults;
     }
 }
