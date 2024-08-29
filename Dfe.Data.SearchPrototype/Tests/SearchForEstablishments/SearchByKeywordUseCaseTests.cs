@@ -12,14 +12,14 @@ public sealed class SearchByKeywordUseCaseTests
 {
     private readonly SearchByKeywordUseCase _useCase;
     private ISearchServiceAdapter _searchServiceAdapter;
-    private IMapper<EstablishmentResults, SearchByKeywordResponse> _mapper;
+    private IMapper<SearchResults, SearchByKeywordResponse> _mapper;
 
     public SearchByKeywordUseCaseTests()
     {
         // arrange
         _searchServiceAdapter =
             SearchServiceAdapterTestDouble.MockFor(
-                EstablishmentResultsTestDouble.Create());
+                SearchResultsTestDouble.Create());
 
         _mapper = new ResultsToResponseMapper();
         _useCase = new(_searchServiceAdapter, _mapper);
@@ -73,7 +73,7 @@ public sealed class SearchByKeywordUseCaseTests
         SearchByKeywordRequest request = new("searchkeyword", "target collection");
         Mock.Get(_searchServiceAdapter)
             .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
-            .ReturnsAsync(EstablishmentResultsTestDouble.CreateWithNoResults);
+            .ReturnsAsync(SearchResultsTestDouble.CreateWithNoResults);
 
         // act
         var response = await _useCase.HandleRequest(request);

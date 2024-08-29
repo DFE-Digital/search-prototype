@@ -6,7 +6,7 @@ namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 
 public static class SearchServiceAdapterTestDouble
 {
-    public static ISearchServiceAdapter MockFor(EstablishmentResults establishmentResults)
+    public static ISearchServiceAdapter MockFor(SearchResults establishmentResults)
     {
         Mock<ISearchServiceAdapter> searchServiceAdapter = new();
 

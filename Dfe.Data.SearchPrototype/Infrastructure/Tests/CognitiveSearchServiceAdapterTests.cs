@@ -17,17 +17,17 @@ public sealed class CognitiveSearchServiceAdapterTests
     private static CognitiveSearchServiceAdapter<Establishment> CreateServiceAdapterWith(
         ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
-        IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> searchResponseMapper
+        IMapper<Response<SearchResults<Establishment>>, SearchResults> searchResponseMapper
        ) =>
            new(searchByKeywordService, searchOptionsFactory, searchResponseMapper);
 
     [Fact]
-    public async Task Search_WithValidSearchContext_ReturnsConfiguredResults()
+    public async Task Search_WithValidSearchContext_CallsMapper()
     {
         // arrange
         var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
         var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
-        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new SearchResults());
 
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
@@ -36,14 +36,13 @@ public sealed class CognitiveSearchServiceAdapterTests
                 mockMapper);
 
         // act
-        EstablishmentResults? response =
+        SearchResults? response =
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchContext(
                     searchKeyword: "SearchKeyword",
                     targetCollection: "TargetCollection"));
 
         // assert
-        response.Establishments.Should().NotBeNull();
         Mock.Get(mockService).Verify(SearchServiceTestDouble.SearchRequest("SearchKeyword", "TargetCollection"),Times.Once());
         Mock.Get(mockSearchOptionsFactory).Verify(SearchOptionsFactoryTestDouble.SearchOption(), Times.Once());
         Mock.Get(mockMapper).Verify(AzureSearchResponseToSearchResultsMapperTestDouble.MapFrom(), Times.Once());
@@ -54,7 +53,7 @@ public sealed class CognitiveSearchServiceAdapterTests
     {
         var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
         var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockForNoOptions();
-        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new SearchResults());
 
         // arrange
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
@@ -81,7 +80,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         // arrange
         var mockService = SearchServiceTestDouble.MockSearchService("SearchKeyword", "TargetCollection");
         var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
-        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new EstablishmentResults());
+        var mockMapper = AzureSearchResponseToSearchResultsMapperTestDouble.MockFor(new SearchResults());
 
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
@@ -95,7 +94,9 @@ public sealed class CognitiveSearchServiceAdapterTests
                             targetCollection: "TargetCollection"));
 
         // assert
-        response.Establishments.Should().BeEmpty();
+        response.Should().NotBeNull();
+        response.Establishments.Should().BeNull();
+        response.Facets.Should().BeNull();
     }
 
     [Fact]

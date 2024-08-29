@@ -13,7 +13,7 @@ namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
 {
     private readonly ISearchServiceAdapter _searchServiceAdapter;
-    private readonly IMapper<EstablishmentResults, SearchByKeywordResponse> _resultsToResponseMapper;
+    private readonly IMapper<SearchResults, SearchByKeywordResponse> _resultsToResponseMapper;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -29,7 +29,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// </param>
     public SearchByKeywordUseCase(
         ISearchServiceAdapter searchServiceAdapter,
-        IMapper<EstablishmentResults, SearchByKeywordResponse> resultsToResponseMapper)
+        IMapper<SearchResults, SearchByKeywordResponse> resultsToResponseMapper)
     {
         _searchServiceAdapter = searchServiceAdapter;
         _resultsToResponseMapper = resultsToResponseMapper;
@@ -54,7 +54,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
 
         try
         {
-            EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
+            SearchResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
             return _resultsToResponseMapper.MapFrom(establishmentResults);
         }
         catch (Exception) // something went wrong in the infrastructure

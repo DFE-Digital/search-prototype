@@ -9,23 +9,23 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 internal static class AzureSearchResponseToSearchResultsMapperTestDouble
 {
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> DefaultMock() =>
-        Mock.Of<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
-    public static Expression<Func<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>, EstablishmentResults>> MapFrom() =>
+    public static IMapper<Response<SearchResults<Establishment>>, SearchResults> DefaultMock() =>
+        Mock.Of<IMapper<Response<SearchResults<Establishment>>, SearchResults>>();
+    public static Expression<Func<IMapper<Response<SearchResults<Establishment>>, SearchResults>, SearchResults>> MapFrom() =>
         mapper => mapper.MapFrom(It.IsAny<Response<SearchResults<Establishment>>>());
 
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockFor(EstablishmentResults establishments)
+    public static IMapper<Response<SearchResults<Establishment>>, SearchResults> MockFor(SearchResults searchResults)
     {
-        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
+        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, SearchResults>>();
 
-        mapperMock.Setup(MapFrom()).Returns(establishments);
+        mapperMock.Setup(MapFrom()).Returns(searchResults);
 
         return mapperMock.Object;
     }
 
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockMapperThrowingArgumentException()
+    public static IMapper<Response<SearchResults<Establishment>>, SearchResults> MockMapperThrowingArgumentException()
     {
-        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
+        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, SearchResults>>();
 
         mapperMock.Setup(MapFrom()).Throws(new ArgumentException());
 

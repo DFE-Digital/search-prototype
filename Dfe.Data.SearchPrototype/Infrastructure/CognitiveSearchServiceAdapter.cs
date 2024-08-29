@@ -1,11 +1,12 @@
 ﻿using Azure;
 using Azure.Search.Documents;
-using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+
+using AzureModels = Azure.Search.Documents.Models;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure;
 
@@ -17,7 +18,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly ISearchOptionsFactory _searchOptionsFactory;
-    private readonly IMapper<Response<SearchResults<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
+    private readonly IMapper<Response<AzureModels.SearchResults<TSearchResult>>, SearchResults> _searchResponseMapper;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -35,7 +36,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
-        IMapper<Response<SearchResults<TSearchResult>>, EstablishmentResults> searchResponseMapper)
+        IMapper<Response<AzureModels.SearchResults<TSearchResult>>, SearchResults> searchResponseMapper)
     {
         _searchOptionsFactory = searchOptionsFactory;
         _searchByKeywordService = searchByKeywordService;
@@ -62,14 +63,14 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Exception thrown if the data cannot be mapped
     /// </exception>
 
-    public async Task<EstablishmentResults> SearchAsync(SearchContext searchContext)
+    public async Task<SearchResults> SearchAsync(SearchContext searchContext)
     {
         SearchOptions searchOptions =
             _searchOptionsFactory.GetSearchOptions(searchContext.TargetCollection) ??
             throw new ApplicationException(
                 $"Search options cannot be derived for {searchContext.TargetCollection}.");
 
-        Response<SearchResults<TSearchResult>> searchResults =
+        Response<AzureModels.SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(
                 searchContext.SearchKeyword,
                 searchContext.TargetCollection,

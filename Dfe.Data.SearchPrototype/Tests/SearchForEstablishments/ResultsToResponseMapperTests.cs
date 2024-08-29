@@ -13,8 +13,8 @@ public sealed class ResultsToResponseMapperTests
     public void MapFrom_ValidInput_ReturnsCorrectResponse()
     {
         // arrange.
-        EstablishmentResults input = EstablishmentResultsTestDouble.Create();
-        IMapper<EstablishmentResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
+        var input = SearchResultsTestDouble.Create();
+        IMapper<SearchResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
 
         // act.
         SearchByKeywordResponse response =  mapper.MapFrom(input);
@@ -23,15 +23,34 @@ public sealed class ResultsToResponseMapperTests
         response.Should().NotBeNull();
         response.Status.Should().Be(SearchResponseStatus.Success);
         response.EstablishmentResults!.Establishments.Should().HaveCountGreaterThanOrEqualTo(1);
-        response.EstablishmentResults!.Establishments.First().Urn.Should().Be(input.Establishments.First().Urn);
-        response.EstablishmentResults!.Establishments.First().Name.Should().Be(input.Establishments.First().Name);
+        response.EstablishmentResults!.Establishments.First().Urn.Should().Be(input.Establishments!.Establishments.First().Urn);
+        response.EstablishmentResults!.Establishments.First().Name.Should().Be(input.Establishments.Establishments.First().Name);
+        response.EstablishmentFacetResults!.Facets.Should().HaveCountGreaterThanOrEqualTo(1);
+        response.EstablishmentFacetResults!.Facets.First().Name.Should().Be(input.Facets!.Facets.First().Name);
+    }
+
+    [Fact]
+    public void MapFrom_EmptyResults_ReturnsSuccessResponse()
+    {
+        // arrange.
+        var input = SearchResultsTestDouble.CreateWithNoResults();
+        IMapper<SearchResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
+
+        // act.
+        SearchByKeywordResponse response = mapper.MapFrom(input);
+
+        //assert.
+        response.Should().NotBeNull();
+        response.Status.Should().Be(SearchResponseStatus.Success);
+        response.EstablishmentResults.Should().BeNull();
+        response.EstablishmentFacetResults.Should().BeNull();
     }
 
     [Fact]
     public void MapFrom_NullInput_ReturnsErrorResponse()
     {
         // arrange.
-        IMapper<EstablishmentResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
+        IMapper<SearchResults, SearchByKeywordResponse> mapper = new ResultsToResponseMapper();
 
         // act
         SearchByKeywordResponse response = mapper.MapFrom(null!);
