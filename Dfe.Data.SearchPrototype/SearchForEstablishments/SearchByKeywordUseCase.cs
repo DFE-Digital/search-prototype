@@ -1,5 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
+﻿using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
@@ -13,7 +12,6 @@ namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
 {
     private readonly ISearchServiceAdapter _searchServiceAdapter;
-    private readonly IMapper<EstablishmentResults, SearchByKeywordResponse> _resultsToResponseMapper;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -23,16 +21,10 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// The concrete  implementation of the T:Dfe.Data.SearchPrototype.Search.ISearchServiceAdapter
     /// defined within, and injected by the IOC container.
     /// </param>
-    /// <param name="resultsToResponseMapper">
-    /// The concrete  implementation of the T:Dfe.Data.SearchPrototype.Common.IMapper
-    /// defined within, and injected by the IOC container.
-    /// </param>
     public SearchByKeywordUseCase(
-        ISearchServiceAdapter searchServiceAdapter,
-        IMapper<EstablishmentResults, SearchByKeywordResponse> resultsToResponseMapper)
+        ISearchServiceAdapter searchServiceAdapter)
     {
         _searchServiceAdapter = searchServiceAdapter;
-        _resultsToResponseMapper = resultsToResponseMapper;
     }
 
     /// <summary>
@@ -58,7 +50,14 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
         try
         {
             EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
-            return _resultsToResponseMapper.MapFrom(establishmentResults);
+            if (establishmentResults == null)
+            {
+                return new SearchByKeywordResponse() { Status = SearchResponseStatus.SearchServiceError };
+            }
+            else
+            {
+                return new(establishmentResults.Establishments) { Status = SearchResponseStatus.Success };
+            }
         }
         catch (Exception) // something went wrong in the infrastructure
         {

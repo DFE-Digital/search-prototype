@@ -17,7 +17,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly ISearchOptionsFactory _searchOptionsFactory;
-    private readonly IMapper<Response<SearchResults<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
+    private readonly IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -35,7 +35,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
-        IMapper<Response<SearchResults<TSearchResult>>, EstablishmentResults> searchResponseMapper)
+        IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> searchResponseMapper)
     {
         _searchOptionsFactory = searchOptionsFactory;
         _searchByKeywordService = searchByKeywordService;
@@ -79,6 +79,6 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
                 throw new ApplicationException(
                     $"Unable to derive search results based on input {searchContext.SearchKeyword}.");
 
-        return _searchResponseMapper.MapFrom(searchResults);
+        return _searchResponseMapper.MapFrom(searchResults.Value.GetResults());
     }
 }
