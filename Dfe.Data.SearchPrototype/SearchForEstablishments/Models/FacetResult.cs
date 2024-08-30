@@ -20,7 +20,7 @@ public class FacetResult
     /// </summary>
     /// <param name="value">The value of the facet result</param>
     /// <param name="count">The number of records that belong to this facet value</param>
-    public FacetResult(string value, int? count)
+    public FacetResult(string value, long? count)
     {
         Value = value;
         Count = count;

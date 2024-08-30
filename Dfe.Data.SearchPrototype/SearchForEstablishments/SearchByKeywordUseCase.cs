@@ -50,18 +50,16 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
         try
         {
             EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
-            if (establishmentResults == null)
+
+            return establishmentResults switch
             {
-                return new SearchByKeywordResponse() { Status = SearchResponseStatus.SearchServiceError };
-            }
-            else
-            {
-                return new(establishmentResults.Establishments) { Status = SearchResponseStatus.Success };
-            }
+                null => new() { Status = SearchResponseStatus.SearchServiceError },
+                _ => new(establishmentResults.Establishments) { Status = SearchResponseStatus.Success }
+            };
         }
-        catch (Exception) // something went wrong in the infrastructure
+        catch (Exception) // something went wrong in the infrastructure tier
         {
-            return new SearchByKeywordResponse()
+            return new()
             {
                 Status = SearchResponseStatus.SearchServiceError
             };
