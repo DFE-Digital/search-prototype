@@ -13,7 +13,7 @@ public class FacetResult
     /// <summary>
     /// The number of records that belong to this facet value
     /// </summary>
-    public int? Count { get; }
+    public long? Count { get; }
 
     /// <summary>
     /// Constructor
