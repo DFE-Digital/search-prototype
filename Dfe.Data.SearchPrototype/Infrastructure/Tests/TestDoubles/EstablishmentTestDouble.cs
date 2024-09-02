@@ -1,6 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
-
-namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
+﻿namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 public static class EstablishmentTestDouble
 {

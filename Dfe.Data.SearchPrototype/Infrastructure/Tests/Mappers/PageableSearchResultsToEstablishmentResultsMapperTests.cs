@@ -10,14 +10,14 @@ using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
-public sealed class AzureSearchResponseToEstablishmentResultMapperTests
+public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
 {
-    IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> _searchResponseMapper;
+    IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> _searchResultsMapper;
 
-    public AzureSearchResponseToEstablishmentResultMapperTests()
+    public PageableSearchResultsToEstablishmentResultsMapperTests()
     {
-        _searchResponseMapper =
-            new AzureSearchResponseToEstablishmentResultMapper(
+        _searchResultsMapper =
+            new PageableSearchResultsToEstablishmentResultsMapper(
                 new AzureSearchResultToEstablishmentMapper(
                     new AzureSearchResultToAddressMapper()));
     }
@@ -27,12 +27,11 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     {
         // arrange
         List<SearchResult<Establishment>> searchResultDocuments =
-            new SearchResultFakeBuilder().WithSearchResults().Create();
-        Response<SearchResults<Establishment>> searchResponseFake =
-            new AzureSearchResponseTestDoubleBuilder().WithSearchResults(searchResultDocuments).Create();
+            SearchResultFake.SearchResults();
+        var pageableSearchResults = PageableTestDouble.FromResults(searchResultDocuments);
 
         // act
-        EstablishmentResults? mappedResult = _searchResponseMapper.MapFrom(searchResponseFake);
+        EstablishmentResults? mappedResult = _searchResultsMapper.MapFrom(pageableSearchResults);
 
         // assert
         mappedResult.Should().NotBeNull();
@@ -46,16 +45,8 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     [Fact]
     public void MapFrom_WithEmptySearchResults_ReturnsEmptyList()
     {
-        // arrange
-        var searchResultsDocuments = new SearchResultFakeBuilder()
-            .WithEmptySearchResult()
-            .Create();
-
-        Response<SearchResults<Establishment>> searchResponseFake =
-            new AzureSearchResponseTestDoubleBuilder().WithSearchResults(searchResultsDocuments).Create();
-
         // act
-        EstablishmentResults? result = _searchResponseMapper.MapFrom(searchResponseFake);
+        EstablishmentResults? result = _searchResultsMapper.MapFrom(PageableTestDouble.FromResults(SearchResultFake.EmptySearchResult()));
 
         // assert
         result.Should().NotBeNull();
@@ -65,13 +56,10 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     [Fact]
     public void MapFrom_WithNullSearchResults_ThrowsArgumentNullException()
     {
-        // arrange
-        Response<SearchResults<Establishment>>? searchResponseFake = null;
-
         // act.
-        _searchResponseMapper
+        _searchResultsMapper
             .Invoking(mapper =>
-                mapper.MapFrom(searchResponseFake!))
+                mapper.MapFrom(null!))
                     .Should()
                         .Throw<ArgumentNullException>()
                         .WithMessage("Value cannot be null. (Parameter 'input')");
@@ -82,18 +70,13 @@ public sealed class AzureSearchResponseToEstablishmentResultMapperTests
     {
         // arrange
         var searchResultDocuments =
-            new SearchResultFakeBuilder()
-                .WithSearchResults()
-                .IncludeNullDocument()
-                .Create();
-
-        Response<SearchResults<Establishment>> searchResponseFake =
-                    new AzureSearchResponseTestDoubleBuilder().WithSearchResults(searchResultDocuments).Create();
+            SearchResultFake.SearchResults();
+        searchResultDocuments.Add(SearchResultFake.SearchResultWithDocument(null));
 
         // act.
-        _searchResponseMapper
+        _searchResultsMapper
             .Invoking(mapper =>
-                mapper.MapFrom(searchResponseFake))
+                mapper.MapFrom(PageableTestDouble.FromResults(searchResultDocuments)))
                     .Should()
                         .Throw<InvalidOperationException>()
                         .WithMessage("Search result document object cannot be null.");

@@ -9,7 +9,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 /// Facilitates mapping from the received T:Azure.Search.Documents.Models.SearchResults
 /// into the required T:Dfe.Data.SearchPrototype.Search.EstablishmentResults object.
 /// </summary>
-public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>
+public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults>
 {
     private readonly IMapper<Establishment, SearchForEstablishments.Models.Establishment> _azureSearchResultToEstablishmentMapper;
 
@@ -21,7 +21,7 @@ public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Res
     /// <param name="azureSearchResultToEstablishmentMapper">
     /// Mapper used to map from the raw Azure search result to a T:Dfe.Data.SearchPrototype.Search.Establishment instance.
     /// </param>
-    public AzureSearchResponseToEstablishmentResultMapper(IMapper<Establishment, SearchForEstablishments.Models.Establishment> azureSearchResultToEstablishmentMapper)
+    public PageableSearchResultsToEstablishmentResultsMapper(IMapper<Establishment, SearchForEstablishments.Models.Establishment> azureSearchResultToEstablishmentMapper)
     {
         _azureSearchResultToEstablishmentMapper = azureSearchResultToEstablishmentMapper;
     }
@@ -43,14 +43,13 @@ public sealed class AzureSearchResponseToEstablishmentResultMapper : IMapper<Res
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-    public EstablishmentResults MapFrom(Response<SearchResults<Establishment>> input)
+    public EstablishmentResults MapFrom(Pageable<SearchResult<Establishment>> input)
     {
         ArgumentNullException.ThrowIfNull(input);
 
-        var results = input.Value.GetResults();
-        if (results.Any())
+        if (input.Any())
         {
-            var mappedResults = results.Select(result =>
+            var mappedResults = input.Select(result =>
                  result.Document != null
                     ? _azureSearchResultToEstablishmentMapper.MapFrom(result.Document)
                     : throw new InvalidOperationException(
