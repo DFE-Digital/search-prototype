@@ -7,25 +7,26 @@ using System.Linq.Expressions;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
-internal static class AzureSearchResponseToSearchResultsMapperTestDouble
+internal static class PageableSearchResultsToEstablishmentResultsMapperTestDouble
 {
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> DefaultMock() =>
-        Mock.Of<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
-    public static Expression<Func<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>, EstablishmentResults>> MapFrom() =>
-        mapper => mapper.MapFrom(It.IsAny<Response<SearchResults<Establishment>>>());
+    public static IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> DefaultMock() =>
+        Mock.Of<IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults>>();
 
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockFor(EstablishmentResults establishments)
+    public static Expression<Func<IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults>, EstablishmentResults>> MapFrom() =>
+        mapper => mapper.MapFrom(It.IsAny<Pageable<SearchResult<Establishment>>>());
+
+    public static IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> MockFor(EstablishmentResults establishments)
     {
-        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
+        var mapperMock = new Mock<IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults>>();
 
         mapperMock.Setup(MapFrom()).Returns(establishments);
 
         return mapperMock.Object;
     }
 
-    public static IMapper<Response<SearchResults<Establishment>>, EstablishmentResults> MockMapperThrowingArgumentException()
+    public static IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> MockMapperThrowingArgumentException()
     {
-        var mapperMock = new Mock<IMapper<Response<SearchResults<Establishment>>, EstablishmentResults>>();
+        var mapperMock = new Mock<IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults>>();
 
         mapperMock.Setup(MapFrom()).Throws(new ArgumentException());
 

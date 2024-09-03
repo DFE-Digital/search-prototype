@@ -1,6 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
-using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 using FluentAssertions;
 using Moq;
@@ -12,7 +10,6 @@ public sealed class SearchByKeywordUseCaseTests
 {
     private readonly SearchByKeywordUseCase _useCase;
     private ISearchServiceAdapter _searchServiceAdapter;
-    private IMapper<EstablishmentResults, SearchByKeywordResponse> _mapper;
 
     public SearchByKeywordUseCaseTests()
     {
@@ -21,8 +18,7 @@ public sealed class SearchByKeywordUseCaseTests
             SearchServiceAdapterTestDouble.MockFor(
                 EstablishmentResultsTestDouble.Create());
 
-        _mapper = new ResultsToResponseMapper();
-        _useCase = new(_searchServiceAdapter, _mapper);
+        _useCase = new(_searchServiceAdapter);
     }
 
     [Fact]
