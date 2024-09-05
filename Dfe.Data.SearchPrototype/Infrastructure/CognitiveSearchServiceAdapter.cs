@@ -18,7 +18,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly ISearchOptionsFactory _searchOptionsFactory;
-    private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
+    private readonly IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -36,7 +36,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
-        IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResponseMapper)
+        IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> searchResponseMapper)
     {
         _searchOptionsFactory = searchOptionsFactory;
         _searchByKeywordService = searchByKeywordService;

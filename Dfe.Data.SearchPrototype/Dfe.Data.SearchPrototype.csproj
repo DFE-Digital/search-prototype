@@ -47,6 +47,11 @@
 		<None Remove="Web\**" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="Common\Dfe.Data.SearchPrototype.Common.csproj" />
 	</ItemGroup>

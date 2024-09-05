@@ -1,5 +1,8 @@
 ﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
+/// <summary>
+/// Encapsulates the address details of an Establishment
+/// </summary>
 public class Address
 {
     /// <summary>
