@@ -51,7 +51,10 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
             return results switch
             {
                 null => new(status: SearchResponseStatus.SearchServiceError),
-                _ => new(status: SearchResponseStatus.Success) { EstablishmentResults = results.Establishments }
+                _ => new(status: SearchResponseStatus.Success) {
+                    EstablishmentResults = results.Establishments,
+                    EstablishmentFacetResults = results.Facets
+                }
             };
         }
         catch (Exception) // something went wrong in the infrastructure tier

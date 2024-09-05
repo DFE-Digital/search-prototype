@@ -11,23 +11,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureFacetResultToEstablishmentFacetsMapperTests
 {
-    IMapper<Dictionary<string, IList<AzureFacetResult>>, EstablishmentFacets> _facetResultToFacetMapper;
-
-    public AzureFacetResultToEstablishmentFacetsMapperTests()
-    {
-        _facetResultToFacetMapper =
-            new AzureFacetResultToEstablishmentFacetsMapper();
-    }
-
-    [Fact]
-    public void MapFrom_WithNoFacets_ReturnsNull()
-    {
-        // act
-        var mappedResult = _facetResultToFacetMapper.MapFrom(null!);
-
-        // assert
-        mappedResult.Facets.Should().BeEmpty();
-    }
+    AzureFacetResultToEstablishmentFacetsMapper _facetResultToFacetMapper = new();
 
     [Fact]
     public void MapFrom_WithStringFacetResults_ReturnsFacets()
@@ -47,6 +31,17 @@ public sealed class AzureFacetResultToEstablishmentFacetsMapperTests
         foreach (var azureFacet in azureFacetsResults)
         {
             mappedResult.Facets.First(facet => facet.Name == azureFacet.Key).Results.Should().NotBeNullOrEmpty();
+            foreach(var expectedFacet in azureFacetsResults)
+            {
+                var mappedFacet = mappedResult.Facets.Single(facet => facet.Name == expectedFacet.Key);
+                mappedFacet.Should().NotBeNull();
+                foreach(var expectedFacetValue in expectedFacet.Value)
+                {
+                    var mappedfacetValue = mappedFacet.Results.Single(facetValue => facetValue.Value == expectedFacetValue.Value.ToString());
+                    mappedFacet.Should().NotBeNull();
+                    mappedfacetValue.Count.Should().Be(expectedFacetValue.Count);
+                }
+            }
         }
     }
 

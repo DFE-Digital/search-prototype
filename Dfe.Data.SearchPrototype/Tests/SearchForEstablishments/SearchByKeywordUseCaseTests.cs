@@ -1,4 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 using FluentAssertions;
 using Moq;
@@ -10,13 +11,14 @@ public sealed class SearchByKeywordUseCaseTests
 {
     private readonly SearchByKeywordUseCase _useCase;
     private ISearchServiceAdapter _searchServiceAdapter;
+    private SearchResults _searchResults;
 
     public SearchByKeywordUseCaseTests()
     {
         // arrange
+        _searchResults = SearchResultsTestDouble.Create();
         _searchServiceAdapter =
-            SearchServiceAdapterTestDouble.MockFor(
-                SearchResultsTestDouble.Create());
+            SearchServiceAdapterTestDouble.MockFor(_searchResults);
 
         _useCase = new(_searchServiceAdapter);
     }
@@ -32,6 +34,8 @@ public sealed class SearchByKeywordUseCaseTests
 
         // assert
         response.Status.Should().Be(SearchResponseStatus.Success);
+        response.EstablishmentResults!.Establishments.Should().Contain(_searchResults.Establishments!.Establishments);
+        response.EstablishmentFacetResults!.Facets.Should().Contain(_searchResults.Facets!.Facets);
     }
 
      [Fact]

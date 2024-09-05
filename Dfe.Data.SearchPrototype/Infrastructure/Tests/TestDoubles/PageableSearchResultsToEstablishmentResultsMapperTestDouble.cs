@@ -32,16 +32,4 @@ internal static class PageableSearchResultsToEstablishmentResultsMapperTestDoubl
 
         return mapperMock.Object;
     }
-
-    internal static class EstablishmentFakes
-    {
-        public static Establishment GetEstablishmentFake() =>
-            new() { id = GetEstablishmentIdentifierFake(), ESTABLISHMENTNAME = GetEstablishmentNameFake() };
-
-        private static string GetEstablishmentNameFake() =>
-             new Bogus.Faker().Company.CompanyName();
-
-        private static string GetEstablishmentIdentifierFake() =>
-            new Bogus.Faker().Random.Int().ToString();
-    }
 }

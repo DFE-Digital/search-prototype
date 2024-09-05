@@ -18,7 +18,8 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly ISearchOptionsFactory _searchOptionsFactory;
-    private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
+    private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
+    private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -30,17 +31,19 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// <param name="searchOptionsFactory">
     /// Factory class definition for prescribing the requested search options (by collection context).
     /// </param>
-    /// <param name="searchResponseMapper">
+    /// <param name="searchResultMapper">
     /// Maps the raw azure search response to the required "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
     /// </param>
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
-        IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResponseMapper)
+        IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
+        IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> facetsMapper)
     {
         _searchOptionsFactory = searchOptionsFactory;
         _searchByKeywordService = searchByKeywordService;
-        _searchResponseMapper = searchResponseMapper;
+        _searchResultMapper = searchResultMapper;
+        _facetsMapper = facetsMapper;
     }
 
     /// <summary>
@@ -82,8 +85,12 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 
         var results = new SearchResults()
         {
-            Establishments = _searchResponseMapper.MapFrom(searchResults.Value.GetResults())
+            Establishments = _searchResultMapper.MapFrom(searchResults.Value.GetResults()),
+            Facets = searchResults.Value.Facets != null
+                ? _facetsMapper.MapFrom(searchResults.Value.Facets.ToDictionary<string, IList<AzureModels.FacetResult>>())
+                : null
         };
+
         return results;
     }
 }

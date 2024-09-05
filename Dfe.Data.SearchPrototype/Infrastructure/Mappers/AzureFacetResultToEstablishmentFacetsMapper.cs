@@ -19,11 +19,6 @@ public class AzureFacetResultToEstablishmentFacetsMapper : IMapper<Dictionary<st
     /// <returns></returns>
     public EstablishmentFacets MapFrom(Dictionary<string, IList<AzureFacetResult>> facetResult)
     {
-        if (facetResult == null)
-        {
-            return new EstablishmentFacets();
-        }
-
         var establishmentFacets = new List<EstablishmentFacet>();
 
         foreach (var facetCategory in facetResult.Where(facet => facet.Value != null))
@@ -33,7 +28,6 @@ public class AzureFacetResultToEstablishmentFacetsMapper : IMapper<Dictionary<st
 
             establishmentFacets.Add(establishmentFacet);
         }
-
         return new EstablishmentFacets (establishmentFacets);
     }
 }
