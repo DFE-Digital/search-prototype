@@ -67,7 +67,7 @@ internal class SearchServiceMockBuilder
         var response =
                 Response.FromValue(
                     SearchModelFactory.SearchResults(
-                        new SearchResultFakeBuilder().WithSearchResults().Create(), 100, null, null, responseMock.Object), responseMock.Object);
+                        new SearchResultFakeBuilder().WithSearchResults().Create(), _count, null, null, responseMock.Object), responseMock.Object);
 
         return MockFor(response, _keyword, _collection);
     }

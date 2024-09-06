@@ -38,10 +38,13 @@ public sealed class SearchByKeywordResponse
     /// once an instance is created, this ensures we preserve immutability.
     /// </summary>
     /// <param name="establishments">
-    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.Establishment search results.
+    /// The readonly collection of <see cref="EstablishmentResults"/>
     /// </param>
     /// <param name="facetResults">
-    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.EstablishmentFacet
+    /// The readonly collection of <see cref="EstablishmentFacets"/>
+    /// </param>
+    /// <param name="status">
+    /// The <see cref="SearchResponseStatus"/> of the result of the search
     /// </param>
     public SearchByKeywordResponse(EstablishmentResults establishments, EstablishmentFacets facetResults, SearchResponseStatus status)
     {
