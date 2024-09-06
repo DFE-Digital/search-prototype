@@ -32,13 +32,16 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Factory class definition for prescribing the requested search options (by collection context).
     /// </param>
     /// <param name="searchResultMapper">
-    /// Maps the raw azure search response to the required "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
+    /// Maps the raw Azure search response to the required <see cref="EstablishmentResults"/>
+    /// </param>
+    /// <param name="facetsMapper">
+    /// Maps the the raw Azure search response to the required <see cref="EstablishmentFacets"/>
     /// </param>
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
         IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
-        IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> facetsMapper)
+        IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> facetsMapper)
     {
         _searchOptionsFactory = searchOptionsFactory;
         _searchByKeywordService = searchByKeywordService;
