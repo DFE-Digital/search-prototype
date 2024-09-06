@@ -51,7 +51,10 @@ internal class SearchServiceMockBuilder
 
     public ISearchByKeywordService Create()
     {
-        var response = new AzureSearchResponseTestDoubleBuilder().WithSearchResults(_searchResults).WithFacets(_facets).Create();
+        var response = new AzureSearchResponseTestDoubleBuilder()
+            .WithSearchResults(_searchResults)
+            .WithFacets(_facets)
+            .Create();
         return MockFor(response, _keyword, _collection);
     }
 

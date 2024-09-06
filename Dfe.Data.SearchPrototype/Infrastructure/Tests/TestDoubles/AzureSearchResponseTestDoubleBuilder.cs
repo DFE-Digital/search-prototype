@@ -9,13 +9,13 @@ public class AzureSearchResponseTestDoubleBuilder
     private IEnumerable<SearchResult<Establishment>>? _searchResults;
     private Dictionary<string, IList<FacetResult>>? _facetResults;
 
-    public AzureSearchResponseTestDoubleBuilder WithSearchResults(IEnumerable<SearchResult<Establishment>> searchResults)
+    public AzureSearchResponseTestDoubleBuilder WithSearchResults(IEnumerable<SearchResult<Establishment>>? searchResults)
     {
         _searchResults = searchResults;
         return this;
     }
 
-    public AzureSearchResponseTestDoubleBuilder WithFacets(Dictionary<string, IList<FacetResult>> facetResults)
+    public AzureSearchResponseTestDoubleBuilder WithFacets(Dictionary<string, IList<FacetResult>>? facetResults)
     {
         _facetResults = facetResults;
         return this;
