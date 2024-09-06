@@ -54,8 +54,7 @@ public sealed class CognitiveSearchServiceAdapterTests
     public Task Search_MapperThrowsException_ExceptionPassesThrough()
     {
         // arrange
-        var mockServiceBuilder = new SearchServiceMockBuilder();
-        var mockService = mockServiceBuilder.MockSearchService("SearchKeyword", "TargetCollection");
+        var mockService = new SearchServiceMockBuilder().MockSearchService("SearchKeyword", "TargetCollection");
         var mockSearchOptionsFactory = SearchOptionsFactoryTestDouble.MockSearchOptionsFactory();
         var mockEstablishmentResultsMapper = PageableSearchResultsToEstablishmentResultsMapperTestDouble.MockMapperThrowingArgumentException();
         var mockFacetsMapper = AzureFacetResultToEstablishmentFacetsMapperTestDouble.DefaultMock();
