@@ -1,11 +1,12 @@
 ﻿using Azure;
 using Azure.Search.Documents;
-using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+
+using AzureModels = Azure.Search.Documents.Models;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure;
 
@@ -17,7 +18,8 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly ISearchOptionsFactory _searchOptionsFactory;
-    private readonly IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> _searchResponseMapper;
+    private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
+    private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -29,17 +31,22 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// <param name="searchOptionsFactory">
     /// Factory class definition for prescribing the requested search options (by collection context).
     /// </param>
-    /// <param name="searchResponseMapper">
-    /// Maps the raw azure search response to the required "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
+    /// <param name="searchResultMapper">
+    /// Maps the raw Azure search response to the required <see cref="EstablishmentResults"/>
+    /// </param>
+    /// <param name="facetsMapper">
+    /// Maps the the raw Azure search response to the required <see cref="EstablishmentFacets"/>
     /// </param>
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         ISearchOptionsFactory searchOptionsFactory,
-        IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> searchResponseMapper)
+        IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
+        IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> facetsMapper)
     {
         _searchOptionsFactory = searchOptionsFactory;
         _searchByKeywordService = searchByKeywordService;
-        _searchResponseMapper = searchResponseMapper;
+        _searchResultMapper = searchResultMapper;
+        _facetsMapper = facetsMapper;
     }
 
     /// <summary>
@@ -62,14 +69,14 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Exception thrown if the data cannot be mapped
     /// </exception>
 
-    public async Task<EstablishmentResults> SearchAsync(SearchContext searchContext)
+    public async Task<SearchResults> SearchAsync(SearchContext searchContext)
     {
         SearchOptions searchOptions =
             _searchOptionsFactory.GetSearchOptions(searchContext.TargetCollection) ??
             throw new ApplicationException(
                 $"Search options cannot be derived for {searchContext.TargetCollection}.");
 
-        Response<SearchResults<TSearchResult>> searchResults =
+        Response<AzureModels.SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(
                 searchContext.SearchKeyword,
                 searchContext.TargetCollection,
@@ -79,6 +86,14 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
                 throw new ApplicationException(
                     $"Unable to derive search results based on input {searchContext.SearchKeyword}.");
 
-        return _searchResponseMapper.MapFrom(searchResults.Value.GetResults());
+        var results = new SearchResults()
+        {
+            Establishments = _searchResultMapper.MapFrom(searchResults.Value.GetResults()),
+            Facets = searchResults.Value.Facets != null
+                ? _facetsMapper.MapFrom(searchResults.Value.Facets.ToDictionary<string, IList<AzureModels.FacetResult>>())
+                : null
+        };
+
+        return results;
     }
 }

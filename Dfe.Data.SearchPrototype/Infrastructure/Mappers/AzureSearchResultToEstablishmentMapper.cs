@@ -37,6 +37,7 @@ public sealed class AzureSearchResultToEstablishmentMapper : IMapper<Establishme
     /// </exception>
     public SearchForEstablishments.Models.Establishment MapFrom(Establishment input)
     {
+        // TODO - only throw for really essential stuff
         ArgumentException.ThrowIfNullOrEmpty(input.id, nameof(input.id));
         ArgumentException.ThrowIfNullOrEmpty(input.ESTABLISHMENTNAME, nameof(input.ESTABLISHMENTNAME));
         ArgumentException.ThrowIfNullOrEmpty(input.TYPEOFESTABLISHMENTNAME, nameof(input.TYPEOFESTABLISHMENTNAME));

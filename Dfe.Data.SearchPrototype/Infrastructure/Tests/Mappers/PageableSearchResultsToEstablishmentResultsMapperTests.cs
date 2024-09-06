@@ -12,17 +12,14 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
 {
-    IMapper<Establishment, SearchForEstablishments.Models.Establishment> _searchResultToEstablishmentMapper;
     IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> _searchResultsMapper;
-    IMapper<Establishment, Address> _searchResultToAddressMapper;
 
     public PageableSearchResultsToEstablishmentResultsMapperTests()
     {
-        _searchResultToAddressMapper = new AzureSearchResultToAddressMapper();
-        _searchResultToEstablishmentMapper =
-            new AzureSearchResultToEstablishmentMapper(_searchResultToAddressMapper);
         _searchResultsMapper =
-            new PageableSearchResultsToEstablishmentResultsMapper(_searchResultToEstablishmentMapper);
+            new PageableSearchResultsToEstablishmentResultsMapper(
+                new AzureSearchResultToEstablishmentMapper(
+                    new AzureSearchResultToAddressMapper()));
     }
 
     [Fact]

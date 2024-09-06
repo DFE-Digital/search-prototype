@@ -6,13 +6,13 @@ namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 
 public static class SearchServiceAdapterTestDouble
 {
-    public static ISearchServiceAdapter MockFor(EstablishmentResults establishmentResults)
+    public static ISearchServiceAdapter MockFor(SearchResults searchResults)
     {
         Mock<ISearchServiceAdapter> searchServiceAdapter = new();
 
         searchServiceAdapter
             .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
-            .ReturnsAsync(establishmentResults);
+            .ReturnsAsync(searchResults);
 
         return searchServiceAdapter.Object;
     }

@@ -41,28 +41,25 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     public async Task<SearchByKeywordResponse> HandleRequest(SearchByKeywordRequest request)
     {
         if ((request == null) || (request.Context == null)) {
-            return new SearchByKeywordResponse()
-            {
-                Status = SearchResponseStatus.InvalidRequest
-            };
+            return new SearchByKeywordResponse(SearchResponseStatus.InvalidRequest);
         };
 
         try
         {
-            EstablishmentResults establishmentResults = await _searchServiceAdapter.SearchAsync(request.Context);
+            SearchResults results = await _searchServiceAdapter.SearchAsync(request.Context);
 
-            return establishmentResults switch
+            return results switch
             {
-                null => new() { Status = SearchResponseStatus.SearchServiceError },
-                _ => new(establishmentResults.Establishments) { Status = SearchResponseStatus.Success }
+                null => new(status: SearchResponseStatus.SearchServiceError),
+                _ => new(status: SearchResponseStatus.Success) {
+                    EstablishmentResults = results.Establishments,
+                    EstablishmentFacetResults = results.Facets
+                }
             };
         }
         catch (Exception) // something went wrong in the infrastructure tier
         {
-            return new()
-            {
-                Status = SearchResponseStatus.SearchServiceError
-            };
+            return new(status: SearchResponseStatus.SearchServiceError);
         }
     }
 }

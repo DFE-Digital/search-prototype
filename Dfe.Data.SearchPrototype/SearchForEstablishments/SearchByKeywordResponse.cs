@@ -9,27 +9,28 @@ namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 public sealed class SearchByKeywordResponse
 {
     /// <summary>
-    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.Establishment search results.
+    /// The result object that encapsulates the <see cref="Establishment"/> search results 
+    /// returned by the Establishment search
     /// </summary>
-    public IReadOnlyCollection<Establishment> EstablishmentResults { get;}
+    public EstablishmentResults? EstablishmentResults { get; init; }
 
     /// <summary>
-    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.EstablishmentFacet returned by the Establishment search
+    /// The result object that encapsulates the <see cref="EstablishmentFacet"/> returned by the Establishment search
     /// </summary>
-    public IReadOnlyCollection<EstablishmentFacet>? EstablishmentFacetResults { get; }
+    public EstablishmentFacets? EstablishmentFacetResults { get; init; }
 
     /// <summary>
-    /// The return status of the call to the
-    /// T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordUseCase instance
+    /// The return status of the call to the <see cref="SearchByKeywordUseCase"/> instance
     /// </summary>
-    public SearchResponseStatus Status { get; set; }
+    public SearchResponseStatus Status { get; }
 
     /// <summary>
-    /// Default constructor
+    /// 
     /// </summary>
-    public SearchByKeywordResponse()
+    /// <param name="status"></param>
+    public SearchByKeywordResponse(SearchResponseStatus status)
     {
-        EstablishmentResults = new List<Establishment>();
+        Status = status;
     }
 
     /// <summary>
@@ -37,14 +38,18 @@ public sealed class SearchByKeywordResponse
     /// once an instance is created, this ensures we preserve immutability.
     /// </summary>
     /// <param name="establishments">
-    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.Establishment search results.
+    /// The readonly collection of <see cref="EstablishmentResults"/>
     /// </param>
     /// <param name="facetResults">
-    /// The readonly collection of T:Dfe.Data.SearchPrototype.Search.EstablishmentFacet
+    /// The readonly collection of <see cref="EstablishmentFacets"/>
     /// </param>
-    public SearchByKeywordResponse(IReadOnlyCollection<Establishment> establishments, IReadOnlyCollection<EstablishmentFacet>? facetResults = null)
+    /// <param name="status">
+    /// The <see cref="SearchResponseStatus"/> of the result of the search
+    /// </param>
+    public SearchByKeywordResponse(EstablishmentResults establishments, EstablishmentFacets facetResults, SearchResponseStatus status)
     {
         EstablishmentResults = establishments;
         EstablishmentFacetResults = facetResults;
+        Status = status;
     }
 }
