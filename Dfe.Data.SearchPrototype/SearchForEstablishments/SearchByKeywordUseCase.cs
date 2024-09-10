@@ -23,6 +23,9 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// The concrete  implementation of the T:Dfe.Data.SearchPrototype.Search.ISearchServiceAdapter
     /// defined within, and injected by the IOC container.
     /// </param>
+    /// <param name="searchByKeywordCriteriaOptions">
+    /// The <see cref="SearchByKeywordCriteria"/> used in the search
+    /// </param>
     public SearchByKeywordUseCase(
         ISearchServiceAdapter searchServiceAdapter,
         IOptions<SearchByKeywordCriteria> searchByKeywordCriteriaOptions)
