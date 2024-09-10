@@ -27,6 +27,7 @@ public static class DependencyRegistration
         services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<Establishment>));
         services.AddSingleton(typeof(IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults>), typeof(PageableSearchResultsToEstablishmentResultsMapper));
         services.AddSingleton<IMapper<SearchSettingsOptions, SearchOptions>, SearchOptionsToAzureOptionsMapper>();
+        services.AddSingleton<IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets>, AzureFacetResultToEstablishmentFacetsMapper>();
         services.AddSingleton<IMapper<Establishment, Address>, AzureSearchResultToAddressMapper>();
         services.AddSingleton<IMapper<Establishment, SearchForEstablishments.Models.Establishment>, AzureSearchResultToEstablishmentMapper>();
         services.AddScoped<ISearchOptionsFactory, SearchOptionsFactory>();

@@ -19,5 +19,5 @@ public interface ISearchServiceAdapter
     /// A configured "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
     /// object hydrated from the results of the azure search.
     /// </returns>
-    Task<SearchResults> SearchAsync(SearchContext searchContext);
+    Task<SearchResults> SearchAsync(SearchRequest searchContext);
 }

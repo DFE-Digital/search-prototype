@@ -1,13 +1,12 @@
 ﻿using Bogus;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
-using System.IO;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 
 public class EstablishmentTestDouble
 {
     private static string GetEstablishmentNameFake() =>
-             new Faker().Company.CompanyName();
+        new Faker().Company.CompanyName();
 
     private static string GetEstablishmentIdentifierFake() =>
         new Faker().Random.Int(100000, 999999).ToString();

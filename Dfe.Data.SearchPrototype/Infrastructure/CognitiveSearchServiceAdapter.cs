@@ -5,7 +5,7 @@ using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
-
+using Microsoft.Extensions.Options;
 using AzureModels = Azure.Search.Documents.Models;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure;
@@ -17,9 +17,9 @@ namespace Dfe.Data.SearchPrototype.Infrastructure;
 public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServiceAdapter where TSearchResult : class
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
-    private readonly ISearchOptionsFactory _searchOptionsFactory;
     private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
     private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
+    private readonly AzureSearchOptions _azureSearchOptions;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -28,8 +28,8 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// <param name="searchByKeywordService">
     /// Cognitive search (search by keyword) service definition injected via IOC container.
     /// </param>
-    /// <param name="searchOptionsFactory">
-    /// Factory class definition for prescribing the requested search options (by collection context).
+    /// <param name="azureSearchOptions">
+    /// the search options provided through the appsettings
     /// </param>
     /// <param name="searchResultMapper">
     /// Maps the raw Azure search response to the required <see cref="EstablishmentResults"/>
@@ -39,11 +39,12 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// </param>
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
-        ISearchOptionsFactory searchOptionsFactory,
+        IOptions<AzureSearchOptions> azureSearchOptions,
         IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
         IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> facetsMapper)
     {
-        _searchOptionsFactory = searchOptionsFactory;
+        ArgumentNullException.ThrowIfNull(azureSearchOptions.Value);
+        _azureSearchOptions = azureSearchOptions.Value;
         _searchByKeywordService = searchByKeywordService;
         _searchResultMapper = searchResultMapper;
         _facetsMapper = facetsMapper;
@@ -53,7 +54,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Makes call to underlying azure cognitive search service and uses the prescribed mapper
     /// to adapt the raw Azure search results to the "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments" type.
     /// </summary>
-    /// <param name="searchContext">
+    /// <param name="searchRequest">
     /// Prescribes the context of the search including the keyword and collection target.
     /// </param>
     /// <returns>
@@ -69,22 +70,20 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Exception thrown if the data cannot be mapped
     /// </exception>
 
-    public async Task<SearchResults> SearchAsync(SearchContext searchContext)
+    public async Task<SearchResults> SearchAsync(SearchRequest searchRequest)
     {
-        SearchOptions searchOptions =
-            _searchOptionsFactory.GetSearchOptions(searchContext.TargetCollection) ??
-            throw new ApplicationException(
-                $"Search options cannot be derived for {searchContext.TargetCollection}.");
+        // bung together the SearchRequest and the options
+        SearchOptions searchOptions = new();
 
         Response<AzureModels.SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(
-                searchContext.SearchKeyword,
-                searchContext.TargetCollection,
+                searchRequest.SearchKeyword,
+                _azureSearchOptions.SearchIndex,
                 searchOptions
             )
             .ConfigureAwait(false) ??
                 throw new ApplicationException(
-                    $"Unable to derive search results based on input {searchContext.SearchKeyword}.");
+                    $"Unable to derive search results based on input {searchRequest.SearchKeyword}.");
 
         var results = new SearchResults()
         {

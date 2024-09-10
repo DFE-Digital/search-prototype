@@ -1,5 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+using Microsoft.Extensions.Options;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
@@ -12,6 +13,7 @@ namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
 {
     private readonly ISearchServiceAdapter _searchServiceAdapter;
+    private readonly SearchByKeywordCriteria _criteria;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -22,8 +24,11 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// defined within, and injected by the IOC container.
     /// </param>
     public SearchByKeywordUseCase(
-        ISearchServiceAdapter searchServiceAdapter)
+        ISearchServiceAdapter searchServiceAdapter,
+        IOptions<SearchByKeywordCriteria> searchByKeywordCriteriaOptions)
     {
+        ArgumentNullException.ThrowIfNull(searchByKeywordCriteriaOptions);
+        _criteria = searchByKeywordCriteriaOptions.Value;
         _searchServiceAdapter = searchServiceAdapter;
     }
 

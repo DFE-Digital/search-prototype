@@ -11,7 +11,7 @@ public static class SearchServiceAdapterTestDouble
         Mock<ISearchServiceAdapter> searchServiceAdapter = new();
 
         searchServiceAdapter
-            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchRequest>()))
             .ReturnsAsync(searchResults);
 
         return searchServiceAdapter.Object;

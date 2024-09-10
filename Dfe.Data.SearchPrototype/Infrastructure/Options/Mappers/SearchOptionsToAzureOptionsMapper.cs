@@ -41,6 +41,9 @@ public sealed class SearchOptionsToAzureOptionsMapper : IMapper<SearchSettingsOp
         input.SelectFields?.ToList()
             .ForEach(searchOptions.Select.Add);
 
+        input.Facets?.ToList()
+            .ForEach(searchOptions.Facets.Add);
+
         return searchOptions;
     }
 }

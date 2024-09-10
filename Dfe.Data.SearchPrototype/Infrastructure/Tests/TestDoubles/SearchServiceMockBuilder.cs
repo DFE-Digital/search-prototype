@@ -30,7 +30,7 @@ internal class SearchServiceMockBuilder
         return searchServiceMock.Object;
     }
 
-    public SearchServiceMockBuilder WithSearchOptions(string keyword, string collection)
+    public SearchServiceMockBuilder WithSearchKeywordAndCollection(string keyword, string collection)
     {
         _keyword = keyword;
         _collection = collection;
