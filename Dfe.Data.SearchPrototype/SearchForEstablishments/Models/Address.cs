@@ -1,7 +1,7 @@
 ﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
-/// Encapsulates the address details of an Establishment
+/// Encapsulates the address details of an Establishment.
 /// </summary>
 public class Address
 {
@@ -9,18 +9,22 @@ public class Address
     /// The first line of the address.
     /// </summary>
     public string? Street { get; init; }
+
     /// <summary>
     /// The second line of the address.
     /// </summary>
     public string? Locality { get; init; }
+
     /// <summary>
     /// The third line of the address.
     /// </summary>
     public string? Address3 { get; init; }
+
     /// <summary>
     /// The fourth line of the address.
     /// </summary>
     public string? Town { get; init; }
+
     /// <summary>
     /// The postcode
     /// </summary>
@@ -29,8 +33,7 @@ public class Address
     /// <summary>
     /// default constructor
     /// </summary>
-    public Address()
-    {
+    public Address(){
     }
 
     /// <summary>

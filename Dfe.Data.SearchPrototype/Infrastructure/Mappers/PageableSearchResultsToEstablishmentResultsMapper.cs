@@ -1,41 +1,42 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
+using Models = Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
 /// <summary>
-/// Facilitates mapping from the received T:Azure.Search.Documents.Models.SearchResults
-/// into the required T:Dfe.Data.SearchPrototype.Search.EstablishmentResults object.
+/// Facilitates mapping from the received <see cref="Models.SearchResults"/> 
+/// into the required <see cref="Models.EstablishmentResults"/>  object.
 /// </summary>
-public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults>
+public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<Pageable<SearchResult<Models.Establishment>>, Models.EstablishmentResults>
 {
-    private readonly IMapper<Establishment, SearchForEstablishments.Models.Establishment> _azureSearchResultToEstablishmentMapper;
+    private readonly IMapper<Models.Establishment, Models.Establishment> _azureSearchResultToEstablishmentMapper;
 
     /// <summary>
     /// The following mapping dependency provides the functionality to map from a raw Azure
-    /// search result, to a configured T:Dfe.Data.SearchPrototype.Search.Establishment
+    /// search result, to a configured <see cref="Establishment"/>
     /// instance, the complete implementation of which is defined in the IOC container.
     /// </summary>
     /// <param name="azureSearchResultToEstablishmentMapper">
-    /// Mapper used to map from the raw Azure search result to a T:Dfe.Data.SearchPrototype.Search.Establishment instance.
+    /// Mapper used to map from the raw Azure search result to a <see cref="Establishment"/> instance.
     /// </param>
-    public PageableSearchResultsToEstablishmentResultsMapper(IMapper<Establishment, SearchForEstablishments.Models.Establishment> azureSearchResultToEstablishmentMapper)
+    public PageableSearchResultsToEstablishmentResultsMapper(IMapper<Models.Establishment, Models.Establishment> azureSearchResultToEstablishmentMapper)
     {
         _azureSearchResultToEstablishmentMapper = azureSearchResultToEstablishmentMapper;
     }
 
     /// <summary>
-    /// The mapping input is the raw Azure search response T:Azure.Search.Documents.Models.SearchResults
+    /// The mapping input is the raw Azure search response <see cref="Models.SearchResults"/>
     /// and if any results are contained within the response a new Dfe.Data.SearchPrototype.Search.Establishments
     /// instance is created, with the responsibility of hydrating this root object and children delegated to the sub-mappers.
     /// </summary>
     /// <param name="input">
-    /// A configured T:Azure.Search.Documents.Models.SearchResults instance.
+    /// A configured <see cref="Models.SearchResults"/> instance.
     /// </param>
     /// <returns>
-    /// A configured T:Dfe.Data.SearchPrototype.Search.EstablishmentResults instance.
+    /// A configured <see cref="Models.EstablishmentResults"/> instance.
     /// </returns>
     /// <exception cref="InvalidOperationException">
     /// Exception thrown if an invalid document is derived from the Azure search result.
@@ -43,7 +44,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-    public EstablishmentResults MapFrom(Pageable<SearchResult<Establishment>> input)
+    public Models.EstablishmentResults MapFrom(Pageable<SearchResult<Models.Establishment>> input)
     {
         ArgumentNullException.ThrowIfNull(input);
 
@@ -55,11 +56,11 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<
                     : throw new InvalidOperationException(
                         "Search result document object cannot be null.")
                 );
-            return new EstablishmentResults(mappedResults);
+            return new Models.EstablishmentResults(mappedResults);
         }
         else
         {
-            return new EstablishmentResults();
+            return new Models.EstablishmentResults();
         }
     }
 }

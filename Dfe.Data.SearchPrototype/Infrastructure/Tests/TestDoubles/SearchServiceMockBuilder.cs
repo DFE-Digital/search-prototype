@@ -2,6 +2,7 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Moq;
 using System.Linq.Expressions;
 

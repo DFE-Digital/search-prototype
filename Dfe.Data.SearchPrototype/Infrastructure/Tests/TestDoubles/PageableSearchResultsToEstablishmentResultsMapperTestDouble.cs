@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Moq;
 using System.Linq.Expressions;

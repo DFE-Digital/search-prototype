@@ -1,26 +1,32 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+
+namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
-/// The object that encapsulates the Faceted results returned by the
-/// T:Dfe.Data.SearchPrototype.SearchForEstablishments.SearchByKeywordUseCase instance
+/// Encapsulates the Faceted results returned by the <see cref="SearchByKeywordUseCase"/> instance.
 /// </summary>
 public class EstablishmentFacet
 {
     /// <summary>
-    /// The facet (field) name
+    /// The facet (field) name.
     /// </summary>
     public string Name { get; }
 
     /// <summary>
-    /// The collection of T:Dfe.Data.SearchPrototype.SearchForEstablishments.Models.FacetResult
+    /// The collection of <see cref="FacetResult"/> instances.
     /// </summary>
     public IList<FacetResult> Results { get; }
 
     /// <summary>
-    /// Constructor
+    ///  Establishes an immutable <see cref="EstablishmentFacet"/> instance via the constructor arguments specified.
     /// </summary>
-    /// <param name="facetName"></param>
-    /// <param name="facetResults"></param>
+    /// <param name="facetName">
+    /// The name of the facet on which to assign the prescribed results.
+    /// </param>
+    /// <param name="facetResults">
+    /// The collection of <see cref="FacetResult"/> instances that carry
+    /// the facet values and count of matched items found.
+    /// </param>
     public EstablishmentFacet(string facetName, IList<FacetResult> facetResults)
     {
         Name = facetName;

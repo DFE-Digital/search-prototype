@@ -1,7 +1,7 @@
 ﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
-/// Object used to encapsulate the establishment search result.
+/// Encapsulates the establishment search result.
 /// </summary>
 public class Establishment
 {
@@ -9,26 +9,32 @@ public class Establishment
     /// The read-only URN (unique identifier) of the given establishment.
     /// </summary>
     public string Urn { get; }
+
     /// <summary>
     /// The read-only name associated with the given establishment.
     /// </summary>
     public string Name { get; }
+
     /// <summary>
     /// The read-only address associated with the given establishment
     /// </summary>
     public Address Address { get; }
+
     /// <summary>
     /// The read-only type of the establishment.
     /// </summary>
     public string EstablishmentType { get; }
+
     /// <summary>
     /// The read-only education phase of establishment.
     /// </summary>
     public string PhaseOfEducation { get; }
+
     /// <summary>
     /// The read-only status of the establishment.
     /// </summary>
     public string EstablishmentStatusName { get; }
+
     /// <summary>
     /// Establishes an immutable establishment instance via the constructor arguments specified.
     /// </summary>

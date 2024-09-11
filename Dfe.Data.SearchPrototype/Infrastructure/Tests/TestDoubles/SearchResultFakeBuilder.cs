@@ -1,4 +1,5 @@
 ﻿using Azure.Search.Documents.Models;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 

@@ -1,11 +1,13 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 using Xunit;
@@ -52,7 +54,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
         SearchResults? response =
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchRequest(
-                    searchKeyword: "SearchKeyword"));
+                    searchKeyword: "SearchKeyword", new List<string>(), new List<string>()));
 
         // assert
         response.Should().NotBeNull();
@@ -85,7 +87,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
         SearchResults? response =
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchRequest(
-                    searchKeyword: "SearchKeyword"));
+                    searchKeyword: "SearchKeyword", new List<string>(), new List<string>()));
 
         // assert
         response.Should().NotBeNull();
@@ -113,7 +115,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
 
         // act.
         var response = await cognitiveSearchServiceAdapter.SearchAsync(new SearchRequest(
-                            searchKeyword: "SearchKeyword"));
+                            searchKeyword: "SearchKeyword", new List<string>(), new List<string>()));
 
         // assert
         response.Should().NotBeNull();

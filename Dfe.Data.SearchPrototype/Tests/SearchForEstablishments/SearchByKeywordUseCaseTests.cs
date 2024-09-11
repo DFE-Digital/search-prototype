@@ -1,5 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
 using FluentAssertions;

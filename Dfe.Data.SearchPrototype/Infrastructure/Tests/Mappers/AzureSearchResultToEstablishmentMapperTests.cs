@@ -1,4 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
@@ -74,7 +75,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
                 mapper.MapFrom(establishmentFake))
                     .Should()
                         .Throw<ArgumentException>()
-                        .WithMessage("Value cannot be null. (Parameter 'id')");
+                        .WithMessage("Value cannot be null. (Parameter 'input.id')");
     }
 
     [Fact]
@@ -96,7 +97,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
                 mapper.MapFrom(establishmentFake))
                     .Should()
                         .Throw<ArgumentException>()
-                        .WithMessage("Value cannot be null. (Parameter 'ESTABLISHMENTNAME')");
+                        .WithMessage("Value cannot be null. (Parameter 'input.ESTABLISHMENTNAME')");
     }
 
     [Fact]
@@ -118,7 +119,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
                 mapper.MapFrom(establishmentFake))
                     .Should()
                         .Throw<ArgumentException>()
-                        .WithMessage("Value cannot be null. (Parameter 'PHASEOFEDUCATION')");
+                        .WithMessage("Value cannot be null. (Parameter 'input.PHASEOFEDUCATION')");
     }
 
     [Fact]
@@ -140,7 +141,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
                 mapper.MapFrom(establishmentFake))
                     .Should()
                         .Throw<ArgumentException>()
-                        .WithMessage("Value cannot be null. (Parameter 'TYPEOFESTABLISHMENTNAME')");
+                        .WithMessage("Value cannot be null. (Parameter 'input.TYPEOFESTABLISHMENTNAME')");
     }
 
     [Fact]
@@ -162,7 +163,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
                 mapper.MapFrom(establishmentFake))
                     .Should()
                         .Throw<ArgumentException>()
-                        .WithMessage("Value cannot be null. (Parameter 'ESTABLISHMENTSTATUSNAME')");
+                        .WithMessage("Value cannot be null. (Parameter 'input.ESTABLISHMENTSTATUSNAME')");
     }
 
     [Theory]

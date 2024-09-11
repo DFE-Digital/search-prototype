@@ -1,6 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
-namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
+namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 
 /// <summary>
 /// Describes behaviour for an adaption of core search services infrastructure to allow
@@ -10,14 +10,14 @@ public interface ISearchServiceAdapter
 {
     /// <summary>
     /// Describes the required call to the underlying search service infrastructure and the expected
-    /// "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments" type to be returned.
+    /// <see cref="SearchResults"/> type to be returned.
     /// </summary>
-    /// <param name="searchContext">
+    /// <param name="searchRequest">
     /// Prescribes the context of the search including the keyword and collection target.
     /// </param>
     /// <returns>
-    /// A configured "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
+    /// A configured <see cref="SearchResults"/>
     /// object hydrated from the results of the azure search.
     /// </returns>
-    Task<SearchResults> SearchAsync(SearchRequest searchContext);
+    Task<SearchResults> SearchAsync(SearchRequest searchRequest);
 }

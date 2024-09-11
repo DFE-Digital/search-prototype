@@ -2,10 +2,12 @@
 using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
 using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
@@ -63,8 +65,9 @@ public sealed class CognitiveSearchServiceAdapterTests
 
         // act, assert.
         return cognitiveSearchServiceAdapter
-            .Invoking(adapter => adapter.SearchAsync(new SearchRequest(
-                            searchKeyword: "SearchKeyword")))
+            .Invoking(adapter =>
+                adapter.SearchAsync(new SearchRequest(
+                    searchKeyword: "SearchKeyword", [], [])))
             .Should()
             .ThrowAsync< ArgumentException>();
     }

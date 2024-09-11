@@ -1,4 +1,5 @@
 ﻿using Azure.Search.Documents.Models;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 

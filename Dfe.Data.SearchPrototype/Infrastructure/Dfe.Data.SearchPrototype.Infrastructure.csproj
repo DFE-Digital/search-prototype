@@ -5,6 +5,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
 		<!-- Package information, for nuget -->
 		<PackageId>Dfe.Data.SearchPrototype.Infrastructure</PackageId>
 		<!--<Version>1.0.1</Version>--><!-- This is set within the build pipeline -->
@@ -22,7 +24,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../../README.md" Pack="true" PackagePath="\"/>
+		<None Include="../../README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>

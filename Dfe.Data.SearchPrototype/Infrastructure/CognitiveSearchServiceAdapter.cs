@@ -1,9 +1,10 @@
 ﻿using Azure;
 using Azure.Search.Documents;
+using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Microsoft.Extensions.Options;
 using AzureModels = Azure.Search.Documents.Models;
@@ -18,7 +19,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
-    private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
+    private readonly IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> _facetsMapper;
     private readonly AzureSearchOptions _azureSearchOptions;
 
     /// <summary>
@@ -29,13 +30,13 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Cognitive search (search by keyword) service definition injected via IOC container.
     /// </param>
     /// <param name="azureSearchOptions">
-    /// the search options provided through the appsettings
+    /// the search options provided through the app-settings
     /// </param>
     /// <param name="searchResultMapper">
     /// Maps the raw Azure search response to the required <see cref="EstablishmentResults"/>
     /// </param>
     /// <param name="facetsMapper">
-    /// Maps the the raw Azure search response to the required <see cref="EstablishmentFacets"/>
+    /// Maps the raw Azure search response to the required <see cref="EstablishmentFacets"/>
     /// </param>
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
@@ -52,14 +53,13 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 
     /// <summary>
     /// Makes call to underlying azure cognitive search service and uses the prescribed mapper
-    /// to adapt the raw Azure search results to the "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments" type.
+    /// to adapt the raw Azure search results to the <see cref="SearchResults"/> type.
     /// </summary>
     /// <param name="searchRequest">
     /// Prescribes the context of the search including the keyword and collection target.
     /// </param>
     /// <returns>
-    /// A configured "T:Dfe.Data.SearchPrototype.Search.Domain.AgregateRoot.Establishments"
-    /// object hydrated from the results of the azure search.
+    /// A configured <<see cref="SearchResults"/> object hydrated from the results of the azure search.
     /// </returns>
     /// <exception cref="ApplicationException">
     /// An application exception is thrown if we either have no options configured, which
@@ -69,13 +69,22 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-
     public async Task<SearchResults> SearchAsync(SearchRequest searchRequest)
     {
-        // bung together the SearchRequest and the options
-        SearchOptions searchOptions = new();
+        SearchOptions searchOptions = new()
+        {
+            SearchMode = (SearchMode)_azureSearchOptions.SearchMode,
+            Size = _azureSearchOptions.Size,
+            IncludeTotalCount = _azureSearchOptions.IncludeTotalCount,
+        };
 
-        Response<AzureModels.SearchResults<TSearchResult>> searchResults =
+        searchRequest.SearchFields?.ToList()
+            .ForEach(searchOptions.SearchFields.Add);
+
+        searchRequest.Facets?.ToList()
+            .ForEach(searchOptions.Facets.Add);
+
+        Response<SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(
                 searchRequest.SearchKeyword,
                 _azureSearchOptions.SearchIndex,
@@ -89,7 +98,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
         {
             Establishments = _searchResultMapper.MapFrom(searchResults.Value.GetResults()),
             Facets = searchResults.Value.Facets != null
-                ? _facetsMapper.MapFrom(searchResults.Value.Facets.ToDictionary<string, IList<AzureModels.FacetResult>>())
+                ? _facetsMapper.MapFrom(searchResults.Value.Facets.ToDictionary())
                 : null
         };
 

@@ -1,17 +1,20 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+
+namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
-/// The search criteria use by the <see cref="SearchByKeywordUseCase"/>
-/// which is set using the IOptions interface
+/// The search criteria used by the <see cref="SearchByKeywordUseCase"/>
+/// which is set using the configuration settings defined (via IOptions pattern).
 /// </summary>
 public class SearchByKeywordCriteria
 {
     /// <summary>
-    /// The fields to search over
+    /// The collection of fields in the underlying collection to search over.
     /// </summary>
-    public IList<string> SearchFields { get; set; } = new List<string>();
+    public IList<string> SearchFields { get; set; } = [];
+
     /// <summary>
-    /// The facets to request in the search request
+    /// The collection of facets to apply in the search request.
     /// </summary>
-    public IList<string> Facets { get; set; } = new List<string>();
+    public IList<string> Facets { get; set; } = [];
 }
