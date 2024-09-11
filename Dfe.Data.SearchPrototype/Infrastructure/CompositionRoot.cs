@@ -7,7 +7,6 @@ using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Models = Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure;
 
@@ -52,10 +51,10 @@ public static class CompositionRoot
                        .GetSection(nameof(SearchByKeywordCriteria))
                        .Bind(settings));
 
-        services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<SearchResults>));
-        services.AddSingleton(typeof(IMapper<Pageable<SearchResult<Models.Establishment>>, Models.EstablishmentResults>), typeof(PageableSearchResultsToEstablishmentResultsMapper));
+        services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>));
+        services.AddSingleton(typeof(IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults>), typeof(PageableSearchResultsToEstablishmentResultsMapper));
         services.AddSingleton<IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets>, AzureFacetResultToEstablishmentFacetsMapper>();
         services.AddSingleton<IMapper<DataTransferObjects.Establishment, Address>, AzureSearchResultToAddressMapper>();
-        services.AddSingleton<IMapper<DataTransferObjects.Establishment, SearchForEstablishments.Models.Establishment>, AzureSearchResultToEstablishmentMapper>();
+        services.AddSingleton<IMapper<DataTransferObjects.Establishment, Establishment>, AzureSearchResultToEstablishmentMapper>();
     }
 }

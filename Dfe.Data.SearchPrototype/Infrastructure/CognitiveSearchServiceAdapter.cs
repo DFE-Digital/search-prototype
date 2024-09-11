@@ -55,7 +55,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Makes call to underlying azure cognitive search service and uses the prescribed mapper
     /// to adapt the raw Azure search results to the <see cref="SearchResults"/> type.
     /// </summary>
-    /// <param name="searchRequest">
+    /// <param name="searchServiceAdapterRequest">
     /// Prescribes the context of the search including the keyword and collection target.
     /// </param>
     /// <returns>
@@ -69,7 +69,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-    public async Task<SearchResults> SearchAsync(SearchServiceAdapterRequest searchRequest)
+    public async Task<SearchResults> SearchAsync(SearchServiceAdapterRequest searchServiceAdapterRequest)
     {
         SearchOptions searchOptions = new()
         {
@@ -78,21 +78,21 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
             IncludeTotalCount = _azureSearchOptions.IncludeTotalCount,
         };
 
-        searchRequest.SearchFields?.ToList()
+        searchServiceAdapterRequest.SearchFields?.ToList()
             .ForEach(searchOptions.SearchFields.Add);
 
-        searchRequest.Facets?.ToList()
+        searchServiceAdapterRequest.Facets?.ToList()
             .ForEach(searchOptions.Facets.Add);
 
         Response<SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(
-                searchRequest.SearchKeyword,
+                searchServiceAdapterRequest.SearchKeyword,
                 _azureSearchOptions.SearchIndex,
                 searchOptions
             )
             .ConfigureAwait(false) ??
                 throw new ApplicationException(
-                    $"Unable to derive search results based on input {searchRequest.SearchKeyword}.");
+                    $"Unable to derive search results based on input {searchServiceAdapterRequest.SearchKeyword}.");
 
         var results = new SearchResults()
         {
