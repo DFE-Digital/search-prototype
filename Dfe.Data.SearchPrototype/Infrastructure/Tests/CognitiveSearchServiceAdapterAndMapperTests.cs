@@ -5,6 +5,7 @@ using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 using Xunit;
@@ -51,7 +52,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
         // act
         SearchResults? response =
             await cognitiveSearchServiceAdapter.SearchAsync(
-                new SearchRequest(
+                new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
                     facets: ["FACET1", "FACET2", "FACET3"]));
@@ -87,7 +88,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
         // act
         SearchResults? response =
             await cognitiveSearchServiceAdapter.SearchAsync(
-                new SearchRequest(
+                new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
                     facets: ["FACET1", "FACET2", "FACET3"]));
@@ -120,7 +121,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
         // act.
         var response =
             await cognitiveSearchServiceAdapter.SearchAsync(
-                new SearchRequest(
+                new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
                     facets: ["FACET1", "FACET2", "FACET3"]));

@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
 /// <summary>
 /// Defines the status of the search response.

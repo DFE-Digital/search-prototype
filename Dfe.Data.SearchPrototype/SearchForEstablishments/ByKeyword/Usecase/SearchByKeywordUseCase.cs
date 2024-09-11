@@ -1,8 +1,9 @@
 ﻿using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Microsoft.Extensions.Options;
 
-namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
 /// <summary>
 /// This use case is responsible for handling keyword search requests. The use case will delegate responsibility
@@ -74,7 +75,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
         {
             SearchResults results =
                 await _searchServiceAdapter.SearchAsync(
-                    new SearchRequest(
+                    new SearchServiceAdapterRequest(
                         request.SearchKeyword,
                         _searchByKeywordCriteriaOptions.SearchFields,
                         _searchByKeywordCriteriaOptions.Facets));

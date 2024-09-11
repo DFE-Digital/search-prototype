@@ -1,4 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Moq;
 
@@ -11,7 +11,7 @@ public static class SearchServiceAdapterTestDouble
         Mock<ISearchServiceAdapter> searchServiceAdapter = new();
 
         searchServiceAdapter
-            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchRequest>()))
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchServiceAdapterRequest>()))
             .ReturnsAsync(searchResults);
 
         return searchServiceAdapter.Object;

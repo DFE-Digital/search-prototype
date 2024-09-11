@@ -1,6 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
-namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
 /// <summary>
 /// This is the object that carries the response (output) back from the

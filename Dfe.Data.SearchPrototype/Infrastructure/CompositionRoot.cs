@@ -3,7 +3,7 @@ using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
-using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

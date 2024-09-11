@@ -1,5 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
-using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;

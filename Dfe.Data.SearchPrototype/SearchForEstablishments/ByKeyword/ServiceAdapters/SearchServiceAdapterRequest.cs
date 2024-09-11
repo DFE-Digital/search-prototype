@@ -1,9 +1,9 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 
 /// <summary>
 /// Prescribes the context of the search including
 /// the keyword, search fields, and facets to use.
-public sealed class SearchRequest
+public sealed class SearchServiceAdapterRequest
 {
     /// <summary>
     /// The search keyword(s) to be applied.
@@ -40,7 +40,7 @@ public sealed class SearchRequest
     /// The exception type thrown if either a null or empty collection of search fields,
     /// or search facets are prescribed.
     /// </exception>
-    public SearchRequest(string searchKeyword, IList<string> searchFields, IList<string> facets)
+    public SearchServiceAdapterRequest(string searchKeyword, IList<string> searchFields, IList<string> facets)
     {
         SearchKeyword =
             string.IsNullOrWhiteSpace(searchKeyword) ?
@@ -67,9 +67,9 @@ public sealed class SearchRequest
     /// The collection of facets to apply in the search request.
     /// </param>
     /// <returns>
-    /// A configured <see cref="SearchRequest"/> instance.
+    /// A configured <see cref="SearchServiceAdapterRequest"/> instance.
     /// </returns>
-    public static SearchRequest Create(
+    public static SearchServiceAdapterRequest Create(
         string searchKeyword, IList<string> searchFields, IList<string> facets) =>
             new(searchKeyword, searchFields, facets);
 }

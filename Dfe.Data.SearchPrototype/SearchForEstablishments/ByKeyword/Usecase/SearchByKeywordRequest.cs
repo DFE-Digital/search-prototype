@@ -1,4 +1,4 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
 /// <summary>
 /// This is the object used to make requests (send input) through to the

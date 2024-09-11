@@ -4,7 +4,7 @@ using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
-using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Microsoft.Extensions.Options;
 using AzureModels = Azure.Search.Documents.Models;
@@ -69,7 +69,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-    public async Task<SearchResults> SearchAsync(SearchRequest searchRequest)
+    public async Task<SearchResults> SearchAsync(SearchServiceAdapterRequest searchRequest)
     {
         SearchOptions searchOptions = new()
         {

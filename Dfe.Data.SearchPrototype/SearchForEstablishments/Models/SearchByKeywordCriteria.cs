@@ -1,4 +1,4 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 

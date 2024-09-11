@@ -1,5 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
-using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 using FluentAssertions;
@@ -57,7 +58,7 @@ public sealed class SearchByKeywordUseCaseTests
         // arrange
         SearchByKeywordRequest request = new("searchkeyword");
         Mock.Get(_searchServiceAdapter)
-            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchRequest>()))
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchServiceAdapterRequest>()))
             .ThrowsAsync(new ApplicationException());
 
         // act
@@ -74,7 +75,7 @@ public sealed class SearchByKeywordUseCaseTests
         // arrange
         SearchByKeywordRequest request = new("searchkeyword");
         Mock.Get(_searchServiceAdapter)
-            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchRequest>()))
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchServiceAdapterRequest>()))
             .ReturnsAsync(SearchResultsTestDouble.CreateWithNoResults);
 
         // act
