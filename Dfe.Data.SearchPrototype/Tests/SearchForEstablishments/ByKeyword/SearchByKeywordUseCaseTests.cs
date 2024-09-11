@@ -1,12 +1,12 @@
 ﻿using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
-using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
+using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments;
+namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword;
 
 public sealed class SearchByKeywordUseCaseTests
 {
@@ -40,7 +40,7 @@ public sealed class SearchByKeywordUseCaseTests
         response.EstablishmentFacetResults!.Facets.Should().Contain(_searchResults.Facets!.Facets);
     }
 
-     [Fact]
+    [Fact]
     public async Task HandleRequest_NullSearchByKeywordRequest_ReturnsErrorStatus()
     {
         // act

@@ -1,6 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
-namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
+namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 
 public static class SearchResultsTestDouble
 {
@@ -10,7 +10,7 @@ public static class SearchResultsTestDouble
         {
             Facets = EstablishmentFacetsTestDouble.Create(),
             Establishments = EstablishmentResultsTestDouble.Create()
-        }; 
+        };
     }
 
     public static SearchResults CreateWithNoResults()

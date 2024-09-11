@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
-namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
+namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 
 public class EstablishmentTestDouble
 {

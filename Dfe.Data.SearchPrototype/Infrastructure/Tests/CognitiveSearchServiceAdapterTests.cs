@@ -2,11 +2,9 @@
 using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
@@ -17,10 +15,10 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
 
 public sealed class CognitiveSearchServiceAdapterTests
 {
-    private static CognitiveSearchServiceAdapter<Establishment> CreateServiceAdapterWith(
+    private static CognitiveSearchServiceAdapter<DataTransferObjects.Establishment> CreateServiceAdapterWith(
         ISearchByKeywordService searchByKeywordService,
         IOptions<AzureSearchOptions> searchOptions,
-        IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> searchResponseMapper,
+        IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> searchResponseMapper,
         IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> facetsMapper
        ) =>
            new(searchByKeywordService, searchOptions, searchResponseMapper, facetsMapper);
@@ -35,7 +33,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         // act
         try
         {
-            var _ = new CognitiveSearchServiceAdapter<Establishment>(mockService,
+            var _ = new CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>(mockService,
                 IOptionsTestDouble.IOptionsMockFor<AzureSearchOptions>(null!),
                 mockEstablishmentResultsMapper,
                 mockFacetsMapper);

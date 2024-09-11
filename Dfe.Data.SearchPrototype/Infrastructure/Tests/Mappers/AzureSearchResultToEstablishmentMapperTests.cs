@@ -1,5 +1,4 @@
 ﻿using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
@@ -10,8 +9,8 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class AzureSearchResultToEstablishmentMapperTests
 {
-    IMapper<Establishment, SearchForEstablishments.Models.Establishment> _establishmentMapper;
-    IMapper<Establishment, Address> _addressMapper;
+    private readonly IMapper<DataTransferObjects.Establishment, SearchForEstablishments.Models.Establishment> _establishmentMapper;
+    private readonly IMapper<DataTransferObjects.Establishment, Address> _addressMapper;
 
     public AzureSearchResultToEstablishmentMapperTests()
     {
@@ -23,7 +22,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     public void MapFrom_With_Valid_Search_Result_Returns_Configured_Establishment()
     {
         // arrange
-        Establishment establishmentFake = EstablishmentTestDouble.Create();
+        DataTransferObjects.Establishment establishmentFake = EstablishmentTestDouble.Create();
 
         // act
         SearchForEstablishments.Models.Establishment? result = _establishmentMapper.MapFrom(establishmentFake);
@@ -46,7 +45,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     public void MapFrom_With_Null_Search_Result_Throws_Expected_Argument_Null_Exception()
     {
         // act.
-        Establishment establishmentFake = null!;
+        DataTransferObjects.Establishment establishmentFake = null!;
 
         // act.
         _establishmentMapper
@@ -60,7 +59,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     public void MapFrom_With_Null_id_Throws_Expected_Argument_Exception()
     {
         // arrange
-        var establishmentFake = new Establishment()
+        var establishmentFake = new DataTransferObjects.Establishment()
         {
             id = null!,
             ESTABLISHMENTNAME = "Test Establishment",
@@ -82,7 +81,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     public void MapFrom_With_Null_Name_Throws_Expected_Argument_Exception()
     {
         // arrange
-        var establishmentFake = new Establishment()
+        var establishmentFake = new DataTransferObjects.Establishment()
         {
             id = "123456",
             TYPEOFESTABLISHMENTNAME = "secondaryFake",
@@ -104,7 +103,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     public void MapFrom_With_NullPhaseOfEducation_Throws_Expected_Argument_Exception()
     {
         // arrange
-        var establishmentFake = new Establishment()
+        var establishmentFake = new DataTransferObjects.Establishment()
         {
             id = "123456",
             ESTABLISHMENTNAME = "Test Establishment",
@@ -126,7 +125,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     public void MapFrom_With_NullTypeOfEstablishment_Throws_Expected_Argument_Exception()
     {
         // arrange
-        var establishmentFake = new Establishment()
+        var establishmentFake = new DataTransferObjects.Establishment()
         {
             id = "1111",
             ESTABLISHMENTNAME = "Test Establishment",
@@ -148,7 +147,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
     public void MapFrom_With_NullEstablishmentStatus_Throws_Expected_Argument_Exception()
     {
         // arrange
-        var establishmentFake = new Establishment()
+        var establishmentFake = new DataTransferObjects.Establishment()
         {
             id = "1111",
             ESTABLISHMENTNAME = "Test Establishment",
@@ -175,7 +174,7 @@ public sealed class AzureSearchResultToEstablishmentMapperTests
         string street, string locality, string address3, string town, string postcode)
     {
         // arrange
-        Establishment establishmentFake = new Establishment()
+        DataTransferObjects.Establishment establishmentFake = new()
         {
             id = "000000",
             ESTABLISHMENTNAME = "fakename",

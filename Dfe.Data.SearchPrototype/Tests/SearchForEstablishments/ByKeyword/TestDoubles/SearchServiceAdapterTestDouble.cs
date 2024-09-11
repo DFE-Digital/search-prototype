@@ -2,7 +2,7 @@
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using Moq;
 
-namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
+namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 
 public static class SearchServiceAdapterTestDouble
 {

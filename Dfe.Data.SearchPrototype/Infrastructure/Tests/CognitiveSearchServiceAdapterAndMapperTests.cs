@@ -1,12 +1,9 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
-using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
-using Dfe.Data.SearchPrototype.SearchForEstablishments;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
@@ -16,8 +13,8 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
 
 public sealed class CognitiveSearchServiceAdapterAndMapperTests
 {
-    private IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> _searchResponseMapper;
-    private IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
+    private readonly IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResponseMapper;
+    private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
 
     public CognitiveSearchServiceAdapterAndMapperTests()
     {
@@ -44,17 +41,20 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
             .WithFacets(facetResults)
             .Create();
 
-        ISearchServiceAdapter cognitiveSearchServiceAdapter = new CognitiveSearchServiceAdapter<Establishment>(
-            mockService,
-            IOptionsTestDouble.IOptionsMockFor(options),
-            _searchResponseMapper,
-            _facetsMapper);
+        ISearchServiceAdapter cognitiveSearchServiceAdapter =
+            new CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>(
+                mockService,
+                IOptionsTestDouble.IOptionsMockFor(options),
+                _searchResponseMapper,
+                _facetsMapper);
 
         // act
         SearchResults? response =
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchRequest(
-                    searchKeyword: "SearchKeyword", new List<string>(), new List<string>()));
+                    searchKeyword: "SearchKeyword",
+                    searchFields: ["FIELD1", "FIELD2", "FIELD2"],
+                    facets: ["FACET1", "FACET2", "FACET3"]));
 
         // assert
         response.Should().NotBeNull();
@@ -77,7 +77,8 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 .Create())
             .Create();
 
-        ISearchServiceAdapter cognitiveSearchServiceAdapter = new CognitiveSearchServiceAdapter<Establishment>(
+        ISearchServiceAdapter cognitiveSearchServiceAdapter =
+            new CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>(
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
@@ -87,7 +88,9 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
         SearchResults? response =
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchRequest(
-                    searchKeyword: "SearchKeyword", new List<string>(), new List<string>()));
+                    searchKeyword: "SearchKeyword",
+                    searchFields: ["FIELD1", "FIELD2", "FIELD2"],
+                    facets: ["FACET1", "FACET2", "FACET3"]));
 
         // assert
         response.Should().NotBeNull();
@@ -107,15 +110,20 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 .Create())
             .Create();
 
-        ISearchServiceAdapter cognitiveSearchServiceAdapter = new CognitiveSearchServiceAdapter<Establishment>(
+        ISearchServiceAdapter cognitiveSearchServiceAdapter =
+            new CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>(
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
                 _facetsMapper);
 
         // act.
-        var response = await cognitiveSearchServiceAdapter.SearchAsync(new SearchRequest(
-                            searchKeyword: "SearchKeyword", new List<string>(), new List<string>()));
+        var response =
+            await cognitiveSearchServiceAdapter.SearchAsync(
+                new SearchRequest(
+                    searchKeyword: "SearchKeyword",
+                    searchFields: ["FIELD1", "FIELD2", "FIELD2"],
+                    facets: ["FACET1", "FACET2", "FACET3"]));
 
         // assert
         response.Should().NotBeNull();

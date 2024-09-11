@@ -10,9 +10,9 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 /// Facilitates mapping from the received <see cref="Models.SearchResults"/> 
 /// into the required <see cref="Models.EstablishmentResults"/>  object.
 /// </summary>
-public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<Pageable<SearchResult<Models.Establishment>>, Models.EstablishmentResults>
+public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, Models.EstablishmentResults>
 {
-    private readonly IMapper<Models.Establishment, Models.Establishment> _azureSearchResultToEstablishmentMapper;
+    private readonly IMapper<DataTransferObjects.Establishment, Models.Establishment> _azureSearchResultToEstablishmentMapper;
 
     /// <summary>
     /// The following mapping dependency provides the functionality to map from a raw Azure
@@ -22,7 +22,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<
     /// <param name="azureSearchResultToEstablishmentMapper">
     /// Mapper used to map from the raw Azure search result to a <see cref="Establishment"/> instance.
     /// </param>
-    public PageableSearchResultsToEstablishmentResultsMapper(IMapper<Models.Establishment, Models.Establishment> azureSearchResultToEstablishmentMapper)
+    public PageableSearchResultsToEstablishmentResultsMapper(IMapper<DataTransferObjects.Establishment, Models.Establishment> azureSearchResultToEstablishmentMapper)
     {
         _azureSearchResultToEstablishmentMapper = azureSearchResultToEstablishmentMapper;
     }
@@ -44,7 +44,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-    public Models.EstablishmentResults MapFrom(Pageable<SearchResult<Models.Establishment>> input)
+    public Models.EstablishmentResults MapFrom(Pageable<SearchResult<DataTransferObjects.Establishment>> input)
     {
         ArgumentNullException.ThrowIfNull(input);
 

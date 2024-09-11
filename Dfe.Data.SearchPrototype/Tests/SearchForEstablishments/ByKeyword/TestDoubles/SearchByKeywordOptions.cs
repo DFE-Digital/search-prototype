@@ -1,6 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
-namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
+namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 
 public static class SearchByKeywordCriteriaTestDouble
 {
@@ -8,8 +8,8 @@ public static class SearchByKeywordCriteriaTestDouble
     {
         return new SearchByKeywordCriteria()
         {
-            Facets = new List<string>() { },
-            SearchFields = new List<string>() { }
+            Facets = ["FIELD1", "FIELD2", "FIELD3"],
+            SearchFields = ["FACET1", "FACET2", "FACET3"]
         };
     }
 }
