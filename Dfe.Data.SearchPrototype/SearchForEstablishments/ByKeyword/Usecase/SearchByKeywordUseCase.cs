@@ -27,7 +27,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// <param name="searchByKeywordCriteriaOptions">
     /// The <see cref="SearchByKeywordCriteria"/> define the search fields and facets on
     /// which to conduct the underlying search. This is defined in configuration using
-    /// the options pattern as follows,
+    /// the options pattern as follows (note: fields and facets used are for explanatory use only),
     /// <code>
     /// "SearchByKeywordCriteria": {
     ///     "SearchFields": [
