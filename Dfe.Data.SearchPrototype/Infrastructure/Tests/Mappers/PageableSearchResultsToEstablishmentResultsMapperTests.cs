@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestHelpers;
@@ -12,7 +13,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
 {
-    IMapper<Pageable<SearchResult<Establishment>>, EstablishmentResults> _searchResultsMapper;
+    IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResultsMapper;
 
     public PageableSearchResultsToEstablishmentResultsMapperTests()
     {
@@ -26,7 +27,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
     public void MapFrom_WithValidSearchResults_ReturnsConfiguredEstablishments()
     {
         // arrange
-        List<SearchResult<Establishment>> searchResultDocuments =
+        List<SearchResult<DataTransferObjects.Establishment>> searchResultDocuments =
             SearchResultFake.SearchResults();
         var pageableSearchResults = PageableTestDouble.FromResults(searchResultDocuments);
 

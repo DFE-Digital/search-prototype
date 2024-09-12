@@ -1,29 +1,35 @@
 ﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
-/// Object used to encapsulate the aggregation of establishment search results.
+/// Encapsulates the aggregation of <see cref="Establishment"/>
+/// types returned from the underlying search system.
 /// </summary>
 public sealed class EstablishmentResults
 {
     /// <summary>
-    /// The readonly collection of establishment search results
+    /// The readonly collection of <see cref="Establishment"/>
+    /// types derived from the underlying search mechanism.
     /// </summary>
     public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
 
     private readonly List<Establishment> _establishments;
 
     /// <summary>
-    /// Default constuctor
+    ///  Default constructor initialises a new readonly
+    ///  collection of <see cref="Establishment"/> instances.
     /// </summary>
     public EstablishmentResults()
     {
-        _establishments = new();
+        _establishments = [];
     }
 
     /// <summary>
-    /// Constructor with the following parameters
+    ///  Establishes an immutable collection of <see cref="Establishment"/>
+    ///  instance via the constructor argument specified.
     /// </summary>
-    /// <param name="establishments">List of Establishments</param>
+    /// <param name="establishments">
+    /// Collection of configured <see cref="Establishment"/> instances.
+    /// </param>
     public EstablishmentResults(IEnumerable<Establishment> establishments)
     {
         _establishments = establishments.ToList();

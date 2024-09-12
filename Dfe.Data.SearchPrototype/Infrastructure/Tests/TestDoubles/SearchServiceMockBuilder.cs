@@ -2,6 +2,7 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Moq;
 using System.Linq.Expressions;
 
@@ -30,7 +31,7 @@ internal class SearchServiceMockBuilder
         return searchServiceMock.Object;
     }
 
-    public SearchServiceMockBuilder WithSearchOptions(string keyword, string collection)
+    public SearchServiceMockBuilder WithSearchKeywordAndCollection(string keyword, string collection)
     {
         _keyword = keyword;
         _collection = collection;

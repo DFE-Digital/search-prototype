@@ -1,4 +1,6 @@
-﻿namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
+﻿using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
+
+namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 public static class EstablishmentTestDouble
 {

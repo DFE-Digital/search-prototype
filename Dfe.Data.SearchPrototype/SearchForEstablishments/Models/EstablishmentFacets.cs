@@ -1,29 +1,33 @@
 ﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
-/// Object used to encapsulate the aggregation of facets returned from search.
+/// Encapsulates the aggregation of facets returned from the underlying search system.
 /// </summary>
 public class EstablishmentFacets
 {
     /// <summary>
-    /// The readonly collection of facets from the search
+    /// The readonly collection of facets derived from the underlying search mechanism.
     /// </summary>
     public IReadOnlyCollection<EstablishmentFacet> Facets => _establishmentsFacets.AsReadOnly();
 
     private readonly List<EstablishmentFacet> _establishmentsFacets;
 
     /// <summary>
-    /// Default constuctor
+    ///  Default constructor initialises a new readonly
+    ///  collection of <see cref="EstablishmentFacet"/> instances.
     /// </summary>
     public EstablishmentFacets()
     {
-        _establishmentsFacets = new();
+        _establishmentsFacets = [];
     }
 
     /// <summary>
-    /// Constructor with the following parameters
+    ///  Establishes an immutable collection of <see cref="EstablishmentFacet"/>
+    ///  instance via the constructor argument specified.
     /// </summary>
-    /// <param name="establishmentFacets">List of Establishments</param>
+    /// <param name="establishmentFacets">
+    /// Collection of configured <see cref="EstablishmentFacet"/> instances.
+    /// </param>
     public EstablishmentFacets(IEnumerable<EstablishmentFacet> establishmentFacets)
     {
         _establishmentsFacets = establishmentFacets.ToList();

@@ -1,11 +1,13 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments;
+﻿using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
-using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.TestDoubles;
+using Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments;
+namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword;
 
 public sealed class SearchByKeywordUseCaseTests
 {
@@ -20,14 +22,15 @@ public sealed class SearchByKeywordUseCaseTests
         _searchServiceAdapter =
             SearchServiceAdapterTestDouble.MockFor(_searchResults);
 
-        _useCase = new(_searchServiceAdapter);
+        var options = SearchByKeywordCriteriaTestDouble.Create();
+        _useCase = new(_searchServiceAdapter, IOptionsTestDouble.IOptionsMockFor(options));
     }
 
     [Fact]
     public async Task HandleRequest_ValidRequest_ReturnsResponse()
     {
         // arrange
-        SearchByKeywordRequest request = new("searchkeyword", "target collection");
+        SearchByKeywordRequest request = new("searchkeyword");
 
         // act
         SearchByKeywordResponse response = await _useCase.HandleRequest(request);
@@ -38,7 +41,7 @@ public sealed class SearchByKeywordUseCaseTests
         response.EstablishmentFacetResults!.Facets.Should().Contain(_searchResults.Facets!.Facets);
     }
 
-     [Fact]
+    [Fact]
     public async Task HandleRequest_NullSearchByKeywordRequest_ReturnsErrorStatus()
     {
         // act
@@ -53,9 +56,9 @@ public sealed class SearchByKeywordUseCaseTests
     public async Task HandleRequest_ServiceAdapterThrowsException_ReturnsErrorStatus()
     {
         // arrange
-        SearchByKeywordRequest request = new("searchkeyword", "target collection");
+        SearchByKeywordRequest request = new("searchkeyword");
         Mock.Get(_searchServiceAdapter)
-            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchServiceAdapterRequest>()))
             .ThrowsAsync(new ApplicationException());
 
         // act
@@ -70,9 +73,9 @@ public sealed class SearchByKeywordUseCaseTests
     public async Task HandleRequest_NoResults_ReturnsSuccess()
     {
         // arrange
-        SearchByKeywordRequest request = new("searchkeyword", "target collection");
+        SearchByKeywordRequest request = new("searchkeyword");
         Mock.Get(_searchServiceAdapter)
-            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchContext>()))
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchServiceAdapterRequest>()))
             .ReturnsAsync(SearchResultsTestDouble.CreateWithNoResults);
 
         // act

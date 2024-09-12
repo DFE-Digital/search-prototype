@@ -1,6 +1,7 @@
 ﻿using Azure.Search.Documents.Models;
 using Azure;
 using Moq;
+using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 

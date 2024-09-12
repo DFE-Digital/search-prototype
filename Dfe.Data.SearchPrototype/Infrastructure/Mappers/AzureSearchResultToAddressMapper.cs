@@ -4,23 +4,23 @@ using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
 /// <summary>
-/// Facilitates mapping from the received T:Dfe.Data.SearchPrototype.Infrastructure.Establishment
-/// into the required T:Dfe.Data.SearchPrototype.SearchForEstablishments.Address object.
+/// Facilitates mapping from the received <see cref="Establishment"/> instance
+/// into the required <see cref="Address"/> object.
 /// </summary>
-public class AzureSearchResultToAddressMapper : IMapper<Infrastructure.Establishment, Address>
+public class AzureSearchResultToAddressMapper : IMapper<DataTransferObjects.Establishment, Address>
 {
     /// <summary>
     /// The following mapping dependency provides the functionality to map from a raw Azure
-    /// search result, to a configured T:Dfe.Data.SearchPrototype.SearchForEstablishments.Address
-    /// instance, the complete implementation of which is defined in the IOC container.
+    /// search result, to a configured <see cref="Address"/> instance, the complete
+    /// implementation of which is defined in the IOC container.
     /// </summary>
     /// <param name="input">
-    /// The raw T:Dfe.Data.SearchPrototype.Infrastructure.Establishment used to map from.
+    /// The raw <see cref="Establishment"/> instance used to map from.
     /// </param>
     /// <returns>
-    /// The configured T:Dfe.Data.SearchPrototype.SearchForEstablishments.Address instance expected.
+    /// The configured <see cref="Address"/> instance expected.
     /// </returns>
-    public Address MapFrom(Establishment input)
+    public Address MapFrom(DataTransferObjects.Establishment input)
     {
         return new()
         {
