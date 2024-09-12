@@ -7,9 +7,9 @@
 public sealed class SearchByKeywordRequest
 {
     /// <summary>
-    /// The following arguments are passed via the constructor and used to create
+    /// The following search keyword argument is passed via the constructor and used to create
     /// an immutable <see cref="SearchByKeywordRequest" /> instance which encapsulates
-    /// the parameters required to formulate a valid search request.
+    /// the search keyword required to formulate a valid (baseline) search request.
     /// </summary>
     /// <param name="searchKeyword">
     /// The string keyword used to search the collection specified.
@@ -22,7 +22,30 @@ public sealed class SearchByKeywordRequest
     }
 
     /// <summary>
+    /// The following search keyword and filter arguments are passed via the constructor and used to create
+    /// an immutable <see cref="SearchByKeywordRequest" /> instance which encapsulates the parameters required
+    /// to formulate a valid search request which are refined using the provisioned filters.
+    /// </summary>
+    /// <param name="searchKeyword">
+    /// The string keyword used to search the collection specified.
+    /// </param>
+    /// <param name="filters">
+    /// The filter (key/values) used to refine the search criteria.
+    /// </param>
+    public SearchByKeywordRequest(string searchKeyword, IList<KeyValuePair<string, List<object>>> filters) : this(searchKeyword)
+    {
+        Filters = filters ??
+            throw new ArgumentNullException(
+                nameof(filters), "A valid collection of filters must be provisioned.");
+    }
+
+    /// <summary>
     /// The string keyword used to search the collection specified.
     /// </summary>
     public string SearchKeyword { get; }
+
+    /// <summary>
+    /// The filter (key/values) used to refine the search criteria.
+    /// </summary>
+    public IList<KeyValuePair<string, List<object>>> Filters { get; }
 }
