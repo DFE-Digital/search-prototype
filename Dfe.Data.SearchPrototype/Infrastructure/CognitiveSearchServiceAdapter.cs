@@ -59,7 +59,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Prescribes the context of the search including the keyword and collection target.
     /// </param>
     /// <returns>
-    /// A configured <<see cref="SearchResults"/> object hydrated from the results of the azure search.
+    /// A configured <see cref="SearchResults"/> object hydrated from the results of the azure search.
     /// </returns>
     /// <exception cref="ApplicationException">
     /// An application exception is thrown if we either have no options configured, which

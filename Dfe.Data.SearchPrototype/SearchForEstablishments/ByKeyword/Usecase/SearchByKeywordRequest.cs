@@ -32,11 +32,9 @@ public sealed class SearchByKeywordRequest
     /// <param name="filters">
     /// The filter (key/values) used to refine the search criteria.
     /// </param>
-    public SearchByKeywordRequest(string searchKeyword, IList<KeyValuePair<string, List<object>>> filters) : this(searchKeyword)
+    public SearchByKeywordRequest(string searchKeyword, IList<KeyValuePair<string, IList<object>>> filters) : this(searchKeyword)
     {
-        Filters = filters ??
-            throw new ArgumentNullException(
-                nameof(filters), "A valid collection of filters must be provisioned.");
+        FilterRequests = filters.ToList().Select(filter => new FilterRequest(filter.Key, filter.Value)).ToList();
     }
 
     /// <summary>
@@ -47,5 +45,5 @@ public sealed class SearchByKeywordRequest
     /// <summary>
     /// The filter (key/values) used to refine the search criteria.
     /// </summary>
-    public IList<KeyValuePair<string, List<object>>> Filters { get; }
+    public IList<FilterRequest>? FilterRequests { get; }
 }
