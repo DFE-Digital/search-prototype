@@ -3,6 +3,7 @@
 /// <summary>
 /// Prescribes the context of the search including
 /// the keyword, search fields, and facets to use.
+/// </summary>
 public sealed class SearchServiceAdapterRequest
 {
     /// <summary>
