@@ -10,10 +10,10 @@ public class SearchByKeywordRequestTests
     public void Constructor_WithFilterParam_PopulatesFilterRequests()
     {
         // arrange
-        var filterList = new List<KeyValuePair<string, IList<object>>>()
+        var filterList = new List<FilterRequest>()
         {
-            new KeyValuePair<string, IList<object>>("EducationPhase", new List<object>() {"Primary", "Secondary"}),
-            new KeyValuePair<string, IList<object>>("MaybeATypeCode", new List<object>() {1,2})
+            new FilterRequest("EducationPhase", new List<object>() {"Primary", "Secondary"}),
+            new FilterRequest("MaybeATypeCode", new List<object>() {1,2})
         };
 
         // act
@@ -23,8 +23,8 @@ public class SearchByKeywordRequestTests
         request.FilterRequests.Should().NotBeNull();
         foreach (var item in filterList)
         {
-            var matchingRequest = request.FilterRequests!.First(x => x.FilterName == item.Key);
-            matchingRequest.FilterValues.Should().BeEquivalentTo(item.Value);
+            var matchingRequest = request.FilterRequests!.First(x => x.FilterName == item.FilterName);
+            matchingRequest.FilterValues.Should().BeEquivalentTo(item.FilterValues);
         }
     }
 

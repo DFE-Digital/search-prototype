@@ -29,12 +29,12 @@ public sealed class SearchByKeywordRequest
     /// <param name="searchKeyword">
     /// The string keyword used to search the collection specified.
     /// </param>
-    /// <param name="filters">
-    /// The filter (key/values) used to refine the search criteria.
+    /// <param name="filterRequests">
+    /// The <see cref="FilterRequest"/> used to refine the search criteria.
     /// </param>
-    public SearchByKeywordRequest(string searchKeyword, IList<KeyValuePair<string, IList<object>>> filters) : this(searchKeyword)
+    public SearchByKeywordRequest(string searchKeyword, IList<FilterRequest> filterRequests) : this(searchKeyword)
     {
-        FilterRequests = filters.ToList().Select(filter => new FilterRequest(filter.Key, filter.Value)).ToList();
+        FilterRequests = filterRequests;
     }
 
     /// <summary>
