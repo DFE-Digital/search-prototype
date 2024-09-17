@@ -1,21 +1,33 @@
 ﻿using Dfe.Data.Common.Infrastructure.CognitiveSearch.Filtering;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
-public static class FilterExpressionBuilderTestDouble
+public class FilterExpressionBuilderTestDouble
 {
-    public static ISearchFilterExpressionsBuilder Create()
+    private Mock<ISearchFilterExpressionsBuilder> _mock = new();
+    private string? _response;
+    private IEnumerable<SearchFilterRequest>? _searchFilterRequests;
+
+    public FilterExpressionBuilderTestDouble WithResponse(string response)
     {
-        var mock = new Mock<ISearchFilterExpressionsBuilder>();
-        mock.Setup(x => x.BuildSearchFilterExpressions(It.IsAny<IEnumerable<SearchFilterRequest>>()))
-            .Returns("filter expression string")
+        _response = response;
+        return this;
+    }
+
+    public FilterExpressionBuilderTestDouble ExpectingRequest(IEnumerable<SearchFilterRequest> filterRequests)
+    {
+        _searchFilterRequests = filterRequests;
+        return this;
+    }
+
+    public ISearchFilterExpressionsBuilder Create()
+    {
+        var input = _searchFilterRequests ?? It.IsAny<IEnumerable<SearchFilterRequest>>();
+        var response = _response ?? It.IsAny<string>();
+        _mock.Setup(x => x.BuildSearchFilterExpressions(It.IsAny<IEnumerable<SearchFilterRequest>>()))
+            .Returns(response)
             .Verifiable();
-        return mock.Object;
+        return _mock.Object;
     }
 }

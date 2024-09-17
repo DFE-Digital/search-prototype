@@ -1,4 +1,6 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
+﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
+
+namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 
 /// <summary>
 /// Prescribes the context of the search including
@@ -24,7 +26,7 @@ public sealed class SearchServiceAdapterRequest
     /// <summary>
     /// The dictionary of filter requests where the key is the name of the filter and the value is the list of filter values.
     /// </summary>
-    public Dictionary<string, object[]>? SearchFilterRequests { get; }
+    public IList<FilterRequest>? SearchFilterRequests { get; }
 
     /// <summary>
     /// The following arguments are passed via the constructor and are not changeable
@@ -49,7 +51,7 @@ public sealed class SearchServiceAdapterRequest
     /// The exception type thrown if either a null or empty collection of search fields,
     /// or search facets are prescribed.
     /// </exception>
-    public SearchServiceAdapterRequest(string searchKeyword, IList<string> searchFields, IList<string> facets, Dictionary<string, object[]>? searchFilterRequests = null)
+    public SearchServiceAdapterRequest(string searchKeyword, IList<string> searchFields, IList<string> facets, IList<FilterRequest>? searchFilterRequests = null)
     {
         SearchKeyword =
             string.IsNullOrWhiteSpace(searchKeyword) ?

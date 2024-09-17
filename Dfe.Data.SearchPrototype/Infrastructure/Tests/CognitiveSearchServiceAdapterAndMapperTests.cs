@@ -17,7 +17,10 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
 {
     private readonly IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResponseMapper;
     private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
-    private readonly ISearchFilterExpressionsBuilder _mockSearchFilterExpressionsBuilder = FilterExpressionBuilderTestDouble.Create();
+    private readonly ISearchFilterExpressionsBuilder _mockSearchFilterExpressionsBuilder = 
+        new FilterExpressionBuilderTestDouble()
+            .WithResponse("some_filter_name le some_value")
+            .Create();
 
     public CognitiveSearchServiceAdapterAndMapperTests()
     {
