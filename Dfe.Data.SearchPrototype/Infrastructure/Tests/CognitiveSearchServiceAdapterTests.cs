@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
+using Dfe.Data.Common.Infrastructure.CognitiveSearch.Filtering;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
@@ -20,9 +21,10 @@ public sealed class CognitiveSearchServiceAdapterTests
         ISearchByKeywordService searchByKeywordService,
         IOptions<AzureSearchOptions> searchOptions,
         IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> searchResponseMapper,
-        IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> facetsMapper
+        IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> facetsMapper,
+        ISearchFilterExpressionsBuilder filterExpressionsBuilder
        ) =>
-           new(searchByKeywordService, searchOptions, searchResponseMapper, facetsMapper);
+           new(searchByKeywordService, searchOptions, searchResponseMapper, facetsMapper, filterExpressionsBuilder);
 
     [Fact]
     public void Search_WithNoSearchOptions_ThrowsApplicationException()
@@ -30,6 +32,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         var mockService = new SearchServiceMockBuilder().MockSearchService("SearchKeyword", "");
         var mockEstablishmentResultsMapper = PageableSearchResultsToEstablishmentResultsMapperTestDouble.DefaultMock();
         var mockFacetsMapper = AzureFacetResultToEstablishmentFacetsMapperTestDouble.DefaultMock();
+        var mockSearchFilterExpressionsBuilder = FilterExpressionBuilderTestDouble.Create();
 
         // act
         try
@@ -37,7 +40,8 @@ public sealed class CognitiveSearchServiceAdapterTests
             var _ = new CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>(mockService,
                 IOptionsTestDouble.IOptionsMockFor<AzureSearchOptions>(null!),
                 mockEstablishmentResultsMapper,
-                mockFacetsMapper);
+                mockFacetsMapper,
+                mockSearchFilterExpressionsBuilder);
             Assert.True(false);
         }
         catch (ArgumentNullException)
@@ -54,13 +58,15 @@ public sealed class CognitiveSearchServiceAdapterTests
         var mockService = new SearchServiceMockBuilder().MockSearchService("SearchKeyword", options.SearchIndex);
         var mockEstablishmentResultsMapper = PageableSearchResultsToEstablishmentResultsMapperTestDouble.MockMapperThrowingArgumentException();
         var mockFacetsMapper = AzureFacetResultToEstablishmentFacetsMapperTestDouble.DefaultMock();
+        var mockSearchFilterExpressionsBuilder = FilterExpressionBuilderTestDouble.Create();
 
         ISearchServiceAdapter cognitiveSearchServiceAdapter =
             CreateServiceAdapterWith(
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 mockEstablishmentResultsMapper,
-                mockFacetsMapper);
+                mockFacetsMapper,
+                mockSearchFilterExpressionsBuilder);
 
         // act, assert.
         return cognitiveSearchServiceAdapter

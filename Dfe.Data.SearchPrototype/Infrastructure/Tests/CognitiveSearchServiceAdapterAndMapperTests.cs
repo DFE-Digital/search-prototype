@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
+using Dfe.Data.Common.Infrastructure.CognitiveSearch.Filtering;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
@@ -16,6 +17,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
 {
     private readonly IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResponseMapper;
     private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
+    private readonly ISearchFilterExpressionsBuilder _mockSearchFilterExpressionsBuilder = FilterExpressionBuilderTestDouble.Create();
 
     public CognitiveSearchServiceAdapterAndMapperTests()
     {
@@ -47,7 +49,8 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
-                _facetsMapper);
+                _facetsMapper,
+                _mockSearchFilterExpressionsBuilder);
 
         // act
         SearchResults? response =
@@ -83,7 +86,8 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
-                _facetsMapper);
+                _facetsMapper,
+                _mockSearchFilterExpressionsBuilder);
 
         // act
         SearchResults? response =
@@ -116,7 +120,8 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
-                _facetsMapper);
+                _facetsMapper,
+                _mockSearchFilterExpressionsBuilder);
 
         // act.
         var response =
