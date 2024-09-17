@@ -12,6 +12,10 @@ public static class FilterExpressionBuilderTestDouble
 {
     public static ISearchFilterExpressionsBuilder Create()
     {
-        return Mock.Of<ISearchFilterExpressionsBuilder>();
+        var mock = new Mock<ISearchFilterExpressionsBuilder>();
+        mock.Setup(x => x.BuildSearchFilterExpressions(It.IsAny<IEnumerable<SearchFilterRequest>>()))
+            .Returns("filter expression string")
+            .Verifiable();
+        return mock.Object;
     }
 }

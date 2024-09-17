@@ -11,6 +11,7 @@ using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
+using Moq;
 using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
@@ -25,6 +26,33 @@ public sealed class CognitiveSearchServiceAdapterTests
         ISearchFilterExpressionsBuilder filterExpressionsBuilder
        ) =>
            new(searchByKeywordService, searchOptions, searchResponseMapper, facetsMapper, filterExpressionsBuilder);
+
+    [Fact]
+    public void Search_WithFilters_CallsFilterBuilder()
+    {
+        var options = AzureSearchOptionsTestDouble.Stub();
+        var mockService = new SearchServiceMockBuilder().MockSearchService("SearchKeyword", options.SearchIndex);
+        var mockEstablishmentResultsMapper = PageableSearchResultsToEstablishmentResultsMapperTestDouble.DefaultMock();
+        var mockFacetsMapper = AzureFacetResultToEstablishmentFacetsMapperTestDouble.DefaultMock();
+        var mockSearchFilterExpressionsBuilder = FilterExpressionBuilderTestDouble.Create();
+        var searchServiceAdapterRequest = SearchServiceAdapterRequestTestDouble.WithFilters(
+            new Dictionary<string, object[]>()
+            {
+                { "filterName", new object[] { "filterValue" } } 
+            });
+
+        var adapter = new CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>(mockService,
+                IOptionsTestDouble.IOptionsMockFor<AzureSearchOptions>(options),
+                mockEstablishmentResultsMapper,
+                mockFacetsMapper,
+                mockSearchFilterExpressionsBuilder);
+
+        // act
+        var response = adapter.SearchAsync(searchServiceAdapterRequest);
+
+        // assert
+        Mock.Get(mockSearchFilterExpressionsBuilder).Verify();
+    }
 
     [Fact]
     public void Search_WithNoSearchOptions_ThrowsApplicationException()

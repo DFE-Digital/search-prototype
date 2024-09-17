@@ -91,6 +91,13 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
         searchServiceAdapterRequest.Facets?.ToList()
             .ForEach(searchOptions.Facets.Add);
 
+        if (searchServiceAdapterRequest.SearchFilterRequests?.Count > 0)
+        {
+            searchOptions.Filter = _searchFilterExpressionsBuilder.BuildSearchFilterExpressions(
+                searchServiceAdapterRequest.SearchFilterRequests.ToList()
+                    .Select(x => new SearchFilterRequest(x.Key, x.Value)));
+        }
+
         Response<SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(
                 searchServiceAdapterRequest.SearchKeyword,

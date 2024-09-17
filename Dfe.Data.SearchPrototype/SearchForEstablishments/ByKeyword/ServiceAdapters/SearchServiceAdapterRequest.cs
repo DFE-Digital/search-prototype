@@ -22,6 +22,11 @@ public sealed class SearchServiceAdapterRequest
     public IList<string> Facets { get; }
 
     /// <summary>
+    /// The dictionary of filter requests where the key is the name of the filter and the value is the list of filter values.
+    /// </summary>
+    public Dictionary<string, object[]>? SearchFilterRequests { get; }
+
+    /// <summary>
     /// The following arguments are passed via the constructor and are not changeable
     /// once an instance is created, this ensures we preserve immutability.
     /// </summary>
@@ -34,6 +39,9 @@ public sealed class SearchServiceAdapterRequest
     /// <param name="facets">
     /// The collection of facets to apply in the search request.
     /// </param>
+    /// <param name="searchFilterRequests">
+    /// Dictionary of search filter requests where key is the name of the filter and the value is the list of filter values.
+    /// </param>
     /// <exception cref="ArgumentNullException">
     /// The exception thrown if an invalid search keyword (null or whitespace) is prescribed.
     /// </exception>
@@ -41,7 +49,7 @@ public sealed class SearchServiceAdapterRequest
     /// The exception type thrown if either a null or empty collection of search fields,
     /// or search facets are prescribed.
     /// </exception>
-    public SearchServiceAdapterRequest(string searchKeyword, IList<string> searchFields, IList<string> facets)
+    public SearchServiceAdapterRequest(string searchKeyword, IList<string> searchFields, IList<string> facets, Dictionary<string, object[]>? searchFilterRequests = null)
     {
         SearchKeyword =
             string.IsNullOrWhiteSpace(searchKeyword) ?
@@ -53,6 +61,7 @@ public sealed class SearchServiceAdapterRequest
         Facets = facets == null || facets.Count <= 0 ?
             throw new ArgumentException("", nameof(facets)) : facets;
 
+        SearchFilterRequests = searchFilterRequests;
     }
 
     /// <summary>
