@@ -14,6 +14,7 @@ public sealed class SearchByKeywordUseCaseTests
     private readonly SearchByKeywordUseCase _useCase;
     private ISearchServiceAdapter _searchServiceAdapter;
     private SearchResults _searchResults;
+    private SearchByKeywordCriteria _options = SearchByKeywordCriteriaTestDouble.Create();
 
     public SearchByKeywordUseCaseTests()
     {
@@ -22,8 +23,31 @@ public sealed class SearchByKeywordUseCaseTests
         _searchServiceAdapter =
             SearchServiceAdapterTestDouble.MockFor(_searchResults);
 
-        var options = SearchByKeywordCriteriaTestDouble.Create();
-        _useCase = new(_searchServiceAdapter, IOptionsTestDouble.IOptionsMockFor(options));
+        _useCase = new(_searchServiceAdapter, IOptionsTestDouble.IOptionsMockFor(_options));
+    }
+
+    [Fact]
+    public async Task HandleRequest_ValidRequest_CallsAdapterWithMappedRequestParams()
+    {
+        // arrange
+        SearchServiceAdapterRequest? adapterRequest = null;
+        Mock.Get(_searchServiceAdapter)
+            .Setup(adapter => adapter.SearchAsync(It.IsAny<SearchServiceAdapterRequest>()))
+            .Callback<SearchServiceAdapterRequest>((input) =>
+            {
+                adapterRequest = input;
+            });
+
+        SearchByKeywordRequest request = new("searchkeyword", new List<FilterRequest>() { FilterRequestFake.Create() });
+
+        // act
+        SearchByKeywordResponse response = await _useCase.HandleRequest(request);
+
+        // assert
+        adapterRequest!.SearchKeyword.Should().Be(request.SearchKeyword);
+        adapterRequest!.SearchFields.Should().BeEquivalentTo(_options.SearchFields);
+        adapterRequest!.Facets.Should().BeEquivalentTo(_options.Facets);
+        adapterRequest!.SearchFilterRequests.Should().BeEquivalentTo(request.FilterRequests);
     }
 
     [Fact]
