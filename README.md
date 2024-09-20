@@ -1,7 +1,7 @@
 # data.search-prototype
 ## Using The Nuget Packages From Your Development Machine
 Some Nuget packages referenced by this repository are served under the DfE-Digital organisation.
-The be able to use these Nuget Packages (and others) you must configure your development machine to have a new NuGet Package Source.
+To be able to use these Nuget Packages (and others) you must configure your development machine to have a new NuGet Package Source.
 To do this, you must first create a PAT token that has at least __read access for packages__.
 
 > **NEVER commit your PAT token to GitHub or any other VCS !**
@@ -10,6 +10,10 @@ Next add a package source to your NuGet configuration using the CLI.
 Use the following command, replacing `[USERNAME] with your GitHub username, and `[PAT-TOKEN] with the PAT token you just generated.
 
 `dotnet nuget add source --username "[USERNAME]" --password "[PAT-TOKEN]" --store-password-in-clear-text --name DfE "https://nuget.pkg.github.com/DFE-Digital/index.json"`
+
+Later, to update your stored PAT (if you've had to change it in GitHub)
+
+`dotnet nuget update source DfE --username "[USERNAME]" --password "[PAT-TOKEN]" --store-password-in-clear-text`
 
 > Alternatively you may add a package source directly in Visual Studio.Once you have generated a PAT token you can add a new NuGet Package Source to visual studio. You may be prompted to sign in, if you are then enter your GitHub username and instead of the password enter the PAT token you generated.
 
