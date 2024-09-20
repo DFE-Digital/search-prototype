@@ -6,6 +6,7 @@ public static class FilterRequestFake
 {
     public static FilterRequest Create()
     {
-        return new FilterRequest("FilterName", new List<object>() { "value1", "value2" });
+        var faker = new Bogus.Faker();
+        return new FilterRequest(faker.Name.JobType(), new List<object>() { faker.Name.JobTitle(), faker.Name.JobTitle() });
     }
 }
