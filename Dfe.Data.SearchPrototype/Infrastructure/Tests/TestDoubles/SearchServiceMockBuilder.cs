@@ -58,18 +58,4 @@ internal class SearchServiceMockBuilder
             .Create();
         return MockFor(response, _keyword, _collection);
     }
-
-    public ISearchByKeywordService MockSearchService(string keyword, string collection)
-    {
-        _keyword = keyword;
-        _collection = collection;
-
-        var responseMock = new Mock<Response>();
-        var response =
-                Response.FromValue(
-                    SearchModelFactory.SearchResults(
-                        new SearchResultFakeBuilder().WithSearchResults().Create(), _count, null, null, responseMock.Object), responseMock.Object);
-
-        return MockFor(response, _keyword, _collection);
-    }
 }

@@ -39,7 +39,10 @@ public sealed class CognitiveSearchServiceAdapterTests
 
     public CognitiveSearchServiceAdapterTests()
     {
-        _mockSearchService = new SearchServiceMockBuilder().MockSearchService("SearchKeyword", _options.SearchIndex);
+        _mockSearchService = new SearchServiceMockBuilder()
+            .WithSearchKeywordAndCollection("SearchKeyword", _options.SearchIndex)
+            .WithSearchResults(new SearchResultFakeBuilder().WithSearchResults().Create())
+            .Create();
     }
 
     [Fact]
@@ -100,8 +103,6 @@ public sealed class CognitiveSearchServiceAdapterTests
                 })
             .Returns("some filter string");
 
-        var mockService = new SearchServiceMockBuilder().MockSearchService("SearchKeyword", _options.SearchIndex);
-  
         var searchServiceAdapterRequest = SearchServiceAdapterRequestTestDouble.WithFilters(serviceAdapterInputFilterRequest);
 
         var adapter = new CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>(
