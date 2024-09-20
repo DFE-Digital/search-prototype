@@ -43,7 +43,7 @@ public sealed class CognitiveSearchServiceAdapterTests
     }
 
     [Fact]
-    public async Task Search_SendsPopulatedRequestToSearchService()
+    public async Task Search_SendsCorrectRequestToSearchService()
     {
         // arrange
         string? keywordPassedToSearchService = null;
@@ -57,11 +57,11 @@ public sealed class CognitiveSearchServiceAdapterTests
 
         var mockService = new Mock<ISearchByKeywordService>();
         mockService.Setup(service => service.SearchAsync<DataTransferObjects.Establishment>(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<SearchOptions>()))
-            .Callback<string, string, SearchOptions>((x, y, z) =>
+            .Callback<string, string, SearchOptions>((keyword, index, options) =>
             {
-                keywordPassedToSearchService = x;
-                indexPassedToSearchService = y;
-                searchOptionsPassedToSearchService = z;
+                keywordPassedToSearchService = keyword;
+                indexPassedToSearchService = index;
+                searchOptionsPassedToSearchService = options;
             })
             .Returns(Task.FromResult(searchServiceResponse));
 
@@ -86,18 +86,19 @@ public sealed class CognitiveSearchServiceAdapterTests
     }
 
     [Fact]
-    public void Search_WithFilters_CallsFilterBuilder()
+    public void Search_WithFilters_CallsFilterBuilder_WithComposedFilterRequests()
     {
         // arrange
-        var filterRequest = FilterRequestFake.Create();
-        var serviceAdapterInputFilterRequest = new List<FilterRequest>() { filterRequest };
-        var searchFilterExpressionsBuilderRequest = 
-                new List<SearchFilterRequest>()
-                {
-                    new SearchFilterRequest(filterRequest.FilterName, filterRequest.FilterValues)
-                };
-        var mockSearchFilterExpressionsBuilder = new FilterExpressionBuilderTestDouble()
-            .Create();
+        var serviceAdapterInputFilterRequest = new List<FilterRequest>() { FilterRequestFake.Create(), FilterRequestFake.Create() };
+
+        var mockSearchFilterExpressionsBuilder = new Mock<ISearchFilterExpressionsBuilder>();
+        var requestMadeToFilterExpressionBuilder = new List<SearchFilterRequest>();
+        mockSearchFilterExpressionsBuilder
+            .Setup(builder => builder.BuildSearchFilterExpressions(It.IsAny<IEnumerable<SearchFilterRequest>>()))
+            .Callback<IEnumerable<SearchFilterRequest>>((request) => {
+                    requestMadeToFilterExpressionBuilder = request.ToList();
+                })
+            .Returns("some filter string");
 
         var mockService = new SearchServiceMockBuilder().MockSearchService("SearchKeyword", _options.SearchIndex);
   
@@ -108,13 +109,18 @@ public sealed class CognitiveSearchServiceAdapterTests
                 IOptionsTestDouble.IOptionsMockFor<AzureSearchOptions>(_options),
                 _mockEstablishmentResultsMapper,
                 _mockFacetsMapper,
-                mockSearchFilterExpressionsBuilder);
+                mockSearchFilterExpressionsBuilder.Object);
 
         // act
         var response = adapter.SearchAsync(searchServiceAdapterRequest);
 
         // assert
-        Mock.Get(mockSearchFilterExpressionsBuilder).Verify();
+        foreach(var filterRequest in serviceAdapterInputFilterRequest)
+        {
+            var matchingFilterRequest = requestMadeToFilterExpressionBuilder.First(request => request.FilterKey == filterRequest.FilterName);
+            matchingFilterRequest.Should().NotBeNull();
+            matchingFilterRequest.FilterValues.Should().BeEquivalentTo(filterRequest.FilterValues);
+        }
     }
 
     [Fact]
