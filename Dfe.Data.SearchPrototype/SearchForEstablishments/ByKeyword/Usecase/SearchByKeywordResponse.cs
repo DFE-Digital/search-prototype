@@ -1,4 +1,5 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+using Dfe.Data.SearchPrototype.Shared.Models;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
@@ -15,10 +16,10 @@ public sealed class SearchByKeywordResponse
     public EstablishmentResults? EstablishmentResults { get; init; }
 
     /// <summary>
-    /// The result object that encapsulates the <see cref="EstablishmentFacet"/>
+    /// The result object that encapsulates the <see cref="Facet"/>
     /// returned by the Establishment search.
     /// </summary>
-    public EstablishmentFacets? EstablishmentFacetResults { get; init; }
+    public Facets? EstablishmentFacetResults { get; init; }
 
     /// <summary>
     /// The return status of the call to the <see cref="SearchByKeywordUseCase"/> instance.
@@ -42,12 +43,12 @@ public sealed class SearchByKeywordResponse
     /// The readonly collection of <see cref="EstablishmentResults"/>.
     /// </param>
     /// <param name="facetResults">
-    /// The readonly collection of <see cref="EstablishmentFacets"/>.
+    /// The readonly collection of <see cref="Facets"/>.
     /// </param>
     /// <param name="status">
     /// The <see cref="SearchResponseStatus"/> of the result of the search.
     /// </param>
-    public SearchByKeywordResponse(EstablishmentResults establishments, EstablishmentFacets facetResults, SearchResponseStatus status)
+    public SearchByKeywordResponse(EstablishmentResults establishments, Facets facetResults, SearchResponseStatus status)
     {
         EstablishmentResults = establishments;
         EstablishmentFacetResults = facetResults;

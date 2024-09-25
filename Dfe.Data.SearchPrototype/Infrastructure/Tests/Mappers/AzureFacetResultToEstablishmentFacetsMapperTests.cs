@@ -27,13 +27,13 @@ public sealed class AzureFacetResultToEstablishmentFacetsMapperTests
 
         // assert
         mappedResult.Should().NotBeNull();
-        mappedResult.Facets.Should().NotBeNullOrEmpty();
+        mappedResult.FacetCollection.Should().NotBeNullOrEmpty();
         foreach (var azureFacet in azureFacetsResults)
         {
-            mappedResult.Facets.First(facet => facet.Name == azureFacet.Key).Results.Should().NotBeNullOrEmpty();
+            mappedResult.FacetCollection.First(facet => facet.Name == azureFacet.Key).Results.Should().NotBeNullOrEmpty();
             foreach(var expectedFacet in azureFacetsResults)
             {
-                var mappedFacet = mappedResult.Facets.Single(facet => facet.Name == expectedFacet.Key);
+                var mappedFacet = mappedResult.FacetCollection.Single(facet => facet.Name == expectedFacet.Key);
                 mappedFacet.Should().NotBeNull();
                 foreach(var expectedFacetValue in expectedFacet.Value)
                 {

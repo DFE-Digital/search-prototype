@@ -1,7 +1,9 @@
-﻿namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+﻿using Dfe.Data.SearchPrototype.Shared.Models;
+
+namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 
 /// <summary>
-/// Encapsulates the <see cref="EstablishmentResults"/> and <see cref="EstablishmentFacets"/>
+/// Encapsulates the <see cref="EstablishmentResults"/> and <see cref="Shared.Models.Facets"/>
 /// types that make up the response from the underlying search system.
 /// </summary>
 public class SearchResults
@@ -14,9 +16,9 @@ public class SearchResults
     public EstablishmentResults? Establishments { get; init; }
 
     /// <summary>
-    /// The <see cref="EstablishmentFacets"/> returned from the Establishment search
-    /// which encapsulates the underlying <see cref="EstablishmentFacet"/> collection
+    /// The <see cref="Shared.Models.Facets"/> returned from the Establishment search
+    /// which encapsulates the underlying <see cref="Facet"/> collection
     /// that is built from the underlying search response.
     /// </summary>
-    public EstablishmentFacets? Facets { get; init; }
+    public Facets? Facets { get; init; }
 }

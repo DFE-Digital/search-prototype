@@ -62,7 +62,7 @@ public sealed class SearchByKeywordUseCaseTests
         // assert
         response.Status.Should().Be(SearchResponseStatus.Success);
         response.EstablishmentResults!.Establishments.Should().Contain(_searchResults.Establishments!.Establishments);
-        response.EstablishmentFacetResults!.Facets.Should().Contain(_searchResults.Facets!.Facets);
+        response.EstablishmentFacetResults!.FacetCollection.Should().Contain(_searchResults.Facets!.FacetCollection);
     }
 
     [Fact]

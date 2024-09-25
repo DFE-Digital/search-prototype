@@ -1,6 +1,5 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.Common.Infrastructure.CognitiveSearch.Filtering;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
@@ -8,6 +7,7 @@ using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+using Dfe.Data.SearchPrototype.Shared.Models;
 using FluentAssertions;
 using Xunit;
 
@@ -16,11 +16,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
 public sealed class CognitiveSearchServiceAdapterAndMapperTests
 {
     private readonly IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResponseMapper;
-    private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
-    private readonly ISearchFilterExpressionsBuilder _mockSearchFilterExpressionsBuilder = 
-        new FilterExpressionBuilderTestDouble()
-            .WithResponse("some_filter_name le some_value")
-            .Create();
+    private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, Facets> _facetsMapper;
 
     public CognitiveSearchServiceAdapterAndMapperTests()
     {
@@ -52,8 +48,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
-                _facetsMapper,
-                _mockSearchFilterExpressionsBuilder);
+                _facetsMapper);
 
         // act
         SearchResults? response =
@@ -68,7 +63,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
         response.Establishments.Should().NotBeNull();
         response.Establishments!.Establishments.Count().Should().Be(establishmentSearchResults.Count);
         response.Facets.Should().NotBeNull();
-        response.Facets!.Facets.Count().Should().Be(facetResults.Count());
+        response.Facets!.FacetCollection.Count().Should().Be(facetResults.Count());
     }
 
     [Fact]
@@ -89,8 +84,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
-                _facetsMapper,
-                _mockSearchFilterExpressionsBuilder);
+                _facetsMapper);
 
         // act
         SearchResults? response =
@@ -123,8 +117,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 mockService,
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
-                _facetsMapper,
-                _mockSearchFilterExpressionsBuilder);
+                _facetsMapper);
 
         // act.
         var response =

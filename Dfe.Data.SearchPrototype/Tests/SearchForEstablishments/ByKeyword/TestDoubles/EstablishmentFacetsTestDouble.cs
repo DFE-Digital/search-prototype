@@ -1,16 +1,16 @@
-﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+﻿using Dfe.Data.SearchPrototype.Shared.Models;
 
 namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword.TestDoubles;
 
 public static class EstablishmentFacetsTestDouble
 {
-    public static EstablishmentFacets Create()
+    public static Facets Create()
     {
-        var facets = new List<EstablishmentFacet>(
-            new List<EstablishmentFacet>()
+        var facets = new List<Facet>(
+            new List<Facet>()
             {
-                new EstablishmentFacet("name", new List<FacetResult>() { new FacetResult("value1", 1)})
+                new Facet("name", new List<FacetValue>() { new FacetValue("value1", 1)})
             });
-        return new EstablishmentFacets(facets);
+        return new Facets(facets);
     }
 }

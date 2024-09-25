@@ -1,12 +1,12 @@
 ﻿using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
-using Dfe.Data.Common.Infrastructure.CognitiveSearch.Filtering;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+using Dfe.Data.SearchPrototype.Shared.Models;
 using Microsoft.Extensions.Options;
 using AzureModels = Azure.Search.Documents.Models;
 
@@ -20,9 +20,8 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
     private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
-    private readonly IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> _facetsMapper;
+    private readonly IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, Facets> _facetsMapper;
     private readonly AzureSearchOptions _azureSearchOptions;
-    private readonly ISearchFilterExpressionsBuilder _searchFilterExpressionsBuilder;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -38,24 +37,19 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// Maps the raw Azure search response to the required <see cref="EstablishmentResults"/>
     /// </param>
     /// <param name="facetsMapper">
-    /// Maps the raw Azure search response to the required <see cref="EstablishmentFacets"/>
-    /// </param>
-    /// <param name="searchFilterExpressionsBuilder">
-    /// Builds the search filter expression required by Azure AI Search
+    /// Maps the raw Azure search response to the required <see cref="Facets"/>
     /// </param>
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         IOptions<AzureSearchOptions> azureSearchOptions,
         IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
-        IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> facetsMapper,
-        ISearchFilterExpressionsBuilder searchFilterExpressionsBuilder)
+        IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, Facets> facetsMapper)
     {
         ArgumentNullException.ThrowIfNull(azureSearchOptions.Value);
         _azureSearchOptions = azureSearchOptions.Value;
         _searchByKeywordService = searchByKeywordService;
         _searchResultMapper = searchResultMapper;
         _facetsMapper = facetsMapper;
-        _searchFilterExpressionsBuilder = searchFilterExpressionsBuilder;
     }
 
     /// <summary>
@@ -90,13 +84,6 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 
         searchServiceAdapterRequest.Facets?.ToList()
             .ForEach(searchOptions.Facets.Add);
-
-        if (searchServiceAdapterRequest.SearchFilterRequests?.Count > 0)
-        {
-            searchOptions.Filter = _searchFilterExpressionsBuilder.BuildSearchFilterExpressions(
-                searchServiceAdapterRequest.SearchFilterRequests
-                    .Select(filterRequest => new SearchFilterRequest(filterRequest.FilterName, filterRequest.FilterValues)));
-        }
 
         Response<SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(

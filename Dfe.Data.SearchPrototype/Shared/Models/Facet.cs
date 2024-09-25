@@ -1,11 +1,11 @@
 ﻿using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
-namespace Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+namespace Dfe.Data.SearchPrototype.Shared.Models;
 
 /// <summary>
 /// Encapsulates the Faceted results returned by the <see cref="SearchByKeywordUseCase"/> instance.
 /// </summary>
-public class EstablishmentFacet
+public class Facet
 {
     /// <summary>
     /// The facet (field) name.
@@ -13,21 +13,21 @@ public class EstablishmentFacet
     public string Name { get; }
 
     /// <summary>
-    /// The collection of <see cref="FacetResult"/> instances.
+    /// The collection of <see cref="FacetValue"/> instances.
     /// </summary>
-    public IList<FacetResult> Results { get; }
+    public IList<FacetValue> Results { get; }
 
     /// <summary>
-    ///  Establishes an immutable <see cref="EstablishmentFacet"/> instance via the constructor arguments specified.
+    ///  Establishes an immutable <see cref="Facet"/> instance via the constructor arguments specified.
     /// </summary>
     /// <param name="facetName">
     /// The name of the facet on which to assign the prescribed results.
     /// </param>
     /// <param name="facetResults">
-    /// The collection of <see cref="FacetResult"/> instances that carry
+    /// The collection of <see cref="FacetValue"/> instances that carry
     /// the facet values and count of matched items found.
     /// </param>
-    public EstablishmentFacet(string facetName, IList<FacetResult> facetResults)
+    public Facet(string facetName, IList<FacetValue> facetResults)
     {
         Name = facetName;
         Results = facetResults;
