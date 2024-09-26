@@ -95,7 +95,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
         {
             searchOptions.Filter = _searchFilterExpressionsBuilder.BuildSearchFilterExpressions(
                 searchServiceAdapterRequest.SearchFilterRequests
-                    .Select(x => new SearchFilterRequest(x.FilterName, x.FilterValues)));
+                    .Select(filterRequest => new SearchFilterRequest(filterRequest.FilterName, filterRequest.FilterValues)));
         }
 
         Response<SearchResults<TSearchResult>> searchResults =
