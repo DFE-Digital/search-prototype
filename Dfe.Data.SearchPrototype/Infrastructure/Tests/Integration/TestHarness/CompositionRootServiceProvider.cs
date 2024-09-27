@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Integration.TestHarness;
 
-public class MyServiceProvider
+public class CompositionRootServiceProvider
 {
     public IServiceProvider SetUpServiceProvider(IConfiguration config)
     {
