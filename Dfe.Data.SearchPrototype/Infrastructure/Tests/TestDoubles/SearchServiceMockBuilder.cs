@@ -16,7 +16,6 @@ internal class SearchServiceMockBuilder
 
     private string _keyword = string.Empty;
     private string _collection = string.Empty;
-    private long _count = 100;
     private IEnumerable<SearchResult<Establishment>>? _searchResults;
     private Dictionary<string, IList<FacetResult>>? _facets;
     
