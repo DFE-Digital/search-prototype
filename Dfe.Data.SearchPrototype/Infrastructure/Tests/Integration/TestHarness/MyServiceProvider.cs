@@ -13,10 +13,11 @@ public class MyServiceProvider
     {
         IServiceCollection services = new ServiceCollection();
         services.AddSingleton<IConfiguration>(config);
-        services.AddCognitiveSearchAdaptorServices(config);
-        //services.AddDefaultSearchFilterServices(config);
 
-        // replace Common.Infrastructure services with mocks
+        // this is the extension method to add all the dependencies
+        services.AddCognitiveSearchAdaptorServices(config);
+
+        // Replace Common.Infrastructure services with mocks
         services.RemoveAll<ISearchByKeywordService>();
         var mockSearchService = new SearchServiceMockBuilder()
             .WithSearchKeywordAndCollection("searchKeyword", "establishments")
@@ -25,7 +26,6 @@ public class MyServiceProvider
                 .Create())
             .Create();
         services.AddScoped<ISearchByKeywordService>(provider => mockSearchService);
-
         services.RemoveAll<ISearchFilterExpressionsBuilder>();
         var mockFilterExpressionBuilder = new FilterExpressionBuilderTestDouble().Create();
         services.AddScoped<ISearchFilterExpressionsBuilder>(provider => mockFilterExpressionBuilder);
