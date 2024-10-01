@@ -98,7 +98,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Builders
         }
 
         [Fact]
-        public async Task Build_WithFilters_CallsFilterBuilder_WithComposedFilterRequests()
+        public void Build_WithFilters_CallsFilterBuilder_WithComposedFilterRequests()
         {
             // arrange
             var serviceAdapterInputFilterRequest =
