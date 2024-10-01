@@ -91,7 +91,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
                 }
             };
         }
-        catch (Exception e) // something went wrong in the infrastructure tier.
+        catch (Exception) // something went wrong in the infrastructure tier.
         {
             return new(status: SearchResponseStatus.SearchServiceError);
         }
