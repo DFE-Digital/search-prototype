@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Integration;
 
-public class CognitiveSearchServiceAdaptorIntegrationTests :IClassFixture<ConfigBuilder>, IClassFixture<CompositionRootServiceProvider>
+public class CompositionRootTests :IClassFixture<ConfigBuilder>, IClassFixture<CompositionRootServiceProvider>
 {
     private IConfiguration _configuration;
     private IServiceProvider _serviceProvider;
@@ -17,7 +17,7 @@ public class CognitiveSearchServiceAdaptorIntegrationTests :IClassFixture<Config
             {"AzureSearchOptions:SearchIndex", "establishments" }
         };
 
-    public CognitiveSearchServiceAdaptorIntegrationTests(ConfigBuilder configBuilder, CompositionRootServiceProvider serviceProvider)
+    public CompositionRootTests(ConfigBuilder configBuilder, CompositionRootServiceProvider serviceProvider)
     {
         _configuration = configBuilder.SetupConfiguration(InMemoryConfig);
         _serviceProvider = serviceProvider.SetUpServiceProvider(_configuration);
