@@ -78,11 +78,14 @@ public sealed class CognitiveSearchServiceAdapterTests
                 _mockSearchOptionsBuilder);
 
         // act
-        var response = await cognitiveSearchServiceAdapter.SearchAsync(searchServiceAdapterRequest);
+        _ = await cognitiveSearchServiceAdapter.SearchAsync(searchServiceAdapterRequest);
 
         // assert
         keywordPassedToSearchService.Should().Be(searchServiceAdapterRequest.SearchKeyword);
         indexPassedToSearchService.Should().Be(_options.SearchIndex);
+        searchOptionsPassedToSearchService!.Size.Should().Be(_options.Size);
+        searchOptionsPassedToSearchService!.SearchMode.Should().Be((SearchMode)_options.SearchMode);
+        searchOptionsPassedToSearchService!.IncludeTotalCount.Should().Be(_options.IncludeTotalCount);
         searchOptionsPassedToSearchService!.SearchFields.Should().BeEquivalentTo(searchServiceAdapterRequest.SearchFields);
         searchOptionsPassedToSearchService?.Facets.Should().BeEquivalentTo(searchServiceAdapterRequest.Facets);
     }
