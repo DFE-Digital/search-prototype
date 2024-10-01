@@ -1,9 +1,9 @@
 ﻿using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
-using Dfe.Data.Common.Infrastructure.CognitiveSearch.Filtering;
 using Dfe.Data.Common.Infrastructure.CognitiveSearch.SearchByKeyword;
 using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Infrastructure.Builders;
 using Dfe.Data.SearchPrototype.Infrastructure.Options;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
@@ -19,10 +19,10 @@ namespace Dfe.Data.SearchPrototype.Infrastructure;
 public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServiceAdapter where TSearchResult : class
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
-    private readonly IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
+    private readonly IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
     private readonly IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> _facetsMapper;
     private readonly AzureSearchOptions _azureSearchOptions;
-    private readonly ISearchFilterExpressionsBuilder _searchFilterExpressionsBuilder;
+    private readonly ISearchOptionsBuilder _searchOptionsBuilder;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -40,22 +40,22 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// <param name="facetsMapper">
     /// Maps the raw Azure search response to the required <see cref="EstablishmentFacets"/>
     /// </param>
-    /// <param name="searchFilterExpressionsBuilder">
-    /// Builds the search filter expression required by Azure AI Search
+    /// <param name="searchOptionsBuilder">
+    /// Builds the search options by Azure AI Search
     /// </param>
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         IOptions<AzureSearchOptions> azureSearchOptions,
-        IMapper<Pageable<AzureModels.SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
+        IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
         IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> facetsMapper,
-        ISearchFilterExpressionsBuilder searchFilterExpressionsBuilder)
+        ISearchOptionsBuilder searchOptionsBuilder)
     {
         ArgumentNullException.ThrowIfNull(azureSearchOptions.Value);
         _azureSearchOptions = azureSearchOptions.Value;
         _searchByKeywordService = searchByKeywordService;
         _searchResultMapper = searchResultMapper;
         _facetsMapper = facetsMapper;
-        _searchFilterExpressionsBuilder = searchFilterExpressionsBuilder;
+        _searchOptionsBuilder = searchOptionsBuilder;
     }
 
     /// <summary>
@@ -78,25 +78,15 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     /// </exception>
     public async Task<SearchResults> SearchAsync(SearchServiceAdapterRequest searchServiceAdapterRequest)
     {
-        SearchOptions searchOptions = new()
-        {
-            SearchMode = (SearchMode)_azureSearchOptions.SearchMode,
-            Size = _azureSearchOptions.Size,
-            IncludeTotalCount = _azureSearchOptions.IncludeTotalCount,
-        };
-
-        searchServiceAdapterRequest.SearchFields?.ToList()
-            .ForEach(searchOptions.SearchFields.Add);
-
-        searchServiceAdapterRequest.Facets?.ToList()
-            .ForEach(searchOptions.Facets.Add);
-
-        if (searchServiceAdapterRequest.SearchFilterRequests?.Count > 0)
-        {
-            searchOptions.Filter = _searchFilterExpressionsBuilder.BuildSearchFilterExpressions(
-                searchServiceAdapterRequest.SearchFilterRequests
-                    .Select(filterRequest => new SearchFilterRequest(filterRequest.FilterName, filterRequest.FilterValues)));
-        }
+        SearchOptions searchOptions =
+            _searchOptionsBuilder
+                .WithSearchMode((SearchMode)_azureSearchOptions.SearchMode)
+                .WithSize(_azureSearchOptions.Size)
+                .WithIncludeTotalCount(_azureSearchOptions.IncludeTotalCount)
+                .WithSearchFields(searchServiceAdapterRequest.SearchFields)
+                .WithFacets(searchServiceAdapterRequest.Facets)
+                .WithFilters(searchServiceAdapterRequest.SearchFilterRequests)
+                .Build();
 
         Response<SearchResults<TSearchResult>> searchResults =
             await _searchByKeywordService.SearchAsync<TSearchResult>(
