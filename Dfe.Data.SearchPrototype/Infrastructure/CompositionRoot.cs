@@ -44,13 +44,6 @@ public static class CompositionRoot
                        .GetSection(nameof(AzureSearchOptions))
                        .Bind(settings));
 
-        services.AddOptions<SearchByKeywordCriteria>()
-           .Configure<IConfiguration>(
-               (settings, configuration) =>
-                   configuration
-                       .GetSection(nameof(SearchByKeywordCriteria))
-                       .Bind(settings));
-
         services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>));
         services.AddSingleton(typeof(IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults>), typeof(PageableSearchResultsToEstablishmentResultsMapper));
         services.AddSingleton<IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets>, AzureFacetResultToEstablishmentFacetsMapper>();
