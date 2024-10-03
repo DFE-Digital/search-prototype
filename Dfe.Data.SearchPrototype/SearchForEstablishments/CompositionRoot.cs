@@ -1,6 +1,9 @@
 ﻿using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
+using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments;
 
@@ -27,6 +30,16 @@ public static class CompositionRoot
             throw new ArgumentNullException(nameof(services),
                 "A service collection is required to configure the search by keyword use-case.");
         }
+
+        services.AddOptions<SearchByKeywordCriteria>()
+           .Configure<IConfiguration>(
+               (settings, configuration) =>
+                   configuration
+                       .GetSection(nameof(SearchByKeywordCriteria))
+                       .Bind(settings));
+
+        services.AddSingleton(serviceProvider =>
+            serviceProvider.GetRequiredService<IOptions<SearchByKeywordCriteria>>().Value);
 
         services.AddScoped<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>, SearchByKeywordUseCase>();
     }

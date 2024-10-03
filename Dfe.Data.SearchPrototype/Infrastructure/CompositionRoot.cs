@@ -29,7 +29,7 @@ public static class CompositionRoot
     /// <exception cref="ArgumentNullException">
     /// The exception thrown if no valid <see cref="IServiceCollection"/> is provisioned.
     /// </exception>
-    public static void AddCognitiveSearchAdaptorServices(this IServiceCollection services, IConfiguration configuration)
+    public static void AddCognitiveSearchAdaptorServices(this IServiceCollection services)
     {
         if (services is null)
         {
@@ -42,13 +42,6 @@ public static class CompositionRoot
                (settings, configuration) =>
                    configuration
                        .GetSection(nameof(AzureSearchOptions))
-                       .Bind(settings));
-
-        services.AddOptions<SearchByKeywordCriteria>()
-           .Configure<IConfiguration>(
-               (settings, configuration) =>
-                   configuration
-                       .GetSection(nameof(SearchByKeywordCriteria))
                        .Bind(settings));
 
         services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>));
