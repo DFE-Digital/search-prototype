@@ -1,11 +1,10 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
-using Dfe.Data.Common.Infrastructure.CognitiveSearch.Filtering;
 using Dfe.Data.SearchPrototype.Common.Mappers;
+using Dfe.Data.SearchPrototype.Infrastructure.Builders;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles.Shared;
-using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
 using FluentAssertions;
@@ -17,10 +16,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
 {
     private readonly IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResponseMapper;
     private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
-    private readonly ISearchFilterExpressionsBuilder _mockSearchFilterExpressionsBuilder = 
-        new FilterExpressionBuilderTestDouble()
-            .WithResponse("some_filter_name le some_value")
-            .Create();
+    private readonly ISearchOptionsBuilder _searchOptionsBuilder = SearchOptionsBuilderTestDouble.MockFor(new Azure.Search.Documents.SearchOptions());
 
     public CognitiveSearchServiceAdapterAndMapperTests()
     {
@@ -53,7 +49,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
                 _facetsMapper,
-                _mockSearchFilterExpressionsBuilder);
+                _searchOptionsBuilder);
 
         // act
         SearchResults? response =
@@ -90,7 +86,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
                 _facetsMapper,
-                _mockSearchFilterExpressionsBuilder);
+                _searchOptionsBuilder);
 
         // act
         SearchResults? response =
@@ -124,7 +120,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 IOptionsTestDouble.IOptionsMockFor(options),
                 _searchResponseMapper,
                 _facetsMapper,
-                _mockSearchFilterExpressionsBuilder);
+                _searchOptionsBuilder);
 
         // act.
         var response =

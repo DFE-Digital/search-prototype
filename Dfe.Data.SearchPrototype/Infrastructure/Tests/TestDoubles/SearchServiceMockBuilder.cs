@@ -16,7 +16,6 @@ internal class SearchServiceMockBuilder
 
     private string _keyword = string.Empty;
     private string _collection = string.Empty;
-    private long _count = 100;
     private IEnumerable<SearchResult<Establishment>>? _searchResults;
     private Dictionary<string, IList<FacetResult>>? _facets;
     
@@ -56,20 +55,6 @@ internal class SearchServiceMockBuilder
             .WithSearchResults(_searchResults)
             .WithFacets(_facets)
             .Create();
-        return MockFor(response, _keyword, _collection);
-    }
-
-    public ISearchByKeywordService MockSearchService(string keyword, string collection)
-    {
-        _keyword = keyword;
-        _collection = collection;
-
-        var responseMock = new Mock<Response>();
-        var response =
-                Response.FromValue(
-                    SearchModelFactory.SearchResults(
-                        new SearchResultFakeBuilder().WithSearchResults().Create(), _count, null, null, responseMock.Object), responseMock.Object);
-
         return MockFor(response, _keyword, _collection);
     }
 }
