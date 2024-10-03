@@ -31,5 +31,6 @@ public class CompositionRootTests : IClassFixture<CompositionRootServiceProvider
         var response = await usecase.HandleRequest(new SearchByKeywordRequest("searchkeyword"));
 
         response.Should().NotBeNull();
+        response.Status.Should().Be(SearchResponseStatus.Success);
     }
 }
