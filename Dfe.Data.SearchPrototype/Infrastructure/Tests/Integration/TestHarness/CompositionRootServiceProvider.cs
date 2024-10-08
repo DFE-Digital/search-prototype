@@ -15,7 +15,7 @@ public class CompositionRootServiceProvider
         services.AddSingleton<IConfiguration>(config);
 
         // this is the extension method to add all the dependencies
-        services.AddCognitiveSearchAdaptorServices(config);
+        services.AddCognitiveSearchAdaptorServices();
 
         // Replace Common.Infrastructure services with mocks
         services.RemoveAll<ISearchByKeywordService>();
@@ -25,10 +25,10 @@ public class CompositionRootServiceProvider
                 .WithSearchResults()
                 .Create())
             .Create();
-        services.AddScoped<ISearchByKeywordService>(provider => mockSearchService);
+        services.AddScoped(provider => mockSearchService);
         services.RemoveAll<ISearchFilterExpressionsBuilder>();
         var mockFilterExpressionBuilder = new FilterExpressionBuilderTestDouble().Create();
-        services.AddScoped<ISearchFilterExpressionsBuilder>(provider => mockFilterExpressionBuilder);
+        services.AddScoped(provider => mockFilterExpressionBuilder);
 
         return services.BuildServiceProvider();
     }
