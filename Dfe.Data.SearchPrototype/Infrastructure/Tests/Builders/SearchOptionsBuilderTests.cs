@@ -131,5 +131,23 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Builders
                 matchingFilterRequest.FilterValues.Should().BeEquivalentTo(filterRequest.FilterValues);
             }
         }
+
+        [Fact]
+        public void Build_WithFiltersNullSearchFilterExpressionsBuilder_ByPassesFilterBuilderCall()
+        {
+            // arrange
+            var serviceAdapterInputFilterRequest =
+                new List<FilterRequest>() { FilterRequestFake.Create(), FilterRequestFake.Create() };
+
+            ISearchOptionsBuilder searchOptionsBuilder =
+                new SearchOptionsBuilder(searchFilterExpressionsBuilder: null);
+
+            // act
+            SearchOptions searchOptions =
+                searchOptionsBuilder.WithFilters(serviceAdapterInputFilterRequest).Build();
+
+            // assert
+            searchOptions.Filter.Should().BeNull();
+        }
     }
 }

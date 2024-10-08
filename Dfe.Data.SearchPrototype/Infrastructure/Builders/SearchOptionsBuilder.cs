@@ -12,7 +12,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Builders
     public sealed class SearchOptionsBuilder : ISearchOptionsBuilder
     {
         private readonly SearchOptions _searchOptions;
-        private readonly ISearchFilterExpressionsBuilder _searchFilterExpressionsBuilder;
+        private readonly ISearchFilterExpressionsBuilder? _searchFilterExpressionsBuilder;
 
         private SearchMode? _searchMode;
         private int? _size;
@@ -29,9 +29,12 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Builders
         /// <param name="searchFilterExpressionsBuilder">
         /// Builds the search filter expression required by Azure AI Search
         /// </param>
-        public SearchOptionsBuilder(ISearchFilterExpressionsBuilder searchFilterExpressionsBuilder)
+        public SearchOptionsBuilder(ISearchFilterExpressionsBuilder? searchFilterExpressionsBuilder = null)
         {
-            _searchFilterExpressionsBuilder = searchFilterExpressionsBuilder;
+            if (searchFilterExpressionsBuilder != null){
+                _searchFilterExpressionsBuilder = searchFilterExpressionsBuilder;
+            }
+
             _searchOptions = new SearchOptions();
         }
 
@@ -140,7 +143,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Builders
             _searchFields?.ToList().ForEach(_searchOptions.SearchFields.Add);
             _facets?.ToList().ForEach(_searchOptions.Facets.Add);
 
-            if (_filters?.Count > 0)
+            if (_filters?.Count > 0 && _searchFilterExpressionsBuilder != null)
             {
                 _searchOptions.Filter =
                     _searchFilterExpressionsBuilder.BuildSearchFilterExpressions(
