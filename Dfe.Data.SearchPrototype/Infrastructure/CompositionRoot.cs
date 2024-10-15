@@ -39,11 +39,13 @@ public static class CompositionRoot
         }
 
         services.AddOptions<AzureSearchOptions>()
-           .Configure<IConfiguration>(
+            .Configure<IConfiguration>(
                (settings, configuration) =>
                    configuration
-                       .GetSection(nameof(AzureSearchOptions))
-                       .Bind(settings));
+                .GetSection(nameof(AzureSearchOptions))
+                .Bind(settings))
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
 
         services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>));
         services.AddScoped<ISearchOptionsBuilder, SearchOptionsBuilder>();

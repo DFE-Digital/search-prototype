@@ -36,8 +36,9 @@ public static class CompositionRoot
            .Configure<IConfiguration>(
                (settings, configuration) =>
                    configuration
-                       .GetSection(nameof(SearchByKeywordCriteria))
-                       .Bind(settings));
+                    .GetSection(nameof(SearchByKeywordCriteria))
+                    .Bind(settings));
+
         services.AddScoped<IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>, SearchByKeywordUseCase>();
     }
 }
