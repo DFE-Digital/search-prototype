@@ -14,7 +14,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests;
 
 public sealed class CognitiveSearchServiceAdapterAndMapperTests
 {
-    private readonly IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResponseMapper;
+    private readonly IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> _searchResponseMapper;
     private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _facetsMapper;
     private readonly ISearchOptionsBuilder _searchOptionsBuilder = SearchOptionsBuilderTestDouble.MockFor(new Azure.Search.Documents.SearchOptions());
 

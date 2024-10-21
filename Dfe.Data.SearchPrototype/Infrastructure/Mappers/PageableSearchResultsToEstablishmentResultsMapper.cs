@@ -10,7 +10,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 /// Facilitates mapping from the received <see cref="Models.SearchResults"/> 
 /// into the required <see cref="Models.EstablishmentResults"/>  object.
 /// </summary>
-public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, Models.EstablishmentResults>
+public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), Models.EstablishmentResults>
 {
     private readonly IMapper<DataTransferObjects.Establishment, Models.Establishment> _azureSearchResultToEstablishmentMapper;
 
@@ -44,19 +44,19 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-    public Models.EstablishmentResults MapFrom(Pageable<SearchResult<DataTransferObjects.Establishment>> input)
+    public Models.EstablishmentResults MapFrom((Pageable<SearchResult<DataTransferObjects.Establishment>>, long?) input)
     {
         ArgumentNullException.ThrowIfNull(input);
-
-        if (input.Any())
+        
+        if (input.Item1.Any())
         {
-            var mappedResults = input.Select(result =>
+            var mappedResults = input.Item1.Select(result =>
                  result.Document != null
                     ? _azureSearchResultToEstablishmentMapper.MapFrom(result.Document)
                     : throw new InvalidOperationException(
                         "Search result document object cannot be null.")
                 );
-            return new Models.EstablishmentResults(mappedResults);
+            return new Models.EstablishmentResults(mappedResults, input.Item2);
         }
         else
         {

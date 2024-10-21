@@ -15,6 +15,12 @@ public sealed class EstablishmentResults
     private readonly List<Establishment> _establishments;
 
     /// <summary>
+    /// The Total Count returned from Establishment search gives us a total
+    /// of all avaialable records which correlates with the given search criteria.
+    /// </summary>
+    public long? TotalNumberOfEstablishments {  get; }
+
+    /// <summary>
     ///  Default constructor initialises a new readonly
     ///  collection of <see cref="Establishment"/> instances.
     /// </summary>
@@ -30,8 +36,13 @@ public sealed class EstablishmentResults
     /// <param name="establishments">
     /// Collection of configured <see cref="Establishment"/> instances.
     /// </param>
-    public EstablishmentResults(IEnumerable<Establishment> establishments)
+    /// <param name="totalNumberOfEstablishments">
+    /// The Total Count returned from Establishment search gives us a total
+    /// of all avaialable records which correlates with the given search criteria.
+    /// </param>
+    public EstablishmentResults(IEnumerable<Establishment> establishments, long? totalNumberOfEstablishments)
     {
         _establishments = establishments.ToList();
+        TotalNumberOfEstablishments = totalNumberOfEstablishments;
     }
 }

@@ -9,11 +9,11 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 
 internal static class PageableSearchResultsToEstablishmentResultsMapperTestDouble
 {
-    public static IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> DefaultMock() =>
-        Mock.Of<IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults>>();
+    public static IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> DefaultMock() =>
+        Mock.Of<IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults>>();
 
-    public static Expression<Func<IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults>, EstablishmentResults>> MapFrom() =>
-        mapper => mapper.MapFrom(It.IsAny<Pageable<SearchResult<DataTransferObjects.Establishment>>>());
+    public static Expression<Func<IMapper<Tuple<Pageable<SearchResult<DataTransferObjects.Establishment>>, long?>>, EstablishmentResults>, EstablishmentResults>> MapFrom() =>
+        mapper => mapper.MapFrom(It.IsAny<Tuple <Pageable<SearchResult<DataTransferObjects.Establishment>>, long?>>());
 
     public static IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> MockFor(EstablishmentResults establishments)
     {
@@ -24,9 +24,9 @@ internal static class PageableSearchResultsToEstablishmentResultsMapperTestDoubl
         return mapperMock.Object;
     }
 
-    public static IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> MockMapperThrowingArgumentException()
+    public static IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> MockMapperThrowingArgumentException()
     {
-        var mapperMock = new Mock<IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults>>();
+        var mapperMock = new Mock<IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults>>();
 
         mapperMock.Setup(MapFrom()).Throws(new ArgumentException());
 
