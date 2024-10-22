@@ -12,9 +12,9 @@ namespace Dfe.Data.SearchPrototype.Tests.SearchForEstablishments.ByKeyword;
 public sealed class SearchByKeywordUseCaseTests
 {
     private readonly SearchByKeywordUseCase _useCase;
-    private ISearchServiceAdapter _searchServiceAdapter;
-    private SearchResults _searchResults;
-    private SearchByKeywordCriteria _options = SearchByKeywordCriteriaTestDouble.Create();
+    private readonly ISearchServiceAdapter _searchServiceAdapter;
+    private readonly SearchResults _searchResults;
+    private readonly SearchByKeywordCriteria _searchByKeywordCriteriaStub = SearchByKeywordCriteriaTestDouble.Create();
 
     public SearchByKeywordUseCaseTests()
     {
@@ -23,7 +23,7 @@ public sealed class SearchByKeywordUseCaseTests
         _searchServiceAdapter =
             SearchServiceAdapterTestDouble.MockFor(_searchResults);
 
-        _useCase = new(_searchServiceAdapter, IOptionsTestDouble.IOptionsMockFor(_options));
+        _useCase = new(_searchServiceAdapter, _searchByKeywordCriteriaStub);
     }
 
     [Fact]
@@ -45,8 +45,8 @@ public sealed class SearchByKeywordUseCaseTests
 
         // assert
         adapterRequest!.SearchKeyword.Should().Be(request.SearchKeyword);
-        adapterRequest!.SearchFields.Should().BeEquivalentTo(_options.SearchFields);
-        adapterRequest!.Facets.Should().BeEquivalentTo(_options.Facets);
+        adapterRequest!.SearchFields.Should().BeEquivalentTo(_searchByKeywordCriteriaStub.SearchFields);
+        adapterRequest!.Facets.Should().BeEquivalentTo(_searchByKeywordCriteriaStub.Facets);
         adapterRequest!.SearchFilterRequests.Should().BeEquivalentTo(request.FilterRequests);
     }
 
