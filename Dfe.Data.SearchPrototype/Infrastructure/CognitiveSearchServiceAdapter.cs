@@ -60,7 +60,8 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
 
     /// <summary>
     /// Makes call to underlying azure cognitive search service and uses the prescribed mapper
-    /// to adapt the raw Azure search results to the <see cref="SearchResults"/> type.
+    /// to adapt the raw Azure search results to the <see cref="SearchResults"/> type. Facets are 
+    /// returned in alphabetical order.
     /// </summary>
     /// <param name="searchServiceAdapterRequest">
     /// Prescribes the context of the search including the keyword and collection target.
@@ -102,7 +103,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
         {
             Establishments = _searchResultMapper.MapFrom(searchResults.Value.GetResults()),
             Facets = searchResults.Value.Facets != null
-                ? _facetsMapper.MapFrom(searchResults.Value.Facets.ToDictionary())
+                ? _facetsMapper.MapFrom(searchResults.Value.Facets.OrderBy(facet => facet.Key).ToDictionary())
                 : null
         };
 

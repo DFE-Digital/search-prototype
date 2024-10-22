@@ -18,7 +18,7 @@ internal class SearchServiceMockBuilder
     private string _collection = string.Empty;
     private IEnumerable<SearchResult<Establishment>>? _searchResults;
     private Dictionary<string, IList<FacetResult>>? _facets;
-    
+
     public ISearchByKeywordService MockFor(Response<SearchResults<Establishment>> searchResult, string keyword, string collection)
     {
         var searchServiceMock = new Mock<ISearchByKeywordService>();
