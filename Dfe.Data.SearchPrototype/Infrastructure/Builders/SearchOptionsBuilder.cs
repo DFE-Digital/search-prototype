@@ -16,6 +16,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Builders
 
         private SearchMode? _searchMode;
         private int? _size;
+        private int? _offset;
         private bool? _includeTotalCount;
         private IList<string>? _searchFields;
         private IList<string>? _facets;
@@ -50,6 +51,22 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Builders
         public ISearchOptionsBuilder WithSize(int? size)
         {
             _size = size;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the value used to define how many
+        /// records are skipped in the search response (if any).
+        /// </summary>
+        /// <param name="offset">
+        /// The number of initial search results to skip.
+        /// </param>
+        /// <returns>
+        /// The updated builder instance.
+        /// </returns>
+        public ISearchOptionsBuilder WithOffset(int? offset)
+        {
+            _offset = offset;
             return this;
         }
 
@@ -139,6 +156,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Builders
         {
             _searchOptions.SearchMode = _searchMode;
             _searchOptions.Size = _size;
+            _searchOptions.Skip = _offset;
             _searchOptions.IncludeTotalCount = _includeTotalCount;
             _searchFields?.ToList().ForEach(_searchOptions.SearchFields.Add);
             _facets?.ToList().ForEach(_searchOptions.Facets.Add);

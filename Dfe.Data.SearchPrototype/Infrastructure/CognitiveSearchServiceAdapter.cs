@@ -82,6 +82,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
             _searchOptionsBuilder
                 .WithSearchMode((SearchMode)_azureSearchOptions.SearchMode)
                 .WithSize(_azureSearchOptions.Size)
+                .WithOffset(searchServiceAdapterRequest.Offset)
                 .WithIncludeTotalCount(_azureSearchOptions.IncludeTotalCount)
                 .WithSearchFields(searchServiceAdapterRequest.SearchFields)
                 .WithFacets(searchServiceAdapterRequest.Facets)

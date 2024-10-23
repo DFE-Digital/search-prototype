@@ -56,6 +56,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
+                    offset: 0,
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
                     facets: ["FACET1", "FACET2", "FACET3"]));
 
@@ -93,6 +94,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
+                    offset: 0,
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
                     facets: ["FACET1", "FACET2", "FACET3"]));
 
@@ -127,6 +129,7 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
+                    offset: 0,
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
                     facets: ["FACET1", "FACET2", "FACET3"]));
 

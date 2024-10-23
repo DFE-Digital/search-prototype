@@ -14,6 +14,11 @@ public sealed class SearchServiceAdapterRequest
     public string SearchKeyword { get; }
 
     /// <summary>
+    /// The value used to define how many records are skipped in the search response (if any).
+    /// </summary>
+    public int Offset { get; }
+
+    /// <summary>
     /// The collection of fields in the underlying collection to search over.
     /// </summary>
     public IList<string> SearchFields { get; }
@@ -35,6 +40,9 @@ public sealed class SearchServiceAdapterRequest
     /// <param name="searchKeyword">
     /// The search keyword(s) to be applied.
     /// </param>
+    /// <param name="offset">
+    /// The value used to define how many records are skipped in the search response (if any).
+    /// </param>
     /// <param name="searchFields">
     /// The collection of fields in the underlying collection to search over.
     /// </param>
@@ -51,7 +59,12 @@ public sealed class SearchServiceAdapterRequest
     /// The exception type thrown if either a null or empty collection of search fields,
     /// or search facets are prescribed.
     /// </exception>
-    public SearchServiceAdapterRequest(string searchKeyword, IList<string> searchFields, IList<string> facets, IList<FilterRequest>? searchFilterRequests = null)
+    public SearchServiceAdapterRequest(
+        string searchKeyword,
+        int offset,
+        IList<string> searchFields,
+        IList<string> facets,
+        IList<FilterRequest>? searchFilterRequests = null)
     {
         SearchKeyword =
             string.IsNullOrWhiteSpace(searchKeyword) ?
@@ -64,6 +77,8 @@ public sealed class SearchServiceAdapterRequest
             throw new ArgumentException("", nameof(facets)) : facets;
 
         SearchFilterRequests = searchFilterRequests;
+
+        Offset = offset;
     }
 
     /// <summary>
@@ -71,6 +86,9 @@ public sealed class SearchServiceAdapterRequest
     /// </summary>
     /// <param name="searchKeyword">
     /// The keyword string which defines the search.
+    /// </param>
+    /// /// <param name="offset">
+    /// The value used to define how many records are skipped in the search response (if any).
     /// </param>
     /// <param name="searchFields">
     /// The collection of fields in the underlying collection to search over.
@@ -82,6 +100,6 @@ public sealed class SearchServiceAdapterRequest
     /// A configured <see cref="SearchServiceAdapterRequest"/> instance.
     /// </returns>
     public static SearchServiceAdapterRequest Create(
-        string searchKeyword, IList<string> searchFields, IList<string> facets) =>
-            new(searchKeyword, searchFields, facets);
+        string searchKeyword, int offset, IList<string> searchFields, IList<string> facets) =>
+            new(searchKeyword, offset, searchFields, facets);
 }
