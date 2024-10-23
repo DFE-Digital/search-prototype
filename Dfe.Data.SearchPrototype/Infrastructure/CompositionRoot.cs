@@ -47,7 +47,7 @@ public static class CompositionRoot
 
         services.AddScoped(typeof(ISearchServiceAdapter), typeof(CognitiveSearchServiceAdapter<DataTransferObjects.Establishment>));
         services.AddScoped<ISearchOptionsBuilder, SearchOptionsBuilder>();
-        services.AddSingleton(typeof(IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults>), typeof(PageableSearchResultsToEstablishmentResultsMapper));
+        services.AddSingleton(typeof(IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults>), typeof(PageableSearchResultsToEstablishmentResultsMapper));
         services.AddSingleton<IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets>, AzureFacetResultToEstablishmentFacetsMapper>();
         services.AddSingleton<IMapper<DataTransferObjects.Establishment, Address>, AzureSearchResultToAddressMapper>();
         services.AddSingleton<IMapper<DataTransferObjects.Establishment, Establishment>, AzureSearchResultToEstablishmentMapper>();

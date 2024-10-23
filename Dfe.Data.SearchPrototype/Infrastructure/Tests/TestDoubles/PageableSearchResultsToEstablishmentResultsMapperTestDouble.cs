@@ -12,12 +12,12 @@ internal static class PageableSearchResultsToEstablishmentResultsMapperTestDoubl
     public static IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> DefaultMock() =>
         Mock.Of<IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults>>();
 
-    public static Expression<Func<IMapper<Tuple<Pageable<SearchResult<DataTransferObjects.Establishment>>, long?>>, EstablishmentResults>, EstablishmentResults>> MapFrom() =>
-        mapper => mapper.MapFrom(It.IsAny<Tuple <Pageable<SearchResult<DataTransferObjects.Establishment>>, long?>>());
+    public static Expression<Func<IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults>, EstablishmentResults>> MapFrom() =>
+        mapper => mapper.MapFrom(It.IsAny<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long ?)>());
 
-    public static IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> MockFor(EstablishmentResults establishments)
+    public static IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> MockFor(EstablishmentResults establishments)
     {
-        var mapperMock = new Mock<IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults>>();
+        var mapperMock = new Mock<IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults>>();
 
         mapperMock.Setup(MapFrom()).Returns(establishments);
 

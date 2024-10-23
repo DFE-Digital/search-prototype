@@ -1,7 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestHelpers;
@@ -13,7 +12,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Mappers;
 
 public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
 {
-    IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _searchResultsMapper;
+    IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> _searchResultsMapper;
 
     public PageableSearchResultsToEstablishmentResultsMapperTests()
     {
@@ -32,7 +31,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
         var pageableSearchResults = PageableTestDouble.FromResults(searchResultDocuments);
 
         // act
-        EstablishmentResults? mappedResult = _searchResultsMapper.MapFrom(pageableSearchResults);
+        EstablishmentResults? mappedResult = _searchResultsMapper.MapFrom((pageableSearchResults, 100));
 
         // assert
         mappedResult.Should().NotBeNull();
@@ -47,7 +46,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
     public void MapFrom_WithEmptySearchResults_ReturnsEmptyList()
     {
         // act
-        EstablishmentResults? result = _searchResultsMapper.MapFrom(PageableTestDouble.FromResults(SearchResultFake.EmptySearchResult()));
+        EstablishmentResults? result = _searchResultsMapper.MapFrom((PageableTestDouble.FromResults(SearchResultFake.EmptySearchResult()), 100));
 
         // assert
         result.Should().NotBeNull();
@@ -60,10 +59,10 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
         // act.
         _searchResultsMapper
             .Invoking(mapper =>
-                mapper.MapFrom(null!))
+                mapper.MapFrom((null!, 0)))
                     .Should()
                         .Throw<ArgumentNullException>()
-                        .WithMessage("Value cannot be null. (Parameter 'input')");
+                        .WithMessage("Value cannot be null. (Parameter 'source')");
     }
 
     [Fact]
@@ -77,7 +76,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
         // act.
         _searchResultsMapper
             .Invoking(mapper =>
-                mapper.MapFrom(PageableTestDouble.FromResults(searchResultDocuments)))
+                mapper.MapFrom((PageableTestDouble.FromResults(searchResultDocuments), 100)))
                     .Should()
                         .Throw<InvalidOperationException>()
                         .WithMessage("Search result document object cannot be null.");

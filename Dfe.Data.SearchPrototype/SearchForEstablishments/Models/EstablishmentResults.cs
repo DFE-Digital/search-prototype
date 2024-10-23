@@ -6,17 +6,17 @@
 /// </summary>
 public sealed class EstablishmentResults
 {
+    private readonly List<Establishment> _establishments;
+
     /// <summary>
     /// The readonly collection of <see cref="Establishment"/>
     /// types derived from the underlying search mechanism.
     /// </summary>
     public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
 
-    private readonly List<Establishment> _establishments;
-
     /// <summary>
     /// The Total Count returned from Establishment search gives us a total
-    /// of all avaialable records which correlates with the given search criteria.
+    /// of all available records which correlates with the given search criteria.
     /// </summary>
     public long? TotalNumberOfEstablishments {  get; }
 
@@ -38,7 +38,7 @@ public sealed class EstablishmentResults
     /// </param>
     /// <param name="totalNumberOfEstablishments">
     /// The Total Count returned from Establishment search gives us a total
-    /// of all avaialable records which correlates with the given search criteria.
+    /// of all available records which correlates with the given search criteria.
     /// </param>
     public EstablishmentResults(IEnumerable<Establishment> establishments, long? totalNumberOfEstablishments)
     {

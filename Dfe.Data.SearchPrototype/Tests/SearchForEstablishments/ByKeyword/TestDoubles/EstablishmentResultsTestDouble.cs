@@ -13,7 +13,7 @@ public static class EstablishmentResultsTestDouble
             establishments.Add(
                 EstablishmentTestDouble.Create());
         }
-        return new EstablishmentResults(establishments);
+        return new EstablishmentResults(establishments, 100);
     }
 
     public static EstablishmentResults CreateWithNoResults()
