@@ -24,13 +24,10 @@ public static class CompositionRoot
     /// <param name="services">
     /// The originating application services onto which to register the search dependencies.
     /// </param>
-    /// <param name="configuration">
-    /// The originating configuration block from which to derive search service settings.
-    /// </param>
     /// <exception cref="ArgumentNullException">
     /// The exception thrown if no valid <see cref="IServiceCollection"/> is provisioned.
     /// </exception>
-    public static void AddCognitiveSearchAdaptorServices(this IServiceCollection services, IConfiguration configuration)
+    public static void AddCognitiveSearchAdaptorServices(this IServiceCollection services)
     {
         if (services is null)
         {
