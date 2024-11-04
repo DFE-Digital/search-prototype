@@ -30,6 +30,22 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.Builders
         }
 
         [Fact]
+        public void Build_WithOfset_SearchOptionsWithCorrectOffset()
+        {
+            // arrange
+            ISearchFilterExpressionsBuilder mockSearchFilterExpressionsBuilder = new FilterExpressionBuilderTestDouble().Create();
+
+            ISearchOptionsBuilder searchOptionsBuilder = new SearchOptionsBuilder(mockSearchFilterExpressionsBuilder);
+
+            // act
+            SearchOptions searchOptions = searchOptionsBuilder.WithOffset(offset: 39).Build();
+
+            // assert
+            searchOptions.Should().NotBeNull();
+            searchOptions.Skip.Should().Be(39);
+        }
+
+        [Fact]
         public void Build_WithSearchMode_SearchOptionsWithCorrectSearchMode()
         {
             // arrange
