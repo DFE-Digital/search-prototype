@@ -92,7 +92,6 @@ public sealed class SearchServiceAdapterRequest
     /// <param name="facets">
     /// The collection of facets to apply in the search request.
     /// </param>
-    /// </param>
     /// <param name="offset">
     /// The value used to define how many records are skipped in the search response (if any).
     /// </param>
