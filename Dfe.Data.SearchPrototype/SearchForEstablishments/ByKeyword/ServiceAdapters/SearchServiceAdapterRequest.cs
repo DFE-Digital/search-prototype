@@ -86,15 +86,15 @@ public sealed class SearchServiceAdapterRequest
     /// </summary>
     /// <param name="searchKeyword">
     /// The keyword string which defines the search.
-    /// </param>
-    /// /// <param name="offset">
-    /// The value used to define how many records are skipped in the search response (if any).
-    /// </param>
     /// <param name="searchFields">
     /// The collection of fields in the underlying collection to search over.
     /// </param>
     /// <param name="facets">
     /// The collection of facets to apply in the search request.
+    /// </param>
+    /// </param>
+    /// <param name="offset">
+    /// The value used to define how many records are skipped in the search response (if any).
     /// </param>
     /// <returns>
     /// A configured <see cref="SearchServiceAdapterRequest"/> instance.

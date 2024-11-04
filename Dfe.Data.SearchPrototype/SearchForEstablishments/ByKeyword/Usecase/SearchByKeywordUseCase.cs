@@ -76,8 +76,8 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
                 await _searchServiceAdapter.SearchAsync(
                     new SearchServiceAdapterRequest(
                         request.SearchKeyword,
-                        _searchByKeywordCriteriaOptions.SearchFields,
-                        _searchByKeywordCriteriaOptions.Facets,
+                        _searchByKeywordCriteria.SearchFields,
+                        _searchByKeywordCriteria.Facets,
                         request.FilterRequests,
                         request.Offset));
 
