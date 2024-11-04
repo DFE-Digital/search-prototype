@@ -80,25 +80,4 @@ public sealed class SearchServiceAdapterRequest
 
         Offset = offset;
     }
-
-    /// <summary>
-    /// Factory method to allow implicit creation of a T:Dfe.Data.SearchPrototype.Search.SearchContext instance.
-    /// </summary>
-    /// <param name="searchKeyword">
-    /// The keyword string which defines the search.
-    /// <param name="searchFields">
-    /// The collection of fields in the underlying collection to search over.
-    /// </param>
-    /// <param name="facets">
-    /// The collection of facets to apply in the search request.
-    /// </param>
-    /// <param name="offset">
-    /// The value used to define how many records are skipped in the search response (if any).
-    /// </param>
-    /// <returns>
-    /// A configured <see cref="SearchServiceAdapterRequest"/> instance.
-    /// </returns>
-    public static SearchServiceAdapterRequest Create(
-        string searchKeyword, IList<string> searchFields, IList<string> facets) =>
-            new(searchKeyword, searchFields, facets);
 }
