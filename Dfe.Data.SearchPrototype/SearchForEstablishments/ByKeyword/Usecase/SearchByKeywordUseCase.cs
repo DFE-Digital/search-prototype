@@ -1,7 +1,6 @@
 ﻿using Dfe.Data.SearchPrototype.Common.CleanArchitecture.Application.UseCase;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.ServiceAdapters;
 using Dfe.Data.SearchPrototype.SearchForEstablishments.Models;
-using Microsoft.Extensions.Options;
 
 namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 
@@ -14,7 +13,7 @@ namespace Dfe.Data.SearchPrototype.SearchForEstablishments.ByKeyword.Usecase;
 public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, SearchByKeywordResponse>
 {
     private readonly ISearchServiceAdapter _searchServiceAdapter;
-    private readonly SearchByKeywordCriteria _searchByKeywordCriteriaOptions;
+    private readonly SearchByKeywordCriteria _searchByKeywordCriteria;
 
     /// <summary>
     /// The following dependencies include the core cognitive search service definition,
@@ -24,7 +23,7 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// The concrete  implementation of the T:Dfe.Data.SearchPrototype.Search.ISearchServiceAdapter
     /// defined within, and injected by the IOC container.
     /// </param>
-    /// <param name="searchByKeywordCriteriaOptions">
+    /// <param name="searchByKeywordCriteria">
     /// The <see cref="SearchByKeywordCriteria"/> define the search fields and facets on
     /// which to conduct the underlying search. This is defined in configuration using
     /// the options pattern as follows (note: fields and facets used are for explanatory use only),
@@ -44,10 +43,10 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
     /// </param>
     public SearchByKeywordUseCase(
         ISearchServiceAdapter searchServiceAdapter,
-        IOptions<SearchByKeywordCriteria> searchByKeywordCriteriaOptions)
+        SearchByKeywordCriteria searchByKeywordCriteria)
     {
-        ArgumentNullException.ThrowIfNull(searchByKeywordCriteriaOptions);
-        _searchByKeywordCriteriaOptions = searchByKeywordCriteriaOptions.Value;
+        ArgumentNullException.ThrowIfNull(searchByKeywordCriteria);
+        _searchByKeywordCriteria = searchByKeywordCriteria;
         _searchServiceAdapter = searchServiceAdapter;
     }
 
