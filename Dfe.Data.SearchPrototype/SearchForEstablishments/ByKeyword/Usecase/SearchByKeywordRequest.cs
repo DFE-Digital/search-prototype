@@ -15,7 +15,8 @@ public sealed class SearchByKeywordRequest
     /// The string keyword used to search the collection specified.
     /// </param>
     /// <param name="offset">
-    /// The value used to define how many records are skipped in the search response (if any).
+    /// The value used to define how many records are skipped in the search
+    /// response (if any), by default we choose not to skip any records.
     /// </param> 
     public SearchByKeywordRequest(string searchKeyword, int offset = 0)
     {

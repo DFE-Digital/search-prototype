@@ -50,7 +50,8 @@ public sealed class SearchServiceAdapterRequest
     /// Dictionary of search filter requests where key is the name of the filter and the value is the list of filter values.
     /// </param>
     /// <param name="offset">
-    /// The value used to define how many records are skipped in the search response (if any).
+    /// The value used to define how many records are skipped in the search response
+    /// (if any), by default we choose not to skip any records.
     /// </param>
     /// <exception cref="ArgumentNullException">
     /// The exception thrown if an invalid search keyword (null or whitespace) is prescribed.

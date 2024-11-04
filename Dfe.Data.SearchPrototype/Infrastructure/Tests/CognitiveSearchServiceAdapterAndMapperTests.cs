@@ -56,9 +56,9 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
-                    offset: 0,
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
-                    facets: ["FACET1", "FACET2", "FACET3"]));
+                    facets: ["FACET1", "FACET2", "FACET3"],
+                    offset: 99));
 
         // assert
         response.Should().NotBeNull();
@@ -94,9 +94,9 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
-                    offset: 0,
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
-                    facets: ["FACET1", "FACET2", "FACET3"]));
+                    facets: ["FACET1", "FACET2", "FACET3"],
+                    offset: 0));
 
         // assert
         response.Should().NotBeNull();
@@ -129,9 +129,9 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
             await cognitiveSearchServiceAdapter.SearchAsync(
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
-                    offset: 0,
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
-                    facets: ["FACET1", "FACET2", "FACET3"]));
+                    facets: ["FACET1", "FACET2", "FACET3"],
+                    offset: 0));
 
         // assert
         response.Should().NotBeNull();
