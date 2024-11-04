@@ -72,10 +72,10 @@ public sealed class SearchServiceAdapterRequest
                 throw new ArgumentNullException(nameof(searchKeyword)) : searchKeyword;
 
         SearchFields = searchFields == null || searchFields.Count <= 0 ?
-            throw new ArgumentException("", nameof(searchFields)) : searchFields;
+            throw new ArgumentException($"A valid {nameof(searchFields)} argument must be provided.") : searchFields;
 
         Facets = facets == null || facets.Count <= 0 ?
-            throw new ArgumentException("", nameof(facets)) : facets;
+            throw new ArgumentException($"A valid {nameof(facets)} argument must be provided.") : facets;
 
         SearchFilterRequests = searchFilterRequests;
 
