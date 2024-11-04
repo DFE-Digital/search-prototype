@@ -8,11 +8,11 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 
 /// <summary>
 /// Facilitates mapping from the received <see cref="Models.SearchResults"/> 
-/// into the required <see cref="Models.EstablishmentResults"/>  object.
+/// into the required <see cref="Models.EstablishmentResults"/> object.
 /// </summary>
-public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), Models.EstablishmentResults>
+public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<(Pageable<SearchResult<Establishment>>, long?), Models.EstablishmentResults>
 {
-    private readonly IMapper<DataTransferObjects.Establishment, Models.Establishment> _azureSearchResultToEstablishmentMapper;
+    private readonly IMapper<Establishment, Models.Establishment> _azureSearchResultToEstablishmentMapper;
 
     /// <summary>
     /// The following mapping dependency provides the functionality to map from a raw Azure
@@ -22,7 +22,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<
     /// <param name="azureSearchResultToEstablishmentMapper">
     /// Mapper used to map from the raw Azure search result to a <see cref="Establishment"/> instance.
     /// </param>
-    public PageableSearchResultsToEstablishmentResultsMapper(IMapper<DataTransferObjects.Establishment, Models.Establishment> azureSearchResultToEstablishmentMapper)
+    public PageableSearchResultsToEstablishmentResultsMapper(IMapper<Establishment, Models.Establishment> azureSearchResultToEstablishmentMapper)
     {
         _azureSearchResultToEstablishmentMapper = azureSearchResultToEstablishmentMapper;
     }
@@ -44,23 +44,23 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapper : IMapper<
     /// <exception cref="ArgumentException">
     /// Exception thrown if the data cannot be mapped
     /// </exception>
-    public Models.EstablishmentResults MapFrom((Pageable<SearchResult<DataTransferObjects.Establishment>>, long?) input)
+    public Models.EstablishmentResults MapFrom((Pageable<SearchResult<Establishment>>, long?) input)
     {
         ArgumentNullException.ThrowIfNull(input);
-        
+        Models.EstablishmentResults establishmentResults = new();
+
         if (input.Item1.Any())
         {
             var mappedResults = input.Item1.Select(result =>
                  result.Document != null
                     ? _azureSearchResultToEstablishmentMapper.MapFrom(result.Document)
                     : throw new InvalidOperationException(
-                        "Search result document object cannot be null.")
-                );
-            return new Models.EstablishmentResults(mappedResults, input.Item2);
+                        "Search result document object cannot be null."));
+
+            establishmentResults =
+                new Models.EstablishmentResults(mappedResults, input.Item2);
         }
-        else
-        {
-            return new Models.EstablishmentResults();
-        }
+
+        return establishmentResults;
     }
 }

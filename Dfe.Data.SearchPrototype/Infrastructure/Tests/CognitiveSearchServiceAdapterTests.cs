@@ -129,7 +129,7 @@ public sealed class CognitiveSearchServiceAdapterTests
         return cognitiveSearchServiceAdapter
             .Invoking(adapter =>
                 adapter.SearchAsync(new SearchServiceAdapterRequest(
-                    searchKeyword: "SearchKeyword", offset:0, [], [])))
+                    searchKeyword: "SearchKeyword", [], [])))
             .Should()
             .ThrowAsync< ArgumentException>();
     }

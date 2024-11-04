@@ -10,7 +10,6 @@ public static class SearchServiceAdapterRequestTestDouble
     {
         return new SearchServiceAdapterRequest(
             "searchKeyword",
-            0,
             new List<string>() { "searchField1", "searchField2" },
             new List<string> { "facet1", "facet2" },
             new List<FilterRequest>() {FilterRequestFake.Create() }
@@ -21,7 +20,6 @@ public static class SearchServiceAdapterRequestTestDouble
     {
         return new SearchServiceAdapterRequest(
             "searchKeyword",
-            0,
             new List<string>() { "searchField1", "searchField2"},
             new List<string> { "facet1", "facet2" },
             filters

@@ -28,6 +28,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
         // arrange
         List<SearchResult<DataTransferObjects.Establishment>> searchResultDocuments =
             SearchResultFake.SearchResults();
+
         var pageableSearchResults = PageableTestDouble.FromResults(searchResultDocuments);
 
         // act
@@ -35,7 +36,8 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
 
         // assert
         mappedResult.Should().NotBeNull();
-        mappedResult.Establishments.Should().HaveCount(searchResultDocuments.Count());
+        mappedResult.Establishments.Should().HaveCount(searchResultDocuments.Count);
+
         foreach (var searchResult in searchResultDocuments)
         {
             searchResult.ShouldHaveMatchingMappedEstablishment(mappedResult);

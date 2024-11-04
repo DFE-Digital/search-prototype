@@ -40,9 +40,6 @@ public sealed class SearchServiceAdapterRequest
     /// <param name="searchKeyword">
     /// The search keyword(s) to be applied.
     /// </param>
-    /// <param name="offset">
-    /// The value used to define how many records are skipped in the search response (if any).
-    /// </param>
     /// <param name="searchFields">
     /// The collection of fields in the underlying collection to search over.
     /// </param>
@@ -51,6 +48,9 @@ public sealed class SearchServiceAdapterRequest
     /// </param>
     /// <param name="searchFilterRequests">
     /// Dictionary of search filter requests where key is the name of the filter and the value is the list of filter values.
+    /// </param>
+    /// <param name="offset">
+    /// The value used to define how many records are skipped in the search response (if any).
     /// </param>
     /// <exception cref="ArgumentNullException">
     /// The exception thrown if an invalid search keyword (null or whitespace) is prescribed.
@@ -61,10 +61,10 @@ public sealed class SearchServiceAdapterRequest
     /// </exception>
     public SearchServiceAdapterRequest(
         string searchKeyword,
-        int offset,
         IList<string> searchFields,
         IList<string> facets,
-        IList<FilterRequest>? searchFilterRequests = null)
+        IList<FilterRequest>? searchFilterRequests = null,
+        int offset = 0)
     {
         SearchKeyword =
             string.IsNullOrWhiteSpace(searchKeyword) ?
@@ -100,6 +100,6 @@ public sealed class SearchServiceAdapterRequest
     /// A configured <see cref="SearchServiceAdapterRequest"/> instance.
     /// </returns>
     public static SearchServiceAdapterRequest Create(
-        string searchKeyword, int offset, IList<string> searchFields, IList<string> facets) =>
-            new(searchKeyword, offset, searchFields, facets);
+        string searchKeyword, IList<string> searchFields, IList<string> facets) =>
+            new(searchKeyword, searchFields, facets);
 }

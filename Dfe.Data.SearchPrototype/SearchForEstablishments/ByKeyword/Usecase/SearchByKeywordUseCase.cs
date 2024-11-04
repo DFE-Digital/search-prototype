@@ -77,10 +77,10 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
                 await _searchServiceAdapter.SearchAsync(
                     new SearchServiceAdapterRequest(
                         request.SearchKeyword,
-                        request.Offset,
                         _searchByKeywordCriteriaOptions.SearchFields,
                         _searchByKeywordCriteriaOptions.Facets,
-                        request.FilterRequests));
+                        request.FilterRequests,
+                        request.Offset));
 
             return results switch
             {
