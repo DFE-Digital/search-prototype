@@ -37,4 +37,28 @@ public class SearchByKeywordRequestTests
         // assert
         request.FilterRequests.Should().BeNull();
     }
+
+    [Fact]
+    public void Constructor_WithSetOffsetValue_AssignsCorrectPropertyValue()
+    {
+        //arrange
+        const int Offset = 10;
+        // act
+        var request = new SearchByKeywordRequest("searchKeyword", Offset);
+
+        // assert
+        request.Offset.
+            Should().Be(Offset);
+    }
+
+    [Fact]
+    public void Constructor_WithDefaultOffsetValue_AssignsDefaultPropertyValue()
+    {
+        // act
+        var request = new SearchByKeywordRequest("searchKeyword");
+
+        // assert
+        request.Offset.
+            Should().Be(0);//value of zero ensures no records are skipped
+    }
 }
