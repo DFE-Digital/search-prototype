@@ -21,7 +21,7 @@ public sealed class CognitiveSearchServiceAdapterTests
     private readonly IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> _mockFacetsMapper
         = AzureFacetResultToEstablishmentFacetsMapperTestDouble.DefaultMock();
     private readonly AzureSearchOptions _options  = AzureSearchOptionsTestDouble.Stub();
-    private readonly IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> _mockEstablishmentResultsMapper
+    private readonly IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> _mockEstablishmentResultsMapper
         = PageableSearchResultsToEstablishmentResultsMapperTestDouble.DefaultMock();
     private readonly ISearchByKeywordService _mockSearchService;
     private readonly ISearchOptionsBuilder _mockSearchOptionsBuilder =
@@ -30,7 +30,7 @@ public sealed class CognitiveSearchServiceAdapterTests
     private static CognitiveSearchServiceAdapter<DataTransferObjects.Establishment> CreateServiceAdapterWith(
         ISearchByKeywordService searchByKeywordService,
         IOptions<AzureSearchOptions> searchOptions,
-        IMapper<(Pageable<SearchResult<DataTransferObjects.Establishment>>, long?), EstablishmentResults> searchResponseMapper,
+        IMapper<Pageable<SearchResult<DataTransferObjects.Establishment>>, EstablishmentResults> searchResponseMapper,
         IMapper<Dictionary<string, IList<Azure.Search.Documents.Models.FacetResult>>, EstablishmentFacets> facetsMapper,
         ISearchOptionsBuilder searchOptionsBuilder
        ) =>

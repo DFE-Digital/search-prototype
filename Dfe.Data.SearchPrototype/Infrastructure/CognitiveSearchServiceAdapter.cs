@@ -19,7 +19,7 @@ namespace Dfe.Data.SearchPrototype.Infrastructure;
 public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServiceAdapter where TSearchResult : class
 {
     private readonly ISearchByKeywordService _searchByKeywordService;
-    private readonly IMapper<(Pageable<SearchResult<TSearchResult>>, long?), EstablishmentResults> _searchResultMapper;
+    private readonly IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> _searchResultMapper;
     private readonly IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> _facetsMapper;
     private readonly AzureSearchOptions _azureSearchOptions;
     private readonly ISearchOptionsBuilder _searchOptionsBuilder;
@@ -46,7 +46,7 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
     public CognitiveSearchServiceAdapter(
         ISearchByKeywordService searchByKeywordService,
         IOptions<AzureSearchOptions> azureSearchOptions,
-        IMapper<(Pageable<SearchResult<TSearchResult>>, long?), EstablishmentResults> searchResultMapper,
+        IMapper<Pageable<SearchResult<TSearchResult>>, EstablishmentResults> searchResultMapper,
         IMapper<Dictionary<string, IList<AzureModels.FacetResult>>, EstablishmentFacets> facetsMapper,
         ISearchOptionsBuilder searchOptionsBuilder)
     {
@@ -102,11 +102,11 @@ public sealed class CognitiveSearchServiceAdapter<TSearchResult> : ISearchServic
         var results = new SearchResults()
         {
             Establishments = 
-                _searchResultMapper.MapFrom(
-                    (searchResults.Value.GetResults(), searchResults.Value.TotalCount)),
+                _searchResultMapper.MapFrom(searchResults.Value.GetResults()),
             Facets = searchResults.Value.Facets != null
                 ? _facetsMapper.MapFrom(searchResults.Value.Facets.ToDictionary())
-                : null
+                : null,
+            TotalNumberOfEstablishments = searchResults.Value.TotalCount
         };
 
         return results;

@@ -14,9 +14,10 @@ public sealed class SearchServiceAdapterRequest
     public string SearchKeyword { get; }
 
     /// <summary>
-    /// The value used to define how many records are skipped in the search response (if any).
+    /// The value used to define how many records are skipped in the search response (if any),
+    /// by default we have an offset of zero and so choose not to skip any records.
     /// </summary>
-    public int Offset { get; }
+    public int Offset { get; } = 0;
 
     /// <summary>
     /// The collection of fields in the underlying collection to search over.
