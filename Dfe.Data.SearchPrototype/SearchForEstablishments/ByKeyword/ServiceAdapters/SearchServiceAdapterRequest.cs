@@ -14,6 +14,12 @@ public sealed class SearchServiceAdapterRequest
     public string SearchKeyword { get; }
 
     /// <summary>
+    /// The value used to define how many records are skipped in the search response (if any),
+    /// by default we have an offset of zero and so choose not to skip any records.
+    /// </summary>
+    public int Offset { get; } = 0;
+
+    /// <summary>
     /// The collection of fields in the underlying collection to search over.
     /// </summary>
     public IList<string> SearchFields { get; }
@@ -44,6 +50,10 @@ public sealed class SearchServiceAdapterRequest
     /// <param name="searchFilterRequests">
     /// Dictionary of search filter requests where key is the name of the filter and the value is the list of filter values.
     /// </param>
+    /// <param name="offset">
+    /// The value used to define how many records are skipped in the search response
+    /// (if any), by default we choose not to skip any records.
+    /// </param>
     /// <exception cref="ArgumentNullException">
     /// The exception thrown if an invalid search keyword (null or whitespace) is prescribed.
     /// </exception>
@@ -51,37 +61,25 @@ public sealed class SearchServiceAdapterRequest
     /// The exception type thrown if either a null or empty collection of search fields,
     /// or search facets are prescribed.
     /// </exception>
-    public SearchServiceAdapterRequest(string searchKeyword, IList<string> searchFields, IList<string> facets, IList<FilterRequest>? searchFilterRequests = null)
+    public SearchServiceAdapterRequest(
+        string searchKeyword,
+        IList<string> searchFields,
+        IList<string> facets,
+        IList<FilterRequest>? searchFilterRequests = null,
+        int offset = 0)
     {
         SearchKeyword =
             string.IsNullOrWhiteSpace(searchKeyword) ?
                 throw new ArgumentNullException(nameof(searchKeyword)) : searchKeyword;
 
         SearchFields = searchFields == null || searchFields.Count <= 0 ?
-            throw new ArgumentException("", nameof(searchFields)) : searchFields;
+            throw new ArgumentException($"A valid {nameof(searchFields)} argument must be provided.") : searchFields;
 
         Facets = facets == null || facets.Count <= 0 ?
-            throw new ArgumentException("", nameof(facets)) : facets;
+            throw new ArgumentException($"A valid {nameof(facets)} argument must be provided.") : facets;
 
         SearchFilterRequests = searchFilterRequests;
-    }
 
-    /// <summary>
-    /// Factory method to allow implicit creation of a T:Dfe.Data.SearchPrototype.Search.SearchContext instance.
-    /// </summary>
-    /// <param name="searchKeyword">
-    /// The keyword string which defines the search.
-    /// </param>
-    /// <param name="searchFields">
-    /// The collection of fields in the underlying collection to search over.
-    /// </param>
-    /// <param name="facets">
-    /// The collection of facets to apply in the search request.
-    /// </param>
-    /// <returns>
-    /// A configured <see cref="SearchServiceAdapterRequest"/> instance.
-    /// </returns>
-    public static SearchServiceAdapterRequest Create(
-        string searchKeyword, IList<string> searchFields, IList<string> facets) =>
-            new(searchKeyword, searchFields, facets);
+        Offset = offset;
+    }
 }

@@ -6,13 +6,13 @@
 /// </summary>
 public sealed class EstablishmentResults
 {
+    private readonly List<Establishment> _establishments;
+
     /// <summary>
     /// The readonly collection of <see cref="Establishment"/>
     /// types derived from the underlying search mechanism.
     /// </summary>
     public IReadOnlyCollection<Establishment> Establishments => _establishments.AsReadOnly();
-
-    private readonly List<Establishment> _establishments;
 
     /// <summary>
     ///  Default constructor initialises a new readonly

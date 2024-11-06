@@ -19,4 +19,10 @@ public class SearchResults
     /// that is built from the underlying search response.
     /// </summary>
     public EstablishmentFacets? Facets { get; init; }
+
+    /// <summary>
+    /// The Total Count returned from Establishment search gives us a total
+    /// of all available records which correlates with the given search criteria.
+    /// </summary>
+    public long? TotalNumberOfEstablishments { get; init; }
 }

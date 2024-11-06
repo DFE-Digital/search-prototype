@@ -1,7 +1,6 @@
 ﻿using Azure;
 using Azure.Search.Documents.Models;
 using Dfe.Data.SearchPrototype.Common.Mappers;
-using Dfe.Data.SearchPrototype.Infrastructure.DataTransferObjects;
 using Dfe.Data.SearchPrototype.Infrastructure.Mappers;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles;
 using Dfe.Data.SearchPrototype.Infrastructure.Tests.TestHelpers;
@@ -29,6 +28,7 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
         // arrange
         List<SearchResult<DataTransferObjects.Establishment>> searchResultDocuments =
             SearchResultFake.SearchResults();
+
         var pageableSearchResults = PageableTestDouble.FromResults(searchResultDocuments);
 
         // act
@@ -36,7 +36,8 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
 
         // assert
         mappedResult.Should().NotBeNull();
-        mappedResult.Establishments.Should().HaveCount(searchResultDocuments.Count());
+        mappedResult.Establishments.Should().HaveCount(searchResultDocuments.Count);
+
         foreach (var searchResult in searchResultDocuments)
         {
             searchResult.ShouldHaveMatchingMappedEstablishment(mappedResult);
@@ -47,7 +48,9 @@ public sealed class PageableSearchResultsToEstablishmentResultsMapperTests
     public void MapFrom_WithEmptySearchResults_ReturnsEmptyList()
     {
         // act
-        EstablishmentResults? result = _searchResultsMapper.MapFrom(PageableTestDouble.FromResults(SearchResultFake.EmptySearchResult()));
+        EstablishmentResults? result =
+            _searchResultsMapper.MapFrom(
+                PageableTestDouble.FromResults(SearchResultFake.EmptySearchResult()));
 
         // assert
         result.Should().NotBeNull();

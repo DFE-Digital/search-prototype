@@ -78,7 +78,8 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
                         request.SearchKeyword,
                         _searchByKeywordCriteria.SearchFields,
                         _searchByKeywordCriteria.Facets,
-                        request.FilterRequests));
+                        request.FilterRequests,
+                        request.Offset));
 
             return results switch
             {

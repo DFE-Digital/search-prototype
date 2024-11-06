@@ -57,7 +57,8 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
-                    facets: ["FACET1", "FACET2", "FACET3"]));
+                    facets: ["FACET1", "FACET2", "FACET3"],
+                    offset: 99));
 
         // assert
         response.Should().NotBeNull();
@@ -94,7 +95,8 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
-                    facets: ["FACET1", "FACET2", "FACET3"]));
+                    facets: ["FACET1", "FACET2", "FACET3"],
+                    offset: 0));
 
         // assert
         response.Should().NotBeNull();
@@ -128,7 +130,8 @@ public sealed class CognitiveSearchServiceAdapterAndMapperTests
                 new SearchServiceAdapterRequest(
                     searchKeyword: "SearchKeyword",
                     searchFields: ["FIELD1", "FIELD2", "FIELD2"],
-                    facets: ["FACET1", "FACET2", "FACET3"]));
+                    facets: ["FACET1", "FACET2", "FACET3"],
+                    offset: 0));
 
         // assert
         response.Should().NotBeNull();

@@ -14,11 +14,16 @@ public sealed class SearchByKeywordRequest
     /// <param name="searchKeyword">
     /// The string keyword used to search the collection specified.
     /// </param>
-    public SearchByKeywordRequest(string searchKeyword)
+    /// <param name="offset">
+    /// The value used to define how many records are skipped in the search
+    /// response (if any), by default we choose not to skip any records.
+    /// </param> 
+    public SearchByKeywordRequest(string searchKeyword, int offset = 0)
     {
         ArgumentException.ThrowIfNullOrEmpty(nameof(searchKeyword));
 
         SearchKeyword = searchKeyword;
+        Offset = offset;
     }
 
     /// <summary>
@@ -32,7 +37,11 @@ public sealed class SearchByKeywordRequest
     /// <param name="filterRequests">
     /// The <see cref="FilterRequest"/> used to refine the search criteria.
     /// </param>
-    public SearchByKeywordRequest(string searchKeyword, IList<FilterRequest> filterRequests) : this(searchKeyword)
+    /// <param name="offset">
+    /// The value used to define how many records are skipped in the search response (if any).
+    /// </param>
+    public SearchByKeywordRequest(
+        string searchKeyword,IList<FilterRequest> filterRequests, int offset = 0) : this(searchKeyword, offset)
     {
         FilterRequests = filterRequests;
     }
@@ -41,6 +50,11 @@ public sealed class SearchByKeywordRequest
     /// The string keyword used to search the collection specified.
     /// </summary>
     public string SearchKeyword { get; }
+
+    /// <summary>
+    /// The value used to define how many records are skipped in the search response (if any).
+    /// </summary>
+    public int Offset { get; }
 
     /// <summary>
     /// The filter (key/values) used to refine the search criteria.

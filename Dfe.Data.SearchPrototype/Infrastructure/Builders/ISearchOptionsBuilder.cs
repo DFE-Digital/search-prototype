@@ -22,6 +22,19 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Builders
         ISearchOptionsBuilder WithSize(int? size);
 
         /// <summary>
+        /// Sets the value used to define how many
+        /// records are skipped in the search response (if any),
+        /// by default we have an offset of zero and so choose not to skip any records.
+        /// </summary>
+        /// <param name="offset">
+        /// The number of initial search results to skip, none (zero) by default .
+        /// </param>
+        /// <returns>
+        /// The updated builder instance.
+        /// </returns>
+        ISearchOptionsBuilder WithOffset(int offset = 0);
+
+        /// <summary>
         /// Sets the mode of search to invoke, i.e. All or Any.
         /// </summary>
         /// <param name="searchMode">

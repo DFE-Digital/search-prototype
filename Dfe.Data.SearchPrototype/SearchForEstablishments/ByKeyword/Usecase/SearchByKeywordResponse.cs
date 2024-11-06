@@ -47,7 +47,11 @@ public sealed class SearchByKeywordResponse
     /// <param name="status">
     /// The <see cref="SearchResponseStatus"/> of the result of the search.
     /// </param>
-    public SearchByKeywordResponse(EstablishmentResults establishments, EstablishmentFacets facetResults, SearchResponseStatus status)
+    public SearchByKeywordResponse(
+        EstablishmentResults establishments,
+        EstablishmentFacets facetResults,
+        SearchResponseStatus status
+        )
     {
         EstablishmentResults = establishments;
         EstablishmentFacetResults = facetResults;

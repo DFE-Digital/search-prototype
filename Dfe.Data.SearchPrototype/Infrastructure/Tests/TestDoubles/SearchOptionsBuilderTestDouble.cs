@@ -13,7 +13,9 @@ namespace Dfe.Data.SearchPrototype.Infrastructure.Tests.TestDoubles
             var mockSearchOptionsBuilder = new Mock<ISearchOptionsBuilder>();
 
             mockSearchOptionsBuilder.Setup(searchOptionsBuilder =>
-                searchOptionsBuilder.WithSize(It.IsAny<int?>())).Returns(mockSearchOptionsBuilder.Object);
+                searchOptionsBuilder.WithSize(It.IsAny<int>())).Returns(mockSearchOptionsBuilder.Object);
+            mockSearchOptionsBuilder.Setup(searchOptionsBuilder =>
+                searchOptionsBuilder.WithOffset(It.IsAny<int>())).Returns(mockSearchOptionsBuilder.Object);
             mockSearchOptionsBuilder.Setup(searchOptionsBuilder =>
                 searchOptionsBuilder.WithSearchMode(It.IsAny<SearchMode>())).Returns(mockSearchOptionsBuilder.Object);
             mockSearchOptionsBuilder.Setup(searchOptionsBuilder =>
