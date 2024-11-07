@@ -87,7 +87,10 @@ public sealed class SearchByKeywordUseCase : IUseCase<SearchByKeywordRequest, Se
                 _ => new(status: SearchResponseStatus.Success)
                 {
                     EstablishmentResults = results.Establishments,
-                    EstablishmentFacetResults = results.Facets
+                    EstablishmentFacetResults = results.Facets,
+                    TotalNumberOfEstablishments =
+                        results.TotalNumberOfEstablishments.HasValue ?
+                            (int)results.TotalNumberOfEstablishments : 0, // if not values default to zero.
                 }
             };
         }

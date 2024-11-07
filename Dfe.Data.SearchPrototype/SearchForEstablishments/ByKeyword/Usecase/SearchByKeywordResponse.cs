@@ -26,35 +26,17 @@ public sealed class SearchByKeywordResponse
     public SearchResponseStatus Status { get; }
 
     /// <summary>
+    /// The Total Count returned from Establishment search gives us a total
+    /// of all available records which correlates with the given search criteria.
+    /// </summary>
+    public int TotalNumberOfEstablishments { get; init; }
+
+    /// <summary>
     /// Establishes the status of the underlying search response, i.e. Success or otherwise.
     /// </summary>
     /// <param name="status"></param>
     public SearchByKeywordResponse(SearchResponseStatus status)
     {
-        Status = status;
-    }
-
-    /// <summary>
-    /// The following argument is passed via the constructor and is not changeable
-    /// once an instance is created, this ensures we preserve immutability.
-    /// </summary>
-    /// <param name="establishments">
-    /// The readonly collection of <see cref="EstablishmentResults"/>.
-    /// </param>
-    /// <param name="facetResults">
-    /// The readonly collection of <see cref="EstablishmentFacets"/>.
-    /// </param>
-    /// <param name="status">
-    /// The <see cref="SearchResponseStatus"/> of the result of the search.
-    /// </param>
-    public SearchByKeywordResponse(
-        EstablishmentResults establishments,
-        EstablishmentFacets facetResults,
-        SearchResponseStatus status
-        )
-    {
-        EstablishmentResults = establishments;
-        EstablishmentFacetResults = facetResults;
         Status = status;
     }
 }
