@@ -123,8 +123,8 @@ None
 
 
 
-What we did
------------
+What we did (This is the complete list of retrospective decisions to be applied in the above format)
+----------------------------------------------------------------------------------------------------
 
 Decided deploy to CIP (no leveraging of IAC as yet).
  
