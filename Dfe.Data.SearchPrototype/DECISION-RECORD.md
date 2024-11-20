@@ -122,6 +122,7 @@ Align to current DfE/governmental standards for open source development of the s
 None
 
 
+
 What we did
 -----------
 
@@ -160,6 +161,14 @@ No geo-location searching as yet.
 Possible further R & D
 ----------------------
 Elastic Search.
+
+
+
+
+
+
+
+
 
 
 
