@@ -126,7 +126,7 @@ None
 What we did (This is the complete list of retrospective decisions to be applied in the above format)
 ----------------------------------------------------------------------------------------------------
 
-Decided deploy to CIP (no leveraging of IAC as yet).
+Decided deploy to CIP (no Infrastructure as code - decision made outside of the team).
  
 Hydrated AI search from GIAS daily extract (csv).
 Pushed data to search index.
@@ -138,17 +138,17 @@ of certain tech, and time-boxing.
 Decided to fully leverage GitHub capabilities.
  
 Repo split decision made due to:
-	Peripheral Azure AI Search considered infra - separate repo created
-	Core Application tier (clean arch demo) - separate repo created
-	Presentation tier inc. web MVC and API - separate repo created
+	Peripheral Azure AI Search considered a re-usable infrastructure library - separate repo created
+	Core Application tier (clean architecture demo) - separate repo created
+	Presentation tier inc. web MVC and API (a throw-away example of a possible front-end) - separate repo created
  
-Decision was made to leverage NuGet packages directly within the presentation tier(s)
+Decision was made to consume NuGet packages generated from the infrastructure and appplication tier directly within the presentation tier(s)
 as opposed to provisioning a network-based API - considered it added unwanted complexity. 
 Front-end we decided to use MVC due to familiarity (as opposed to Razor pages).
 Devs decided to take ownership through testing of front end view components.
  
 Decision made to include comprehensive code comments with a view to generating mark-down (at some point),
-including rule to flag missing narrative.
+including compiler rule to flag missing narrative.
  
  
 What we didn't do
